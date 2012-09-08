@@ -45,7 +45,12 @@ public class Skaicius {
 		
 	}
 	
+	@Override
 	public String toString() {
+		return toString(Linksnis.V);
+	}
+	
+	public String toString(Linksnis linksnis) {
 		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();
 		long s = skaicius;
 		trizenklis(skaicius % 1000, zodziai);
@@ -61,7 +66,7 @@ public class Skaicius {
 		}
 		
 		Collections.reverse(zodziai);
-		return ZodzioInfo.toString(zodziai);
+		return ZodzioInfo.toString(zodziai, linksnis);
 	}
 
 }

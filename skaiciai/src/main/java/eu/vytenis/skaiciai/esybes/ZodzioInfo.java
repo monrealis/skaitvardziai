@@ -1,11 +1,14 @@
 package eu.vytenis.skaiciai.esybes;
 
 import java.util.Iterator;
+import java.util.List;
 
 public class ZodzioInfo {
 	private boolean vns;
-	private Zodis zodis;
+	private Zodis zodis;	
+	/** */
 	private boolean rodytiTikPirma;
+	
 	public ZodzioInfo(boolean vns, Zodis zodis) {
 		this.vns = vns;
 		this.zodis = zodis;
@@ -42,15 +45,25 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
-	public static String toString(Iterable<? extends ZodzioInfo> zodziai) {
+	public static String toString(List<? extends ZodzioInfo> zodziai, Linksnis linksnis) {
+		int paskutinioRodomoIndeksas = -1;
+		for (int i = 0; i < zodziai.size(); ++i) {
+			if (!zodziai.get(i).isRodytiTikPirma() || zodziai.get(i).isRodytiTikPirma() && zodziai.size() == 1) {
+				paskutinioRodomoIndeksas = i;
+			}
+		}
+
+		
 		StringBuilder r = new StringBuilder();
-		Iterator<? extends ZodzioInfo> it = zodziai.iterator();
 		boolean pirmas = true;
 		boolean vns = true;
-		Linksnis linksnis = Linksnis.V;
-		while (it.hasNext()) {
-			ZodzioInfo zodzioInfo = it.next();
-			if (zodzioInfo.isRodytiTikPirma() && !pirmas) {
+		
+		for (int i = 0; i < zodziai.size(); ++i) {
+			ZodzioInfo dabartinis = zodziai.get(i);
+			ZodzioInfo ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
+			boolean paskutinis = paskutinioRodomoIndeksas == i;
+			
+			if (dabartinis.isRodytiTikPirma() && !pirmas) {
 				pirmas = false;
 				continue;
 			}
@@ -60,20 +73,24 @@ public class ZodzioInfo {
 				r.append(" ");
 			}
 			
-			Zodis zodis = zodzioInfo.getZodis();
+			Zodis zodis = dabartinis.getZodis();
 			String s;
-			if (zodis.isValdomas()) {
-				s = zodis.toString(vns, linksnis);
+			if (zodis.isValdomas() && ankstesnis != null) {
+				s = zodis.toString(vns, ankstesnis.getZodis().getKitasLinksnis());
 			} else {
-				s = zodis.toString();
+				s = zodis.toString(true, paskutinis ? linksnis : Linksnis.V);
 			}
 			r.append(s);
 			
 			vns = zodis.isKitasVns();
-			linksnis = zodis.getKitasLinksnis();
 			
 		}
 		return r.toString();		
+	}
+	
+	@Override
+	public String toString() {
+		return zodis.toString();
 	}
 
 }

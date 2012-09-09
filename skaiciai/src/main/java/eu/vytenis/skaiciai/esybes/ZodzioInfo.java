@@ -32,7 +32,7 @@ public class ZodzioInfo {
 	public static String toString(List<? extends ZodzioInfo> zodziai, Linksnis linksnis) {
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
-		boolean vns = true;
+		//boolean vns = true;
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);
@@ -48,14 +48,15 @@ public class ZodzioInfo {
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null) {
-				s = zodis.toString(vns, ankstesnis.getZodis().getKitasLinksnis());
+				s = zodis.toString(ankstesnis.getZodis().isKitasVns(), linksnis);
+			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
+				s = zodis.toString(true, Linksnis.V);
 			} else {
-				s = zodis.toString(true, paskutinis ? linksnis : Linksnis.V);
+				s = zodis.toString(true, linksnis);
 			}
 			r.append(s);
 			
-			vns = zodis.isKitasVns();
-			
+			//vns = zodis.isKitasVns();
 		}
 		return r.toString();		
 	}

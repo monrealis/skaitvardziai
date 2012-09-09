@@ -24,7 +24,7 @@ public class Skaiciai {
 	}
 	
 	@Test
-	public void testNuo1Iki20() {
+	public void testNuo1Iki20V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nulis");
 		s.put(1, "vienas");
@@ -51,7 +51,7 @@ public class Skaiciai {
 	}
 	
 	@Test
-	public void testNuo20Iki100() {
+	public void testNuo20Iki100V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(21, "dvidešimt vienas");
 		s.put(22, "dvidešimt du");
@@ -70,7 +70,7 @@ public class Skaiciai {
 	}
 	
 	@Test
-	public void testNuo100Iki1000() {
+	public void testNuo100Iki1000V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(101, "šimtas vienas");
 		s.put(200, "du šimtai");
@@ -143,6 +143,32 @@ public class Skaiciai {
 	}
 	
 	@Test
+	public void testNuo100Iki1000K() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(101, "šimto vieno");
+		s.put(200, "dviejų šimtų");
+		s.put(210, "dviejų šimtų dešimties");
+		s.put(300, "trijų šimtų");
+		s.put(313, "trijų šimtų trylikos");
+		s.put(400, "keturių šimtų");
+		s.put(441, "keturių šimtų keturiasdešimt vieno");
+		s.put(500, "penkių šimtų");
+		s.put(582, "penkių šimtų aštuoniasdešimt dviejų");
+		s.put(600, "šešių šimtų");
+		s.put(691, "šešių šimtų devyniasdešimt vieno");
+		s.put(700, "septynių šimtų");
+		s.put(715, "septynių šimtų penkiolikos");
+		s.put(800, "aštuonių šimtų");
+		s.put(862, "aštuonių šimtų šešiasdešimt dviejų");
+		s.put(900, "devynių šimtų");
+		s.put(963, "devynių šimtų šešiasdešimt trijų");
+		s.put(1000, "tūkstančio");
+
+		testSkaiciai(s, Linksnis.K);
+	}
+	
+	
+	@Test
 	public void testNuo1Iki20N() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nuliui");
@@ -166,6 +192,51 @@ public class Skaiciai {
 		s.put(18, "aštuoniolikai");
 		s.put(19, "devyniolikai");
 		s.put(20, "dvidešimčiai");		
+		testSkaiciai(s, Linksnis.N);
+	}
+	
+	@Test
+	public void testNuo20Iki100N() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(21, "dvidešimt vienam");
+		s.put(22, "dvidešimt dviems");
+		s.put(24, "dvidešimt keturiems");
+		s.put(30, "trisdešimčiai");
+		s.put(48, "keturiasdešimt aštuoniems");
+		s.put(50, "penkiasdešimčiai");
+		s.put(55, "penkiasdešimt penkiems");
+		s.put(60, "šešiasdešimčiai");
+		s.put(70, "septyniasdešimčiai");
+		s.put(80, "aštuoniasdešimčiai");
+		s.put(90, "devyniasdešimčiai");
+		s.put(92, "devyniasdešimt dviems");
+		s.put(100, "šimtui");
+		testSkaiciai(s, Linksnis.N);
+	}
+	
+	// TODO
+	@Test
+	public void testNuo100Iki1000N() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(101, "šimto vienas");
+		s.put(200, "dviejų šimtų vieno");
+		s.put(210, "dviejų šimtų dešimties");
+		s.put(300, "trijų šimtų");
+		s.put(313, "trijų šimtų trylikos");
+		s.put(400, "keturių šimtų");
+		s.put(441, "keturių šimtų keturiasdešimt vieno");
+		s.put(500, "penkių šimtų");
+		s.put(582, "penkių šimtų aštuoniasdešimt dviejų");
+		s.put(600, "šešių šimtų");
+		s.put(691, "šešių šimtų devyniasdešimt vieno");
+		s.put(700, "septynių šimtų");
+		s.put(715, "septynių šimtų penkiolikos");
+		s.put(800, "aštuonių šimtų");
+		s.put(862, "aštuonių šimtų šešiasdešimt dviejų");
+		s.put(900, "devynių šimtų");
+		s.put(963, "devynių šimtų šešiasdešimt trijų");
+		s.put(1000, "tūkstančio");
+
 		testSkaiciai(s, Linksnis.N);
 	}
 	
@@ -197,6 +268,51 @@ public class Skaiciai {
 	}
 	
 	@Test
+	public void testNuo20Iki100G() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(21, "dvidešimt vieną");
+		s.put(22, "dvidešimt du");
+		s.put(24, "dvidešimt keturis");
+		s.put(30, "trisdešimt");
+		s.put(48, "keturiasdešimt aštuonis");
+		s.put(50, "penkiasdešimt");
+		s.put(55, "penkiasdešimt penkis");
+		s.put(60, "šešiasdešimt");
+		s.put(70, "septyniasdešimt");
+		s.put(80, "aštuoniasdešimt");
+		s.put(90, "devyniasdešimt");
+		s.put(92, "devyniasdešimt du");
+		s.put(100, "šimtą");
+		testSkaiciai(s, Linksnis.G);
+	}
+	
+	// TODO
+	@Test
+	public void testNuo100Iki1000G() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(101, "šimto vienas");
+		s.put(200, "dviejų šimtų vieno");
+		s.put(210, "dviejų šimtų dešimties");
+		s.put(300, "trijų šimtų");
+		s.put(313, "trijų šimtų trylikos");
+		s.put(400, "keturių šimtų");
+		s.put(441, "keturių šimtų keturiasdešimt vieno");
+		s.put(500, "penkių šimtų");
+		s.put(582, "penkių šimtų aštuoniasdešimt dviejų");
+		s.put(600, "šešių šimtų");
+		s.put(691, "šešių šimtų devyniasdešimt vieno");
+		s.put(700, "septynių šimtų");
+		s.put(715, "septynių šimtų penkiolikos");
+		s.put(800, "aštuonių šimtų");
+		s.put(862, "aštuonių šimtų šešiasdešimt dviejų");
+		s.put(900, "devynių šimtų");
+		s.put(963, "devynių šimtų šešiasdešimt trijų");
+		s.put(1000, "tūkstančio");
+
+		testSkaiciai(s, Linksnis.G);
+	}
+	
+	@Test
 	public void testNuo1Iki20I() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nuliu");
@@ -220,6 +336,51 @@ public class Skaiciai {
 		s.put(18, "aštuoniolika");
 		s.put(19, "devyniolika");
 		s.put(20, "dvidešimčia");		
+		testSkaiciai(s, Linksnis.I);
+	}
+	
+	@Test
+	public void testNuo20Iki100I() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(21, "dvidešimt vienu");
+		s.put(22, "dvidešimt dviem");
+		s.put(24, "dvidešimt keturiais");
+		s.put(30, "trisdešimčia");
+		s.put(48, "keturiasdešimt aštuoniais");
+		s.put(50, "penkiasdešimčia");
+		s.put(55, "penkiasdešimt penkiais");
+		s.put(60, "šešiasdešimčia");
+		s.put(70, "septyniasdešimčia");
+		s.put(80, "aštuoniasdešimčia");
+		s.put(90, "devyniasdešimčia");
+		s.put(92, "devyniasdešimt dviem");
+		s.put(100, "šimtu");
+		testSkaiciai(s, Linksnis.I);
+	}
+	
+	// TODO
+	@Test
+	public void testNuo100Iki1000I() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(101, "šimto vienas");
+		s.put(200, "dviejų šimtų vieno");
+		s.put(210, "dviejų šimtų dešimties");
+		s.put(300, "trijų šimtų");
+		s.put(313, "trijų šimtų trylikos");
+		s.put(400, "keturių šimtų");
+		s.put(441, "keturių šimtų keturiasdešimt vieno");
+		s.put(500, "penkių šimtų");
+		s.put(582, "penkių šimtų aštuoniasdešimt dviejų");
+		s.put(600, "šešių šimtų");
+		s.put(691, "šešių šimtų devyniasdešimt vieno");
+		s.put(700, "septynių šimtų");
+		s.put(715, "septynių šimtų penkiolikos");
+		s.put(800, "aštuonių šimtų");
+		s.put(862, "aštuonių šimtų šešiasdešimt dviejų");
+		s.put(900, "devynių šimtų");
+		s.put(963, "devynių šimtų šešiasdešimt trijų");
+		s.put(1000, "tūkstančio");
+
 		testSkaiciai(s, Linksnis.I);
 	}
 	
@@ -251,6 +412,51 @@ public class Skaiciai {
 	}
 	
 	@Test
+	public void testNuo20Iki100Vt() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(21, "dvidešimt viename");
+		s.put(22, "dvidešimt dviejuose");
+		s.put(24, "dvidešimt keturiuose");
+		s.put(30, "trisdešimtyje");
+		s.put(48, "keturiasdešimt aštuoniuose");
+		s.put(50, "penkiasdešimtyje");
+		s.put(55, "penkiasdešimt penkiuose");
+		s.put(60, "šešiasdešimtyje");
+		s.put(70, "septyniasdešimtyje");
+		s.put(80, "aštuoniasdešimtyje");
+		s.put(90, "devyniasdešimtyje");
+		s.put(92, "devyniasdešimt dviejuose");
+		s.put(100, "šimte");
+		testSkaiciai(s, Linksnis.Vt);
+	}
+	
+	// TODO
+	@Test
+	public void testNuo100Iki1000Vt() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(101, "šimto vienas");
+		s.put(200, "dviejų šimtų vieno");
+		s.put(210, "dviejų šimtų dešimties");
+		s.put(300, "trijų šimtų");
+		s.put(313, "trijų šimtų trylikos");
+		s.put(400, "keturių šimtų");
+		s.put(441, "keturių šimtų keturiasdešimt vieno");
+		s.put(500, "penkių šimtų");
+		s.put(582, "penkių šimtų aštuoniasdešimt dviejų");
+		s.put(600, "šešių šimtų");
+		s.put(691, "šešių šimtų devyniasdešimt vieno");
+		s.put(700, "septynių šimtų");
+		s.put(715, "septynių šimtų penkiolikos");
+		s.put(800, "aštuonių šimtų");
+		s.put(862, "aštuonių šimtų šešiasdešimt dviejų");
+		s.put(900, "devynių šimtų");
+		s.put(963, "devynių šimtų šešiasdešimt trijų");
+		s.put(1000, "tūkstančio");
+
+		testSkaiciai(s, Linksnis.K);
+	}
+	
+	@Test
 	public void testNuo1Iki20S() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nuli");
@@ -274,6 +480,51 @@ public class Skaiciai {
 		s.put(18, "aštuoniolika");
 		s.put(19, "devyniolika");
 		s.put(20, "dvidešimt");		
+		testSkaiciai(s, Linksnis.S);
+	}
+	
+	@Test
+	public void testNuo20Iki100S() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(21, "dvidešimt vienas");
+		s.put(22, "dvidešimt du");
+		s.put(24, "dvidešimt keturi");
+		s.put(30, "trisdešimt");
+		s.put(48, "keturiasdešimt aštuoni");
+		s.put(50, "penkiasdešimt");
+		s.put(55, "penkiasdešimt penki");
+		s.put(60, "šešiasdešimt");
+		s.put(70, "septyniasdešimt");
+		s.put(80, "aštuoniasdešimt");
+		s.put(90, "devyniasdešimt");
+		s.put(92, "devyniasdešimt du");
+		s.put(100, "šimte");
+		testSkaiciai(s, Linksnis.S);
+	}
+	
+	// TODO
+	@Test
+	public void testNuo100Iki1000S() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(101, "šimte vienas");
+		s.put(200, "du šimtai");
+		s.put(210, "du šimtai dešimt");
+		s.put(300, "trys šimtai");
+		s.put(313, "trys šimtai trylika");
+		s.put(400, "keturi šimtai");
+		s.put(441, "keturi šimtai keturiasdešimt vienas");
+		s.put(500, "penki šimtai");
+		s.put(582, "penki šimtai aštuoniasdešimt du");
+		s.put(600, "šeši šimtai");
+		s.put(691, "šeši šimtai devyniasdešimt vienas");
+		s.put(700, "septyni šimtai");
+		s.put(715, "septyni šimtai penkiolika");
+		s.put(800, "aštuoni šimtai");
+		s.put(862, "aštuoni šimtai šešiasdešimt du");
+		s.put(900, "devyni šimtai");
+		s.put(963, "devyni šimtai šešiasdešimt trys");
+		s.put(1000, "tūkstanti");
+
 		testSkaiciai(s, Linksnis.S);
 	}
 	

@@ -56,16 +56,12 @@ public class Skaicius {
 			zodziai.add(ZodzioInfo.getVns(100));
 			zodziai.add(ZodzioInfo.getVns(simtai));
 		}
-		
 	}
 	
-	@Override
-	public String toString() {
-		return toString(Linksnis.V);
-	}
-	
-	public String toString(Linksnis linksnis) {
-		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();
+	private void daugiazenklis(long skaicius, List<ZodzioInfo> zodziai, long tikrasSkaicius) {
+		if (skaicius != tikrasSkaicius) {
+			throw new IllegalArgumentException();
+		}
 		long sk = skaicius;
 		trizenklis(skaicius % 1000, zodziai, sk);
 		sk /= 1000;
@@ -78,7 +74,16 @@ public class Skaicius {
 			zodziai.add(ZodzioInfo.getVns(1000));
 			dvizenklis(tukstanciai, zodziai, sk);
 		}
-		
+	}
+	
+	@Override
+	public String toString() {
+		return toString(Linksnis.V);
+	}
+	
+	public String toString(Linksnis linksnis) {
+		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();		
+		daugiazenklis(skaicius, zodziai, skaicius);			
 		Collections.reverse(zodziai);
 		return ZodzioInfo.toString(zodziai, linksnis);
 	}

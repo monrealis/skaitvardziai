@@ -124,6 +124,25 @@ public class Skaiciai {
 	}
 	
 	@Test
+	public void testNuo20Iki100K() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(21, "dvidešimt vieno");
+		s.put(22, "dvidešimt dviejų");
+		s.put(24, "dvidešimt keturių");
+		s.put(30, "trisdešimties");
+		s.put(48, "keturiasdešimt aštuonių");
+		s.put(50, "penkiasdešimties");
+		s.put(55, "penkiasdešimt penkių");
+		s.put(60, "šešiasdešimties");
+		s.put(70, "septyniasdešimties");
+		s.put(80, "aštuoniasdešimties");
+		s.put(90, "devyniasdešimties");
+		s.put(92, "devyniasdešimt dviejų");
+		s.put(100, "šimto");
+		testSkaiciai(s, Linksnis.K);
+	}
+	
+	@Test
 	public void testNuo1Iki20N() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nuliui");

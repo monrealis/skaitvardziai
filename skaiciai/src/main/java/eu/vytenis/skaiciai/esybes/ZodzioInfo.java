@@ -1,13 +1,10 @@
 package eu.vytenis.skaiciai.esybes;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ZodzioInfo {
 	private boolean vns;
 	private Zodis zodis;	
-	/** */
-	private boolean rodytiTikPirma;
 	
 	public ZodzioInfo(boolean vns, Zodis zodis) {
 		this.vns = vns;
@@ -22,19 +19,6 @@ public class ZodzioInfo {
 		return zodis;
 	}
 	
-	public boolean isRodytiTikPirma() {
-		return rodytiTikPirma;
-	}
-	
-	public void setRodytiTikPirma(boolean rodytiTikPaskutini) {
-		this.rodytiTikPirma = rodytiTikPaskutini;
-	}
-	
-	public ZodzioInfo rodytiTikPirma(long skaicius, long reiksme) {
-		setRodytiTikPirma(skaicius == reiksme);
-		return this;
-	}
-	
 	public static ZodzioInfo getVns(long skaicius) {
 		Zodis zodis = Zodis.get(skaicius);
 		return new ZodzioInfo(true, zodis);
@@ -46,14 +30,6 @@ public class ZodzioInfo {
 	}
 	
 	public static String toString(List<? extends ZodzioInfo> zodziai, Linksnis linksnis) {
-		int paskutinioRodomoIndeksas = -1;
-		for (int i = 0; i < zodziai.size(); ++i) {
-			if (!zodziai.get(i).isRodytiTikPirma() || zodziai.get(i).isRodytiTikPirma() && zodziai.size() == 1) {
-				paskutinioRodomoIndeksas = i;
-			}
-		}
-
-		
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
 		boolean vns = true;
@@ -61,12 +37,8 @@ public class ZodzioInfo {
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);
 			ZodzioInfo ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
-			boolean paskutinis = paskutinioRodomoIndeksas == i;
-			
-			if (dabartinis.isRodytiTikPirma() && !pirmas) {
-				pirmas = false;
-				continue;
-			}
+			boolean paskutinis = (i == (zodziai.size() - 1));
+
 			if (pirmas) {
 				pirmas = false;
 			} else {

@@ -4,7 +4,7 @@ JAVA biblioteka,pagal perduotus sveikuosius skaičius įvairiomis gramatinėmis 
 grąžinanti skaitvardžius.
 
 ## Funkcijos
-Biblioteka galės būti naudojama per
+Biblioteka galės būti naudojama per (sąrašas nebaigtas):
 * JAVA API
 * Egzistuojančių bibliotekų išplėtimus
     * XSLT procesorių
@@ -15,3 +15,15 @@ Biblioteka galės būti naudojama per
 Pavyzdžių formatas: *įvestis: išvestis*
 * 1: vienas
 * 222, kilmininkas: dviejų šimtų dvidešimt dviejų
+
+## Progresas
+
+Realizuotas šis skaičių konvertavimo į skaitvardžius funkcionalumas:
+* Kiekiniai skaitvardžiai (0 - 1000)
+   * Vardininkas
+   * Kilmininkas
+   * Naudininkas
+   * Galininkas
+   * Įnagininkas
+   * Vietininkas
+   * Šauksmininkas

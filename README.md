@@ -19,7 +19,7 @@ Pavyzdžių formatas: *įvestis: išvestis*
 ## Progresas
 
 Realizuotas šis skaičių konvertavimo į skaitvardžius funkcionalumas:
-* Kiekiniai skaitvardžiai (0 - 1000)
+* Kiekiniai skaitvardžiai (išskyrus moterišką giminę, 0 - 1000)
    * Vardininkas
    * Kilmininkas
    * Naudininkas

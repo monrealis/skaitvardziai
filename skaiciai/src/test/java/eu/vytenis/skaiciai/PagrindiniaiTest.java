@@ -11,7 +11,7 @@ import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Skaicius;
 
 
-public class Skaiciai {
+public class PagrindiniaiTest {
 	
 	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {

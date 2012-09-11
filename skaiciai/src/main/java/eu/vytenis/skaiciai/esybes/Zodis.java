@@ -2,11 +2,13 @@ package eu.vytenis.skaiciai.esybes;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Zodis {
 
 	private Map<Linksnis, String> vienaskaita = new HashMap<Linksnis, String>();
 	private Map<Linksnis, String> daugiskaita = new HashMap<Linksnis, String>();
+	
 	private boolean kitasVns = true;
 	private Linksnis kitasLinksnis = Linksnis.V;
 	private boolean valdomas = false;
@@ -23,7 +25,9 @@ public class Zodis {
 	
 	private static final Map<Long, Zodis> skaiciaiMotGim = new HashMap<Long, Zodis>();
 	private static final Map<Long, Zodis> skaiciai = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kuopiniai = new HashMap<Long, Zodis>();
 	
+	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
 	public Zodis() {
 		
@@ -139,8 +143,7 @@ public class Zodis {
 	public String toString() {
 		return getVienaskaita(Linksnis.V);
 	}
-	
-	
+
 
 
 	static {
@@ -189,10 +192,31 @@ public class Zodis {
 		skaiciai.put(1000L, new Zodis("tūkstantis", "tūkstančio", "tūkstančiui", "tūkstantį", "tūkstančiu", "tūkstantyje", "tūkstanti", "tūkstančiai", "tūkstančių", "tūkstančiams", "tūkstančius", "tūkstančiais", "tūkstančiuose", "tūkstančiai").kitasDgsKilm().valdomas());
 		skaiciai.put(1000000L, new Zodis("milijonas", "milijono", "milijonui", "milijoną", "milijonu", "milijone", "milijone", "milijonai", "milijonų", "milijonams", "milijonus", "milijonais", "milijonuose", "milijonai").kitasDgsKilm().valdomas());
 		skaiciai.put(1000000000L, new Zodis("milijardas", "milijardo", "milijardui", "milijardą", "milijardu", "milijarde", "milijarde", "milijardai", "milijardų", "milijardams", "milijardus", "milijardais", "milijarduose", "milijardai").kitasDgsKilm().valdomas());
+		
+		kuopiniai.put(1L, new Zodis("vienetas", "vieneto", "vienetui", "vienetą", "vienetu", "vienete", "vienete")); // Ne visai tinka, bet tegul būna
+		kuopiniai.put(2L, new Zodis("dvejetas", "dvejeto", "dvejetui", "dvejetą", "dvejetu", "dvejete", "dvejete"));
+		kuopiniai.put(3L, new Zodis("trejetas", "trejeto", "trejetui", "trejetą", "trejetu", "trejete", "trejete"));
+		kuopiniai.put(4L, new Zodis("ketvertas", "ketverto", "ketvertui", "ketvertą", "ketvertu", "ketverte", "ketverte"));
+		kuopiniai.put(5L, new Zodis("penketas", "penketo", "penketui", "penketą", "penketu", "penkete", "penkete"));
+		kuopiniai.put(6L, new Zodis("šešetas", "šešeto", "šešetui", "šešetą", "šešetu", "šešete", "šešete"));
+		kuopiniai.put(7L, new Zodis("septynetas", "septyneto", "septynetui", "septynetą", "septynetu", "septynete", "septynete"));
+		kuopiniai.put(8L, new Zodis("aštuonetas", "aštuoneto", "aštuonetui", "aštuonetą", "aštuonetu", "aštuonete", "aštuonete"));
+		kuopiniai.put(9L, new Zodis("devynetas", "devyneto", "devynetui", "devynetą", "devynetu", "devynete", "devynete"));
 	}
 	
 	public static Zodis get(long skaicius) {
 		return skaiciai.get(skaicius);
 	}	
 
+	
+	public static Zodis getKuopinis(long skaicius) {
+		Zodis z = kuopiniai.get(skaicius);
+		if (z == null) {
+			throw new IllegalArgumentException("Illegal argument " + skaicius);
+		}
+		if (skaicius == 1) {
+			logger.warning(z + " naudojamas kaip kuopinis skaitvardis");
+		}
+		return z;
+	}
 }

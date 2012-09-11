@@ -1,6 +1,7 @@
 package eu.vytenis.skaiciai.esybes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,11 +82,31 @@ public class Skaicius {
 		return toString(Linksnis.V);
 	}
 	
-	public String toString(Linksnis linksnis) {
+	private String kuopinis(Linksnis linksnis, long skaicius) {
+		Zodis z = Zodis.getKuopinis(skaicius);
+		if (z == null) {
+			throw new IllegalArgumentException(skaicius + " is invalid value");
+		}
+		List<ZodzioInfo> zodziai = Arrays.asList(new ZodzioInfo(true, z))	;		
+		return ZodzioInfo.toString(zodziai, linksnis);
+		
+	}
+	
+	public String toString(Poskyris poskyris, Linksnis linksnis) {
+		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Kuopinis).contains(poskyris)) {
+			throw new IllegalArgumentException(poskyris + "");
+		}
+		if (poskyris == Poskyris.Kuopinis) {
+			return kuopinis(linksnis, skaicius);
+		}
 		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();		
 		daugiazenklis(skaicius, zodziai, skaicius);			
 		Collections.reverse(zodziai);
 		return ZodzioInfo.toString(zodziai, linksnis);
+	}
+	
+	public String toString(Linksnis linksnis) {
+		return toString(Poskyris.Pagrindinis, linksnis);
 	}
 
 }

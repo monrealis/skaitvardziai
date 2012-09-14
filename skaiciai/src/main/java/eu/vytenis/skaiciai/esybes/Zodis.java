@@ -154,7 +154,7 @@ public class Zodis {
 		// TODO moteriška giminė (pvz., penki ir penkios)
 		// TODO žodžio konstruktorius kviečiamas, perduodant vienaskaitines reikšmes, nors iš tikrųjų yra daugiskaitinės
 		
-		skaiciaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos"));
+		skaiciaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
 		skaiciaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviems", "dvi", "dviem", "dviejose", "dvi").kitasDgsVard());
 		skaiciaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgsVard());
 		skaiciaiMotGim.put(4L, new Zodis("keturios", "keturių", "keturioms", "keturias", "keturiomis", "keturiose", "keturios").kitasDgsVard());
@@ -165,8 +165,8 @@ public class Zodis {
 		skaiciaiMotGim.put(9L, new Zodis("devynios", "devynių", "devynioms", "devynias", "devyniomis", "devyniose", "devynios").kitasDgsVard());
 		
 		skaiciai.put(0L, new Zodis("nulis", "nulio", "nuliui", "nulį", "nuliu", "nulyje", "nuli").kitasDgsKilm());		
-		skaiciai.put(1L, new Zodis("vienas", "vieno", "vienam", "vieną", "vienu", "viename", "vienas", "vieni", "vienų", "vieniems", "vienus", "vienais", "vienuose", "vieni"));		
-		skaiciai.put(2L, new Zodis("du", "dviejų", "dviems", "du", "dviem", "dviejuose", "du").kitasDgsVard());		
+		skaiciai.put(1L, new Zodis("vienas", "vieno", "vienam", "vieną", "vienu", "viename", "vienas", "vieni", "vienų", "vieniems", "vienus", "vienais", "vienuose", "vieni")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html		
+		skaiciai.put(2L, new Zodis("du", "dviejų", "dviem" /* geriau nei "dviems" */, "du", "dviem", "dviejuose", "du").kitasDgsVard());		
 		skaiciai.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijuose", "trys").kitasDgsVard());		
 		skaiciai.put(4L, new Zodis("keturi", "keturių", "keturiems", "keturis", "keturiais", "keturiuose", "keturi").kitasDgsVard());		
 		skaiciai.put(5L, new Zodis("penki", "penkių", "penkiems", "penkis", "penkiais", "penkiuose", "penki").kitasDgsVard());		
@@ -207,7 +207,7 @@ public class Zodis {
 		kuopiniai.put(8L, new Zodis("aštuonetas", "aštuoneto", "aštuonetui", "aštuonetą", "aštuonetu", "aštuonete", "aštuonete"));
 		kuopiniai.put(9L, new Zodis("devynetas", "devyneto", "devynetui", "devynetą", "devynetu", "devynete", "devynete"));
 		
-		dauginiaiMotGim.put(1L, new Zodis("vienerios", "vienerių", "vienerioms", "vienerias", "vieneriomis", "vieneriose", "vienerios")); // Kažin, ar teisingai
+		dauginiaiMotGim.put(1L, new Zodis("vienerios", "vienerių", "vienerioms", "vienerias", "vieneriomis", "vieneriose", "vienerios")); // http://ualgiman.dtiltas.lt/skaitvardis.html
 		dauginiaiMotGim.put(2L, new Zodis("dvejos", "dvejų", "dvejoms", "dvejas", "dvejomis", "dvejose", "dvejos"));
 		dauginiaiMotGim.put(3L, new Zodis("trejos", "trejų", "trejoms", "trejas", "trejomis", "trejose", "trejos"));
 		dauginiaiMotGim.put(4L, new Zodis("ketverios", "ketverių", "ketverioms", "ketverias", "ketveriomis", "ketveriose", "ketverios"));
@@ -217,7 +217,7 @@ public class Zodis {
 		dauginiaiMotGim.put(8L, new Zodis("aštuonerios", "aštuonerių", "aštuonerioms", "aštuonerias", "aštuoneriomis", "aštuoneriose", "aštuonerios"));
 		dauginiaiMotGim.put(9L, new Zodis("devynerios", "devynerių", "devynerioms", "devynerias", "devyneriomis", "devyneriose", "devynerios"));
 		
-		dauginiai.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri")); // Kažin, ar teisingai
+		dauginiai.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri")); // http://ualgiman.dtiltas.lt/skaitvardis.html
 		dauginiai.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji"));
 		dauginiai.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji"));
 		dauginiai.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri"));

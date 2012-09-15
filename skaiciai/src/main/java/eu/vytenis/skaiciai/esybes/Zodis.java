@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+
 public class Zodis {
 
+	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
+	
 	private Map<Linksnis, String> vienaskaita = new HashMap<Linksnis, String>();
 	private Map<Linksnis, String> daugiskaita = new HashMap<Linksnis, String>();
 	
@@ -31,7 +34,10 @@ public class Zodis {
 	private static final Map<Long, Zodis> dauginiaiMotGim = new HashMap<Long, Zodis>();
 	private static final Map<Long, Zodis> dauginiai = new HashMap<Long, Zodis>();
 	
-	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
+	private static final Map<Long, Zodis> kelintiniai = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiIv = new HashMap<Long, Zodis>(); // įvardžiuotinės formos
+	
+	
 	
 	public Zodis() {
 		
@@ -226,6 +232,49 @@ public class Zodis {
 		dauginiai.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri"));
 		dauginiai.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri"));
 		dauginiai.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri"));
+		
+		// TODO
+		kelintiniai.put(0L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(1L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(2L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(3L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(4L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(5L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(6L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(7L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(8L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(9L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(10L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(11L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(12L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(13L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(14L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(15L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(16L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(17L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(18L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniai.put(19L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		
+		kelintiniaiIv.put(0L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(1L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(2L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(3L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(4L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(5L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(6L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(7L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(8L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(9L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(10L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(11L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(12L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(13L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(14L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(15L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(16L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(17L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(18L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
+		kelintiniaiIv.put(19L, new Zodis("", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 	}
 	
 	public static Zodis getPagrindinis(long skaicius) {

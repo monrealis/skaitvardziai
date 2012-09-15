@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Skaicius {
 	private long skaicius;
+	
 	public Skaicius(long skaicius) {
 		this.skaicius = skaicius;
 	}

@@ -19,13 +19,23 @@ public class ZodzioInfo {
 		return zodis;
 	}
 	
-	public static ZodzioInfo getVns(long skaicius) {
-		Zodis zodis = Zodis.get(skaicius);
+	public static ZodzioInfo getPagrindinisVns(long skaicius) {
+		Zodis zodis = Zodis.getPagrindinis(skaicius);
 		return new ZodzioInfo(true, zodis);
 	}
 	
-	public static ZodzioInfo getDgs(long skaicius) {
-		Zodis zodis = Zodis.get(skaicius);
+	public static ZodzioInfo getPagrindinisDgs(long skaicius) {
+		Zodis zodis = Zodis.getPagrindinis(skaicius);
+		return new ZodzioInfo(false, zodis);
+	}
+	
+	public static ZodzioInfo getDauginisVns(long skaicius) {
+		Zodis zodis = Zodis.getDauginis(skaicius);
+		return new ZodzioInfo(true, zodis);
+	}
+	
+	public static ZodzioInfo getDauginisDgs(long skaicius) {
+		Zodis zodis = Zodis.getDauginis(skaicius);
 		return new ZodzioInfo(false, zodis);
 	}
 	

@@ -228,10 +228,9 @@ public class Zodis {
 		dauginiai.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri"));
 	}
 	
-	public static Zodis get(long skaicius) {
+	public static Zodis getPagrindinis(long skaicius) {
 		return skaiciai.get(skaicius);
 	}	
-
 	
 	public static Zodis getKuopinis(long skaicius) {
 		Zodis z = kuopiniai.get(skaicius);
@@ -243,4 +242,8 @@ public class Zodis {
 		}
 		return z;
 	}
+	
+	public static Zodis getDauginis(long skaicius) {
+		return dauginiai.get(skaicius);
+	}	
 }

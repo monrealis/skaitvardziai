@@ -256,7 +256,7 @@ public class Zodis {
 		kelintiniai.put(17L, new Zodis("septynioliktas", "septyniolikto", "septynioliktam", "septynioliktą", "septynioliktu", "septynioliktame", "septynioliktas", "septyniolikti", "septynioliktų", "septynioliktiems", "septynioliktus", "septynioliktais", "septynioliktuose", "septyniolikti"));
 		kelintiniai.put(18L, new Zodis("aštuonioliktas", "aštuoniolikto", "aštuonioliktam", "aštuonioliktą", "aštuonioliktu", "aštuonioliktame", "aštuonioliktas", "aštuoniolikti", "aštuonioliktų", "aštuonioliktiems", "aštuonioliktus", "aštuonioliktais", "aštuonioliktuose", "aštuoniolikti"));
 		kelintiniai.put(19L, new Zodis("devynioliktas", "devyniolikto", "devynioliktam", "devynioliktą", "devynioliktu", "devynioliktame", "devynioliktas", "devyniolikti", "devynioliktų", "devynioliktiems", "devynioliktus", "devynioliktais", "devynioliktuose", "devyniolikti"));
-		kelintiniai.put(20L, new Zodis("dvidešimtas", "", "", "", "", "", "", "", "", "", "", "", "", ""));		
+		kelintiniai.put(20L, new Zodis("dvidešimtas", "dvidešimto", "", "", "", "", "", "", "", "", "", "", "", ""));		
 		kelintiniai.put(30L, new Zodis("trisdešimtas", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 		kelintiniai.put(40L, new Zodis("keturiasdešimtas", "", "", "", "", "", "", "", "", "", "", "", "", ""));
 		kelintiniai.put(50L, new Zodis("penkiasdešimtas", "", "", "", "", "", "", "", "", "", "", "", "", ""));

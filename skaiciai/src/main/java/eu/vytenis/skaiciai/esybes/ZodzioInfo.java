@@ -39,6 +39,26 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
+	public static ZodzioInfo getKelintinisVns(long skaicius) {
+		Zodis zodis = Zodis.getKelintinis(skaicius);
+		return new ZodzioInfo(true, zodis);
+	}
+	
+	public static ZodzioInfo getKelintinisDgs(long skaicius) {
+		Zodis zodis = Zodis.getKelintinis(skaicius);
+		return new ZodzioInfo(false, zodis);
+	}
+	
+	public static ZodzioInfo getKelintinisIvVns(long skaicius) {
+		Zodis zodis = Zodis.getKelintinisIv(skaicius);
+		return new ZodzioInfo(true, zodis);
+	}
+	
+	public static ZodzioInfo getKelintinisIvDgs(long skaicius) {
+		Zodis zodis = Zodis.getKelintinisIv(skaicius);
+		return new ZodzioInfo(false, zodis);
+	}
+	
 	public static String toString(List<? extends ZodzioInfo> zodziai, Linksnis linksnis) {
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;

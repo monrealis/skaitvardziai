@@ -34,9 +34,9 @@ public class KelintiniaiTest {
 		s.put(4, "ketvirtas");
 		s.put(5, "penktas");
 		s.put(6, "šeštas");
-		s.put(7, "septyntas");
-		s.put(8, "aštuontas");
-		s.put(9, "devyntas");
+		s.put(7, "septintas");
+		s.put(8, "aštuntas");
+		s.put(9, "devintas");
 		s.put(10, "dešimtas");
 		s.put(11, "vienuoliktas");
 		s.put(12, "dvyliktas");
@@ -58,7 +58,7 @@ public class KelintiniaiTest {
 		s.put(22, "dvidešimt antras");
 		s.put(24, "dvidešimt ketvirtas");
 		s.put(30, "trisdešimtas");
-		s.put(48, "keturiasdešimt aštuontas");
+		s.put(48, "keturiasdešimt aštuntas");
 		s.put(50, "penkiasdešimtas");
 		s.put(55, "penkiasdešimt penktas");
 		s.put(60, "šešiasdešimtas");

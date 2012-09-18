@@ -20,7 +20,7 @@ public class Skaicius {
 		if (skaicius < 0 || skaicius > 10) {
 			throw new IllegalArgumentException();
 		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis).contains(poskyris)) {
+		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
 			throw new IllegalArgumentException(poskyris + "");
 		}		
 		if (skaicius == 0 && tikrasSkaicius == 0 || skaicius > 0) {
@@ -28,6 +28,8 @@ public class Skaicius {
 				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius));
 			} else if (poskyris == Poskyris.Dauginis) {
 				zodziai.add(ZodzioInfo.getDauginisVns(skaicius));
+			} else if (poskyris == Poskyris.Kelintinis) {
+				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius));
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -39,20 +41,28 @@ public class Skaicius {
 		if (skaicius < 0 || skaicius > 100) {
 			throw new IllegalArgumentException();
 		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis).contains(poskyris)) {
+		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
 			throw new IllegalArgumentException(poskyris + "");
 		}
 		if (skaicius < 10) {
 			vienzenklis(skaicius, zodziai, poskyris, tikrasSkaicius);
 		} else if (skaicius < 20) {
-			zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius));
+			if (poskyris == Poskyris.Kelintinis) {
+				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius));
+			} else {
+				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius));
+			}
 		} else {
 			long vienetai = skaicius % 10;
 			skaicius /= 10;
 			long desimtys = skaicius % 10;
 			
 			vienzenklis(vienetai, zodziai, poskyris, tikrasSkaicius);
-			zodziai.add(ZodzioInfo.getPagrindinisVns(desimtys * 10));
+			if (poskyris == Poskyris.Kelintinis && vienetai == 0) {
+				zodziai.add(ZodzioInfo.getKelintinisVns(desimtys * 10));
+			} else {
+				zodziai.add(ZodzioInfo.getPagrindinisVns(desimtys * 10));
+			}
 		}
 	}
 	
@@ -60,19 +70,29 @@ public class Skaicius {
 		if (skaicius < 0 || skaicius > 1000) {
 			throw new IllegalArgumentException();
 		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis).contains(poskyris)) {
+		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
 			throw new IllegalArgumentException(poskyris + "");
 		}
 		long dvizenklis = skaicius % 100;
 		dvizenklis(dvizenklis, zodziai, poskyris, tikrasSkaicius);
 		
 		long simtai = skaicius / 100;
+		long liekana = skaicius % 100;
 		if (simtai == 1) {
-			zodziai.add(ZodzioInfo.getPagrindinisVns(100));
+			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
+				zodziai.add(ZodzioInfo.getKelintinisIvVns(100));
+			} else {
+				zodziai.add(ZodzioInfo.getPagrindinisVns(100));
+			}
+			
 		} else if (simtai > 1) {
-			//zodziai.add(ZodzioInfo.getDgs(100));
-			zodziai.add(ZodzioInfo.getPagrindinisVns(100));
-			zodziai.add(ZodzioInfo.getPagrindinisVns(simtai));
+			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
+				zodziai.add(ZodzioInfo.getKelintinisIvVns(100));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai));
+			} else {
+				zodziai.add(ZodzioInfo.getPagrindinisVns(100));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai));
+			}
 		}
 	}
 	
@@ -80,20 +100,32 @@ public class Skaicius {
 		if (skaicius != tikrasSkaicius) {
 			throw new IllegalArgumentException();
 		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis).contains(poskyris)) {
+		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
 			throw new IllegalArgumentException(poskyris + "");
 		}
 		long sk = skaicius;
 		trizenklis(skaicius % 1000, zodziai, poskyris, sk);
-		sk /= 1000;
-		long tukstanciai = sk % 1000;
+		long tukstanciu = sk / 1000;
+		long tukstanciuLiekana = skaicius % 1000;
 		
-		if (tukstanciai == 1) {
-			zodziai.add(ZodzioInfo.getPagrindinisVns(1000));
-		} else if (tukstanciai > 1) {
-			//zodziai.add(ZodzioInfo.getDgs(1000));
-			zodziai.add(ZodzioInfo.getPagrindinisVns(1000));
-			dvizenklis(tukstanciai, zodziai, poskyris, sk);
+		if (tukstanciu == 0) {
+			// nieko
+		} else if (tukstanciu == 1) {
+			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
+				zodziai.add(ZodzioInfo.getKelintinisIvVns(1000));
+			} else {
+				zodziai.add(ZodzioInfo.getPagrindinisVns(1000));
+			}			
+		} else if (tukstanciu > 1 && tukstanciu < 100) {
+			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
+				zodziai.add(ZodzioInfo.getKelintinisIvVns(1000));
+				dvizenklis(tukstanciu, zodziai, poskyris, sk);
+			} else {
+				zodziai.add(ZodzioInfo.getPagrindinisVns(1000));
+				dvizenklis(tukstanciu, zodziai, poskyris, sk);
+			}			
+		} else {
+			throw new UnsupportedOperationException();
 		}
 	}
 	
@@ -113,7 +145,7 @@ public class Skaicius {
 	}
 	
 	public String toString(Poskyris poskyris, Linksnis linksnis) {
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Kuopinis, Poskyris.Dauginis).contains(poskyris)) {
+		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Kuopinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
 			throw new IllegalArgumentException(poskyris + "");
 		}
 		if (poskyris == Poskyris.Kuopinis) {

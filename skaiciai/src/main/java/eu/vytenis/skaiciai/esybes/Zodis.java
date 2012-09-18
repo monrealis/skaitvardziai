@@ -377,4 +377,11 @@ public class Zodis {
 	public static Zodis getDauginis(long skaicius) {
 		return dauginiai.get(skaicius);
 	}	
+	
+	public static Zodis getKelintinis(long skaicius) {
+		return kelintiniai.get(skaicius);
+	}	
+	public static Zodis getKelintinisIv(long skaicius) {
+		return kelintiniaiIv.get(skaicius);
+	}	
 }

@@ -382,6 +382,6 @@ public class Zodis {
 		return kelintiniai.get(skaicius);
 	}	
 	public static Zodis getKelintinisIv(long skaicius) {
-		return kelintiniaiIv.get(skaicius);
+		return kelintiniai.get(skaicius);
 	}	
 }

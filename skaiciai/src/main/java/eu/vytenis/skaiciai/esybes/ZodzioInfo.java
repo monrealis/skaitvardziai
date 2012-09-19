@@ -3,7 +3,7 @@ package eu.vytenis.skaiciai.esybes;
 import java.util.List;
 
 public class ZodzioInfo {
-	private boolean vns;
+	private boolean vns; // TODO turbūt nereikalingas laukas, o gal ir visa klasė?
 	private Zodis zodis;	
 	
 	public ZodzioInfo(boolean vns, Zodis zodis) {
@@ -59,7 +59,8 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
-	public static String toString(List<? extends ZodzioInfo> zodziai, Linksnis linksnis) {
+	public static String toString(List<? extends ZodzioInfo> zodziai, Kontekstas kontekstas) {
+		Linksnis linksnis = kontekstas.getLinksnis();
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
 		//boolean vns = true;

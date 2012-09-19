@@ -6,14 +6,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class Skaicius {
-	private long _skaicius;
+	private long reiksme;
 	
-	public Skaicius(long skaicius) {
-		this._skaicius = skaicius;
+	public Skaicius(long reiksme) {
+		this.reiksme = reiksme;
 	}
 	
-	public long getSkaicius() {
-		return _skaicius;
+	public long getReiksme() {
+		return reiksme;
 	}
 	
 	private void vienzenklis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
@@ -145,13 +145,13 @@ public class Skaicius {
 		return toString(Linksnis.V);
 	}
 	
-	private String kuopinis(Kontekstas kontekstas) {
+	private String kuopinis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
 		long skaicius = kontekstas.getSkaicius();
-		Zodis z = Zodis.getKuopinis(skaicius);
+		ZodzioInfo z = ZodzioInfo.getKuopinisVns(skaicius);
 		if (z == null) {
 			throw new IllegalArgumentException(skaicius + " is invalid value");
 		}
-		List<ZodzioInfo> zodziai = Arrays.asList(new ZodzioInfo(true, z))	;		
+		zodziai.add(z);		
 		return ZodzioInfo.toString(zodziai, kontekstas);
 		
 	}
@@ -163,16 +163,17 @@ public class Skaicius {
 		Kontekstas k = new Kontekstas();
 		k.setLinksnis(linksnis);
 		k.setPoskyris(poskyris);
-		k.setSkaicius(_skaicius);
-		k.setPradinisSkaicius(_skaicius);
+		k.setSkaicius(reiksme);
+		k.setPradinisSkaicius(reiksme);
+		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();		
 		if (poskyris == Poskyris.Kuopinis) {
-			return kuopinis(k);
+			// Kadangi skaičiai tik nuo 1 iki 9, neapsimoka skaičiuoti standartiškai ir keliuose metoduose daryti papildomus tikrinimus
+			kuopinis(zodziai, k);
 		} else {
-			List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();		
 			daugiazenklis(zodziai, k);			
-			Collections.reverse(zodziai);
-			return ZodzioInfo.toString(zodziai, k);
 		}
+		Collections.reverse(zodziai);
+		return ZodzioInfo.toString(zodziai, k);
 	}
 	
 	public String toString(Linksnis linksnis) {

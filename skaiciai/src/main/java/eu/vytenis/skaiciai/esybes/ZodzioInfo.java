@@ -59,6 +59,14 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
+	public static ZodzioInfo getKuopinisVns(long skaicius) {
+		Zodis zodis = Zodis.getKuopinis(skaicius);
+		if (zodis == null) {
+			return null;
+		}
+		return new ZodzioInfo(true, zodis);
+	}
+	
 	public static String toString(List<? extends ZodzioInfo> zodziai, Kontekstas kontekstas) {
 		Linksnis linksnis = kontekstas.getLinksnis();
 		StringBuilder r = new StringBuilder();

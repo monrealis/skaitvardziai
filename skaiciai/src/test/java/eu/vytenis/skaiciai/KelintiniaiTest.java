@@ -16,7 +16,7 @@ import eu.vytenis.skaiciai.esybes.Skaicius;
 public class KelintiniaiTest {
 
 	
-	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis, Gimine gimine) {
+	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis, Gimine gimine, boolean ivardziuotine) {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
 			long number = e.getKey().longValue();
@@ -27,6 +27,7 @@ public class KelintiniaiTest {
 			k.setPoskyris(Poskyris.Kelintinis);
 			k.setLinksnis(linksnis);
 			k.setGimine(gimine);
+			k.setIvardziuotine(ivardziuotine);
 			k.setSkaicius(number);
 			k.setPradinisSkaicius(number);
 			Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
@@ -57,7 +58,7 @@ public class KelintiniaiTest {
 		s.put(18, "aštuonioliktas");
 		s.put(19, "devynioliktas");
 		s.put(20, "dvidešimtas");		
-		testSkaiciai(s, Linksnis.V, Gimine.V);
+		testSkaiciai(s, Linksnis.V, Gimine.V, false);
 	}
 	
 	@Test
@@ -76,7 +77,7 @@ public class KelintiniaiTest {
 		s.put(90, "devyniasdešimtas");
 		s.put(92, "devyniasdešimt antras");
 		s.put(100, "šimtasis");
-		testSkaiciai(s, Linksnis.V, Gimine.V);
+		testSkaiciai(s, Linksnis.V, Gimine.V, false);
 	}
 	
 	@Test
@@ -101,7 +102,7 @@ public class KelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečias");
 		s.put(1000, "tūkstantasis");
 
-		testSkaiciai(s, Linksnis.V, Gimine.V);
+		testSkaiciai(s, Linksnis.V, Gimine.V, false);
 	}
 	
 	@Test
@@ -128,7 +129,7 @@ public class KelintiniaiTest {
 		s.put(18, "aštuoniolikta");
 		s.put(19, "devyniolikta");
 		s.put(20, "dvidešimta");		
-		testSkaiciai(s, Linksnis.V, Gimine.M);
+		testSkaiciai(s, Linksnis.V, Gimine.M, false);
 	}
 	
 	@Test
@@ -147,7 +148,7 @@ public class KelintiniaiTest {
 		s.put(90, "devyniasdešimta");
 		s.put(92, "devyniasdešimt antra");
 		s.put(100, "šimtoji");
-		testSkaiciai(s, Linksnis.V, Gimine.M);
+		testSkaiciai(s, Linksnis.V, Gimine.M, false);
 	}
 	
 	@Test
@@ -172,6 +173,6 @@ public class KelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečia");
 		s.put(1000, "tūkstantoji");
 
-		testSkaiciai(s, Linksnis.V, Gimine.M);
+		testSkaiciai(s, Linksnis.V, Gimine.M, false);
 	}
 }

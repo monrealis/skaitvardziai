@@ -12,6 +12,8 @@ public class Kontekstas implements Cloneable {
 	private Gimine gimine = Gimine.V;
 	/** Skaitvardžio linksnis. */
 	private Linksnis linksnis = Linksnis.V;
+	/** Ar įvardžiuotinė forma.*/
+	private boolean ivardziuotine = false;
 	/** Skaičius, kurį bandoma parašyti, */
 	private long pradinisSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
@@ -35,6 +37,12 @@ public class Kontekstas implements Cloneable {
 	}
 	public Linksnis getLinksnis() {
 		return linksnis;
+	}
+	public boolean isIvardziuotine() {
+		return ivardziuotine;
+	}
+	public void setIvardziuotine(boolean ivardziuotine) {
+		this.ivardziuotine = ivardziuotine;
 	}
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;

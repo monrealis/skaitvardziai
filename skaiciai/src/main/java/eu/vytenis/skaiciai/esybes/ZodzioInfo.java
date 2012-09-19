@@ -39,25 +39,16 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
-	public static ZodzioInfo getKelintinisVns(long skaicius) {
-		Zodis zodis = Zodis.getKelintinis(skaicius);
+	public static ZodzioInfo getKelintinisVns(long skaicius, Gimine gimine) {
+		Zodis zodis = Zodis.getKelintinis(skaicius, gimine);
 		return new ZodzioInfo(true, zodis);
 	}
-	
-	public static ZodzioInfo getKelintinisDgs(long skaicius) {
-		Zodis zodis = Zodis.getKelintinis(skaicius);
-		return new ZodzioInfo(false, zodis);
-	}
-	
-	public static ZodzioInfo getKelintinisIvVns(long skaicius) {
-		Zodis zodis = Zodis.getKelintinisIv(skaicius);
+
+	public static ZodzioInfo getKelintinisIvVns(long skaicius, Gimine gimine) {
+		Zodis zodis = Zodis.getKelintinisIv(skaicius, gimine);
 		return new ZodzioInfo(true, zodis);
 	}
-	
-	public static ZodzioInfo getKelintinisIvDgs(long skaicius) {
-		Zodis zodis = Zodis.getKelintinisIv(skaicius);
-		return new ZodzioInfo(false, zodis);
-	}
+
 	
 	public static ZodzioInfo getKuopinisVns(long skaicius) {
 		Zodis zodis = Zodis.getKuopinis(skaicius);

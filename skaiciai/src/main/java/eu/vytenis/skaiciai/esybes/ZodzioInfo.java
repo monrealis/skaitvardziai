@@ -39,8 +39,8 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
-	public static ZodzioInfo getKelintinisVns(long skaicius, Gimine gimine) {
-		Zodis zodis = Zodis.getKelintinis(skaicius, gimine);
+	public static ZodzioInfo getKelintinisVns(long skaicius, Gimine gimine, boolean ivardziuotinis) {
+		Zodis zodis = Zodis.getKelintinis(skaicius, gimine, ivardziuotinis);
 		return new ZodzioInfo(true, zodis);
 	}
 

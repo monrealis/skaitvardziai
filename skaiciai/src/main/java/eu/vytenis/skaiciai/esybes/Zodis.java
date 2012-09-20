@@ -378,11 +378,19 @@ public class Zodis {
 		return dauginiai.get(skaicius);
 	}	
 	
-	public static Zodis getKelintinis(long skaicius, Gimine gimine) {
+	public static Zodis getKelintinis(long skaicius, Gimine gimine, boolean ivardziuotinis) {
 		if (gimine == Gimine.M) {
-			return kelintiniaiMotGim.get(skaicius);
+			if (ivardziuotinis) {
+				return kelintiniaiIvMotGim.get(skaicius);
+			} else {
+				return kelintiniaiMotGim.get(skaicius);
+			}
 		} else {
-			return kelintiniai.get(skaicius);
+			if (ivardziuotinis) {
+				return kelintiniaiIv.get(skaicius);
+			} else {
+				return kelintiniai.get(skaicius);
+			}
 		}
 	}	
 	public static Zodis getKelintinisIv(long skaicius, Gimine gimine) {

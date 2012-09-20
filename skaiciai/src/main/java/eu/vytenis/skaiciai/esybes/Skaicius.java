@@ -21,6 +21,7 @@ public class Skaicius {
 		long tikrasSkaicius = kontekstas.getPradinisSkaicius();
 		Gimine gimine = kontekstas.getGimine();
 		Poskyris poskyris = kontekstas.getPoskyris();
+		boolean ivardziuotinis = kontekstas.isIvardziuotine();
 				
 		if (skaicius < 0 || skaicius > 10) {
 			throw new IllegalArgumentException();
@@ -34,7 +35,7 @@ public class Skaicius {
 			} else if (poskyris == Poskyris.Dauginis) {
 				zodziai.add(ZodzioInfo.getDauginisVns(skaicius));
 			} else if (poskyris == Poskyris.Kelintinis) {
-				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine, (skaicius != 0 ? ivardziuotinis : false)));
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -46,6 +47,7 @@ public class Skaicius {
 		long skaicius = kontekstas.getSkaicius();
 		Poskyris poskyris = kontekstas.getPoskyris();
 		Gimine gimine = kontekstas.getGimine();
+		boolean ivardziuotinis = kontekstas.isIvardziuotine();
 		if (skaicius < 0 || skaicius > 100) {
 			throw new IllegalArgumentException();
 		}
@@ -56,7 +58,7 @@ public class Skaicius {
 			vienzenklis(zodziai, kontekstas);
 		} else if (skaicius < 20) {
 			if (poskyris == Poskyris.Kelintinis) {
-				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine, ivardziuotinis));
 			} else {
 				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius));
 			}
@@ -67,7 +69,7 @@ public class Skaicius {
 			
 			vienzenklis(zodziai, kontekstas.clone(vienetai));
 			if (poskyris == Poskyris.Kelintinis && vienetai == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisVns(desimtys * 10, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisVns(desimtys * 10, gimine, ivardziuotinis));
 			} else {
 				zodziai.add(ZodzioInfo.getPagrindinisVns(desimtys * 10));
 			}

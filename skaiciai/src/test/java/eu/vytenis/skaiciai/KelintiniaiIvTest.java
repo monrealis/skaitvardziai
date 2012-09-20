@@ -180,7 +180,7 @@ public class KelintiniaiIvTest {
 	@Test
 	public void testNuo1Iki20KVyr() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		//s.put(0, "nulinysis");
+		//s.put(0, "nulinysis"); TODO
 		s.put(1, "pirmojo");
 		s.put(2, "antrojo");
 		s.put(3, "trečiojo");

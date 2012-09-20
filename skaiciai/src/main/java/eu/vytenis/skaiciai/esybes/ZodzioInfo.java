@@ -62,6 +62,7 @@ public class ZodzioInfo {
 		Linksnis linksnis = kontekstas.getLinksnis();
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
+		boolean kelintinis = kontekstas.getPoskyris() == Poskyris.Kelintinis;
 		//boolean vns = true;
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
@@ -77,12 +78,16 @@ public class ZodzioInfo {
 			
 			Zodis zodis = dabartinis.getZodis();
 			String s;
-			if (zodis.isValdomas() && ankstesnis != null) {
-				s = zodis.toString(ankstesnis.getZodis().isKitasVns(), linksnis);
+			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis) {
+				s = zodis.toString(ankstesnis.getZodis().isKitasVns(), Linksnis.V); //pvz., "du _šimtai_ dešimtojo"
+			} else if (zodis.isValdomas() && ankstesnis != null) {
+				s = zodis.toString(ankstesnis.getZodis().isKitasVns(), linksnis); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
 			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
-				s = zodis.toString(true, Linksnis.V);
+				s = zodis.toString(true, Linksnis.V); // pvz, "_dvidešimt_ dviejų"
+			} else if (!paskutinis && kelintinis) {
+				s = zodis.toString(true, Linksnis.V); // pvz., "_šimtas_ pirmojo"
 			} else {
-				s = zodis.toString(true, linksnis);
+				s = zodis.toString(true, linksnis); // pvz., "dvidešimt _vieną_"
 			}
 			r.append(s);
 			

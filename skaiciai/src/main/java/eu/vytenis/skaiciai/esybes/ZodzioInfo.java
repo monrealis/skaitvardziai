@@ -29,14 +29,9 @@ public class ZodzioInfo {
 		return new ZodzioInfo(false, zodis);
 	}
 	
-	public static ZodzioInfo getDauginisVns(long skaicius) {
-		Zodis zodis = Zodis.getDauginis(skaicius);
+	public static ZodzioInfo getDauginisVns(long skaicius, Gimine gimine) {
+		Zodis zodis = Zodis.getDauginis(skaicius, gimine);
 		return new ZodzioInfo(true, zodis);
-	}
-	
-	public static ZodzioInfo getDauginisDgs(long skaicius) {
-		Zodis zodis = Zodis.getDauginis(skaicius);
-		return new ZodzioInfo(false, zodis);
 	}
 	
 	public static ZodzioInfo getKelintinisVns(long skaicius, Gimine gimine, boolean ivardziuotinis) {

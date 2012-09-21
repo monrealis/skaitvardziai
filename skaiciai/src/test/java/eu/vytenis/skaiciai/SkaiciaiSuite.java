@@ -7,8 +7,9 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({
 	PagrindiniaiVyrTest.class,
 	PagrindiniaiMotTest.class,
-	KuopiniaiTest.class,
-	DauginiaiTest.class,
+	DauginiaiVyrTest.class,
+	DauginiaiMotTest.class,
+	KuopiniaiTest.class,	
 	KelintiniaiTest.class,
 	KelintiniaiIvTest.class,
 	PoskyrisTest.class})

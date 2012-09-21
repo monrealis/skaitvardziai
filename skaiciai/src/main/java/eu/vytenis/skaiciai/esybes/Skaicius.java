@@ -37,7 +37,7 @@ public class Skaicius {
 					zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, gimine));
 				}
 			} else if (poskyris == Poskyris.Dauginis) {
-				zodziai.add(ZodzioInfo.getDauginisVns(skaicius));
+				zodziai.add(ZodzioInfo.getDauginisVns(skaicius, gimine));
 			} else if (poskyris == Poskyris.Kelintinis) {
 				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine, (skaicius != 0 ? ivardziuotinis : false)));
 			} else {

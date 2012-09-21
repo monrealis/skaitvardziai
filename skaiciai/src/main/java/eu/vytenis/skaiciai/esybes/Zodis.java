@@ -379,8 +379,12 @@ public class Zodis {
 		return z;
 	}
 	
-	public static Zodis getDauginis(long skaicius) {
-		return dauginiai.get(skaicius);
+	public static Zodis getDauginis(long skaicius, Gimine gimine) {
+		if (gimine == Gimine.V) {
+			return dauginiai.get(skaicius);
+		} else {
+			return dauginiaiMotGim.get(skaicius);
+		}
 	}	
 	
 	public static Zodis getKelintinis(long skaicius, Gimine gimine, boolean ivardziuotinis) {

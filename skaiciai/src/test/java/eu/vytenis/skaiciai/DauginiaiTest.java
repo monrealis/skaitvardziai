@@ -7,6 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Poskyris;
 import eu.vytenis.skaiciai.esybes.Skaicius;
@@ -18,7 +19,7 @@ public class DauginiaiTest {
 			long number = e.getKey().longValue();
 			Skaicius sk = new Skaicius(number);
 					
-			Assert.assertEquals("Invalid text", expected, sk.toString(Poskyris.Dauginis, linksnis));
+			Assert.assertEquals("Invalid text", expected, sk.toString(Poskyris.Dauginis, linksnis, Gimine.V));
 		}
 	}
 	

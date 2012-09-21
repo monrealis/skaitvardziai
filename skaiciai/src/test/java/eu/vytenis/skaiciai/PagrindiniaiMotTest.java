@@ -7,11 +7,12 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Skaicius;
 
 
-public class PagrindiniaiTest {
+public class PagrindiniaiMotTest {
 	
 	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
@@ -19,7 +20,7 @@ public class PagrindiniaiTest {
 			long number = e.getKey().longValue();
 			Skaicius sk = new Skaicius(number);
 					
-			Assert.assertEquals("Invalid text", expected, sk.toString(linksnis));
+			Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
 		}
 	}
 	

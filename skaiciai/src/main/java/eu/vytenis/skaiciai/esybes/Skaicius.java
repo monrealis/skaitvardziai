@@ -148,7 +148,7 @@ public class Skaicius {
 	
 	@Override
 	public String toString() {
-		return toString(Linksnis.V);
+		return toString(Linksnis.V, Gimine.V);
 	}
 	
 	private String kuopinis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
@@ -162,12 +162,13 @@ public class Skaicius {
 		
 	}
 	
-	public String toString(Poskyris poskyris, Linksnis linksnis) {
+	public String toString(Poskyris poskyris, Linksnis linksnis, Gimine gimine) {
 		Kontekstas k = new Kontekstas();
 		k.setLinksnis(linksnis);
 		k.setPoskyris(poskyris);
 		k.setSkaicius(reiksme);
 		k.setPradinisSkaicius(reiksme);
+		k.setGimine(gimine);
 		return toString(k);
 	}
 	
@@ -187,8 +188,8 @@ public class Skaicius {
 		return ZodzioInfo.toString(zodziai, kontekstas);
 	}
 	
-	public String toString(Linksnis linksnis) {
-		return toString(Poskyris.Pagrindinis, linksnis);
+	public String toString(Linksnis linksnis, Gimine gimine) {
+		return toString(Poskyris.Pagrindinis, linksnis, gimine);
 	}
 
 }

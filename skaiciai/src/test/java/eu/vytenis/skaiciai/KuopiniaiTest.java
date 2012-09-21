@@ -4,6 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Poskyris;
 import eu.vytenis.skaiciai.esybes.Skaicius;
@@ -11,7 +12,7 @@ import eu.vytenis.skaiciai.esybes.Skaicius;
 public class KuopiniaiTest {
 	
 	private void assertKuopinis(long skaicius, Linksnis linksnis, String tekstas) {
-		Assert.assertEquals(tekstas, new Skaicius(skaicius).toString(Poskyris.Kuopinis, linksnis));
+		Assert.assertEquals(tekstas, new Skaicius(skaicius).toString(Poskyris.Kuopinis, linksnis, Gimine.V));
 	}
 	@Test
 	public void testKuopiniai() {
@@ -100,11 +101,11 @@ public class KuopiniaiTest {
 			Skaicius s = new Skaicius(l);
 			if (l >= 1 && l <= 9) {
 				for (Linksnis linksnis : Linksnis.values()) {
-					s.toString(Poskyris.Kuopinis, linksnis);
+					s.toString(Poskyris.Kuopinis, linksnis, Gimine.V);
 				}
 			} else {
 				try {
-					s.toString(Poskyris.Kuopinis, Linksnis.V);
+					s.toString(Poskyris.Kuopinis, Linksnis.V, Gimine.V);
 					Assert.fail();
 				} catch (IllegalArgumentException e) {
 					// OK

@@ -31,7 +31,11 @@ public class Skaicius {
 		}		
 		if (skaicius == 0 && tikrasSkaicius == 0 || skaicius > 0) {
 			if (poskyris == Poskyris.Pagrindinis) {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius));
+				if (skaicius == 0) {
+					zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, Gimine.V));
+				} else {
+					zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, gimine));
+				}
 			} else if (poskyris == Poskyris.Dauginis) {
 				zodziai.add(ZodzioInfo.getDauginisVns(skaicius));
 			} else if (poskyris == Poskyris.Kelintinis) {
@@ -60,7 +64,7 @@ public class Skaicius {
 			if (poskyris == Poskyris.Kelintinis) {
 				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine, ivardziuotinis));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, Gimine.V));
 			}
 		} else {
 			long vienetai = skaicius % 10;
@@ -71,7 +75,7 @@ public class Skaicius {
 			if (poskyris == Poskyris.Kelintinis && vienetai == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisVns(desimtys * 10, gimine, ivardziuotinis));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(desimtys * 10));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(desimtys * 10, Gimine.V));
 			}
 		}
 	}
@@ -95,16 +99,16 @@ public class Skaicius {
 			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisIvVns(100, gimine));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(100));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(100, Gimine.V));
 			}
 			
 		} else if (simtai > 1) {
 			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisIvVns(100, gimine));
-				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai, Gimine.V)); // ?
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(100));
-				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(100, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai, Gimine.V)); //?
 			}
 		}
 	}
@@ -131,14 +135,14 @@ public class Skaicius {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisIvVns(1000, gimine));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(1000));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(1000, Gimine.V));
 			}			
 		} else if (tukstanciu > 1 && tukstanciu < 100) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisIvVns(1000, gimine));
 				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(1000));
+				zodziai.add(ZodzioInfo.getPagrindinisVns(1000, Gimine.V));
 				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
 			}			
 		} else {

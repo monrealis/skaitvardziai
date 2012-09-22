@@ -12,7 +12,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	KuopiniaiTest.class,	
 	KelintiniaiTest.class,
 	KelintiniaiIvTest.class,
-	PoskyrisTest.class})
+	PoskyrisTest.class,
+	TrupmenosTest.class})
 @RunWith(Suite.class)
 public class SkaiciaiSuite {
 

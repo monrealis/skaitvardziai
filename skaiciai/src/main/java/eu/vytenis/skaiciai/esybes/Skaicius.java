@@ -176,6 +176,7 @@ public class Skaicius {
 		return toString(k);
 	}
 	
+	// TODO gal statinis gali būti?
 	public String toString(Kontekstas kontekstas) {
 		Poskyris poskyris = kontekstas.getPoskyris();
 		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Kuopinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {

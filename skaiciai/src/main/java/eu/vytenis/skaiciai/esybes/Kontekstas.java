@@ -10,14 +10,16 @@ public class Kontekstas implements Cloneable {
 	private Poskyris poskyris = Poskyris.Pagrindinis;
 	/** Skaitvardžio giminė. */
 	private Gimine gimine = Gimine.V;
+	/** Skaitvardžio skaičius. */
+	private Skaicius skaicius = Skaicius.V;
 	/** Skaitvardžio linksnis. */
 	private Linksnis linksnis = Linksnis.V;
 	/** Ar įvardžiuotinė forma.*/
 	private boolean ivardziuotine = false;
 	/** Skaičius, kurį bandoma parašyti, */
-	private long pradinisSkaicius;
+	private long pradinisSveikasSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
-	private long skaicius;
+	private long sveikasSkaicius;
 	
 	public Kontekstas() {
 		
@@ -47,17 +49,17 @@ public class Kontekstas implements Cloneable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
-	public long getPradinisSkaicius() {
-		return pradinisSkaicius;
+	public long getPradinisSveikasSkaicius() {
+		return pradinisSveikasSkaicius;
 	}
-	public void setPradinisSkaicius(long pradinisSkaicius) {
-		this.pradinisSkaicius = pradinisSkaicius;
+	public void setPradinisSveikasSkaicius(long pradinisSkaicius) {
+		this.pradinisSveikasSkaicius = pradinisSkaicius;
 	}
-	public long getSkaicius() {
-		return skaicius;
+	public long getSveikasSkaicius() {
+		return sveikasSkaicius;
 	}
-	public void setSkaicius(long skaicius) {
-		this.skaicius = skaicius;
+	public void setSveikasSkaicius(long skaicius) {
+		this.sveikasSkaicius = skaicius;
 	}
 	
 	/**
@@ -67,7 +69,7 @@ public class Kontekstas implements Cloneable {
 	 */
 	public Kontekstas clone(long naujasSkaicius) {
 		Kontekstas k = clone();
-		k.setSkaicius(naujasSkaicius);
+		k.setSveikasSkaicius(naujasSkaicius);
 		return k;
 	}
 	
@@ -79,8 +81,8 @@ public class Kontekstas implements Cloneable {
 	 */
 	public Kontekstas clone(long naujasSkaicius, long naujasPradinisSkaicius) {
 		Kontekstas k = clone();
-		k.setSkaicius(naujasSkaicius);
-		k.setPradinisSkaicius(naujasPradinisSkaicius);
+		k.setSveikasSkaicius(naujasSkaicius);
+		k.setPradinisSveikasSkaicius(naujasPradinisSkaicius);
 		return k;
 	}
 

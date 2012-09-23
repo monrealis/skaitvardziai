@@ -11,7 +11,7 @@ import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Kontekstas;
 import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Poskyris;
-import eu.vytenis.skaiciai.esybes.Skaicius;
+import eu.vytenis.skaiciai.esybes.SveikasSkaicius;
 
 public class KelintiniaiTest {
 
@@ -20,7 +20,7 @@ public class KelintiniaiTest {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
 			long number = e.getKey().longValue();
-			Skaicius sk = new Skaicius(number);
+			SveikasSkaicius sk = new SveikasSkaicius(number);
 					
 			
 			Kontekstas k = new Kontekstas();
@@ -28,8 +28,8 @@ public class KelintiniaiTest {
 			k.setLinksnis(linksnis);
 			k.setGimine(gimine);
 			k.setIvardziuotine(ivardziuotine);
-			k.setSkaicius(number);
-			k.setPradinisSkaicius(number);
+			k.setSveikasSkaicius(number);
+			k.setPradinisSveikasSkaicius(number);
 			Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
 		}
 	}

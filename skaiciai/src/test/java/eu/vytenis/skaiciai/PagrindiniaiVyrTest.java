@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Linksnis;
-import eu.vytenis.skaiciai.esybes.Skaicius;
+import eu.vytenis.skaiciai.esybes.SveikasSkaicius;
 
 
 public class PagrindiniaiVyrTest {
@@ -18,7 +18,7 @@ public class PagrindiniaiVyrTest {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
 			long number = e.getKey().longValue();
-			Skaicius sk = new Skaicius(number);
+			SveikasSkaicius sk = new SveikasSkaicius(number);
 					
 			Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
 		}
@@ -526,8 +526,8 @@ public class PagrindiniaiVyrTest {
 	
 	@Test
 	public void testOutput() {
-		System.out.println(new Skaicius(2256));
-		System.out.println(new Skaicius(12256));
+		System.out.println(new SveikasSkaicius(2256));
+		System.out.println(new SveikasSkaicius(12256));
 		/*for (int i = 10000; i <= 100000; i+=1000) {
 			System.out.println(new Skaicius(i));
 		}*/

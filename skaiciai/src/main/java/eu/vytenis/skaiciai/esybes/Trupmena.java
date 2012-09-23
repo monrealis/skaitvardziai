@@ -25,15 +25,15 @@ public class Trupmena implements Comparable<Trupmena> {
 	}
 	
 	public String toString(Linksnis linksnis) {
-		Skaicius s = new Skaicius(skaitiklis);
-		Skaicius v = new Skaicius(vardiklis);
+		SveikasSkaicius s = new SveikasSkaicius(skaitiklis);
+		SveikasSkaicius v = new SveikasSkaicius(vardiklis);
 		
 		Kontekstas k = new Kontekstas();
 		k.setPoskyris(Poskyris.Kelintinis);
 		k.setIvardziuotine(true);
 		k.setGimine(Gimine.M);
-		k.setSkaicius(vardiklis);
-		k.setPradinisSkaicius(vardiklis);
+		k.setSveikasSkaicius(vardiklis);
+		k.setPradinisSveikasSkaicius(vardiklis);
 		
 		long liekana = vardiklis / 100;
 		if (liekana == 0) {

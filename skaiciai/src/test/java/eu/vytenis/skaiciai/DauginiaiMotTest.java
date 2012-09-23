@@ -10,14 +10,14 @@ import org.junit.Test;
 import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Poskyris;
-import eu.vytenis.skaiciai.esybes.Skaicius;
+import eu.vytenis.skaiciai.esybes.SveikasSkaicius;
 
 public class DauginiaiMotTest {
 	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
 			long number = e.getKey().longValue();
-			Skaicius sk = new Skaicius(number);
+			SveikasSkaicius sk = new SveikasSkaicius(number);
 					
 			Assert.assertEquals("Invalid text", expected, sk.toString(Poskyris.Dauginis, linksnis, Gimine.M));
 		}

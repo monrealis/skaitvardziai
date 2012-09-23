@@ -7,12 +7,12 @@ import org.junit.Test;
 import eu.vytenis.skaiciai.esybes.Gimine;
 import eu.vytenis.skaiciai.esybes.Linksnis;
 import eu.vytenis.skaiciai.esybes.Poskyris;
-import eu.vytenis.skaiciai.esybes.Skaicius;
+import eu.vytenis.skaiciai.esybes.SveikasSkaicius;
 
 public class KuopiniaiTest {
 	
 	private void assertKuopinis(long skaicius, Linksnis linksnis, String tekstas) {
-		Assert.assertEquals(tekstas, new Skaicius(skaicius).toString(Poskyris.Kuopinis, linksnis, Gimine.V));
+		Assert.assertEquals(tekstas, new SveikasSkaicius(skaicius).toString(Poskyris.Kuopinis, linksnis, Gimine.V));
 	}
 	@Test
 	public void testKuopiniai() {
@@ -98,7 +98,7 @@ public class KuopiniaiTest {
 	@Test
 	public void testNegalimiSkaiciai() {
 		for (long l = -1000L; l <= 1000; ++l) {
-			Skaicius s = new Skaicius(l);
+			SveikasSkaicius s = new SveikasSkaicius(l);
 			if (l >= 1 && l <= 9) {
 				for (Linksnis linksnis : Linksnis.values()) {
 					s.toString(Poskyris.Kuopinis, linksnis, Gimine.V);

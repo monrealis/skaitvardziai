@@ -62,6 +62,14 @@ public class Kontekstas implements Cloneable {
 		this.sveikasSkaicius = skaicius;
 	}
 	
+	public Skaicius getSkaicius() {
+		return skaicius;
+	}
+	
+	public void setSkaicius(Skaicius skaicius) {
+		this.skaicius = skaicius;
+	}
+	
 	/**
 	 * Klonuoja ir pakeičia einamąjį skaičių.
 	 * @param naujasSkaicius naujas einamasis skaičius

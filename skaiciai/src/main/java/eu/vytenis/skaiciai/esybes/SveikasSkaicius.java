@@ -174,14 +174,19 @@ public class SveikasSkaicius {
 		
 	}
 	
-	public String toString(Poskyris poskyris, Linksnis linksnis, Gimine gimine) {
+	public String toString(Poskyris poskyris, Skaicius skaicius, Linksnis linksnis, Gimine gimine) {
 		Kontekstas k = new Kontekstas();
+		k.setSkaicius(skaicius);
 		k.setLinksnis(linksnis);
 		k.setPoskyris(poskyris);
 		k.setSveikasSkaicius(reiksme);
 		k.setPradinisSveikasSkaicius(reiksme);
 		k.setGimine(gimine);
 		return toString(k);
+	}
+	
+	public String toString(Poskyris poskyris, Linksnis linksnis, Gimine gimine) {
+		return toString(poskyris, Skaicius.V, linksnis, gimine);
 	}
 	
 	// TODO gal statinis gali būti?

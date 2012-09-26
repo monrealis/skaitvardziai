@@ -34,13 +34,22 @@ public class Trupmena implements Comparable<Trupmena> {
 		k.setGimine(Gimine.M);
 		k.setSveikasSkaicius(vardiklis);
 		k.setPradinisSveikasSkaicius(vardiklis);
+		k.setSkaicius(Skaicius.D);
 		
-		long liekana = vardiklis / 100;
-		if (liekana == 0) {
-			
-		} else if (liekana == 1) {
-			
+		long liekana100 = skaitiklis % 100;
+		long liekana10 = skaitiklis % 10;
+		if (liekana10 == 0) {
+			k.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
+		} else if (liekana100 > 10 && liekana100 < 20) {
+			k.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
+		} else if (liekana10 == 1) {
+			k.setLinksnis(Linksnis.V); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
 		}
+		
+		if (liekana10 == 1 && liekana100 != 11) {
+			k.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
+		}
+		
 		
 		return s.toString(Linksnis.V, Gimine.M) + " " + v.toString(k);
 	}

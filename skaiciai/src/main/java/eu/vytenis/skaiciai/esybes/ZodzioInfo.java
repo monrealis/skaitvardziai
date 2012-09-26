@@ -3,54 +3,53 @@ package eu.vytenis.skaiciai.esybes;
 import java.util.List;
 
 public class ZodzioInfo {
-	private boolean vns; // TODO turbūt nereikalingas laukas, o gal ir visa klasė?
+	private Skaicius skaicius = Skaicius.V;
 	private Zodis zodis;	
 	
-	public ZodzioInfo(boolean vns, Zodis zodis) {
-		this.vns = vns;
+	public ZodzioInfo(Zodis zodis, Skaicius skaicius) {
+		this.zodis = zodis;
+		this.skaicius = skaicius;
+	}
+	
+	public ZodzioInfo(Zodis zodis) {
 		this.zodis = zodis;
 	}
 	
-	public boolean isVns() {
-		return vns;
+	public Skaicius getSkaicius() {
+		return skaicius;
 	}
 	
 	public Zodis getZodis() {
 		return zodis;
 	}
 	
-	public static ZodzioInfo getPagrindinisVns(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getPagrindinis(long skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getPagrindinis(skaicius, gimine);
-		return new ZodzioInfo(true, zodis);
+		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getPagrindinisDgs(long skaicius, Gimine gimine) {
-		Zodis zodis = Zodis.getPagrindinis(skaicius, gimine);
-		return new ZodzioInfo(false, zodis);
-	}
-	
-	public static ZodzioInfo getDauginisVns(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getDauginis(long skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getDauginis(skaicius, gimine);
-		return new ZodzioInfo(true, zodis);
+		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getKelintinisVns(long skaicius, Gimine gimine, boolean ivardziuotinis) {
+	public static ZodzioInfo getKelintinis(long skaicius, Gimine gimine, boolean ivardziuotinis) {
 		Zodis zodis = Zodis.getKelintinis(skaicius, gimine, ivardziuotinis);
-		return new ZodzioInfo(true, zodis);
+		return new ZodzioInfo(zodis);
 	}
 
-	public static ZodzioInfo getKelintinisIvVns(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getKelintinisIv(long skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getKelintinisIv(skaicius, gimine);
-		return new ZodzioInfo(true, zodis);
+		return new ZodzioInfo(zodis);
 	}
 
 	
-	public static ZodzioInfo getKuopinisVns(long skaicius) {
+	public static ZodzioInfo getKuopinis(long skaicius) {
 		Zodis zodis = Zodis.getKuopinis(skaicius);
 		if (zodis == null) {
 			return null;
 		}
-		return new ZodzioInfo(true, zodis);
+		return new ZodzioInfo(zodis);
 	}
 	
 	public static String toString(List<? extends ZodzioInfo> zodziai, Kontekstas kontekstas) {

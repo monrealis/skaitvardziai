@@ -1,3 +1,4 @@
+
 package eu.vytenis.skaiciai.esybes;
 
 import java.util.ArrayList;
@@ -32,14 +33,14 @@ public class SveikasSkaicius {
 		if (skaicius == 0 && tikrasSkaicius == 0 || skaicius > 0) {
 			if (poskyris == Poskyris.Pagrindinis) {
 				if (skaicius == 0) {
-					zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, Gimine.V));
+					zodziai.add(ZodzioInfo.getPagrindinis(skaicius, Gimine.V));
 				} else {
-					zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, gimine));
+					zodziai.add(ZodzioInfo.getPagrindinis(skaicius, gimine));
 				}
 			} else if (poskyris == Poskyris.Dauginis) {
-				zodziai.add(ZodzioInfo.getDauginisVns(skaicius, gimine));
+				zodziai.add(ZodzioInfo.getDauginis(skaicius, gimine));
 			} else if (poskyris == Poskyris.Kelintinis) {
-				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine, (skaicius != 0 ? ivardziuotinis : false)));
+				zodziai.add(ZodzioInfo.getKelintinis(skaicius, gimine, (skaicius != 0 ? ivardziuotinis : false)));
 			} else {
 				throw new IllegalArgumentException();
 			}
@@ -62,9 +63,9 @@ public class SveikasSkaicius {
 			vienzenklis(zodziai, kontekstas);
 		} else if (skaicius < 20) {
 			if (poskyris == Poskyris.Kelintinis) {
-				zodziai.add(ZodzioInfo.getKelintinisVns(skaicius, gimine, ivardziuotinis));
+				zodziai.add(ZodzioInfo.getKelintinis(skaicius, gimine, ivardziuotinis));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(skaicius, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(skaicius, Gimine.V));
 			}
 		} else {
 			long vienetai = skaicius % 10;
@@ -73,9 +74,9 @@ public class SveikasSkaicius {
 			
 			vienzenklis(zodziai, kontekstas.clone(vienetai));
 			if (poskyris == Poskyris.Kelintinis && vienetai == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisVns(desimtys * 10, gimine, ivardziuotinis));
+				zodziai.add(ZodzioInfo.getKelintinis(desimtys * 10, gimine, ivardziuotinis));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(desimtys * 10, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(desimtys * 10, Gimine.V));
 			}
 		}
 	}
@@ -97,18 +98,18 @@ public class SveikasSkaicius {
 		long liekana = skaicius % 100;
 		if (simtai == 1) {
 			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIvVns(100, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisIv(100, gimine));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(100, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(100, Gimine.V));
 			}
 			
 		} else if (simtai > 1) {
 			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIvVns(100, gimine));
-				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai, Gimine.V)); // ?
+				zodziai.add(ZodzioInfo.getKelintinisIv(100, gimine));
+				zodziai.add(ZodzioInfo.getPagrindinis(simtai, Gimine.V)); // ?
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(100, Gimine.V));
-				zodziai.add(ZodzioInfo.getPagrindinisVns(simtai, Gimine.V)); //?
+				zodziai.add(ZodzioInfo.getPagrindinis(100, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(simtai, Gimine.V)); //?
 			}
 		}
 	}
@@ -133,16 +134,16 @@ public class SveikasSkaicius {
 			// nieko
 		} else if (tukstanciu == 1) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIvVns(1000, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisIv(1000, gimine));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(1000, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(1000, Gimine.V));
 			}			
 		} else if (tukstanciu > 1 && tukstanciu < 100) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIvVns(1000, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisIv(1000, gimine));
 				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinisVns(1000, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(1000, Gimine.V));
 				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
 			}			
 		} else {
@@ -157,7 +158,7 @@ public class SveikasSkaicius {
 	
 	private String kuopinis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
 		long skaicius = kontekstas.getSveikasSkaicius();
-		ZodzioInfo z = ZodzioInfo.getKuopinisVns(skaicius);
+		ZodzioInfo z = ZodzioInfo.getKuopinis(skaicius);
 		if (z == null) {
 			throw new IllegalArgumentException(skaicius + " is invalid value");
 		}

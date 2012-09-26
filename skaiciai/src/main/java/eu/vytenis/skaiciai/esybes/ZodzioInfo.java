@@ -33,14 +33,14 @@ public class ZodzioInfo {
 		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getKelintinis(long skaicius, Gimine gimine, boolean ivardziuotinis) {
-		Zodis zodis = Zodis.getKelintinis(skaicius, gimine, ivardziuotinis);
-		return new ZodzioInfo(zodis);
+	public static ZodzioInfo getKelintinis(long sveikasSkaicius, Skaicius skaicius, Gimine gimine, boolean ivardziuotinis) {
+		Zodis zodis = Zodis.getKelintinis(sveikasSkaicius, gimine, ivardziuotinis);
+		return new ZodzioInfo(zodis, skaicius);
 	}
 
-	public static ZodzioInfo getKelintinisIv(long skaicius, Gimine gimine) {
-		Zodis zodis = Zodis.getKelintinisIv(skaicius, gimine);
-		return new ZodzioInfo(zodis);
+	public static ZodzioInfo getKelintinisIv(long sveikasSkaicius, Skaicius skaicius, Gimine gimine) {
+		Zodis zodis = Zodis.getKelintinisIv(sveikasSkaicius, gimine);
+		return new ZodzioInfo(zodis, skaicius);
 	}
 
 	
@@ -57,7 +57,8 @@ public class ZodzioInfo {
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
 		boolean kelintinis = kontekstas.getPoskyris() == Poskyris.Kelintinis;
-		//boolean vns = true;
+		Skaicius skaicius = kontekstas.getSkaicius();
+		boolean vns = skaicius == Skaicius.V;
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);
@@ -81,7 +82,7 @@ public class ZodzioInfo {
 			} else if (!paskutinis && kelintinis) {
 				s = zodis.toString(true, Linksnis.V); // pvz., "_šimtas_ pirmojo"
 			} else {
-				s = zodis.toString(true, linksnis); // pvz., "dvidešimt _vieną_"
+				s = zodis.toString(vns, linksnis); // pvz., "dvidešimt _vieną_"
 			}
 			r.append(s);
 			

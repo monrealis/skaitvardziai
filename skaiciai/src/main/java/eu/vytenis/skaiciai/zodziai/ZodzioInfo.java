@@ -8,8 +8,14 @@ import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
 
+/**
+ * Žodžio ir skaičiaus (vienaskaitos/daugiskaitos) dvejetas.
+ *
+ */
 public class ZodzioInfo {
+	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius = Skaicius.V;
+	/** Žodis. */
 	private Zodis zodis;	
 	
 	public ZodzioInfo(Zodis zodis, Skaicius skaicius) {
@@ -58,6 +64,14 @@ public class ZodzioInfo {
 		return new ZodzioInfo(zodis);
 	}
 	
+	/**
+	 * Pagal perduotus parametrus ir atrinktų žodžių sąrašą suformuoja 
+	 * skaitvardį iš vieno ar daugiau tinkamų formų nedalomų skaitvardžių.
+	 * (pvz, "dvidešimt pirmą" iš žodžių "dvidešimt", "pirmas" ir parametrų "kelintinis, galininkas".
+	 * @param zodziai žodžių sąrašas
+	 * @param kontekstas parametrų objektas
+	 * @return skaitvardis
+	 */
 	public static String toString(List<? extends ZodzioInfo> zodziai, Kontekstas kontekstas) {
 		Linksnis linksnis = kontekstas.getLinksnis();
 		StringBuilder r = new StringBuilder();

@@ -8,11 +8,17 @@ import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
 import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
 
 
+/**
+ * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
+ *
+ */
 public class Zodis {
-
+	/** Žurnalas. */
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
+	/** Žodžio vienaskaitos linksniai (arba daugiskaitos, jei žodis turi tik daugiskaitą). */
 	private Map<Linksnis, String> vienaskaita = new HashMap<Linksnis, String>();
+	/** Jei žodis turi ir vienaskaitą, ir daugiskaitą - daugiskaitos linksniai. */
 	private Map<Linksnis, String> daugiskaita = new HashMap<Linksnis, String>();
 	
 	private boolean kitasVns = true;
@@ -29,34 +35,31 @@ public class Zodis {
 	 */
 	private boolean nekaitomasLinksniuojant;
 	
-	private static final Map<Long, Zodis> skaiciaiMotGim = new HashMap<Long, Zodis>();
-	private static final Map<Long, Zodis> skaiciai = new HashMap<Long, Zodis>();
+	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	
+	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
+	private static final Map<Long, Zodis> pagrindiniaiMotGim = new HashMap<Long, Zodis>();
+	/** Pagrindiniai skaitvardžiai (vyriškos giminės). */
+	private static final Map<Long, Zodis> pagrindiniaiVyrGim = new HashMap<Long, Zodis>();
+	
+	/** Kuopiniai skaitvardžiai.*/
 	private static final Map<Long, Zodis> kuopiniai = new HashMap<Long, Zodis>();
 	
+	/** Dauginiai skaitvardžiai (moteriškos giminės). */
 	private static final Map<Long, Zodis> dauginiaiMotGim = new HashMap<Long, Zodis>();
-	private static final Map<Long, Zodis> dauginiai = new HashMap<Long, Zodis>();
+	/** Dauginiai skaitvardžiai (vyriškos giminės). */
+	private static final Map<Long, Zodis> dauginiaiVyrGim = new HashMap<Long, Zodis>();
 	
-	private static final Map<Long, Zodis> kelintiniai = new HashMap<Long, Zodis>();
-	private static final Map<Long, Zodis> kelintiniaiIv = new HashMap<Long, Zodis>(); // įvardžiuotinės formos
+	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
+	private static final Map<Long, Zodis> kelintiniaiVyrGim = new HashMap<Long, Zodis>();
+	/** Įvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
+	private static final Map<Long, Zodis> kelintiniaiIvVyrGim = new HashMap<Long, Zodis>();
+	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
 	private static final Map<Long, Zodis> kelintiniaiMotGim = new HashMap<Long, Zodis>();
+	/** Įvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
 	private static final Map<Long, Zodis> kelintiniaiIvMotGim = new HashMap<Long, Zodis>();
-	
-	
-	
-	public Zodis() {
-		
-	}
-	
-	public Zodis(String vnsV) {
-		vienaskaita.put(Linksnis.V, vnsV);
-	}
-	
-	public Zodis(String vnsV, String dgsV) {
-		vienaskaita.put(Linksnis.V, vnsV);
-		daugiskaita.put(Linksnis.V, dgsV);
-	}
-	
+
+
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
 		vienaskaita.put(Linksnis.V, vnsV);
 		vienaskaita.put(Linksnis.K, vnsK);
@@ -162,51 +165,48 @@ public class Zodis {
 
 
 	static {
-		// TODO moteriška giminė (pvz., penki ir penkios)
-		// TODO žodžio konstruktorius kviečiamas, perduodant vienaskaitines reikšmes, nors iš tikrųjų yra daugiskaitinės
+		pagrindiniaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
+		pagrindiniaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgsVard());
+		pagrindiniaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgsVard());
+		pagrindiniaiMotGim.put(4L, new Zodis("keturios", "keturių", "keturioms", "keturias", "keturiomis", "keturiose", "keturios").kitasDgsVard());
+		pagrindiniaiMotGim.put(5L, new Zodis("penkios", "penkių", "penkioms", "penkias", "penkiomis", "penkiose", "penkios").kitasDgsVard());
+		pagrindiniaiMotGim.put(6L, new Zodis("šešios", "šešių", "šešioms", "šešias", "šešiomis", "šešiose", "šešios").kitasDgsVard());
+		pagrindiniaiMotGim.put(7L, new Zodis("septynios", "septynių", "septynioms", "septynias", "septyniomis", "septyniose", "septynios").kitasDgsVard());
+		pagrindiniaiMotGim.put(8L, new Zodis("aštuonios", "aštuonių", "aštuonioms", "aštuonias", "aštuoniomis", "aštuoniose", "aštuonios").kitasDgsVard());
+		pagrindiniaiMotGim.put(9L, new Zodis("devynios", "devynių", "devynioms", "devynias", "devyniomis", "devyniose", "devynios").kitasDgsVard());
 		
-		skaiciaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
-		skaiciaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgsVard());
-		skaiciaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgsVard());
-		skaiciaiMotGim.put(4L, new Zodis("keturios", "keturių", "keturioms", "keturias", "keturiomis", "keturiose", "keturios").kitasDgsVard());
-		skaiciaiMotGim.put(5L, new Zodis("penkios", "penkių", "penkioms", "penkias", "penkiomis", "penkiose", "penkios").kitasDgsVard());
-		skaiciaiMotGim.put(6L, new Zodis("šešios", "šešių", "šešioms", "šešias", "šešiomis", "šešiose", "šešios").kitasDgsVard());
-		skaiciaiMotGim.put(7L, new Zodis("septynios", "septynių", "septynioms", "septynias", "septyniomis", "septyniose", "septynios").kitasDgsVard());
-		skaiciaiMotGim.put(8L, new Zodis("aštuonios", "aštuonių", "aštuonioms", "aštuonias", "aštuoniomis", "aštuoniose", "aštuonios").kitasDgsVard());
-		skaiciaiMotGim.put(9L, new Zodis("devynios", "devynių", "devynioms", "devynias", "devyniomis", "devyniose", "devynios").kitasDgsVard());
-		
-		skaiciai.put(0L, new Zodis("nulis", "nulio", "nuliui", "nulį", "nuliu", "nulyje", "nuli").kitasDgsKilm());		
-		skaiciai.put(1L, new Zodis("vienas", "vieno", "vienam", "vieną", "vienu", "viename", "vienas", "vieni", "vienų", "vieniems", "vienus", "vienais", "vienuose", "vieni")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html		
-		skaiciai.put(2L, new Zodis("du", "dviejų", "dviem" /* geriau nei "dviems" */, "du", "dviem", "dviejuose", "du").kitasDgsVard());		
-		skaiciai.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijuose", "trys").kitasDgsVard());		
-		skaiciai.put(4L, new Zodis("keturi", "keturių", "keturiems", "keturis", "keturiais", "keturiuose", "keturi").kitasDgsVard());		
-		skaiciai.put(5L, new Zodis("penki", "penkių", "penkiems", "penkis", "penkiais", "penkiuose", "penki").kitasDgsVard());		
-		skaiciai.put(6L, new Zodis("šeši", "šešių", "šešiems", "šešis", "šešiais", "šešiuose", "šeši").kitasDgsVard());		
-		skaiciai.put(7L, new Zodis("septyni", "septynių", "septyniems", "septynis", "septyniais", "septyniuose", "septyni").kitasDgsVard());		
-		skaiciai.put(8L, new Zodis("aštuoni", "aštuonių", "aštuoniems", "aštuonis", "aštuoniais", "aštuoniuose", "aštuoni").kitasDgsVard());		
-		skaiciai.put(9L, new Zodis("devyni", "devynių", "devyniems", "devynis", "devyniais", "devyniuose", "devyni").kitasDgsVard());
-		skaiciai.put(10L, new Zodis("dešimt", "dešimties", "dešimčiai", "dešimt", "dešimčia", "dešimtyje", "dešimt").kitasDgsKilm());	// http://ualgiman.dtiltas.lt/skaitvardis.html
-		skaiciai.put(11L, new Zodis("vienuolika", "vienuolikos", "vienuolikai", "vienuolika", "vienuolika", "vienuolikoje", "vienuolika").kitasDgsKilm());
-		skaiciai.put(12L, new Zodis("dvylika", "dvylikos", "dvylikai", "dvylika", "dvylika", "dvylikoje", "dvylika").kitasDgsKilm());
-		skaiciai.put(13L, new Zodis("trylika", "trylikos", "trylikai", "trylika", "trylika", "trylikoje", "trylika").kitasDgsKilm());
-		skaiciai.put(14L, new Zodis("keturiolika", "keturiolikos", "keturiolikai", "keturiolika", "keturiolika", "keturiolikoje", "keturiolika").kitasDgsKilm());
-		skaiciai.put(15L, new Zodis("penkiolika", "penkiolikos", "penkiolikai", "penkiolika", "penkiolika", "penkiolikoje", "penkiolika").kitasDgsKilm());
-		skaiciai.put(16L, new Zodis("šešiolika", "šešiolikos", "šešiolikai", "šešiolika", "šešiolika", "šešiolikoje", "šešiolika").kitasDgsKilm());
-		skaiciai.put(17L, new Zodis("septyniolika", "septyniolikos", "septyniolikai", "septyniolika", "septyniolika", "septyniolikoje", "septyniolika").kitasDgsKilm());
-		skaiciai.put(18L, new Zodis("aštuoniolika", "aštuoniolikos", "aštuoniolikai", "aštuoniolika", "aštuoniolika", "aštuoniolikoje", "aštuoniolika").kitasDgsKilm());
-		skaiciai.put(19L, new Zodis("devyniolika", "devyniolikos", "devyniolikai", "devyniolika", "devyniolika", "devyniolikoje", "devyniolika").kitasDgsKilm());
-		skaiciai.put(20L, new Zodis("dvidešimt", "dvidešimties", "dvidešimčiai", "dvidešimt", "dvidešimčia", "dvidešimtyje", "dvidešimt").kitasDgsKilm().nekaitomasLinksniuojant());		
-		skaiciai.put(30L, new Zodis("trisdešimt", "trisdešimties", "trisdešimčiai", "trisdešimt", "trisdešimčia", "trisdešimtyje", "trisdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
-		skaiciai.put(40L, new Zodis("keturiasdešimt", "keturiasdešimties", "keturiasdešimčiai", "keturiasdešimt", "keturiasdešimčia", "keturiasdešimtyje", "keturiasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
-		skaiciai.put(50L, new Zodis("penkiasdešimt", "penkiasdešimties", "penkiasdešimčiai", "penkiasdešimt", "penkiasdešimčia", "penkiasdešimtyje", "penkiasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
-		skaiciai.put(60L, new Zodis("šešiasdešimt", "šešiasdešimties", "šešiasdešimčiai", "šešiasdešimt", "šešiasdešimčia", "šešiasdešimtyje", "šešiasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
-		skaiciai.put(70L, new Zodis("septyniasdešimt", "septyniasdešimties", "septyniasdešimčiai", "septyniasdešimt", "septyniasdešimčia", "septyniasdešimtyje", "septyniasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
-		skaiciai.put(80L, new Zodis("aštuoniasdešimt", "aštuoniasdešimties", "aštuoniasdešimčiai", "aštuoniasdešimt", "aštuoniasdešimčia", "aštuoniasdešimtyje", "aštuoniasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
-		skaiciai.put(90L, new Zodis("devyniasdešimt", "devyniasdešimties", "devyniasdešimčiai", "devyniasdešimt", "devyniasdešimčia", "devyniasdešimtyje", "devyniasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());		
-		skaiciai.put(100L, new Zodis("šimtas", "šimto", "šimtui", "šimtą", "šimtu", "šimte", "šimte", "šimtai", "šimtų", "šimtams", "šimtus", "šimtais", "šimtuose", "šimtai").kitasDgsKilm().valdomas());		
-		skaiciai.put(1000L, new Zodis("tūkstantis", "tūkstančio", "tūkstančiui", "tūkstantį", "tūkstančiu", "tūkstantyje", "tūkstanti", "tūkstančiai", "tūkstančių", "tūkstančiams", "tūkstančius", "tūkstančiais", "tūkstančiuose", "tūkstančiai").kitasDgsKilm().valdomas());
-		skaiciai.put(1000000L, new Zodis("milijonas", "milijono", "milijonui", "milijoną", "milijonu", "milijone", "milijone", "milijonai", "milijonų", "milijonams", "milijonus", "milijonais", "milijonuose", "milijonai").kitasDgsKilm().valdomas());
-		skaiciai.put(1000000000L, new Zodis("milijardas", "milijardo", "milijardui", "milijardą", "milijardu", "milijarde", "milijarde", "milijardai", "milijardų", "milijardams", "milijardus", "milijardais", "milijarduose", "milijardai").kitasDgsKilm().valdomas());
+		pagrindiniaiVyrGim.put(0L, new Zodis("nulis", "nulio", "nuliui", "nulį", "nuliu", "nulyje", "nuli").kitasDgsKilm());		
+		pagrindiniaiVyrGim.put(1L, new Zodis("vienas", "vieno", "vienam", "vieną", "vienu", "viename", "vienas", "vieni", "vienų", "vieniems", "vienus", "vienais", "vienuose", "vieni")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html		
+		pagrindiniaiVyrGim.put(2L, new Zodis("du", "dviejų", "dviem" /* geriau nei "dviems" */, "du", "dviem", "dviejuose", "du").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijuose", "trys").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(4L, new Zodis("keturi", "keturių", "keturiems", "keturis", "keturiais", "keturiuose", "keturi").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(5L, new Zodis("penki", "penkių", "penkiems", "penkis", "penkiais", "penkiuose", "penki").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(6L, new Zodis("šeši", "šešių", "šešiems", "šešis", "šešiais", "šešiuose", "šeši").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(7L, new Zodis("septyni", "septynių", "septyniems", "septynis", "septyniais", "septyniuose", "septyni").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(8L, new Zodis("aštuoni", "aštuonių", "aštuoniems", "aštuonis", "aštuoniais", "aštuoniuose", "aštuoni").kitasDgsVard());		
+		pagrindiniaiVyrGim.put(9L, new Zodis("devyni", "devynių", "devyniems", "devynis", "devyniais", "devyniuose", "devyni").kitasDgsVard());
+		pagrindiniaiVyrGim.put(10L, new Zodis("dešimt", "dešimties", "dešimčiai", "dešimt", "dešimčia", "dešimtyje", "dešimt").kitasDgsKilm());	// http://ualgiman.dtiltas.lt/skaitvardis.html
+		pagrindiniaiVyrGim.put(11L, new Zodis("vienuolika", "vienuolikos", "vienuolikai", "vienuolika", "vienuolika", "vienuolikoje", "vienuolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(12L, new Zodis("dvylika", "dvylikos", "dvylikai", "dvylika", "dvylika", "dvylikoje", "dvylika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(13L, new Zodis("trylika", "trylikos", "trylikai", "trylika", "trylika", "trylikoje", "trylika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(14L, new Zodis("keturiolika", "keturiolikos", "keturiolikai", "keturiolika", "keturiolika", "keturiolikoje", "keturiolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(15L, new Zodis("penkiolika", "penkiolikos", "penkiolikai", "penkiolika", "penkiolika", "penkiolikoje", "penkiolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(16L, new Zodis("šešiolika", "šešiolikos", "šešiolikai", "šešiolika", "šešiolika", "šešiolikoje", "šešiolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(17L, new Zodis("septyniolika", "septyniolikos", "septyniolikai", "septyniolika", "septyniolika", "septyniolikoje", "septyniolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(18L, new Zodis("aštuoniolika", "aštuoniolikos", "aštuoniolikai", "aštuoniolika", "aštuoniolika", "aštuoniolikoje", "aštuoniolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(19L, new Zodis("devyniolika", "devyniolikos", "devyniolikai", "devyniolika", "devyniolika", "devyniolikoje", "devyniolika").kitasDgsKilm());
+		pagrindiniaiVyrGim.put(20L, new Zodis("dvidešimt", "dvidešimties", "dvidešimčiai", "dvidešimt", "dvidešimčia", "dvidešimtyje", "dvidešimt").kitasDgsKilm().nekaitomasLinksniuojant());		
+		pagrindiniaiVyrGim.put(30L, new Zodis("trisdešimt", "trisdešimties", "trisdešimčiai", "trisdešimt", "trisdešimčia", "trisdešimtyje", "trisdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
+		pagrindiniaiVyrGim.put(40L, new Zodis("keturiasdešimt", "keturiasdešimties", "keturiasdešimčiai", "keturiasdešimt", "keturiasdešimčia", "keturiasdešimtyje", "keturiasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
+		pagrindiniaiVyrGim.put(50L, new Zodis("penkiasdešimt", "penkiasdešimties", "penkiasdešimčiai", "penkiasdešimt", "penkiasdešimčia", "penkiasdešimtyje", "penkiasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
+		pagrindiniaiVyrGim.put(60L, new Zodis("šešiasdešimt", "šešiasdešimties", "šešiasdešimčiai", "šešiasdešimt", "šešiasdešimčia", "šešiasdešimtyje", "šešiasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
+		pagrindiniaiVyrGim.put(70L, new Zodis("septyniasdešimt", "septyniasdešimties", "septyniasdešimčiai", "septyniasdešimt", "septyniasdešimčia", "septyniasdešimtyje", "septyniasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
+		pagrindiniaiVyrGim.put(80L, new Zodis("aštuoniasdešimt", "aštuoniasdešimties", "aštuoniasdešimčiai", "aštuoniasdešimt", "aštuoniasdešimčia", "aštuoniasdešimtyje", "aštuoniasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());
+		pagrindiniaiVyrGim.put(90L, new Zodis("devyniasdešimt", "devyniasdešimties", "devyniasdešimčiai", "devyniasdešimt", "devyniasdešimčia", "devyniasdešimtyje", "devyniasdešimt").kitasDgsKilm().nekaitomasLinksniuojant());		
+		pagrindiniaiVyrGim.put(100L, new Zodis("šimtas", "šimto", "šimtui", "šimtą", "šimtu", "šimte", "šimte", "šimtai", "šimtų", "šimtams", "šimtus", "šimtais", "šimtuose", "šimtai").kitasDgsKilm().valdomas());		
+		pagrindiniaiVyrGim.put(1000L, new Zodis("tūkstantis", "tūkstančio", "tūkstančiui", "tūkstantį", "tūkstančiu", "tūkstantyje", "tūkstanti", "tūkstančiai", "tūkstančių", "tūkstančiams", "tūkstančius", "tūkstančiais", "tūkstančiuose", "tūkstančiai").kitasDgsKilm().valdomas());
+		pagrindiniaiVyrGim.put(1000000L, new Zodis("milijonas", "milijono", "milijonui", "milijoną", "milijonu", "milijone", "milijone", "milijonai", "milijonų", "milijonams", "milijonus", "milijonais", "milijonuose", "milijonai").kitasDgsKilm().valdomas());
+		pagrindiniaiVyrGim.put(1000000000L, new Zodis("milijardas", "milijardo", "milijardui", "milijardą", "milijardu", "milijarde", "milijarde", "milijardai", "milijardų", "milijardams", "milijardus", "milijardais", "milijarduose", "milijardai").kitasDgsKilm().valdomas());
 		
 		kuopiniai.put(1L, new Zodis("vienetas", "vieneto", "vienetui", "vienetą", "vienetu", "vienete", "vienete")); // Ne visai tinka, bet tegul būna
 		kuopiniai.put(2L, new Zodis("dvejetas", "dvejeto", "dvejetui", "dvejetą", "dvejetu", "dvejete", "dvejete"));
@@ -228,45 +228,45 @@ public class Zodis {
 		dauginiaiMotGim.put(8L, new Zodis("aštuonerios", "aštuonerių", "aštuonerioms", "aštuonerias", "aštuoneriomis", "aštuoneriose", "aštuonerios"));
 		dauginiaiMotGim.put(9L, new Zodis("devynerios", "devynerių", "devynerioms", "devynerias", "devyneriomis", "devyneriose", "devynerios"));
 		
-		dauginiai.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri")); // http://ualgiman.dtiltas.lt/skaitvardis.html
-		dauginiai.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji"));
-		dauginiai.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji"));
-		dauginiai.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri"));
-		dauginiai.put(5L, new Zodis("penkeri", "penkerių", "penkeriems", "penkerius", "penkeriais", "penkeriuose", "penkeri"));
-		dauginiai.put(6L, new Zodis("šešeri", "šešerių", "šešeriems", "šešerius", "šešeriais", "šešeriuose", "šešeri"));
-		dauginiai.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri"));
-		dauginiai.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri"));
-		dauginiai.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri"));
+		dauginiaiVyrGim.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri")); // http://ualgiman.dtiltas.lt/skaitvardis.html
+		dauginiaiVyrGim.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji"));
+		dauginiaiVyrGim.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji"));
+		dauginiaiVyrGim.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri"));
+		dauginiaiVyrGim.put(5L, new Zodis("penkeri", "penkerių", "penkeriems", "penkerius", "penkeriais", "penkeriuose", "penkeri"));
+		dauginiaiVyrGim.put(6L, new Zodis("šešeri", "šešerių", "šešeriems", "šešerius", "šešeriais", "šešeriuose", "šešeri"));
+		dauginiaiVyrGim.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri"));
+		dauginiaiVyrGim.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri"));
+		dauginiaiVyrGim.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri"));
 		
 		// TODO perskaityti
-		kelintiniai.put(0L, new Zodis("nulinis", "nulinio", "nuliniui", "nulinį", "nuliniu", "nulinyje", "nulini", "nuliniai", "nulinių", "nuliniams", "nulinius", "nuliniais", "nuliniuose", "nuliniai"));
-		kelintiniai.put(1L, new Zodis("pirmas", "pirmo", "pirmam", "pirmą", "pirmu", "pirmame", "pirmas", "pirmi", "pirmų", "pirmiems", "pirmus", "pirmais", "pirmuose", "pirmi"));
-		kelintiniai.put(2L, new Zodis("antras", "antro", "antram", "antrą", "antru", "antrame", "antras", "antri", "antrų", "antriems", "antrus", "antrais", "antruose", "antri"));
-		kelintiniai.put(3L, new Zodis("trečias", "trečio", "trečiam", "trečią", "trečiu", "trečiame", "trečias", "treti", "trečių", "trečiems", "trečius", "trečiais", "trečiuose", "treti"));
-		kelintiniai.put(4L, new Zodis("ketvirtas", "ketvirto", "ketvirtam", "ketvirtą", "ketvirtu", "ketvirtame", "ketvirtas", "ketvirti", "ketvirtų", "ketvirtiems", "ketvirtus", "ketvirtais", "ketvirtuose", "ketvirti"));
-		kelintiniai.put(5L, new Zodis("penktas", "penkto", "penktam", "penktą", "penktu", "penktame", "penktas", "penkti", "penktų", "penktiems", "penktus", "penktais", "penktuose", "penkti"));
-		kelintiniai.put(6L, new Zodis("šeštas", "šešto", "šeštam", "šeštą", "šeštu", "šeštame", "šeštas", "šešti", "šeštų", "šeštiems", "šeštus", "šeštiems", "šeštuose", "šešti"));
-		kelintiniai.put(7L, new Zodis("septintas", "septinto", "septintam", "septintą", "septintu", "septintame", "septintas", "septinti", "septintų", "septintiems", "septintus", "septintiems", "septintuose", "septinti"));
-		kelintiniai.put(8L, new Zodis("aštuntas", "aštunto", "aštuntam", "aštuntą", "aštuntu", "aštuntame", "aštuntas", "aštunti", "aštuntų", "aštuntiems", "aštuntus", "aštuntais", "aštuntuose", "aštunti"));
-		kelintiniai.put(9L, new Zodis("devintas", "devinto", "devintam", "devintą", "devintu", "devintame", "devintas", "devinti", "devintų", "devintiems", "devintus", "devintais", "devintuose", "devinti"));
-		kelintiniai.put(10L, new Zodis("dešimtas", "dešimto", "dešimtam", "dešimtą", "dešimtu", "dešimtame", "dešimtas", "dešimti", "dešimtų", "dešimtiems", "dešimtus", "dešimtais", "dešimtuose", "dešimti"));
-		kelintiniai.put(11L, new Zodis("vienuoliktas", "vienuolikto", "vienuoliktam", "vienuoliktą", "vienuoliktu", "vienuoliktame", "vienuoliktas", "vienuolikti", "vienuoliktų", "vienuoliktiems", "vienuoliktus", "vienuoliktais", "vienuoliktuose", "vienuolikti"));
-		kelintiniai.put(12L, new Zodis("dvyliktas", "dvylikto", "dvyliktam", "dvyliktą", "dvyliktu", "dvyliktame", "dvyliktas", "dvylikti", "dvyliktų", "dvyliktiems", "dvyliktus", "dvyliktais", "dvyliktuose", "dvylikti"));
-		kelintiniai.put(13L, new Zodis("tryliktas", "trylikto", "tryliktam", "tryliktą", "tryliktu", "tryliktame", "tryliktas", "trylikti", "tryliktų", "tryliktiems", "tryliktus", "tryliktais", "tryliktuose", "trylikti"));
-		kelintiniai.put(14L, new Zodis("keturioliktas", "keturiolikto", "keturioliktam", "keturioliktą", "keturioliktais", "keturioliktuose", "keturioliktas", "keturiolikti", "keturioliktų", "keturioliktiems", "keturioliktus", "keturioliktais", "keturioliktuose", "keturiolikti"));
-		kelintiniai.put(15L, new Zodis("penkioliktas", "penkiolikto", "penkioliktam", "penkioliktą", "penkioliktu", "penkioliktame", "penkioliktas", "penkiolikti", "penkioliktų", "penkioliktiems", "penkioliktus", "penkioliktais", "penkioliktuose", "penkiolikti"));
-		kelintiniai.put(16L, new Zodis("šešioliktas", "šešiolikto", "šešioliktam", "šešioliktą", "šešioliktu", "šešioliktame", "šešioliktas", "šešiolikti", "šešioliktų", "šešioliktiems", "šešioliktus", "šešioliktais", "šešioliktuose", "šešiolikti"));
-		kelintiniai.put(17L, new Zodis("septynioliktas", "septyniolikto", "septynioliktam", "septynioliktą", "septynioliktu", "septynioliktame", "septynioliktas", "septyniolikti", "septynioliktų", "septynioliktiems", "septynioliktus", "septynioliktais", "septynioliktuose", "septyniolikti"));
-		kelintiniai.put(18L, new Zodis("aštuonioliktas", "aštuoniolikto", "aštuonioliktam", "aštuonioliktą", "aštuonioliktu", "aštuonioliktame", "aštuonioliktas", "aštuoniolikti", "aštuonioliktų", "aštuonioliktiems", "aštuonioliktus", "aštuonioliktais", "aštuonioliktuose", "aštuoniolikti"));
-		kelintiniai.put(19L, new Zodis("devynioliktas", "devyniolikto", "devynioliktam", "devynioliktą", "devynioliktu", "devynioliktame", "devynioliktas", "devyniolikti", "devynioliktų", "devynioliktiems", "devynioliktus", "devynioliktais", "devynioliktuose", "devyniolikti"));
-		kelintiniai.put(20L, new Zodis("dvidešimtas", "dvidešimto", "dvidešimtam", "dvidešimtą", "dvidešimtu", "dvidešimtame", "dvidešimtas", "dvidešimti", "dvidešimtų", "dvidešimtiems", "dvidešimtus", "dvidešimtais", "dvidešimtuose", "dvidešimti"));		
-		kelintiniai.put(30L, new Zodis("trisdešimtas", "trisdešimto", "trisdešimtam", "trisdešimtą", "trisdešimtu", "trisdešimtame", "trisdešimtas", "trisdešimti", "trisdešimtų", "trisdešimtiems", "trisdešimtus", "trisdešimtais", "trisdešimtuose", "trisdešimti"));
-		kelintiniai.put(40L, new Zodis("keturiasdešimtas", "keturiasdešimto", "keturiasdešimtam", "keturiasdešimtą", "keturiasdešimtu", "keturiasdešimtame", "keturiasdešimtas", "keturiasdešimti", "keturiasdešimtų", "keturiasdešimtiems", "keturiasdešimtus", "keturiasdešimtais", "keturiasdešimtuose", "keturiasdešimti"));
-		kelintiniai.put(50L, new Zodis("penkiasdešimtas", "penkiasdešimto", "penkiasdešimtam", "penkiasdešimtą", "penkiasdešimtu", "penkiasdešimtame", "penkiasdešimtas", "penkiasdešimti", "penkiasdešimtų", "penkiasdešimtiems", "penkiasdešimtus", "penkiasdešimtais", "penkiasdešimtuose", "penkiasdešimti"));
-		kelintiniai.put(60L, new Zodis("šešiasdešimtas", "šešiasdešimto", "šešiasdešimtam", "šešiasdešimtą", "šešiasdešimtu", "šešiasdešimtame", "šešiasdešimtas", "šešiasdešimti", "šešiasdešimtų", "šešiasdešimtiems", "šešiasdešimtus", "šešiasdešimtais", "šešiasdešimtuose", "šešiasdešimti"));
-		kelintiniai.put(70L, new Zodis("septyniasdešimtas", "septyniasdešimto", "septyniasdešimtam", "septyniasdešimtą", "septyniasdešimtu", "septyniasdešimtame", "septyniasdešimtas", "septyniasdešimti", "septyniasdešimtų", "septyniasdešimtiems", "septyniasdešimtus", "septyniasdešimtais", "septyniasdešimtuose", "septyniasdešimti"));
-		kelintiniai.put(80L, new Zodis("aštuoniasdešimtas", "aštuoniasdešimto", "aštuoniasdešimtam", "aštuoniasdešimtą", "aštuoniasdešimtu", "aštuoniasdešimtame", "aštuoniasdešimtas", "aštuoniasdešimti", "aštuoniasdešimtų", "aštuoniasdešimtiems", "aštuoniasdešimtus", "aštuoniasdešimtais", "aštuoniasdešimtuose", "aštuoniasdešimti"));
-		kelintiniai.put(90L, new Zodis("devyniasdešimtas", "devyniasdešimto", "devyniasdešimtam", "devyniasdešimtą", "devyniasdešimtu", "devyniasdešimtame", "devyniasdešimtas", "devyniasdešimti", "devyniasdešimtų", "devyniasdešimtiems", "devyniasdešimtus", "devyniasdešimtais", "devyniasdešimtuose", "devyniasdešimti"));		
+		kelintiniaiVyrGim.put(0L, new Zodis("nulinis", "nulinio", "nuliniui", "nulinį", "nuliniu", "nulinyje", "nulini", "nuliniai", "nulinių", "nuliniams", "nulinius", "nuliniais", "nuliniuose", "nuliniai"));
+		kelintiniaiVyrGim.put(1L, new Zodis("pirmas", "pirmo", "pirmam", "pirmą", "pirmu", "pirmame", "pirmas", "pirmi", "pirmų", "pirmiems", "pirmus", "pirmais", "pirmuose", "pirmi"));
+		kelintiniaiVyrGim.put(2L, new Zodis("antras", "antro", "antram", "antrą", "antru", "antrame", "antras", "antri", "antrų", "antriems", "antrus", "antrais", "antruose", "antri"));
+		kelintiniaiVyrGim.put(3L, new Zodis("trečias", "trečio", "trečiam", "trečią", "trečiu", "trečiame", "trečias", "treti", "trečių", "trečiems", "trečius", "trečiais", "trečiuose", "treti"));
+		kelintiniaiVyrGim.put(4L, new Zodis("ketvirtas", "ketvirto", "ketvirtam", "ketvirtą", "ketvirtu", "ketvirtame", "ketvirtas", "ketvirti", "ketvirtų", "ketvirtiems", "ketvirtus", "ketvirtais", "ketvirtuose", "ketvirti"));
+		kelintiniaiVyrGim.put(5L, new Zodis("penktas", "penkto", "penktam", "penktą", "penktu", "penktame", "penktas", "penkti", "penktų", "penktiems", "penktus", "penktais", "penktuose", "penkti"));
+		kelintiniaiVyrGim.put(6L, new Zodis("šeštas", "šešto", "šeštam", "šeštą", "šeštu", "šeštame", "šeštas", "šešti", "šeštų", "šeštiems", "šeštus", "šeštiems", "šeštuose", "šešti"));
+		kelintiniaiVyrGim.put(7L, new Zodis("septintas", "septinto", "septintam", "septintą", "septintu", "septintame", "septintas", "septinti", "septintų", "septintiems", "septintus", "septintiems", "septintuose", "septinti"));
+		kelintiniaiVyrGim.put(8L, new Zodis("aštuntas", "aštunto", "aštuntam", "aštuntą", "aštuntu", "aštuntame", "aštuntas", "aštunti", "aštuntų", "aštuntiems", "aštuntus", "aštuntais", "aštuntuose", "aštunti"));
+		kelintiniaiVyrGim.put(9L, new Zodis("devintas", "devinto", "devintam", "devintą", "devintu", "devintame", "devintas", "devinti", "devintų", "devintiems", "devintus", "devintais", "devintuose", "devinti"));
+		kelintiniaiVyrGim.put(10L, new Zodis("dešimtas", "dešimto", "dešimtam", "dešimtą", "dešimtu", "dešimtame", "dešimtas", "dešimti", "dešimtų", "dešimtiems", "dešimtus", "dešimtais", "dešimtuose", "dešimti"));
+		kelintiniaiVyrGim.put(11L, new Zodis("vienuoliktas", "vienuolikto", "vienuoliktam", "vienuoliktą", "vienuoliktu", "vienuoliktame", "vienuoliktas", "vienuolikti", "vienuoliktų", "vienuoliktiems", "vienuoliktus", "vienuoliktais", "vienuoliktuose", "vienuolikti"));
+		kelintiniaiVyrGim.put(12L, new Zodis("dvyliktas", "dvylikto", "dvyliktam", "dvyliktą", "dvyliktu", "dvyliktame", "dvyliktas", "dvylikti", "dvyliktų", "dvyliktiems", "dvyliktus", "dvyliktais", "dvyliktuose", "dvylikti"));
+		kelintiniaiVyrGim.put(13L, new Zodis("tryliktas", "trylikto", "tryliktam", "tryliktą", "tryliktu", "tryliktame", "tryliktas", "trylikti", "tryliktų", "tryliktiems", "tryliktus", "tryliktais", "tryliktuose", "trylikti"));
+		kelintiniaiVyrGim.put(14L, new Zodis("keturioliktas", "keturiolikto", "keturioliktam", "keturioliktą", "keturioliktais", "keturioliktuose", "keturioliktas", "keturiolikti", "keturioliktų", "keturioliktiems", "keturioliktus", "keturioliktais", "keturioliktuose", "keturiolikti"));
+		kelintiniaiVyrGim.put(15L, new Zodis("penkioliktas", "penkiolikto", "penkioliktam", "penkioliktą", "penkioliktu", "penkioliktame", "penkioliktas", "penkiolikti", "penkioliktų", "penkioliktiems", "penkioliktus", "penkioliktais", "penkioliktuose", "penkiolikti"));
+		kelintiniaiVyrGim.put(16L, new Zodis("šešioliktas", "šešiolikto", "šešioliktam", "šešioliktą", "šešioliktu", "šešioliktame", "šešioliktas", "šešiolikti", "šešioliktų", "šešioliktiems", "šešioliktus", "šešioliktais", "šešioliktuose", "šešiolikti"));
+		kelintiniaiVyrGim.put(17L, new Zodis("septynioliktas", "septyniolikto", "septynioliktam", "septynioliktą", "septynioliktu", "septynioliktame", "septynioliktas", "septyniolikti", "septynioliktų", "septynioliktiems", "septynioliktus", "septynioliktais", "septynioliktuose", "septyniolikti"));
+		kelintiniaiVyrGim.put(18L, new Zodis("aštuonioliktas", "aštuoniolikto", "aštuonioliktam", "aštuonioliktą", "aštuonioliktu", "aštuonioliktame", "aštuonioliktas", "aštuoniolikti", "aštuonioliktų", "aštuonioliktiems", "aštuonioliktus", "aštuonioliktais", "aštuonioliktuose", "aštuoniolikti"));
+		kelintiniaiVyrGim.put(19L, new Zodis("devynioliktas", "devyniolikto", "devynioliktam", "devynioliktą", "devynioliktu", "devynioliktame", "devynioliktas", "devyniolikti", "devynioliktų", "devynioliktiems", "devynioliktus", "devynioliktais", "devynioliktuose", "devyniolikti"));
+		kelintiniaiVyrGim.put(20L, new Zodis("dvidešimtas", "dvidešimto", "dvidešimtam", "dvidešimtą", "dvidešimtu", "dvidešimtame", "dvidešimtas", "dvidešimti", "dvidešimtų", "dvidešimtiems", "dvidešimtus", "dvidešimtais", "dvidešimtuose", "dvidešimti"));		
+		kelintiniaiVyrGim.put(30L, new Zodis("trisdešimtas", "trisdešimto", "trisdešimtam", "trisdešimtą", "trisdešimtu", "trisdešimtame", "trisdešimtas", "trisdešimti", "trisdešimtų", "trisdešimtiems", "trisdešimtus", "trisdešimtais", "trisdešimtuose", "trisdešimti"));
+		kelintiniaiVyrGim.put(40L, new Zodis("keturiasdešimtas", "keturiasdešimto", "keturiasdešimtam", "keturiasdešimtą", "keturiasdešimtu", "keturiasdešimtame", "keturiasdešimtas", "keturiasdešimti", "keturiasdešimtų", "keturiasdešimtiems", "keturiasdešimtus", "keturiasdešimtais", "keturiasdešimtuose", "keturiasdešimti"));
+		kelintiniaiVyrGim.put(50L, new Zodis("penkiasdešimtas", "penkiasdešimto", "penkiasdešimtam", "penkiasdešimtą", "penkiasdešimtu", "penkiasdešimtame", "penkiasdešimtas", "penkiasdešimti", "penkiasdešimtų", "penkiasdešimtiems", "penkiasdešimtus", "penkiasdešimtais", "penkiasdešimtuose", "penkiasdešimti"));
+		kelintiniaiVyrGim.put(60L, new Zodis("šešiasdešimtas", "šešiasdešimto", "šešiasdešimtam", "šešiasdešimtą", "šešiasdešimtu", "šešiasdešimtame", "šešiasdešimtas", "šešiasdešimti", "šešiasdešimtų", "šešiasdešimtiems", "šešiasdešimtus", "šešiasdešimtais", "šešiasdešimtuose", "šešiasdešimti"));
+		kelintiniaiVyrGim.put(70L, new Zodis("septyniasdešimtas", "septyniasdešimto", "septyniasdešimtam", "septyniasdešimtą", "septyniasdešimtu", "septyniasdešimtame", "septyniasdešimtas", "septyniasdešimti", "septyniasdešimtų", "septyniasdešimtiems", "septyniasdešimtus", "septyniasdešimtais", "septyniasdešimtuose", "septyniasdešimti"));
+		kelintiniaiVyrGim.put(80L, new Zodis("aštuoniasdešimtas", "aštuoniasdešimto", "aštuoniasdešimtam", "aštuoniasdešimtą", "aštuoniasdešimtu", "aštuoniasdešimtame", "aštuoniasdešimtas", "aštuoniasdešimti", "aštuoniasdešimtų", "aštuoniasdešimtiems", "aštuoniasdešimtus", "aštuoniasdešimtais", "aštuoniasdešimtuose", "aštuoniasdešimti"));
+		kelintiniaiVyrGim.put(90L, new Zodis("devyniasdešimtas", "devyniasdešimto", "devyniasdešimtam", "devyniasdešimtą", "devyniasdešimtu", "devyniasdešimtame", "devyniasdešimtas", "devyniasdešimti", "devyniasdešimtų", "devyniasdešimtiems", "devyniasdešimtus", "devyniasdešimtais", "devyniasdešimtuose", "devyniasdešimti"));		
 		
 		kelintiniaiMotGim.put(0L, new Zodis("nulinė", "nulinės", "nulinei", "nulinę", "nuline", "nulinėje", "nulinė", "nulinės", "nulinių", "nulinėms", "nulines", "nulinėmis", "nulinėse", "nulinės"));
 		kelintiniaiMotGim.put(1L, new Zodis("pirma", "pirmos", "pirmai", "pirmą", "pirma", "pirmoje", "pirma", "pirmos", "pirmų", "pirmoms", "pirmas", "pirmomis", "pirmose", "pirmos"));
@@ -297,37 +297,37 @@ public class Zodis {
 		kelintiniaiMotGim.put(80L, new Zodis("aštuoniasdešimta", "aštuoniasdešimtos", "aštuoniasdešimtai", "aštuoniasdešimtą", "aštuoniasdešimta", "aštuoniasdešimtoje", "aštuoniasdešimta", "aštuoniasdešimtos", "aštuoniasdešimtų", "aštuoniasdešimtoms", "aštuoniasdešimtas", "aštuoniasdešimtomis", "aštuoniasdešimtose", "aštuoniasdešimtos"));
 		kelintiniaiMotGim.put(90L, new Zodis("devyniasdešimta", "devyniasdešimtos", "devyniasdešimtai", "devyniasdešimtą", "devyniasdešimta", "devyniasdešimtoje", "devyniasdešimta", "devyniasdešimtos", "devyniasdešimtų", "devyniasdešimtoms", "devyniasdešimtas", "devyniasdešimtomis", "devyniasdešimtose", "devyniasdešimtos"));
 				
-		kelintiniaiIv.put(1L, new Zodis("pirmasis", "pirmojo", "pirmajam", "pirmąjį", "pirmuoju", "pirmajame", "pirmasis", "pirmieji", "pirmųjų", "pirmiesiems", "pirmuosius", "pirmaisiais", "pirmuosiuose", "pirmieji"));
-		kelintiniaiIv.put(2L, new Zodis("antrasis", "antrojo", "antrajam", "antrąjį", "antruoju", "antrajame", "antrasis", "antrieji", "antrųjų", "antriesiems", "antruosius", "antraisiais", "antruosiuose", "antrieji"));
-		kelintiniaiIv.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "trečiieji", "trečiųjų", "trečiiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "trečieji"));
-		kelintiniaiIv.put(4L, new Zodis("ketvirtasis", "ketvirtojo", "ketvirtajam", "ketvirtąjį", "ketvirtuoju", "ketvirtajame", "ketvirtasis", "ketvirtieji", "ketvirtųjų", "ketvirtiesiems", "ketvirtuosius", "ketvirtaisiais", "ketvirtuosiuose", "ketvirtieji"));
-		kelintiniaiIv.put(5L, new Zodis("penktasis", "penktojo", "penktajam", "penktąjį", "penktuoju", "penktajame", "penktasis", "penktieji", "penktųjų", "penktiesiems", "penktuosius", "penktaisiais", "penktuosiuose", "penktieji"));
-		kelintiniaiIv.put(6L, new Zodis("šeštasis", "šeštojo", "šeštajam", "šeštąjį", "šeštuoju", "šeštajame", "šeštasis", "šeštieji", "šeštųjų", "šeštiesiems", "šeštuosius", "šeštaisiais", "šeštuosiuose", "šeštieji"));
-		kelintiniaiIv.put(7L, new Zodis("septintasis", "septintojo", "septintajam", "septintąjį", "septintuoju", "septintajame", "septintasis", "septintieji", "septintųjų", "septintiesiems", "septintuosius", "septintaisiais", "septintuosiuose", "septintieji"));
-		kelintiniaiIv.put(8L, new Zodis("aštuntasis", "aštuntojo", "aštuntajam", "aštuntąjį", "aštuntuoju", "aštuntajame", "aštuntasis", "aštuntieji", "aštuntųjų", "aštuntiesiems", "aštuntuosius", "aštuntaisiais", "aštuntuosiuose", "aštuntieji"));
-		kelintiniaiIv.put(9L, new Zodis("devintasis", "devintojo", "devintajam", "devintąjį", "devintuoju", "devintajame", "devintasis", "devintieji", "devintųjų", "devintiesiems", "devintuosius", "devintaisiais", "devintuosiuose", "devintieji"));
-		kelintiniaiIv.put(10L, new Zodis("dešimtasis", "dešimtojo", "dešimtajam", "dešimtąjį", "dešimtuoju", "dešimtajame", "dešimtasis", "dešimtieji", "dešimtųjų", "dešimtiesiems", "dešimtuosius", "dešimtaisiais", "dešimtuosiuose", "dešimtieji"));
-		kelintiniaiIv.put(11L, new Zodis("vienuoliktasis", "vienuoliktojo", "vienuoliktajam", "vienuoliktąjį", "vienuoliktuoju", "vienuoliktajame", "vienuoliktasis", "vienuoliktieji", "vienuoliktųjų", "vienuoliktiesiems", "vienuoliktuosius", "vienuoliktaisiais", "vienuoliktuosiuose", "vienuoliktieji"));
-		kelintiniaiIv.put(12L, new Zodis("dvyliktasis", "dvyliktojo", "dvyliktajam", "dvyliktąjį", "dvyliktuoju", "dvyliktajame", "dvyliktasis", "dvyliktieji", "dvyliktųjų", "dvyliktiesiems", "dvyliktuosius", "dvyliktaisiais", "dvyliktuosiuose", "dvyliktieji"));
-		kelintiniaiIv.put(13L, new Zodis("tryliktasis", "tryliktojo", "tryliktajam", "tryliktąjį", "tryliktuoju", "tryliktajame", "tryliktasis", "tryliktieji", "tryliktųjų", "tryliktiesiems", "tryliktuosius", "tryliktaisiais", "tryliktuosiuose", "tryliktieji"));
-		kelintiniaiIv.put(14L, new Zodis("keturioliktasis", "keturioliktojo", "keturioliktajam", "keturioliktąjį", "keturioliktuoju", "keturioliktajame", "keturioliktasis", "keturioliktieji", "keturioliktųjų", "keturioliktiesiems", "keturioliktuosius", "keturioliktaisiais", "keturioliktuosiuose", "keturioliktieji"));
-		kelintiniaiIv.put(15L, new Zodis("penkioliktasis", "penkioliktojo", "penkioliktajam", "penkioliktąjį", "penkioliktuoju", "penkioliktajame", "penkioliktasis", "penkioliktieji", "penkioliktųjų", "penkioliktiesiems", "penkioliktuosius", "penkioliktaisiais", "penkioliktuosiuose", "penkioliktieji"));
-		kelintiniaiIv.put(16L, new Zodis("šešioliktasis", "šešioliktojo", "šešioliktajam", "šešioliktąjį", "šešioliktuoju", "šešioliktajame", "šešioliktasis", "šešioliktieji", "šešioliktųjų", "šešioliktiesiems", "šešioliktuosius", "šešioliktaisiais", "šešioliktuosiuose", "šešioliktieji"));
-		kelintiniaiIv.put(17L, new Zodis("septynioliktasis", "septynioliktojo", "septynioliktajam", "septynioliktąjį", "septynioliktuoju", "septynioliktajame", "septynioliktasis", "septynioliktieji", "septynioliktųjų", "septynioliktiesiems", "septynioliktuosius", "septynioliktaisiais", "septynioliktuosiuose", "septynioliktieji"));
-		kelintiniaiIv.put(18L, new Zodis("aštuonioliktasis", "aštuonioliktojo", "aštuonioliktajam", "aštuonioliktąjį", "aštuonioliktuoju", "aštuonioliktajame", "aštuonioliktasis", "aštuonioliktieji", "aštuonioliktųjų", "aštuonioliktiesiems", "aštuonioliktuosius", "aštuonioliktaisiais", "aštuonioliktuosiuose", "aštuonioliktieji"));
-		kelintiniaiIv.put(19L, new Zodis("devynioliktasis", "devynioliktojo", "devynioliktajam", "devynioliktąjį", "devynioliktuoju", "devynioliktajame", "devynioliktasis", "devynioliktieji", "devynioliktųjų", "devynioliktiesiems", "devynioliktuosius", "devynioliktaisiais", "devynioliktuosiuose", "devynioliktieji"));
-		kelintiniaiIv.put(20L, new Zodis("dvidešimtasis", "dvidešimtojo", "dvidešimtajam", "dvidešimtąjį", "dvidešimtuoju", "dvidešimtajame", "dvidešimtasis", "dvidešimtieji", "dvidešimtųjų", "dvidešimtiesiems", "dvidešimtuosius", "dvidešimtaisiais", "dvidešimtuosiuose", "dvidešimtieji"));		
-		kelintiniaiIv.put(30L, new Zodis("trisdešimtasis", "trisdešimtojo", "trisdešimtajam", "trisdešimtąjį", "trisdešimtuoju", "trisdešimtajame", "trisdešimtasis", "trisdešimtieji", "trisdešimtųjų", "trisdešimtiesiems", "trisdešimtuosius", "trisdešimtaisiais", "trisdešimtuosiuose", "trisdešimtieji"));
-		kelintiniaiIv.put(40L, new Zodis("keturiasdešimtasis", "keturiasdešimtojo", "keturiasdešimtajam", "keturiasdešimtąjį", "keturiasdešimtuoju", "keturiasdešimtajame", "keturiasdešimtasis", "keturiasdešimtųjų", "keturiasdešimtojo", "keturiasdešimtiesiems", "keturiasdešimtuosius", "keturiasdešimtaisiais", "keturiasdešimtuosiuose", "keturiasdešimtieji"));
-		kelintiniaiIv.put(50L, new Zodis("penkiasdešimtasis", "penkiasdešimtojo", "penkiasdešimtajam", "penkiasdešimtąjį", "penkiasdešimtuoju", "penkiasdešimtajame", "penkiasdešimtasis", "penkiasdešimtieji", "penkiasdešimtųjų", "penkiasdešimtiesiems", "penkiasdešimtuosius", "penkiasdešimtaisiais", "penkiasdešimtuosiuose", "penkiasdešimtieji"));
-		kelintiniaiIv.put(60L, new Zodis("šešiasdešimtasis", "šešiasdešimtojo", "šešiasdešimtajam", "šešiasdešimtąjį", "šešiasdešimtuoju", "šešiasdešimtajame", "šešiasdešimtasis", "šešiasdešimtieji", "šešiasdešimtųjų", "šešiasdešimtiesiems", "šešiasdešimtuosius", "šešiasdešimtaisiais", "šešiasdešimtuosiuose", "šešiasdešimtieji"));
-		kelintiniaiIv.put(70L, new Zodis("septyniasdešimtasis", "septyniasdešimtojo", "septyniasdešimtajam", "septyniasdešimtąjį", "septyniasdešimtuoju", "septyniasdešimtajame", "septyniasdešimtasis", "septyniasdešimtieji", "septyniasdešimtųjų", "septyniasdešimtiesiems", "septyniasdešimtuosius", "septyniasdešimtaisiais", "septyniasdešimtuosiuose", "septyniasdešimtieji"));
-		kelintiniaiIv.put(80L, new Zodis("aštuoniasdešimtasis", "aštuoniasdešimtojo", "aštuoniasdešimtajam", "aštuoniasdešimtąjį", "aštuoniasdešimtuoju", "aštuoniasdešimtajame", "aštuoniasdešimtasis", "aštuoniasdešimtieji", "aštuoniasdešimtųjų", "aštuoniasdešimtiesiems", "aštuoniasdešimtuosius", "aštuoniasdešimtaisiais", "aštuoniasdešimtuosiuose", "aštuoniasdešimtieji"));
-		kelintiniaiIv.put(90L, new Zodis("devyniasdešimtasis", "devyniasdešimtojo", "devyniasdešimtajam", "devyniasdešimtąjį", "devyniasdešimtuoju", "devyniasdešimtajame", "devyniasdešimtasis", "devyniasdešimtieji", "devyniasdešimtųjų", "devyniasdešimtiesiems", "devyniasdešimtuosius", "devyniasdešimtaisiais", "devyniasdešimtuosiuose", "devyniasdešimtieji"));
-		kelintiniaiIv.put(100L, new Zodis("šimtasis", "šimtojo", "šimtajam", "šimtąjį", "šimtuoju", "šimtajame", "šimtasis", "šimtieji", "šimtųjų", "šimtiesiems", "šimtuosius", "šimtaisiais", "šimtuosiuose", "šimtieji"));		
-		kelintiniaiIv.put(1000L, new Zodis("tūkstantasis", "tūkstantojo", "tūkstantajam", "tūkstantąjį", "tūkstantuoju", "tūkstantajame", "tūkstantasis", "tūkstantieji", "tūkstantųjų", "tūkstantiesiems", "tūkstantuosius", "tūkstantaisiais", "tūkstantuosiuose", "tūkstantieji"));
-		kelintiniaiIv.put(1000000L, new Zodis("milijonasis", "milijonojo", "milijonajam", "milijonąjį", "milijonuoju", "milijonajame", "milijonasis", "milijonieji", "milijonųjų", "milijoniesiems", "milijonuosius", "milijonaisiais", "milijonuosiuose", "milijonieji"));
-		kelintiniaiIv.put(1000000000L, new Zodis("milijardasis", "milijardojo", "milijardajam", "milijardąjį", "milijarduoju", "milijardajame", "milijardasis", "milijardieji", "milijardųjų", "milijardiesiems", "milijarduosius", "milijardaisiais", "milijarduosiuose", "milijardieji"));
+		kelintiniaiIvVyrGim.put(1L, new Zodis("pirmasis", "pirmojo", "pirmajam", "pirmąjį", "pirmuoju", "pirmajame", "pirmasis", "pirmieji", "pirmųjų", "pirmiesiems", "pirmuosius", "pirmaisiais", "pirmuosiuose", "pirmieji"));
+		kelintiniaiIvVyrGim.put(2L, new Zodis("antrasis", "antrojo", "antrajam", "antrąjį", "antruoju", "antrajame", "antrasis", "antrieji", "antrųjų", "antriesiems", "antruosius", "antraisiais", "antruosiuose", "antrieji"));
+		kelintiniaiIvVyrGim.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "trečiieji", "trečiųjų", "trečiiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "trečieji"));
+		kelintiniaiIvVyrGim.put(4L, new Zodis("ketvirtasis", "ketvirtojo", "ketvirtajam", "ketvirtąjį", "ketvirtuoju", "ketvirtajame", "ketvirtasis", "ketvirtieji", "ketvirtųjų", "ketvirtiesiems", "ketvirtuosius", "ketvirtaisiais", "ketvirtuosiuose", "ketvirtieji"));
+		kelintiniaiIvVyrGim.put(5L, new Zodis("penktasis", "penktojo", "penktajam", "penktąjį", "penktuoju", "penktajame", "penktasis", "penktieji", "penktųjų", "penktiesiems", "penktuosius", "penktaisiais", "penktuosiuose", "penktieji"));
+		kelintiniaiIvVyrGim.put(6L, new Zodis("šeštasis", "šeštojo", "šeštajam", "šeštąjį", "šeštuoju", "šeštajame", "šeštasis", "šeštieji", "šeštųjų", "šeštiesiems", "šeštuosius", "šeštaisiais", "šeštuosiuose", "šeštieji"));
+		kelintiniaiIvVyrGim.put(7L, new Zodis("septintasis", "septintojo", "septintajam", "septintąjį", "septintuoju", "septintajame", "septintasis", "septintieji", "septintųjų", "septintiesiems", "septintuosius", "septintaisiais", "septintuosiuose", "septintieji"));
+		kelintiniaiIvVyrGim.put(8L, new Zodis("aštuntasis", "aštuntojo", "aštuntajam", "aštuntąjį", "aštuntuoju", "aštuntajame", "aštuntasis", "aštuntieji", "aštuntųjų", "aštuntiesiems", "aštuntuosius", "aštuntaisiais", "aštuntuosiuose", "aštuntieji"));
+		kelintiniaiIvVyrGim.put(9L, new Zodis("devintasis", "devintojo", "devintajam", "devintąjį", "devintuoju", "devintajame", "devintasis", "devintieji", "devintųjų", "devintiesiems", "devintuosius", "devintaisiais", "devintuosiuose", "devintieji"));
+		kelintiniaiIvVyrGim.put(10L, new Zodis("dešimtasis", "dešimtojo", "dešimtajam", "dešimtąjį", "dešimtuoju", "dešimtajame", "dešimtasis", "dešimtieji", "dešimtųjų", "dešimtiesiems", "dešimtuosius", "dešimtaisiais", "dešimtuosiuose", "dešimtieji"));
+		kelintiniaiIvVyrGim.put(11L, new Zodis("vienuoliktasis", "vienuoliktojo", "vienuoliktajam", "vienuoliktąjį", "vienuoliktuoju", "vienuoliktajame", "vienuoliktasis", "vienuoliktieji", "vienuoliktųjų", "vienuoliktiesiems", "vienuoliktuosius", "vienuoliktaisiais", "vienuoliktuosiuose", "vienuoliktieji"));
+		kelintiniaiIvVyrGim.put(12L, new Zodis("dvyliktasis", "dvyliktojo", "dvyliktajam", "dvyliktąjį", "dvyliktuoju", "dvyliktajame", "dvyliktasis", "dvyliktieji", "dvyliktųjų", "dvyliktiesiems", "dvyliktuosius", "dvyliktaisiais", "dvyliktuosiuose", "dvyliktieji"));
+		kelintiniaiIvVyrGim.put(13L, new Zodis("tryliktasis", "tryliktojo", "tryliktajam", "tryliktąjį", "tryliktuoju", "tryliktajame", "tryliktasis", "tryliktieji", "tryliktųjų", "tryliktiesiems", "tryliktuosius", "tryliktaisiais", "tryliktuosiuose", "tryliktieji"));
+		kelintiniaiIvVyrGim.put(14L, new Zodis("keturioliktasis", "keturioliktojo", "keturioliktajam", "keturioliktąjį", "keturioliktuoju", "keturioliktajame", "keturioliktasis", "keturioliktieji", "keturioliktųjų", "keturioliktiesiems", "keturioliktuosius", "keturioliktaisiais", "keturioliktuosiuose", "keturioliktieji"));
+		kelintiniaiIvVyrGim.put(15L, new Zodis("penkioliktasis", "penkioliktojo", "penkioliktajam", "penkioliktąjį", "penkioliktuoju", "penkioliktajame", "penkioliktasis", "penkioliktieji", "penkioliktųjų", "penkioliktiesiems", "penkioliktuosius", "penkioliktaisiais", "penkioliktuosiuose", "penkioliktieji"));
+		kelintiniaiIvVyrGim.put(16L, new Zodis("šešioliktasis", "šešioliktojo", "šešioliktajam", "šešioliktąjį", "šešioliktuoju", "šešioliktajame", "šešioliktasis", "šešioliktieji", "šešioliktųjų", "šešioliktiesiems", "šešioliktuosius", "šešioliktaisiais", "šešioliktuosiuose", "šešioliktieji"));
+		kelintiniaiIvVyrGim.put(17L, new Zodis("septynioliktasis", "septynioliktojo", "septynioliktajam", "septynioliktąjį", "septynioliktuoju", "septynioliktajame", "septynioliktasis", "septynioliktieji", "septynioliktųjų", "septynioliktiesiems", "septynioliktuosius", "septynioliktaisiais", "septynioliktuosiuose", "septynioliktieji"));
+		kelintiniaiIvVyrGim.put(18L, new Zodis("aštuonioliktasis", "aštuonioliktojo", "aštuonioliktajam", "aštuonioliktąjį", "aštuonioliktuoju", "aštuonioliktajame", "aštuonioliktasis", "aštuonioliktieji", "aštuonioliktųjų", "aštuonioliktiesiems", "aštuonioliktuosius", "aštuonioliktaisiais", "aštuonioliktuosiuose", "aštuonioliktieji"));
+		kelintiniaiIvVyrGim.put(19L, new Zodis("devynioliktasis", "devynioliktojo", "devynioliktajam", "devynioliktąjį", "devynioliktuoju", "devynioliktajame", "devynioliktasis", "devynioliktieji", "devynioliktųjų", "devynioliktiesiems", "devynioliktuosius", "devynioliktaisiais", "devynioliktuosiuose", "devynioliktieji"));
+		kelintiniaiIvVyrGim.put(20L, new Zodis("dvidešimtasis", "dvidešimtojo", "dvidešimtajam", "dvidešimtąjį", "dvidešimtuoju", "dvidešimtajame", "dvidešimtasis", "dvidešimtieji", "dvidešimtųjų", "dvidešimtiesiems", "dvidešimtuosius", "dvidešimtaisiais", "dvidešimtuosiuose", "dvidešimtieji"));		
+		kelintiniaiIvVyrGim.put(30L, new Zodis("trisdešimtasis", "trisdešimtojo", "trisdešimtajam", "trisdešimtąjį", "trisdešimtuoju", "trisdešimtajame", "trisdešimtasis", "trisdešimtieji", "trisdešimtųjų", "trisdešimtiesiems", "trisdešimtuosius", "trisdešimtaisiais", "trisdešimtuosiuose", "trisdešimtieji"));
+		kelintiniaiIvVyrGim.put(40L, new Zodis("keturiasdešimtasis", "keturiasdešimtojo", "keturiasdešimtajam", "keturiasdešimtąjį", "keturiasdešimtuoju", "keturiasdešimtajame", "keturiasdešimtasis", "keturiasdešimtųjų", "keturiasdešimtojo", "keturiasdešimtiesiems", "keturiasdešimtuosius", "keturiasdešimtaisiais", "keturiasdešimtuosiuose", "keturiasdešimtieji"));
+		kelintiniaiIvVyrGim.put(50L, new Zodis("penkiasdešimtasis", "penkiasdešimtojo", "penkiasdešimtajam", "penkiasdešimtąjį", "penkiasdešimtuoju", "penkiasdešimtajame", "penkiasdešimtasis", "penkiasdešimtieji", "penkiasdešimtųjų", "penkiasdešimtiesiems", "penkiasdešimtuosius", "penkiasdešimtaisiais", "penkiasdešimtuosiuose", "penkiasdešimtieji"));
+		kelintiniaiIvVyrGim.put(60L, new Zodis("šešiasdešimtasis", "šešiasdešimtojo", "šešiasdešimtajam", "šešiasdešimtąjį", "šešiasdešimtuoju", "šešiasdešimtajame", "šešiasdešimtasis", "šešiasdešimtieji", "šešiasdešimtųjų", "šešiasdešimtiesiems", "šešiasdešimtuosius", "šešiasdešimtaisiais", "šešiasdešimtuosiuose", "šešiasdešimtieji"));
+		kelintiniaiIvVyrGim.put(70L, new Zodis("septyniasdešimtasis", "septyniasdešimtojo", "septyniasdešimtajam", "septyniasdešimtąjį", "septyniasdešimtuoju", "septyniasdešimtajame", "septyniasdešimtasis", "septyniasdešimtieji", "septyniasdešimtųjų", "septyniasdešimtiesiems", "septyniasdešimtuosius", "septyniasdešimtaisiais", "septyniasdešimtuosiuose", "septyniasdešimtieji"));
+		kelintiniaiIvVyrGim.put(80L, new Zodis("aštuoniasdešimtasis", "aštuoniasdešimtojo", "aštuoniasdešimtajam", "aštuoniasdešimtąjį", "aštuoniasdešimtuoju", "aštuoniasdešimtajame", "aštuoniasdešimtasis", "aštuoniasdešimtieji", "aštuoniasdešimtųjų", "aštuoniasdešimtiesiems", "aštuoniasdešimtuosius", "aštuoniasdešimtaisiais", "aštuoniasdešimtuosiuose", "aštuoniasdešimtieji"));
+		kelintiniaiIvVyrGim.put(90L, new Zodis("devyniasdešimtasis", "devyniasdešimtojo", "devyniasdešimtajam", "devyniasdešimtąjį", "devyniasdešimtuoju", "devyniasdešimtajame", "devyniasdešimtasis", "devyniasdešimtieji", "devyniasdešimtųjų", "devyniasdešimtiesiems", "devyniasdešimtuosius", "devyniasdešimtaisiais", "devyniasdešimtuosiuose", "devyniasdešimtieji"));
+		kelintiniaiIvVyrGim.put(100L, new Zodis("šimtasis", "šimtojo", "šimtajam", "šimtąjį", "šimtuoju", "šimtajame", "šimtasis", "šimtieji", "šimtųjų", "šimtiesiems", "šimtuosius", "šimtaisiais", "šimtuosiuose", "šimtieji"));		
+		kelintiniaiIvVyrGim.put(1000L, new Zodis("tūkstantasis", "tūkstantojo", "tūkstantajam", "tūkstantąjį", "tūkstantuoju", "tūkstantajame", "tūkstantasis", "tūkstantieji", "tūkstantųjų", "tūkstantiesiems", "tūkstantuosius", "tūkstantaisiais", "tūkstantuosiuose", "tūkstantieji"));
+		kelintiniaiIvVyrGim.put(1000000L, new Zodis("milijonasis", "milijonojo", "milijonajam", "milijonąjį", "milijonuoju", "milijonajame", "milijonasis", "milijonieji", "milijonųjų", "milijoniesiems", "milijonuosius", "milijonaisiais", "milijonuosiuose", "milijonieji"));
+		kelintiniaiIvVyrGim.put(1000000000L, new Zodis("milijardasis", "milijardojo", "milijardajam", "milijardąjį", "milijarduoju", "milijardajame", "milijardasis", "milijardieji", "milijardųjų", "milijardiesiems", "milijarduosius", "milijardaisiais", "milijarduosiuose", "milijardieji"));
 		
 		kelintiniaiIvMotGim.put(1L, new Zodis("pirmoji", "pirmosios", "pirmajai", "pirmąją", "pirmąja", "pirmojoje", "pirmoji", "pirmosios", "pirmųjų", "pirmosioms", "pirmąsias", "pirmosiomis", "pirmosiose", "pirmosios"));
 		kelintiniaiIvMotGim.put(2L, new Zodis("antroji", "antrosios", "antrajai", "antrąją", "antrąja", "antrojoje", "antroji", "antrosios", "antrųjų", "antrosioms", "antrąsias", "antrosiomis", "antrosiose", "antrosios"));
@@ -364,9 +364,9 @@ public class Zodis {
 	
 	public static Zodis getPagrindinis(long skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
-			return skaiciai.get(skaicius);
+			return pagrindiniaiVyrGim.get(skaicius);
 		} else {
-			return skaiciaiMotGim.get(skaicius);
+			return pagrindiniaiMotGim.get(skaicius);
 		}
 		
 	}	
@@ -384,7 +384,7 @@ public class Zodis {
 	
 	public static Zodis getDauginis(long skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
-			return dauginiai.get(skaicius);
+			return dauginiaiVyrGim.get(skaicius);
 		} else {
 			return dauginiaiMotGim.get(skaicius);
 		}
@@ -399,9 +399,9 @@ public class Zodis {
 			}
 		} else {
 			if (ivardziuotinis) {
-				return kelintiniaiIv.get(skaicius);
+				return kelintiniaiIvVyrGim.get(skaicius);
 			} else {
-				return kelintiniai.get(skaicius);
+				return kelintiniaiVyrGim.get(skaicius);
 			}
 		}
 	}	
@@ -409,7 +409,7 @@ public class Zodis {
 		if (gimine == Gimine.M) {
 			return kelintiniaiIvMotGim.get(skaicius);
 		} else {
-			return kelintiniaiIv.get(skaicius);
+			return kelintiniaiIvVyrGim.get(skaicius);
 		}
 	}	
 }

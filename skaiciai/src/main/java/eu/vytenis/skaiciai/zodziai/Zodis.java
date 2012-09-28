@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
 import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaiciai.klasifikatoriai.SkaiciusIrLinksnis;
 
 
 /**
@@ -20,8 +21,10 @@ public class Zodis {
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
 	
-	private boolean kitoZodzioSkaicius = true;
-	private Linksnis kitoZodzioLinksnis = Linksnis.V;
+	/** Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis (vns. vard.)). */
+	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis();
+	
+	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private boolean valdomas = false;
 	
 	/**
@@ -108,45 +111,30 @@ public class Zodis {
 		return r;
 	}
 	
-	public boolean isKitasVns() {
-		return kitoZodzioSkaicius;
-	}
-
-	public void setKitasVns(boolean kitasVns) {
-		this.kitoZodzioSkaicius = kitasVns;
-	}
-
-	public Linksnis getKitasLinksnis() {
-		return kitoZodzioLinksnis;
-	}
-
-	public void setKitasLinksnis(Linksnis kitasLinksnis) {
-		this.kitoZodzioLinksnis = kitasLinksnis;
+	
+	public SkaiciusIrLinksnis getKitas() {
+		return kitas;
 	}
 	
-	public Zodis kitas(boolean kitasVns, Linksnis kitasLinksnis) {
-		setKitasVns(kitasVns);
-		setKitasLinksnis(kitasLinksnis);
+	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
+		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
 		return this;
 	}
 	
 	public Zodis kitasDgsVard() {
-		return kitas(false, Linksnis.V);
+		return kitas(Skaicius.D, Linksnis.V);
 	}
 	public Zodis kitasDgsKilm() {
-		return kitas(false, Linksnis.K);
+		return kitas(Skaicius.D, Linksnis.K);
 	}
 	
 	public boolean isValdomas() {
 		return valdomas;
 	}
-	
-	public void setValdomas(boolean valdomas) {
-		this.valdomas = valdomas;
-	}
+
 	
 	public Zodis valdomas() {
-		setValdomas(true);
+		valdomas = true;
 		return this;
 	}
 	
@@ -165,13 +153,13 @@ public class Zodis {
 	
 
 	
-	public String toString(Skaicius skaicius, Linksnis linksnis) {
-		Map<Linksnis, String> z = getLinksniaiPagalSkaicius(skaicius, false);
-		return z != null ? z.get(linksnis) : null;
+	public String toString(SkaiciusIrLinksnis skaiciusIrLinksnis) {
+		Map<Linksnis, String> z = getLinksniaiPagalSkaicius(skaiciusIrLinksnis.getSkaicius(), false);
+		return z != null ? z.get(skaiciusIrLinksnis.getLinksnis()) : null;
 	}
 	
 	public String toString() {
-		return toString(Skaicius.V, Linksnis.V);
+		return toString(new SkaiciusIrLinksnis());
 	}
 
 

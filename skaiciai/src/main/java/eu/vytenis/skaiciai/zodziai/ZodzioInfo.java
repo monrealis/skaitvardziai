@@ -7,6 +7,7 @@ import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
 import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaiciai.klasifikatoriai.SkaiciusIrLinksnis;
 
 /**
  * Žodžio ir skaičiaus (vienaskaitos/daugiskaitos) dvejetas.
@@ -93,19 +94,17 @@ public class ZodzioInfo {
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis) {
-				s = zodis.toString(ankstesnis.getZodis().isKitasVns() ? Skaicius.V : Skaicius.D, Linksnis.V); //pvz., "du _šimtai_ dešimtojo"
+				s = zodis.toString(ankstesnis.getZodis().getKitas().clone(Linksnis.V)); //pvz., "du _šimtai_ dešimtojo"
 			} else if (zodis.isValdomas() && ankstesnis != null) {
-				s = zodis.toString(ankstesnis.getZodis().isKitasVns() ? Skaicius.V : Skaicius.D, linksnis); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
+				s = zodis.toString(ankstesnis.getZodis().getKitas().clone(linksnis)); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
 			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
-				s = zodis.toString(Skaicius.V, Linksnis.V); // pvz, "_dvidešimt_ dviejų"
+				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
 			} else if (!paskutinis && kelintinis) {
-				s = zodis.toString(Skaicius.V, Linksnis.V); // pvz., "_šimtas_ pirmojo"
+				s = zodis.toString(); // pvz., "_šimtas_ pirmojo"
 			} else {
-				s = zodis.toString(skaicius, linksnis); // pvz., "dvidešimt _vieną_"
+				s = zodis.toString(new SkaiciusIrLinksnis(skaicius, linksnis)); // pvz., "dvidešimt _vieną_"
 			}
 			r.append(s);
-			
-			//vns = zodis.isKitasVns();
 		}
 		return r.toString();		
 	}

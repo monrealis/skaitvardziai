@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
 import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
 
 
 /**
@@ -16,13 +17,11 @@ public class Zodis {
 	/** Žurnalas. */
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
-	/** Žodžio vienaskaitos linksniai (arba daugiskaitos, jei žodis turi tik daugiskaitą). */
-	private Map<Linksnis, String> vienaskaita = new HashMap<Linksnis, String>();
-	/** Jei žodis turi ir vienaskaitą, ir daugiskaitą - daugiskaitos linksniai. */
-	private Map<Linksnis, String> daugiskaita = new HashMap<Linksnis, String>();
+	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
+	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
 	
-	private boolean kitasVns = true;
-	private Linksnis kitasLinksnis = Linksnis.V;
+	private boolean kitoZodzioSkaicius = true;
+	private Linksnis kitoZodzioLinksnis = Linksnis.V;
 	private boolean valdomas = false;
 	
 	/**
@@ -61,53 +60,68 @@ public class Zodis {
 
 
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
-		vienaskaita.put(Linksnis.V, vnsV);
-		vienaskaita.put(Linksnis.K, vnsK);
-		vienaskaita.put(Linksnis.N, vnsN);
-		vienaskaita.put(Linksnis.G, vnsG);
-		vienaskaita.put(Linksnis.I, vnsI);
-		vienaskaita.put(Linksnis.Vt, vnsVt);
-		vienaskaita.put(Linksnis.S, vnsS);
+		Map<Linksnis, String> vns = getLinksniaiPagalSkaicius(Skaicius.V, true);
+		
+		vns.put(Linksnis.V, vnsV);
+		vns.put(Linksnis.K, vnsK);
+		vns.put(Linksnis.N, vnsN);
+		vns.put(Linksnis.G, vnsG);
+		vns.put(Linksnis.I, vnsI);
+		vns.put(Linksnis.Vt, vnsVt);
+		vns.put(Linksnis.S, vnsS);
 	}
 	
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS,
 			String dgsV, String dgsK, String dgsN, String dgsG, String dgsI, String dgsVt, String dgsS) {
-		vienaskaita.put(Linksnis.V, vnsV);
-		vienaskaita.put(Linksnis.K, vnsK);
-		vienaskaita.put(Linksnis.N, vnsN);
-		vienaskaita.put(Linksnis.G, vnsG);
-		vienaskaita.put(Linksnis.I, vnsI);
-		vienaskaita.put(Linksnis.Vt, vnsVt);
-		vienaskaita.put(Linksnis.S, vnsS);
+		Map<Linksnis, String> vns = getLinksniaiPagalSkaicius(Skaicius.V, true);
+		Map<Linksnis, String> dgs = getLinksniaiPagalSkaicius(Skaicius.D, true);
 		
-		daugiskaita.put(Linksnis.V, dgsV);
-		daugiskaita.put(Linksnis.K, dgsK);
-		daugiskaita.put(Linksnis.N, dgsN);
-		daugiskaita.put(Linksnis.G, dgsG);
-		daugiskaita.put(Linksnis.I, dgsI);
-		daugiskaita.put(Linksnis.Vt, dgsVt);
-		daugiskaita.put(Linksnis.S, dgsS);
+		vns.put(Linksnis.V, vnsV);
+		vns.put(Linksnis.K, vnsK);
+		vns.put(Linksnis.N, vnsN);
+		vns.put(Linksnis.G, vnsG);
+		vns.put(Linksnis.I, vnsI);
+		vns.put(Linksnis.Vt, vnsVt);
+		vns.put(Linksnis.S, vnsS);
+		
+		dgs.put(Linksnis.V, dgsV);
+		dgs.put(Linksnis.K, dgsK);
+		dgs.put(Linksnis.N, dgsN);
+		dgs.put(Linksnis.G, dgsG);
+		dgs.put(Linksnis.I, dgsI);
+		dgs.put(Linksnis.Vt, dgsVt);
+		dgs.put(Linksnis.S, dgsS);
 	}
-	
-	public String getVienaskaita(Linksnis linksnis) {
-		return vienaskaita.get(linksnis);
+
+	/**
+	 * Grąžina lentelę [linksnis -> žodis].
+	 * @param skaicius vienaskaita/daugiskaita
+	 * @param sukurtiJeiReikia jei lentelės nėra, sukuria tuščią ir tada grąžina
+	 * @return lentelė [linksnis -> žodis]
+	 */
+	private Map<Linksnis, String> getLinksniaiPagalSkaicius(Skaicius skaicius, boolean sukurtiJeiReikia) {
+		Map<Linksnis, String> r = linksniaiPagalSkaicius.get(skaicius);
+		if (r == null && sukurtiJeiReikia) {
+			r = new HashMap<Linksnis, String>();
+			linksniaiPagalSkaicius.put(skaicius, r);
+		}
+		return r;
 	}
-	
 	
 	public boolean isKitasVns() {
-		return kitasVns;
+		return kitoZodzioSkaicius;
 	}
 
 	public void setKitasVns(boolean kitasVns) {
-		this.kitasVns = kitasVns;
+		this.kitoZodzioSkaicius = kitasVns;
 	}
 
 	public Linksnis getKitasLinksnis() {
-		return kitasLinksnis;
+		return kitoZodzioLinksnis;
 	}
 
 	public void setKitasLinksnis(Linksnis kitasLinksnis) {
-		this.kitasLinksnis = kitasLinksnis;
+		this.kitoZodzioLinksnis = kitasLinksnis;
 	}
 	
 	public Zodis kitas(boolean kitasVns, Linksnis kitasLinksnis) {
@@ -150,16 +164,14 @@ public class Zodis {
 	}
 	
 
-	public String toString(boolean vns) {
-		return (vns ? vienaskaita : daugiskaita).get(Linksnis.V);
-	}
 	
-	public String toString(boolean vns, Linksnis linksnis) {
-		return (vns ? vienaskaita : daugiskaita).get(linksnis);
+	public String toString(Skaicius skaicius, Linksnis linksnis) {
+		Map<Linksnis, String> z = getLinksniaiPagalSkaicius(skaicius, false);
+		return z != null ? z.get(linksnis) : null;
 	}
 	
 	public String toString() {
-		return getVienaskaita(Linksnis.V);
+		return toString(Skaicius.V, Linksnis.V);
 	}
 
 

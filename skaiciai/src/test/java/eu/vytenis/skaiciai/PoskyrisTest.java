@@ -8,8 +8,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaiciai.esybes.Poskyris;
-import eu.vytenis.skaiciai.esybes.Skyrius;
+import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaiciai.klasifikatoriai.Skyrius;
+
 
 public class PoskyrisTest {
 	

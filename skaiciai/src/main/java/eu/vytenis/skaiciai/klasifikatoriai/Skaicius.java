@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai.esybes;
+package eu.vytenis.skaiciai.klasifikatoriai;
 
 /**
  * Skaičius: vienaskaita, daugiskaita.

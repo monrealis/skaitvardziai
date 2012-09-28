@@ -1,8 +1,11 @@
-package eu.vytenis.skaiciai.esybes;
+package eu.vytenis.skaiciai.zodziai;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
+
+import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
+import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
 
 
 public class Zodis {

@@ -7,10 +7,10 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaiciai.esybes.Gimine;
-import eu.vytenis.skaiciai.esybes.Linksnis;
-import eu.vytenis.skaiciai.esybes.Poskyris;
-import eu.vytenis.skaiciai.esybes.SveikasSkaicius;
+import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
+import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
+
 
 public class DauginiaiVyrTest {
 	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {

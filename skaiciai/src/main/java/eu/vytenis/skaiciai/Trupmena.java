@@ -1,6 +1,11 @@
-package eu.vytenis.skaiciai.esybes;
+package eu.vytenis.skaiciai;
 
 import java.util.Comparator;
+
+import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
+import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
 
 public class Trupmena implements Comparable<Trupmena> {
 	private long skaitiklis;

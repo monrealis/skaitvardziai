@@ -7,8 +7,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaiciai.esybes.Linksnis;
-import eu.vytenis.skaiciai.esybes.Trupmena;
+import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+
 
 public class TrupmenosTest {
 	private void testTrupmenos(Map<Trupmena, String> skaiciai, Linksnis linksnis) {

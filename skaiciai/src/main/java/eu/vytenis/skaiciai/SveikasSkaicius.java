@@ -1,10 +1,16 @@
 
-package eu.vytenis.skaiciai.esybes;
+package eu.vytenis.skaiciai;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
+import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaiciai.zodziai.ZodzioInfo;
 
 public class SveikasSkaicius {
 	private long reiksme;

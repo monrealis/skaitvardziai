@@ -1,6 +1,12 @@
-package eu.vytenis.skaiciai.esybes;
+package eu.vytenis.skaiciai.zodziai;
 
 import java.util.List;
+
+import eu.vytenis.skaiciai.Kontekstas;
+import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
+import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
 
 public class ZodzioInfo {
 	private Skaicius skaicius = Skaicius.V;

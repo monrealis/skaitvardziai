@@ -94,9 +94,15 @@ public class ZodzioInfo {
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis) {
-				s = zodis.toString(ankstesnis.getZodis().getKitas().clone(Linksnis.V)); //pvz., "du _šimtai_ dešimtojo"
+				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
+				kitas.setLinksnis(Linksnis.V);
+				s = zodis.toString(kitas); //pvz., "du _šimtai_ dešimtojo"
 			} else if (zodis.isValdomas() && ankstesnis != null) {
-				s = zodis.toString(ankstesnis.getZodis().getKitas().clone(linksnis)); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
+				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
+				if (kitas.getLinksnis() == null) {
+					kitas.setLinksnis(linksnis);
+				}
+				s = zodis.toString(kitas); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
 			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
 				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
 			} else if (!paskutinis && kelintinis) {

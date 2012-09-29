@@ -160,7 +160,7 @@ public class SveikasSkaicius {
 				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
 			}			
 		} else {
-			throw new UnsupportedOperationException();
+			throw new UnsupportedOperationException(sveikasSkaicius + " is too big");
 		}
 	}
 	

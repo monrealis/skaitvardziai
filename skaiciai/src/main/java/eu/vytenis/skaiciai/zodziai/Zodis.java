@@ -21,8 +21,13 @@ public class Zodis {
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
 	
-	/** Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis (vns. vard.)). */
-	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis();
+	
+	/**
+	 * Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis. (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis (vns. vard.)).
+	 * Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null
+	 * (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad antras žodis daugiskaita, bet linksnis gali būti bet koks).
+	 */
+	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(Skaicius.V, null);
 	
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private boolean valdomas = false;
@@ -121,8 +126,8 @@ public class Zodis {
 		return this;
 	}
 	
-	public Zodis kitasDgsVard() {
-		return kitas(Skaicius.D, Linksnis.V);
+	public Zodis kitasDgs() {
+		return kitas(Skaicius.D, null);
 	}
 	public Zodis kitasDgsKilm() {
 		return kitas(Skaicius.D, Linksnis.K);
@@ -166,25 +171,25 @@ public class Zodis {
 
 	static {
 		pagrindiniaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
-		pagrindiniaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgsVard());
-		pagrindiniaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgsVard());
-		pagrindiniaiMotGim.put(4L, new Zodis("keturios", "keturių", "keturioms", "keturias", "keturiomis", "keturiose", "keturios").kitasDgsVard());
-		pagrindiniaiMotGim.put(5L, new Zodis("penkios", "penkių", "penkioms", "penkias", "penkiomis", "penkiose", "penkios").kitasDgsVard());
-		pagrindiniaiMotGim.put(6L, new Zodis("šešios", "šešių", "šešioms", "šešias", "šešiomis", "šešiose", "šešios").kitasDgsVard());
-		pagrindiniaiMotGim.put(7L, new Zodis("septynios", "septynių", "septynioms", "septynias", "septyniomis", "septyniose", "septynios").kitasDgsVard());
-		pagrindiniaiMotGim.put(8L, new Zodis("aštuonios", "aštuonių", "aštuonioms", "aštuonias", "aštuoniomis", "aštuoniose", "aštuonios").kitasDgsVard());
-		pagrindiniaiMotGim.put(9L, new Zodis("devynios", "devynių", "devynioms", "devynias", "devyniomis", "devyniose", "devynios").kitasDgsVard());
+		pagrindiniaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgs());
+		pagrindiniaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgs());
+		pagrindiniaiMotGim.put(4L, new Zodis("keturios", "keturių", "keturioms", "keturias", "keturiomis", "keturiose", "keturios").kitasDgs());
+		pagrindiniaiMotGim.put(5L, new Zodis("penkios", "penkių", "penkioms", "penkias", "penkiomis", "penkiose", "penkios").kitasDgs());
+		pagrindiniaiMotGim.put(6L, new Zodis("šešios", "šešių", "šešioms", "šešias", "šešiomis", "šešiose", "šešios").kitasDgs());
+		pagrindiniaiMotGim.put(7L, new Zodis("septynios", "septynių", "septynioms", "septynias", "septyniomis", "septyniose", "septynios").kitasDgs());
+		pagrindiniaiMotGim.put(8L, new Zodis("aštuonios", "aštuonių", "aštuonioms", "aštuonias", "aštuoniomis", "aštuoniose", "aštuonios").kitasDgs());
+		pagrindiniaiMotGim.put(9L, new Zodis("devynios", "devynių", "devynioms", "devynias", "devyniomis", "devyniose", "devynios").kitasDgs());
 		
 		pagrindiniaiVyrGim.put(0L, new Zodis("nulis", "nulio", "nuliui", "nulį", "nuliu", "nulyje", "nuli").kitasDgsKilm());		
 		pagrindiniaiVyrGim.put(1L, new Zodis("vienas", "vieno", "vienam", "vieną", "vienu", "viename", "vienas", "vieni", "vienų", "vieniems", "vienus", "vienais", "vienuose", "vieni")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html		
-		pagrindiniaiVyrGim.put(2L, new Zodis("du", "dviejų", "dviem" /* geriau nei "dviems" */, "du", "dviem", "dviejuose", "du").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijuose", "trys").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(4L, new Zodis("keturi", "keturių", "keturiems", "keturis", "keturiais", "keturiuose", "keturi").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(5L, new Zodis("penki", "penkių", "penkiems", "penkis", "penkiais", "penkiuose", "penki").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(6L, new Zodis("šeši", "šešių", "šešiems", "šešis", "šešiais", "šešiuose", "šeši").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(7L, new Zodis("septyni", "septynių", "septyniems", "septynis", "septyniais", "septyniuose", "septyni").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(8L, new Zodis("aštuoni", "aštuonių", "aštuoniems", "aštuonis", "aštuoniais", "aštuoniuose", "aštuoni").kitasDgsVard());		
-		pagrindiniaiVyrGim.put(9L, new Zodis("devyni", "devynių", "devyniems", "devynis", "devyniais", "devyniuose", "devyni").kitasDgsVard());
+		pagrindiniaiVyrGim.put(2L, new Zodis("du", "dviejų", "dviem" /* geriau nei "dviems" */, "du", "dviem", "dviejuose", "du").kitasDgs());		
+		pagrindiniaiVyrGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijuose", "trys").kitasDgs());		
+		pagrindiniaiVyrGim.put(4L, new Zodis("keturi", "keturių", "keturiems", "keturis", "keturiais", "keturiuose", "keturi").kitasDgs());		
+		pagrindiniaiVyrGim.put(5L, new Zodis("penki", "penkių", "penkiems", "penkis", "penkiais", "penkiuose", "penki").kitasDgs());		
+		pagrindiniaiVyrGim.put(6L, new Zodis("šeši", "šešių", "šešiems", "šešis", "šešiais", "šešiuose", "šeši").kitasDgs());		
+		pagrindiniaiVyrGim.put(7L, new Zodis("septyni", "septynių", "septyniems", "septynis", "septyniais", "septyniuose", "septyni").kitasDgs());		
+		pagrindiniaiVyrGim.put(8L, new Zodis("aštuoni", "aštuonių", "aštuoniems", "aštuonis", "aštuoniais", "aštuoniuose", "aštuoni").kitasDgs());		
+		pagrindiniaiVyrGim.put(9L, new Zodis("devyni", "devynių", "devyniems", "devynis", "devyniais", "devyniuose", "devyni").kitasDgs());
 		pagrindiniaiVyrGim.put(10L, new Zodis("dešimt", "dešimties", "dešimčiai", "dešimt", "dešimčia", "dešimtyje", "dešimt").kitasDgsKilm());	// http://ualgiman.dtiltas.lt/skaitvardis.html
 		pagrindiniaiVyrGim.put(11L, new Zodis("vienuolika", "vienuolikos", "vienuolikai", "vienuolika", "vienuolika", "vienuolikoje", "vienuolika").kitasDgsKilm());
 		pagrindiniaiVyrGim.put(12L, new Zodis("dvylika", "dvylikos", "dvylikai", "dvylika", "dvylika", "dvylikoje", "dvylika").kitasDgsKilm());

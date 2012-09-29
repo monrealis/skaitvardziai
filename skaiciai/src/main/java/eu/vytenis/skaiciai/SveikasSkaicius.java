@@ -1,11 +1,13 @@
 
 package eu.vytenis.skaiciai;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import eu.vytenis.skaiciai.checks.CheckUtil;
 import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
 import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
@@ -23,6 +25,24 @@ public class SveikasSkaicius {
 		return reiksme;
 	}
 	
+	private void checkPoskyris(Poskyris poskyris) {
+		List<Poskyris> expected = Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis);
+		if (!expected.contains(poskyris)) {
+			throw new IllegalArgumentException(poskyris + " is invalid: " + expected + " expected");
+		}	
+	}
+	
+	private void checkPowerOfThousand(long tukstancioLaipsnis) {
+		BigInteger thousand = new BigInteger("1000");
+		List<Long> expected = new ArrayList<Long>();
+		for (int i = 1; i <= 3; ++i) {
+			expected.add(thousand.pow(i).longValue());
+		}
+		if (!expected.contains(tukstancioLaipsnis)) {
+			throw new IllegalArgumentException();
+		}
+	}
+	
 	private void vienzenklis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
 		long sveikasSkaicius = kontekstas.getSveikasSkaicius();
 		long tikrasSkaicius = kontekstas.getPradinisSveikasSkaicius();
@@ -31,12 +51,9 @@ public class SveikasSkaicius {
 		boolean ivardziuotinis = kontekstas.isIvardziuotine();
 		Skaicius skaicius = kontekstas.getSkaicius();
 				
-		if (sveikasSkaicius < 0 || sveikasSkaicius > 10) {
-			throw new IllegalArgumentException();
-		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
-			throw new IllegalArgumentException(poskyris + "");
-		}		
+		CheckUtil.checkMinInclusive("kontekstas.sveikasSkaicius", sveikasSkaicius, 0L, 10L);
+		checkPoskyris(poskyris);
+		
 		if (sveikasSkaicius == 0 && tikrasSkaicius == 0 || sveikasSkaicius > 0) {
 			if (poskyris == Poskyris.Pagrindinis) {
 				if (sveikasSkaicius == 0) {
@@ -62,12 +79,9 @@ public class SveikasSkaicius {
 		boolean ivardziuotinis = kontekstas.isIvardziuotine();
 		Skaicius skaicius = kontekstas.getSkaicius();
 		
-		if (sveikasSkaicius < 0 || sveikasSkaicius > 100) {
-			throw new IllegalArgumentException();
-		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
-			throw new IllegalArgumentException(poskyris + "");
-		}
+		CheckUtil.checkMinInclusive("kontekstas.sveikasSkaicius", sveikasSkaicius, 0L, 100L);
+		checkPoskyris(poskyris);
+		
 		if (sveikasSkaicius < 10) {
 			vienzenklis(zodziai, kontekstas);
 		} else if (sveikasSkaicius < 20) {
@@ -96,12 +110,9 @@ public class SveikasSkaicius {
 		Gimine gimine = kontekstas.getGimine();
 		Skaicius skaicius = kontekstas.getSkaicius();
 		
-		if (sveikasSkaicius < 0 || sveikasSkaicius > 1000) {
-			throw new IllegalArgumentException();
-		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
-			throw new IllegalArgumentException(poskyris + "");
-		}
+		CheckUtil.checkMinInclusive("kontekstas.sveikasSkaicius", sveikasSkaicius, 0L, 1000L);
+		checkPoskyris(poskyris);
+		
 		long dvizenklis = sveikasSkaicius % 100;
 		dvizenklis(zodziai, kontekstas.clone(dvizenklis));
 		
@@ -125,43 +136,56 @@ public class SveikasSkaicius {
 		}
 	}
 	
-	private void daugiazenklis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
+	private void daugiazenklis(List<ZodzioInfo> zodziai, Kontekstas kontekstas, long tukstancioLaipsnis) {
 		long sveikasSkaicius = kontekstas.getSveikasSkaicius();
-		long tikrasSkaicius = kontekstas.getPradinisSveikasSkaicius();
 		Poskyris poskyris = kontekstas.getPoskyris();
 		Gimine gimine = kontekstas.getGimine();
-		Skaicius skaicius = kontekstas.getSkaicius();
+		Skaicius skaicius = kontekstas.getSkaicius();		
+
+		checkPoskyris(poskyris);
+		checkPowerOfThousand(tukstancioLaipsnis);
 		
-		if (sveikasSkaicius != tikrasSkaicius) {
-			throw new IllegalArgumentException();
-		}
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
-			throw new IllegalArgumentException(poskyris + "");
-		}
 		long sk = sveikasSkaicius;
-		trizenklis(zodziai, kontekstas.clone(sveikasSkaicius % 1000));
-		long tukstanciu = sk / 1000;
-		long tukstanciuLiekana = sveikasSkaicius % 1000;
+		long tukstanciu = sk / tukstancioLaipsnis;
+		long tukstanciuLiekana = sveikasSkaicius % tukstancioLaipsnis;
+		if (tukstancioLaipsnis > 1000L) {
+			daugiazenklis(zodziai, kontekstas.clone(tukstanciuLiekana), tukstancioLaipsnis / 1000);
+		} else {
+			trizenklis(zodziai, kontekstas.clone(tukstanciuLiekana));
+		}
 		
 		if (tukstanciu == 0) {
 			// nieko
 		} else if (tukstanciu == 1) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIv(1000, skaicius, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinis(1000, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V));
 			}			
-		} else if (tukstanciu > 1 && tukstanciu < 100) {
+		} else if (tukstanciu > 1 && tukstanciu < 1000) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIv(1000, skaicius, gimine));
-				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
+				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine));
+				trizenklis(zodziai, kontekstas.clone(tukstanciu));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinis(1000, Gimine.V));
-				dvizenklis(zodziai, kontekstas.clone(tukstanciu));
+				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V));
+				trizenklis(zodziai, kontekstas.clone(tukstanciu));
 			}			
 		} else {
 			throw new UnsupportedOperationException(sveikasSkaicius + " is too big");
 		}
+	}
+	
+	private void daugiazenklis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
+		long sveikasSkaicius = kontekstas.getSveikasSkaicius();
+		long tikrasSkaicius = kontekstas.getPradinisSveikasSkaicius();
+		Poskyris poskyris = kontekstas.getPoskyris();
+		//Gimine gimine = kontekstas.getGimine();
+		//Skaicius skaicius = kontekstas.getSkaicius();
+		if (sveikasSkaicius != tikrasSkaicius) {
+			throw new IllegalArgumentException();
+		}
+		checkPoskyris(poskyris);
+		daugiazenklis(zodziai, kontekstas, 1000 * 1000 * 1000);
 	}
 	
 	@Override
@@ -170,6 +194,9 @@ public class SveikasSkaicius {
 	}
 	
 	private String kuopinis(List<ZodzioInfo> zodziai, Kontekstas kontekstas) {
+		if (kontekstas.getPoskyris() != Poskyris.Kuopinis) {
+			throw new IllegalArgumentException("kontekstas.poskyris has invalid value " + kontekstas.getPoskyris());
+		}
 		long skaicius = kontekstas.getSveikasSkaicius();
 		ZodzioInfo z = ZodzioInfo.getKuopinis(skaicius);
 		if (z == null) {

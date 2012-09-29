@@ -95,6 +95,25 @@ public class PagrindiniaiVyrTest {
 		testSkaiciai(s, Linksnis.V);
 	}
 	
+	@Test
+	public void testNuoVirs1000V() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000, "tūkstantis");
+		s.put(1018, "tūkstantis aštuoniolika");
+		s.put(2000, "du tūkstančiai");
+		s.put(3500, "trys tūkstančiai penki šimtai");
+		s.put(9823, "devyni tūkstančiai aštuoni šimtai dvidešimt trys");
+		s.put(10000, "dešimt tūkstančių");
+		s.put(11053, "vienuolika tūkstančių penkiasdešimt trys");
+		s.put(25420, "dvidešimt penki tūkstančiai keturi šimtai dvidešimt");
+		s.put(100000, "šimtas tūkstančių");
+		s.put(215024, "du šimtai penkiolika tūkstančių dvidešimt keturi");
+		s.put(1000000, "milijonas");
+		s.put(2000000, "du milijonai");
+		s.put(1000000000, "milijardas");
+
+		testSkaiciai(s, Linksnis.V);
+	}
 
 	
 	@Test

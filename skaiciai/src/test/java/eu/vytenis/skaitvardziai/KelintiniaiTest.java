@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai;
+package eu.vytenis.skaitvardziai;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -7,10 +7,12 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
-import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.Kontekstas;
+import eu.vytenis.skaitvardziai.SveikasSkaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
 public class KelintiniaiTest {

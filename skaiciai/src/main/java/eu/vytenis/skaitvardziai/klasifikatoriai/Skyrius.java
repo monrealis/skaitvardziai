@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai.klasifikatoriai;
+package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 /**
  * Skaitvardžio skyrius.

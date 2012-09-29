@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai;
+package eu.vytenis.skaitvardziai;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -7,7 +7,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.Trupmena;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 
 
 public class TrupmenosTest {

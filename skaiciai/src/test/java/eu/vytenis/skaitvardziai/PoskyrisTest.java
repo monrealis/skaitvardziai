@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai;
+package eu.vytenis.skaitvardziai;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -8,8 +8,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaiciai.klasifikatoriai.Skyrius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skyrius;
 
 
 public class PoskyrisTest {

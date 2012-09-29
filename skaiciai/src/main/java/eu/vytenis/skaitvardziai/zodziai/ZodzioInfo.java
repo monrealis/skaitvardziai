@@ -1,13 +1,13 @@
-package eu.vytenis.skaiciai.zodziai;
+package eu.vytenis.skaitvardziai.zodziai;
 
 import java.util.List;
 
-import eu.vytenis.skaiciai.Kontekstas;
-import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
-import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
-import eu.vytenis.skaiciai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.Kontekstas;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
 /**
  * Žodžio ir skaičiaus (vienaskaitos/daugiskaitos) dvejetas.

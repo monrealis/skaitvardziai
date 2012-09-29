@@ -1,5 +1,5 @@
 
-package eu.vytenis.skaiciai;
+package eu.vytenis.skaitvardziai;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -7,12 +7,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import eu.vytenis.skaiciai.checks.CheckUtil;
-import eu.vytenis.skaiciai.klasifikatoriai.Gimine;
-import eu.vytenis.skaiciai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaiciai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaiciai.klasifikatoriai.Skaicius;
-import eu.vytenis.skaiciai.zodziai.ZodzioInfo;
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
 public class SveikasSkaicius {
 	private long reiksme;

@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai;
+package eu.vytenis.skaitvardziai;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

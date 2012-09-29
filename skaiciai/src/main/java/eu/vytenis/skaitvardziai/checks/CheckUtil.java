@@ -1,4 +1,4 @@
-package eu.vytenis.skaiciai.checks;
+package eu.vytenis.skaitvardziai.checks;
 
 /**
  * Operacijoms reikšmėms validuoti.

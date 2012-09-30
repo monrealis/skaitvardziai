@@ -19,6 +19,17 @@ public class ZodzioInfo {
 	/** Žodis. */
 	private Zodis zodis;	
 	
+	/**
+	 * Ar žodžio indėlis indėlis į skaičių, lyginant su ankstesniu žodžiu, yra gautas daugybos būdu (true), ar sumos (true)?
+	 * Daugybos pvz.: tūkstantis šimtų.
+	 * Sumos pvz.: tūkstantis šimtas.
+	 * Konkretus pvz.:
+	 * 584356792124L - penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt keturi.
+	 * Kandangi nėra skaičiaus "vienas", "šimtas" yra pridedamas prie 584356792000L, jei būtų žodis "vienas", šimtas būtų padauginamas iš prieš tai einančio žodžio - "vienas x šimtas". 
+	 * 
+	 */
+	private boolean daugyba = false;
+	
 	public ZodzioInfo(Zodis zodis, Skaicius skaicius) {
 		this.zodis = zodis;
 		this.skaicius = skaicius;
@@ -97,7 +108,7 @@ public class ZodzioInfo {
 				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
 				kitas.setLinksnis(Linksnis.V);
 				s = zodis.toString(kitas); //pvz., "du _šimtai_ dešimtojo"
-			} else if (zodis.isValdomas() && ankstesnis != null) {
+			} else if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
 				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
 				if (kitas.getLinksnis() == null) {
 					kitas.setLinksnis(linksnis);
@@ -115,6 +126,18 @@ public class ZodzioInfo {
 		return r.toString();		
 	}
 	
+	public boolean isDaugyba() {
+		return daugyba;
+	}
+	
+	public void setDaugyba(boolean daugyba) {
+		this.daugyba = daugyba;
+	}
+	
+	public ZodzioInfo daugyba() {
+		setDaugyba(true);
+		return this;
+	}
 	@Override
 	public String toString() {
 		return zodis.toString();

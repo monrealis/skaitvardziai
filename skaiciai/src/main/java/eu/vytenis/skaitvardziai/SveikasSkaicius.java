@@ -130,7 +130,7 @@ public class SveikasSkaicius {
 				zodziai.add(ZodzioInfo.getKelintinisIv(100, skaicius, gimine));
 				zodziai.add(ZodzioInfo.getPagrindinis(simtai, Gimine.V)); // ?
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinis(100, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(100, Gimine.V).daugyba());
 				zodziai.add(ZodzioInfo.getPagrindinis(simtai, Gimine.V)); //?
 			}
 		}
@@ -167,7 +167,7 @@ public class SveikasSkaicius {
 				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine));
 				trizenklis(zodziai, kontekstas.clone(tukstanciu));
 			} else {
-				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V));
+				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V).daugyba());
 				trizenklis(zodziai, kontekstas.clone(tukstanciu));
 			}			
 		} else {

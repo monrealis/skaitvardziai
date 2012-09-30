@@ -21,7 +21,11 @@ public class PagrindiniaiVyrTest {
 			long number = e.getKey().longValue();
 			SveikasSkaicius sk = new SveikasSkaicius(number);
 					
-			Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
+			try {
+				Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
+			} catch (Throwable t) {
+				Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
+			}
 		}
 	}
 	
@@ -97,21 +101,24 @@ public class PagrindiniaiVyrTest {
 	}
 	
 	@Test
-	public void testNuoVirs1000V() {
+	public void testVirs1000V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(1000, "tūkstantis");
-		s.put(1018, "tūkstantis aštuoniolika");
-		s.put(2000, "du tūkstančiai");
-		s.put(3500, "trys tūkstančiai penki šimtai");
-		s.put(9823, "devyni tūkstančiai aštuoni šimtai dvidešimt trys");
-		s.put(10000, "dešimt tūkstančių");
-		s.put(11053, "vienuolika tūkstančių penkiasdešimt trys");
-		s.put(25420, "dvidešimt penki tūkstančiai keturi šimtai dvidešimt");
-		s.put(100000, "šimtas tūkstančių");
-		s.put(215024, "du šimtai penkiolika tūkstančių dvidešimt keturi");
-		s.put(1000000, "milijonas");
-		s.put(2000000, "du milijonai");
-		s.put(1000000000, "milijardas");
+		s.put(1000L, "tūkstantis");
+		s.put(1018L, "tūkstantis aštuoniolika");
+		s.put(2000L, "du tūkstančiai");
+		s.put(3500L, "trys tūkstančiai penki šimtai");
+		s.put(9823L, "devyni tūkstančiai aštuoni šimtai dvidešimt trys");
+		s.put(10000L, "dešimt tūkstančių");
+		s.put(11053L, "vienuolika tūkstančių penkiasdešimt trys");
+		s.put(25420L, "dvidešimt penki tūkstančiai keturi šimtai dvidešimt");
+		s.put(100000L, "šimtas tūkstančių");
+		s.put(215024L, "du šimtai penkiolika tūkstančių dvidešimt keturi");
+		s.put(1000000L, "milijonas");
+		s.put(2000000L, "du milijonai");
+		s.put(235000000L, "du šimtai trisdešimt penki milijonai");
+		s.put(1000000000L, "milijardas");
+		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt keturi");
+		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt keturi");
 
 		testSkaiciai(s, Linksnis.V);
 	}

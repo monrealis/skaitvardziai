@@ -76,6 +76,15 @@ public class Kontekstas implements Cloneable {
 	}
 	
 	/**
+	 * Pakeičia poskyrį ir grąžina this objektą.
+	 * @param poskyris naujas poskyris
+	 * @return this
+	 */
+	public Kontekstas poskyris(Poskyris poskyris) {
+		setPoskyris(poskyris);
+		return this;
+	}
+	/**
 	 * Klonuoja ir pakeičia einamąjį skaičių.
 	 * @param naujasSkaicius naujas einamasis skaičius
 	 * @return klonas

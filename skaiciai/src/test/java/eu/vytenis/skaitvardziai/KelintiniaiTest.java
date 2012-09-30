@@ -33,7 +33,11 @@ public class KelintiniaiTest {
 			k.setSkaicius(skaicius);
 			k.setSveikasSkaicius(number);
 			k.setPradinisSveikasSkaicius(number);
-			Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
+			try {
+				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
+			} catch (Throwable t) {
+				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
+			}
 		}
 	}
 	
@@ -104,6 +108,29 @@ public class KelintiniaiTest {
 		s.put(900, "devyni šimtasis");
 		s.put(963, "devyni šimtai šešiasdešimt trečias");
 		s.put(1000, "tūkstantasis");
+
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V, false);
+	}
+	
+	@Test
+	public void testVirs1000VVyr() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000L, "tūkstantasis");
+		s.put(1018L, "tūkstantis aštuonioliktas");
+		s.put(2000L, "du tūkstantasis");
+		s.put(3500L, "trys tūkstančiai penki šimtasis");
+		s.put(9823L, "devyni tūkstančiai aštuoni šimtai dvidešimt trečias");
+		s.put(10000L, "dešimt tūkstantasis");
+		s.put(11053L, "vienuolika tūkstančių penkiasdešimt trečias");
+		s.put(25420L, "dvidešimt penki tūkstančiai keturi šimtai dvidešimtas");
+		s.put(100000L, "šimtas tūkstantasis");
+		s.put(215024L, "du šimtai penkiolika tūkstančių dvidešimt ketvirtas");
+		s.put(1000000L, "milijonasis");
+		s.put(2000000L, "du milijonasis");
+		s.put(235000000L, "du šimtai trisdešimt penki milijonasis");
+		s.put(1000000000L, "milijardasis");
+		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtas");
+		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtas");
 
 		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V, false);
 	}

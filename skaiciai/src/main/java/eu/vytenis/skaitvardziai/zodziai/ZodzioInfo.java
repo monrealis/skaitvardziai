@@ -104,9 +104,11 @@ public class ZodzioInfo {
 			
 			Zodis zodis = dabartinis.getZodis();
 			String s;
-			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis) {
+			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis && dabartinis.isDaugyba()) {
 				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
-				kitas.setLinksnis(Linksnis.V);
+				if (kitas.getLinksnis() == null) {
+					kitas.setLinksnis(Linksnis.V);
+				}
 				s = zodis.toString(kitas); //pvz., "du _šimtai_ dešimtojo"
 			} else if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
 				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
@@ -140,7 +142,7 @@ public class ZodzioInfo {
 	}
 	@Override
 	public String toString() {
-		return zodis.toString();
+		return zodis.toString() + " " + skaicius + " " + daugyba;
 	}
 
 }

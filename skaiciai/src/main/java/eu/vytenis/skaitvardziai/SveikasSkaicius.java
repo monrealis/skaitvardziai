@@ -127,7 +127,7 @@ public class SveikasSkaicius {
 			
 		} else if (simtai > 1) {
 			if (poskyris == Poskyris.Kelintinis && liekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIv(100, skaicius, gimine));
+				zodziai.add(ZodzioInfo.getKelintinisIv(100, skaicius, gimine).daugyba());
 				zodziai.add(ZodzioInfo.getPagrindinis(simtai, Gimine.V)); // ?
 			} else {
 				zodziai.add(ZodzioInfo.getPagrindinis(100, Gimine.V).daugyba());
@@ -164,11 +164,11 @@ public class SveikasSkaicius {
 			}			
 		} else if (tukstanciu > 1 && tukstanciu < 1000) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
-				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine));
-				trizenklis(zodziai, kontekstas.clone(tukstanciu));
+				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine).daugyba());
+				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis));
 			} else {
 				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V).daugyba());
-				trizenklis(zodziai, kontekstas.clone(tukstanciu));
+				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis));
 			}			
 		} else {
 			throw new UnsupportedOperationException(sveikasSkaicius + " is too big");

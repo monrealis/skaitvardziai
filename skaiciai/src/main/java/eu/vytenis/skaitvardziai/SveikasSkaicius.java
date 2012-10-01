@@ -165,10 +165,10 @@ public class SveikasSkaicius {
 		} else if (tukstanciu > 1 && tukstanciu < 1000) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine).daugyba());
-				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis));
+				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 			} else {
 				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V).daugyba());
-				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis));
+				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 			}			
 		} else {
 			throw new UnsupportedOperationException(sveikasSkaicius + " is too big");

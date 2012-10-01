@@ -84,6 +84,16 @@ public class Kontekstas implements Cloneable {
 		setPoskyris(poskyris);
 		return this;
 	}
+	
+	/**
+	 * Pakeičia giminę ir grąžina this objektą
+	 * @param gimine nauja giminė
+	 * @return this
+	 */
+	public Kontekstas gimine(Gimine gimine) {
+		setGimine(gimine);
+		return this;
+	}
 	/**
 	 * Klonuoja ir pakeičia einamąjį skaičių.
 	 * @param naujasSkaicius naujas einamasis skaičius

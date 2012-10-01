@@ -95,7 +95,7 @@ public class SveikasSkaicius {
 			sveikasSkaicius /= 10;
 			long desimtys = sveikasSkaicius % 10;
 			
-			vienzenklis(zodziai, kontekstas.clone(vienetai));
+			vienzenklis(zodziai, kontekstas.clone().sveikasSkaicius(vienetai));
 			if (poskyris == Poskyris.Kelintinis && vienetai == 0) {
 				zodziai.add(ZodzioInfo.getKelintinis(desimtys * 10, skaicius, gimine, ivardziuotinis));
 			} else {
@@ -114,7 +114,7 @@ public class SveikasSkaicius {
 		checkPoskyris(poskyris);
 		
 		long dvizenklis = sveikasSkaicius % 100;
-		dvizenklis(zodziai, kontekstas.clone(dvizenklis));
+		dvizenklis(zodziai, kontekstas.clone().sveikasSkaicius(dvizenklis));
 		
 		long simtai = sveikasSkaicius / 100;
 		long liekana = sveikasSkaicius % 100;
@@ -149,9 +149,9 @@ public class SveikasSkaicius {
 		long tukstanciu = sk / tukstancioLaipsnis;
 		long tukstanciuLiekana = sveikasSkaicius % tukstancioLaipsnis;
 		if (tukstancioLaipsnis > 1000L) {
-			daugiazenklis(zodziai, kontekstas.clone(tukstanciuLiekana), tukstancioLaipsnis / 1000);
+			daugiazenklis(zodziai, kontekstas.clone().sveikasSkaicius(tukstanciuLiekana), tukstancioLaipsnis / 1000);
 		} else {
-			trizenklis(zodziai, kontekstas.clone(tukstanciuLiekana));
+			trizenklis(zodziai, kontekstas.clone().sveikasSkaicius(tukstanciuLiekana));
 		}
 		
 		if (tukstanciu == 0) {
@@ -165,10 +165,10 @@ public class SveikasSkaicius {
 		} else if (tukstanciu > 1 && tukstanciu < 1000) {
 			if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana == 0) {
 				zodziai.add(ZodzioInfo.getKelintinisIv(tukstancioLaipsnis, skaicius, gimine).daugyba());
-				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
+				trizenklis(zodziai, kontekstas.clone().sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 			} else {
 				zodziai.add(ZodzioInfo.getPagrindinis(tukstancioLaipsnis, Gimine.V).daugyba());
-				trizenklis(zodziai, kontekstas.clone(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
+				trizenklis(zodziai, kontekstas.clone().sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 			}			
 		} else {
 			throw new UnsupportedOperationException(sveikasSkaicius + " is too big");

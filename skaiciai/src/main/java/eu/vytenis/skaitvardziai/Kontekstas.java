@@ -94,28 +94,15 @@ public class Kontekstas implements Cloneable {
 		setGimine(gimine);
 		return this;
 	}
-	/**
-	 * Klonuoja ir pakeičia einamąjį skaičių.
-	 * @param naujasSkaicius naujas einamasis skaičius
-	 * @return klonas
-	 */
-	public Kontekstas clone(long naujasSkaicius) {
-		Kontekstas k = clone();
-		k.setSveikasSkaicius(naujasSkaicius);
-		return k;
-	}
 	
 	/**
-	 * Klonuoja ir pakeičia pradinį bei einamąjį skaičių.
-	 * @param naujasSkaicius naujas einamasis skaičius
-	 * @param naujasPradinisSkaicius naujas pradinis skaičius
-	 * @return klonas
+	 * Pakeičia skaičių ir grąžina this objektą.
+	 * @param naujasSkaicius naujas sveikasis skaičius
+	 * @return this objektas
 	 */
-	public Kontekstas clone(long naujasSkaicius, long naujasPradinisSkaicius) {
-		Kontekstas k = clone();
-		k.setSveikasSkaicius(naujasSkaicius);
-		k.setPradinisSveikasSkaicius(naujasPradinisSkaicius);
-		return k;
+	public Kontekstas sveikasSkaicius(long naujasSkaicius) {
+		setSveikasSkaicius(naujasSkaicius);
+		return this;
 	}
 
 	/**

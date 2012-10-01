@@ -195,6 +195,29 @@ public class PagrindiniaiVyrTest {
 		testSkaiciai(s, Linksnis.K);
 	}
 	
+	@Test
+	public void testVirs1000K() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000L, "tūkstančio");
+		s.put(1018L, "tūkstančio aštuoniolikos");
+		s.put(2000L, "dviejų tūkstančių");
+		s.put(3500L, "trijų tūkstančių penkių šimtų");
+		s.put(9823L, "devynių tūkstančių aštuonių šimtų dvidešimt trijų");
+		s.put(10000L, "dešimties tūkstančių");
+		s.put(11053L, "vienuolikos tūkstančių penkiasdešimt trijų");
+		s.put(25420L, "dvidešimt penkių tūkstančių keturių šimtų dvidešimties");
+		s.put(100000L, "šimto tūkstančių");
+		s.put(215024L, "dviejų šimtų penkiolikos tūkstančių dvidešimt keturių");
+		s.put(1000000L, "milijono");
+		s.put(2000000L, "dviejų milijonų");
+		s.put(235000000L, "dviejų šimtų trisdešimt penkių milijonų");
+		s.put(1000000000L, "milijardo");
+		s.put(184116790224L, "šimto aštuoniasdešimt keturių milijardų šimto šešiolikos milijonų septynių šimtų devyniasdešimties tūkstančių dviejų šimtų dvidešimt keturių");
+		s.put(584356792124L, "penkių šimtų aštuoniasdešimt keturių milijardų trijų šimtų penkiasdešimt šešių milijonų septynių šimtų devyniasdešimt dviejų tūkstančių šimto dvidešimt keturių");
+
+		testSkaiciai(s, Linksnis.K);
+	}
+
 	
 	@Test
 	public void testNuo1Iki20N() {

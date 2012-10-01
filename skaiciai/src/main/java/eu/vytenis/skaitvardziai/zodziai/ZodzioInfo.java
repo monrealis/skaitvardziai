@@ -94,7 +94,11 @@ public class ZodzioInfo {
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);
 			ZodzioInfo ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
-			boolean paskutinis = (i == (zodziai.size() - 1));
+			ZodzioInfo kitas = i < zodziai.size() - 1 ? zodziai.get(i + 1) : null;
+			boolean paskutinis = kitas == null
+					|| !kelintinis && kitas != null && kitas.isDaugyba();
+					// TODO turbūt parašyti kažkokią sąlyga panašią į
+					// kelintinis && kitas == null ?? 
 
 			if (pirmas) {
 				pirmas = false;
@@ -105,17 +109,17 @@ public class ZodzioInfo {
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis && dabartinis.isDaugyba()) {
-				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
-				if (kitas.getLinksnis() == null) {
-					kitas.setLinksnis(Linksnis.V);
+				SkaiciusIrLinksnis kitoSkaiciusLinksnis = ankstesnis.getZodis().getKitas().clone();
+				if (kitoSkaiciusLinksnis.getLinksnis() == null) {
+					kitoSkaiciusLinksnis.setLinksnis(Linksnis.V);
 				}
-				s = zodis.toString(kitas); //pvz., "du _šimtai_ dešimtojo"
+				s = zodis.toString(kitoSkaiciusLinksnis); //pvz., "du _šimtai_ dešimtojo"
 			} else if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
-				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
-				if (kitas.getLinksnis() == null) {
-					kitas.setLinksnis(linksnis);
+				SkaiciusIrLinksnis kitoSkaiciusLinksnis = ankstesnis.getZodis().getKitas().clone();
+				if (kitoSkaiciusLinksnis.getLinksnis() == null) {
+					kitoSkaiciusLinksnis.setLinksnis(linksnis);
 				}
-				s = zodis.toString(kitas); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
+				s = zodis.toString(kitoSkaiciusLinksnis); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
 			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
 				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
 			} else if (!paskutinis && kelintinis) {

@@ -1,16 +1,12 @@
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 /**
  * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius) bei
- * patį skaičių.
+ * patį pradinį ir einamąjį skaičius.
  *
  */
-public class Kontekstas implements Cloneable {
+public class FormaIrSkaiciai implements Cloneable {
 	/** Skaitvardžio poskyris. */
 	private Poskyris poskyris = Poskyris.Pagrindinis;
 	/** Skaitvardžio giminė. */
@@ -26,7 +22,7 @@ public class Kontekstas implements Cloneable {
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
 	private long sveikasSkaicius;
 	
-	public Kontekstas() {
+	public FormaIrSkaiciai() {
 		
 	}
 	
@@ -80,7 +76,7 @@ public class Kontekstas implements Cloneable {
 	 * @param poskyris naujas poskyris
 	 * @return this
 	 */
-	public Kontekstas poskyris(Poskyris poskyris) {
+	public FormaIrSkaiciai poskyris(Poskyris poskyris) {
 		setPoskyris(poskyris);
 		return this;
 	}
@@ -90,7 +86,7 @@ public class Kontekstas implements Cloneable {
 	 * @param gimine nauja giminė
 	 * @return this
 	 */
-	public Kontekstas gimine(Gimine gimine) {
+	public FormaIrSkaiciai gimine(Gimine gimine) {
 		setGimine(gimine);
 		return this;
 	}
@@ -100,7 +96,7 @@ public class Kontekstas implements Cloneable {
 	 * @param naujasSkaicius naujas sveikasis skaičius
 	 * @return this objektas
 	 */
-	public Kontekstas sveikasSkaicius(long naujasSkaicius) {
+	public FormaIrSkaiciai sveikasSkaicius(long naujasSkaicius) {
 		setSveikasSkaicius(naujasSkaicius);
 		return this;
 	}
@@ -110,10 +106,10 @@ public class Kontekstas implements Cloneable {
 	 * @return klonas
 	 */
 	@Override
-	public Kontekstas clone() {
-		Kontekstas k;
+	public FormaIrSkaiciai clone() {
+		FormaIrSkaiciai k;
 		try {
-			k = (Kontekstas) super.clone();
+			k = (FormaIrSkaiciai) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}

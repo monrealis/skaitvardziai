@@ -7,8 +7,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.Kontekstas;
 import eu.vytenis.skaitvardziai.SveikasSkaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -25,7 +25,7 @@ public class KelintiniaiTest {
 			SveikasSkaicius sk = new SveikasSkaicius(number);
 					
 			
-			Kontekstas k = new Kontekstas();
+			FormaIrSkaiciai k = new FormaIrSkaiciai();
 			k.setPoskyris(Poskyris.Kelintinis);
 			k.setLinksnis(linksnis);
 			k.setGimine(gimine);

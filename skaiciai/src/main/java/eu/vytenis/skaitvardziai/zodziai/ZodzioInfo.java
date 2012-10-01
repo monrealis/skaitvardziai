@@ -2,7 +2,7 @@ package eu.vytenis.skaitvardziai.zodziai;
 
 import java.util.List;
 
-import eu.vytenis.skaitvardziai.Kontekstas;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -81,15 +81,15 @@ public class ZodzioInfo {
 	 * skaitvardį iš vieno ar daugiau tinkamų formų nedalomų skaitvardžių.
 	 * (pvz, "dvidešimt pirmą" iš žodžių "dvidešimt", "pirmas" ir parametrų "kelintinis, galininkas".
 	 * @param zodziai žodžių sąrašas
-	 * @param kontekstas parametrų objektas
+	 * @param forma parametrų objektas
 	 * @return skaitvardis
 	 */
-	public static String toString(List<? extends ZodzioInfo> zodziai, Kontekstas kontekstas) {
-		Linksnis linksnis = kontekstas.getLinksnis();
+	public static String toString(List<? extends ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
+		Linksnis linksnis = forma.getLinksnis();
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
-		boolean kelintinis = kontekstas.getPoskyris() == Poskyris.Kelintinis;
-		Skaicius skaicius = kontekstas.getSkaicius();
+		boolean kelintinis = forma.getPoskyris() == Poskyris.Kelintinis;
+		Skaicius skaicius = forma.getSkaicius();
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);

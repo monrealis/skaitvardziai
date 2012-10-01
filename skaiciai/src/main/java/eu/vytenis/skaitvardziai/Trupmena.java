@@ -2,6 +2,7 @@ package eu.vytenis.skaitvardziai;
 
 import java.util.Comparator;
 
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -33,7 +34,7 @@ public class Trupmena implements Comparable<Trupmena> {
 		SveikasSkaicius s = new SveikasSkaicius(skaitiklis);
 		SveikasSkaicius v = new SveikasSkaicius(vardiklis);
 		
-		Kontekstas k = new Kontekstas();
+		FormaIrSkaiciai k = new FormaIrSkaiciai();
 		k.setPoskyris(Poskyris.Kelintinis);
 		k.setIvardziuotine(true);
 		k.setGimine(Gimine.M);

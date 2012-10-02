@@ -304,7 +304,7 @@ public class Zodis {
 				
 		kelintiniaiIvVyrGim.put(1L, new Zodis("pirmasis", "pirmojo", "pirmajam", "pirmąjį", "pirmuoju", "pirmajame", "pirmasis", "pirmieji", "pirmųjų", "pirmiesiems", "pirmuosius", "pirmaisiais", "pirmuosiuose", "pirmieji"));
 		kelintiniaiIvVyrGim.put(2L, new Zodis("antrasis", "antrojo", "antrajam", "antrąjį", "antruoju", "antrajame", "antrasis", "antrieji", "antrųjų", "antriesiems", "antruosius", "antraisiais", "antruosiuose", "antrieji"));
-		kelintiniaiIvVyrGim.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "trečiieji", "trečiųjų", "trečiiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "trečieji"));
+		kelintiniaiIvVyrGim.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "tretieji", "trečiųjų", "tretiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "tretieji"));
 		kelintiniaiIvVyrGim.put(4L, new Zodis("ketvirtasis", "ketvirtojo", "ketvirtajam", "ketvirtąjį", "ketvirtuoju", "ketvirtajame", "ketvirtasis", "ketvirtieji", "ketvirtųjų", "ketvirtiesiems", "ketvirtuosius", "ketvirtaisiais", "ketvirtuosiuose", "ketvirtieji"));
 		kelintiniaiIvVyrGim.put(5L, new Zodis("penktasis", "penktojo", "penktajam", "penktąjį", "penktuoju", "penktajame", "penktasis", "penktieji", "penktųjų", "penktiesiems", "penktuosius", "penktaisiais", "penktuosiuose", "penktieji"));
 		kelintiniaiIvVyrGim.put(6L, new Zodis("šeštasis", "šeštojo", "šeštajam", "šeštąjį", "šeštuoju", "šeštajame", "šeštasis", "šeštieji", "šeštųjų", "šeštiesiems", "šeštuosius", "šeštaisiais", "šeštuosiuose", "šeštieji"));

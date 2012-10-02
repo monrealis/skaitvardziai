@@ -495,6 +495,29 @@ public class KelintiniaiTest {
 	}
 	
 	@Test
+	public void testVirs1000DgsVVyr() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000L, "tūkstantieji");
+		s.put(1018L, "tūkstantis aštuoniolikti");
+		s.put(2000L, "du tūkstantieji");
+		s.put(3500L, "trys tūkstančiai penki šimtieji");
+		s.put(9823L, "devyni tūkstančiai aštuoni šimtai dvidešimt treti");
+		s.put(10000L, "dešimt tūkstantieji");
+		s.put(11053L, "vienuolika tūkstančių penkiasdešimt treti");
+		s.put(25420L, "dvidešimt penki tūkstančiai keturi šimtai dvidešimti");
+		s.put(100000L, "šimtas tūkstantieji");
+		s.put(215024L, "du šimtai penkiolika tūkstančių dvidešimt ketvirti");
+		s.put(1000000L, "milijonieji");
+		s.put(2000000L, "du milijonieji");
+		s.put(235000000L, "du šimtai trisdešimt penki milijonieji");
+		s.put(1000000000L, "milijardieji");
+		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirti");
+		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirti");
+
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V, false);
+	}
+	
+	@Test
 	public void testNuo1Iki20DgsVMot() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nulinės");
@@ -561,6 +584,29 @@ public class KelintiniaiTest {
 		s.put(900, "devyni šimtosios");
 		s.put(963, "devyni šimtai šešiasdešimt trečios");
 		s.put(1000, "tūkstantosios");
+
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M, false);
+	}
+	
+	@Test
+	public void testVirs1000DgsVMot() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000L, "tūkstantosios");
+		s.put(1018L, "tūkstantis aštuonioliktos");
+		s.put(2000L, "du tūkstantosios");
+		s.put(3500L, "trys tūkstančiai penki šimtosios");
+		s.put(9823L, "devyni tūkstančiai aštuoni šimtai dvidešimt trečios");
+		s.put(10000L, "dešimt tūkstantosios");
+		s.put(11053L, "vienuolika tūkstančių penkiasdešimt trečios");
+		s.put(25420L, "dvidešimt penki tūkstančiai keturi šimtai dvidešimtos");
+		s.put(100000L, "šimtas tūkstantosios");
+		s.put(215024L, "du šimtai penkiolika tūkstančių dvidešimt ketvirtos");
+		s.put(1000000L, "milijonosios");
+		s.put(2000000L, "du milijonosios");
+		s.put(235000000L, "du šimtai trisdešimt penki milijonosios");
+		s.put(1000000000L, "milijardosios");
+		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtos");
+		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtos");
 
 		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M, false);
 	}
@@ -638,6 +684,29 @@ public class KelintiniaiTest {
 	}
 	
 	@Test
+	public void testVirs1000DgsKVyr() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000L, "tūkstantųjų");
+		s.put(1018L, "tūkstantis aštuonioliktų");
+		s.put(2000L, "du tūkstantųjų");
+		s.put(3500L, "trys tūkstančiai penki šimtųjų");
+		s.put(9823L, "devyni tūkstančiai aštuoni šimtai dvidešimt trečių");
+		s.put(10000L, "dešimt tūkstantųjų");
+		s.put(11053L, "vienuolika tūkstančių penkiasdešimt trečių");
+		s.put(25420L, "dvidešimt penki tūkstančiai keturi šimtai dvidešimtų");
+		s.put(100000L, "šimtas tūkstantųjų");
+		s.put(215024L, "du šimtai penkiolika tūkstančių dvidešimt ketvirtų");
+		s.put(1000000L, "milijonųjų");
+		s.put(2000000L, "du milijonųjų");
+		s.put(235000000L, "du šimtai trisdešimt penki milijonųjų");
+		s.put(1000000000L, "milijardųjų");
+		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtų");
+		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtų");
+
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V, false);
+	}
+	
+	@Test
 	public void testNuo1Iki20DgsKMot() {
 		Map<Number, String> s = new TreeMap<Number, String>();
 		s.put(0, "nulinių");
@@ -704,6 +773,29 @@ public class KelintiniaiTest {
 		s.put(900, "devyni šimtųjų");
 		s.put(963, "devyni šimtai šešiasdešimt trečių");
 		s.put(1000, "tūkstantųjų");
+
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M, false);
+	}
+	
+	@Test
+	public void testVirs1000DgsKMot() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(1000L, "tūkstantųjų");
+		s.put(1018L, "tūkstantis aštuonioliktų");
+		s.put(2000L, "du tūkstantųjų");
+		s.put(3500L, "trys tūkstančiai penki šimtųjų");
+		s.put(9823L, "devyni tūkstančiai aštuoni šimtai dvidešimt trečių");
+		s.put(10000L, "dešimt tūkstantųjų");
+		s.put(11053L, "vienuolika tūkstančių penkiasdešimt trečių");
+		s.put(25420L, "dvidešimt penki tūkstančiai keturi šimtai dvidešimtų");
+		s.put(100000L, "šimtas tūkstantųjų");
+		s.put(215024L, "du šimtai penkiolika tūkstančių dvidešimt ketvirtų");
+		s.put(1000000L, "milijonųjų");
+		s.put(2000000L, "du milijonųjų");
+		s.put(235000000L, "du šimtai trisdešimt penki milijonųjų");
+		s.put(1000000000L, "milijardųjų");
+		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtų");
+		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtų");
 
 		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M, false);
 	}

@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai;
 
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -31,8 +32,8 @@ public class KelintiniaiTest {
 			k.setGimine(gimine);
 			k.setIvardziuotine(ivardziuotine);
 			k.setSkaicius(skaicius);
-			k.setSveikasSkaicius(number);
-			k.setPradinisSveikasSkaicius(number);
+			k.setSveikasSkaicius(new BigInteger(Long.toString(number)));
+			k.setPradinisSveikasSkaicius(new BigInteger(Long.toString(number)));
 			try {
 				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
 			} catch (Throwable t) {

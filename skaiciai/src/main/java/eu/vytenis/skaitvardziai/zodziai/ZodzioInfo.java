@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai.zodziai;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
@@ -47,28 +48,28 @@ public class ZodzioInfo {
 		return zodis;
 	}
 	
-	public static ZodzioInfo getPagrindinis(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getPagrindinis(BigInteger skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getPagrindinis(skaicius, gimine);
 		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getDauginis(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getDauginis(BigInteger skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getDauginis(skaicius, gimine);
 		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getKelintinis(long sveikasSkaicius, Skaicius skaicius, Gimine gimine, boolean ivardziuotinis) {
+	public static ZodzioInfo getKelintinis(BigInteger sveikasSkaicius, Skaicius skaicius, Gimine gimine, boolean ivardziuotinis) {
 		Zodis zodis = Zodis.getKelintinis(sveikasSkaicius, gimine, ivardziuotinis);
 		return new ZodzioInfo(zodis, skaicius);
 	}
 
-	public static ZodzioInfo getKelintinisIv(long sveikasSkaicius, Skaicius skaicius, Gimine gimine) {
+	public static ZodzioInfo getKelintinisIv(BigInteger sveikasSkaicius, Skaicius skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getKelintinisIv(sveikasSkaicius, gimine);
 		return new ZodzioInfo(zodis, skaicius);
 	}
 
 	
-	public static ZodzioInfo getKuopinis(long skaicius) {
+	public static ZodzioInfo getKuopinis(BigInteger skaicius) {
 		Zodis zodis = Zodis.getKuopinis(skaicius);
 		if (zodis == null) {
 			return null;

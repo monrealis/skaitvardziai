@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
+import java.math.BigInteger;
+
 
 /**
  * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius) bei
@@ -18,9 +20,9 @@ public class FormaIrSkaiciai implements Cloneable {
 	/** Ar įvardžiuotinė forma.*/
 	private boolean ivardziuotine = false;
 	/** Skaičius, kurį bandoma parašyti, */
-	private long pradinisSveikasSkaicius;
+	private BigInteger pradinisSveikasSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
-	private long sveikasSkaicius;
+	private BigInteger sveikasSkaicius;
 	
 	public FormaIrSkaiciai() {
 		
@@ -50,16 +52,16 @@ public class FormaIrSkaiciai implements Cloneable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
-	public long getPradinisSveikasSkaicius() {
+	public BigInteger getPradinisSveikasSkaicius() {
 		return pradinisSveikasSkaicius;
 	}
-	public void setPradinisSveikasSkaicius(long pradinisSkaicius) {
+	public void setPradinisSveikasSkaicius(BigInteger pradinisSkaicius) {
 		this.pradinisSveikasSkaicius = pradinisSkaicius;
 	}
-	public long getSveikasSkaicius() {
+	public BigInteger getSveikasSkaicius() {
 		return sveikasSkaicius;
 	}
-	public void setSveikasSkaicius(long skaicius) {
+	public void setSveikasSkaicius(BigInteger skaicius) {
 		this.sveikasSkaicius = skaicius;
 	}
 	
@@ -96,7 +98,7 @@ public class FormaIrSkaiciai implements Cloneable {
 	 * @param naujasSkaicius naujas sveikasis skaičius
 	 * @return this objektas
 	 */
-	public FormaIrSkaiciai sveikasSkaicius(long naujasSkaicius) {
+	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
 		setSveikasSkaicius(naujasSkaicius);
 		return this;
 	}

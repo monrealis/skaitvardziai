@@ -1,16 +1,14 @@
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import java.math.BigInteger;
+
 
 /**
  * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius) bei
- * patį skaičių.
+ * patį pradinį ir einamąjį skaičius.
  *
  */
-public class Kontekstas implements Cloneable {
+public class FormaIrSkaiciai implements Cloneable {
 	/** Skaitvardžio poskyris. */
 	private Poskyris poskyris = Poskyris.Pagrindinis;
 	/** Skaitvardžio giminė. */
@@ -22,11 +20,11 @@ public class Kontekstas implements Cloneable {
 	/** Ar įvardžiuotinė forma.*/
 	private boolean ivardziuotine = false;
 	/** Skaičius, kurį bandoma parašyti, */
-	private long pradinisSveikasSkaicius;
+	private BigInteger pradinisSveikasSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
-	private long sveikasSkaicius;
+	private BigInteger sveikasSkaicius;
 	
-	public Kontekstas() {
+	public FormaIrSkaiciai() {
 		
 	}
 	
@@ -54,16 +52,16 @@ public class Kontekstas implements Cloneable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
-	public long getPradinisSveikasSkaicius() {
+	public BigInteger getPradinisSveikasSkaicius() {
 		return pradinisSveikasSkaicius;
 	}
-	public void setPradinisSveikasSkaicius(long pradinisSkaicius) {
+	public void setPradinisSveikasSkaicius(BigInteger pradinisSkaicius) {
 		this.pradinisSveikasSkaicius = pradinisSkaicius;
 	}
-	public long getSveikasSkaicius() {
+	public BigInteger getSveikasSkaicius() {
 		return sveikasSkaicius;
 	}
-	public void setSveikasSkaicius(long skaicius) {
+	public void setSveikasSkaicius(BigInteger skaicius) {
 		this.sveikasSkaicius = skaicius;
 	}
 	
@@ -76,27 +74,33 @@ public class Kontekstas implements Cloneable {
 	}
 	
 	/**
-	 * Klonuoja ir pakeičia einamąjį skaičių.
-	 * @param naujasSkaicius naujas einamasis skaičius
-	 * @return klonas
+	 * Pakeičia poskyrį ir grąžina this objektą.
+	 * @param poskyris naujas poskyris
+	 * @return this
 	 */
-	public Kontekstas clone(long naujasSkaicius) {
-		Kontekstas k = clone();
-		k.setSveikasSkaicius(naujasSkaicius);
-		return k;
+	public FormaIrSkaiciai poskyris(Poskyris poskyris) {
+		setPoskyris(poskyris);
+		return this;
 	}
 	
 	/**
-	 * Klonuoja ir pakeičia pradinį bei einamąjį skaičių.
-	 * @param naujasSkaicius naujas einamasis skaičius
-	 * @param naujasPradinisSkaicius naujas pradinis skaičius
-	 * @return klonas
+	 * Pakeičia giminę ir grąžina this objektą
+	 * @param gimine nauja giminė
+	 * @return this
 	 */
-	public Kontekstas clone(long naujasSkaicius, long naujasPradinisSkaicius) {
-		Kontekstas k = clone();
-		k.setSveikasSkaicius(naujasSkaicius);
-		k.setPradinisSveikasSkaicius(naujasPradinisSkaicius);
-		return k;
+	public FormaIrSkaiciai gimine(Gimine gimine) {
+		setGimine(gimine);
+		return this;
+	}
+	
+	/**
+	 * Pakeičia skaičių ir grąžina this objektą.
+	 * @param naujasSkaicius naujas sveikasis skaičius
+	 * @return this objektas
+	 */
+	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
+		setSveikasSkaicius(naujasSkaicius);
+		return this;
 	}
 
 	/**
@@ -104,10 +108,10 @@ public class Kontekstas implements Cloneable {
 	 * @return klonas
 	 */
 	@Override
-	public Kontekstas clone() {
-		Kontekstas k;
+	public FormaIrSkaiciai clone() {
+		FormaIrSkaiciai k;
 		try {
-			k = (Kontekstas) super.clone();
+			k = (FormaIrSkaiciai) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}

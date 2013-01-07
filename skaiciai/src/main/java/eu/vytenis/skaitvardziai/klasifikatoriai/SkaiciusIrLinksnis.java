@@ -43,11 +43,5 @@ public class SkaiciusIrLinksnis implements Cloneable {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public SkaiciusIrLinksnis clone(Linksnis linksnis) {
-		SkaiciusIrLinksnis r = clone();
-		r.setLinksnis(linksnis);
-		return r;
-	}
 
 }

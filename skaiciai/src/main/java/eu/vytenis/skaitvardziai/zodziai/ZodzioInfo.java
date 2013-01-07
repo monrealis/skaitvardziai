@@ -1,8 +1,9 @@
 package eu.vytenis.skaitvardziai.zodziai;
 
+import java.math.BigInteger;
 import java.util.List;
 
-import eu.vytenis.skaitvardziai.Kontekstas;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -18,6 +19,17 @@ public class ZodzioInfo {
 	private Skaicius skaicius = Skaicius.V;
 	/** Žodis. */
 	private Zodis zodis;	
+	
+	/**
+	 * Ar žodžio indėlis indėlis į skaičių, lyginant su ankstesniu žodžiu, yra gautas daugybos būdu (true), ar sumos (true)?
+	 * Daugybos pvz.: tūkstantis šimtų.
+	 * Sumos pvz.: tūkstantis šimtas.
+	 * Konkretus pvz.:
+	 * 584356792124L - penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt keturi.
+	 * Kandangi nėra skaičiaus "vienas", "šimtas" yra pridedamas prie 584356792000L, jei būtų žodis "vienas", šimtas būtų padauginamas iš prieš tai einančio žodžio - "vienas x šimtas". 
+	 * 
+	 */
+	private boolean daugyba = false;
 	
 	public ZodzioInfo(Zodis zodis, Skaicius skaicius) {
 		this.zodis = zodis;
@@ -36,28 +48,28 @@ public class ZodzioInfo {
 		return zodis;
 	}
 	
-	public static ZodzioInfo getPagrindinis(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getPagrindinis(BigInteger skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getPagrindinis(skaicius, gimine);
 		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getDauginis(long skaicius, Gimine gimine) {
+	public static ZodzioInfo getDauginis(BigInteger skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getDauginis(skaicius, gimine);
 		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getKelintinis(long sveikasSkaicius, Skaicius skaicius, Gimine gimine, boolean ivardziuotinis) {
+	public static ZodzioInfo getKelintinis(BigInteger sveikasSkaicius, Skaicius skaicius, Gimine gimine, boolean ivardziuotinis) {
 		Zodis zodis = Zodis.getKelintinis(sveikasSkaicius, gimine, ivardziuotinis);
 		return new ZodzioInfo(zodis, skaicius);
 	}
 
-	public static ZodzioInfo getKelintinisIv(long sveikasSkaicius, Skaicius skaicius, Gimine gimine) {
+	public static ZodzioInfo getKelintinisIv(BigInteger sveikasSkaicius, Skaicius skaicius, Gimine gimine) {
 		Zodis zodis = Zodis.getKelintinisIv(sveikasSkaicius, gimine);
 		return new ZodzioInfo(zodis, skaicius);
 	}
 
 	
-	public static ZodzioInfo getKuopinis(long skaicius) {
+	public static ZodzioInfo getKuopinis(BigInteger skaicius) {
 		Zodis zodis = Zodis.getKuopinis(skaicius);
 		if (zodis == null) {
 			return null;
@@ -70,20 +82,24 @@ public class ZodzioInfo {
 	 * skaitvardį iš vieno ar daugiau tinkamų formų nedalomų skaitvardžių.
 	 * (pvz, "dvidešimt pirmą" iš žodžių "dvidešimt", "pirmas" ir parametrų "kelintinis, galininkas".
 	 * @param zodziai žodžių sąrašas
-	 * @param kontekstas parametrų objektas
+	 * @param forma parametrų objektas
 	 * @return skaitvardis
 	 */
-	public static String toString(List<? extends ZodzioInfo> zodziai, Kontekstas kontekstas) {
-		Linksnis linksnis = kontekstas.getLinksnis();
+	public static String toString(List<? extends ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
+		Linksnis linksnis = forma.getLinksnis();
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
-		boolean kelintinis = kontekstas.getPoskyris() == Poskyris.Kelintinis;
-		Skaicius skaicius = kontekstas.getSkaicius();
+		boolean kelintinis = forma.getPoskyris() == Poskyris.Kelintinis;
+		Skaicius skaicius = forma.getSkaicius();
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);
 			ZodzioInfo ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
-			boolean paskutinis = (i == (zodziai.size() - 1));
+			ZodzioInfo kitas = i < zodziai.size() - 1 ? zodziai.get(i + 1) : null;
+			boolean paskutinis = kitas == null
+					|| !kelintinis && kitas != null && kitas.isDaugyba();
+					// TODO turbūt parašyti kažkokią sąlyga panašią į
+					// kelintinis && kitas == null ?? 
 
 			if (pirmas) {
 				pirmas = false;
@@ -93,16 +109,18 @@ public class ZodzioInfo {
 			
 			Zodis zodis = dabartinis.getZodis();
 			String s;
-			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis) {
-				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
-				kitas.setLinksnis(Linksnis.V);
-				s = zodis.toString(kitas); //pvz., "du _šimtai_ dešimtojo"
-			} else if (zodis.isValdomas() && ankstesnis != null) {
-				SkaiciusIrLinksnis kitas = ankstesnis.getZodis().getKitas().clone();
-				if (kitas.getLinksnis() == null) {
-					kitas.setLinksnis(linksnis);
+			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis && dabartinis.isDaugyba()) {
+				SkaiciusIrLinksnis kitoSkaiciusLinksnis = ankstesnis.getZodis().getKitas().clone();
+				if (kitoSkaiciusLinksnis.getLinksnis() == null) {
+					kitoSkaiciusLinksnis.setLinksnis(Linksnis.V);
 				}
-				s = zodis.toString(kitas); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
+				s = zodis.toString(kitoSkaiciusLinksnis); //pvz., "du _šimtai_ dešimtojo"
+			} else if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
+				SkaiciusIrLinksnis kitoSkaiciusLinksnis = ankstesnis.getZodis().getKitas().clone();
+				if (kitoSkaiciusLinksnis.getLinksnis() == null) {
+					kitoSkaiciusLinksnis.setLinksnis(linksnis);
+				}
+				s = zodis.toString(kitoSkaiciusLinksnis); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
 			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
 				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
 			} else if (!paskutinis && kelintinis) {
@@ -115,9 +133,21 @@ public class ZodzioInfo {
 		return r.toString();		
 	}
 	
+	public boolean isDaugyba() {
+		return daugyba;
+	}
+	
+	public void setDaugyba(boolean daugyba) {
+		this.daugyba = daugyba;
+	}
+	
+	public ZodzioInfo daugyba() {
+		setDaugyba(true);
+		return this;
+	}
 	@Override
 	public String toString() {
-		return zodis.toString();
+		return zodis.toString() + " " + skaicius + " " + daugyba;
 	}
 
 }

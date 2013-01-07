@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai.zodziai;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -8,6 +9,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
 
 /**
@@ -45,26 +47,26 @@ public class Zodis {
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	
 	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> pagrindiniaiMotGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> pagrindiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	/** Pagrindiniai skaitvardžiai (vyriškos giminės). */
-	private static final Map<Long, Zodis> pagrindiniaiVyrGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> pagrindiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	
 	/** Kuopiniai skaitvardžiai.*/
-	private static final Map<Long, Zodis> kuopiniai = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kuopiniai = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	
 	/** Dauginiai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> dauginiaiMotGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> dauginiaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	/** Dauginiai skaitvardžiai (vyriškos giminės). */
-	private static final Map<Long, Zodis> dauginiaiVyrGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> dauginiaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiVyrGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiIvVyrGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiIvVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiMotGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiIvMotGim = new HashMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 
 
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -304,7 +306,7 @@ public class Zodis {
 				
 		kelintiniaiIvVyrGim.put(1L, new Zodis("pirmasis", "pirmojo", "pirmajam", "pirmąjį", "pirmuoju", "pirmajame", "pirmasis", "pirmieji", "pirmųjų", "pirmiesiems", "pirmuosius", "pirmaisiais", "pirmuosiuose", "pirmieji"));
 		kelintiniaiIvVyrGim.put(2L, new Zodis("antrasis", "antrojo", "antrajam", "antrąjį", "antruoju", "antrajame", "antrasis", "antrieji", "antrųjų", "antriesiems", "antruosius", "antraisiais", "antruosiuose", "antrieji"));
-		kelintiniaiIvVyrGim.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "trečiieji", "trečiųjų", "trečiiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "trečieji"));
+		kelintiniaiIvVyrGim.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "tretieji", "trečiųjų", "tretiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "tretieji"));
 		kelintiniaiIvVyrGim.put(4L, new Zodis("ketvirtasis", "ketvirtojo", "ketvirtajam", "ketvirtąjį", "ketvirtuoju", "ketvirtajame", "ketvirtasis", "ketvirtieji", "ketvirtųjų", "ketvirtiesiems", "ketvirtuosius", "ketvirtaisiais", "ketvirtuosiuose", "ketvirtieji"));
 		kelintiniaiIvVyrGim.put(5L, new Zodis("penktasis", "penktojo", "penktajam", "penktąjį", "penktuoju", "penktajame", "penktasis", "penktieji", "penktųjų", "penktiesiems", "penktuosius", "penktaisiais", "penktuosiuose", "penktieji"));
 		kelintiniaiIvVyrGim.put(6L, new Zodis("šeštasis", "šeštojo", "šeštajam", "šeštąjį", "šeštuoju", "šeštajame", "šeštasis", "šeštieji", "šeštųjų", "šeštiesiems", "šeštuosius", "šeštaisiais", "šeštuosiuose", "šeštieji"));
@@ -367,7 +369,7 @@ public class Zodis {
 		kelintiniaiIvMotGim.put(1000000000L, new Zodis("milijardoji", "milijardosios", "milijardajai", "milijardąją", "milijardąja", "milijardojoje", "milijardoji", "milijardosios", "milijardųjų", "milijardosioms", "milijardąsias", "milijardosiomis", "milijardojoje", "milijardosios"));
 	}
 	
-	public static Zodis getPagrindinis(long skaicius, Gimine gimine) {
+	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
 			return pagrindiniaiVyrGim.get(skaicius);
 		} else {
@@ -376,18 +378,18 @@ public class Zodis {
 		
 	}	
 	
-	public static Zodis getKuopinis(long skaicius) {
+	public static Zodis getKuopinis(BigInteger skaicius) {
 		Zodis z = kuopiniai.get(skaicius);
 		if (z == null) {
 			throw new IllegalArgumentException("Illegal argument " + skaicius);
 		}
-		if (skaicius == 1) {
+		if (skaicius.equals(BigInteger.ONE)) {
 			logger.warning(z + " naudojamas kaip kuopinis skaitvardis");
 		}
 		return z;
 	}
 	
-	public static Zodis getDauginis(long skaicius, Gimine gimine) {
+	public static Zodis getDauginis(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
 			return dauginiaiVyrGim.get(skaicius);
 		} else {
@@ -395,7 +397,7 @@ public class Zodis {
 		}
 	}	
 	
-	public static Zodis getKelintinis(long skaicius, Gimine gimine, boolean ivardziuotinis) {
+	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, boolean ivardziuotinis) {
 		if (gimine == Gimine.M) {
 			if (ivardziuotinis) {
 				return kelintiniaiIvMotGim.get(skaicius);
@@ -410,7 +412,7 @@ public class Zodis {
 			}
 		}
 	}	
-	public static Zodis getKelintinisIv(long skaicius, Gimine gimine) {
+	public static Zodis getKelintinisIv(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.M) {
 			return kelintiniaiIvMotGim.get(skaicius);
 		} else {

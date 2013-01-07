@@ -1,7 +1,9 @@
 package eu.vytenis.skaitvardziai;
 
+import java.math.BigInteger;
 import java.util.Comparator;
 
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -33,12 +35,12 @@ public class Trupmena implements Comparable<Trupmena> {
 		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
 		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
 		
-		Kontekstas k = new Kontekstas();
+		FormaIrSkaiciai k = new FormaIrSkaiciai();
 		k.setPoskyris(Poskyris.Kelintinis);
 		k.setIvardziuotine(true);
 		k.setGimine(Gimine.M);
-		k.setSveikasSkaicius(vardiklis);
-		k.setPradinisSveikasSkaicius(vardiklis);
+		k.setSveikasSkaicius(new BigInteger(Long.toString(vardiklis)));
+		k.setPradinisSveikasSkaicius(new BigInteger(Long.toString(vardiklis)));
 		k.setSkaicius(Skaicius.D);
 		
 		long liekana100 = skaitiklis % 100;

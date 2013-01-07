@@ -8,7 +8,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.Kontekstas;
-import eu.vytenis.skaitvardziai.SveikasSkaicius;
+import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -22,7 +22,7 @@ public class KelintiniaiIvTest {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
 			long number = e.getKey().longValue();
-			SveikasSkaicius sk = new SveikasSkaicius(number);
+			SveikasisSkaicius sk = new SveikasisSkaicius(number);
 					
 			
 			Kontekstas k = new Kontekstas();

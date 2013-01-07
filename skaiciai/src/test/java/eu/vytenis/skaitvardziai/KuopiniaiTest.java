@@ -4,7 +4,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.SveikasSkaicius;
+import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -13,7 +13,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 public class KuopiniaiTest {
 	
 	private void assertKuopinis(long skaicius, Linksnis linksnis, String tekstas) {
-		Assert.assertEquals(tekstas, new SveikasSkaicius(skaicius).toString(Poskyris.Kuopinis, linksnis, Gimine.V));
+		Assert.assertEquals(tekstas, new SveikasisSkaicius(skaicius).toString(Poskyris.Kuopinis, linksnis, Gimine.V));
 	}
 	@Test
 	public void testKuopiniai() {
@@ -99,7 +99,7 @@ public class KuopiniaiTest {
 	@Test
 	public void testNegalimiSkaiciai() {
 		for (long l = -1000L; l <= 1000; ++l) {
-			SveikasSkaicius s = new SveikasSkaicius(l);
+			SveikasisSkaicius s = new SveikasisSkaicius(l);
 			if (l >= 1 && l <= 9) {
 				for (Linksnis linksnis : Linksnis.values()) {
 					s.toString(Poskyris.Kuopinis, linksnis, Gimine.V);

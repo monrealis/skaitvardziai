@@ -14,10 +14,10 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
-public class SveikasSkaicius {
+public class SveikasisSkaicius {
 	private long reiksme;
 	
-	public SveikasSkaicius(long reiksme) {
+	public SveikasisSkaicius(long reiksme) {
 		this.reiksme = reiksme;
 	}
 	
@@ -180,7 +180,7 @@ public class SveikasSkaicius {
 		long tikrasSkaicius = kontekstas.getPradinisSveikasSkaicius();
 		Poskyris poskyris = kontekstas.getPoskyris();
 		//Gimine gimine = kontekstas.getGimine();
-		//Skaicius skaicius = kontekstas.getSkaicius();
+		//SkaiciusXPathFunctions skaicius = kontekstas.getSkaicius();
 		if (sveikasSkaicius != tikrasSkaicius) {
 			throw new IllegalArgumentException();
 		}

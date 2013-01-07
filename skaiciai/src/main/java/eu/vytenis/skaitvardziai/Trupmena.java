@@ -30,8 +30,8 @@ public class Trupmena implements Comparable<Trupmena> {
 	}
 	
 	public String toString(Linksnis linksnis) {
-		SveikasSkaicius s = new SveikasSkaicius(skaitiklis);
-		SveikasSkaicius v = new SveikasSkaicius(vardiklis);
+		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
+		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
 		
 		Kontekstas k = new Kontekstas();
 		k.setPoskyris(Poskyris.Kelintinis);

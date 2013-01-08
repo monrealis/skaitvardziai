@@ -4,7 +4,7 @@
 
 	<groupId>eu.vytenis.skaitvardziai</groupId>
 	<artifactId>skaitvardziai</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.9-SNAPSHOT</version>
 
 	<name>Skaitvardžiai</name>
 	<url>https://github.com/monrealis/skaitvardziai</url>

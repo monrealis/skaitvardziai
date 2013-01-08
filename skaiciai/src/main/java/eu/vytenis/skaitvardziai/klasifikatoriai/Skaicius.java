@@ -8,6 +8,16 @@ public enum Skaicius {
 	/** Vienaskaita. */
 	V,
 	/** Daugiskaita. */
-	D
+	D;
+	
+	public String alias() {
+		if (this == V) {
+			return "vns";
+		} else if (this == D) {
+			return "dgs";
+		} else {
+			return name();
+		}
+	}
 
 }

@@ -8,6 +8,7 @@ import java.math.BigInteger;
  * patį pradinį ir einamąjį skaičius.
  *
  */
+// TODO išskaidyti į formą ir skaičius
 public class FormaIrSkaiciai implements Cloneable {
 	/** Skaitvardžio poskyris. */
 	private Poskyris poskyris = Poskyris.Pagrindinis;

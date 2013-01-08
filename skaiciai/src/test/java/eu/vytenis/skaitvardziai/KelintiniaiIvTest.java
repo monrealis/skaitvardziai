@@ -30,8 +30,8 @@ public class KelintiniaiIvTest {
 			k.setLinksnis(linksnis);
 			k.setGimine(gimine);
 			k.setSkaicius(skaicius);
-			k.setSveikasSkaicius(new BigInteger(Long.toString(number)));
-			k.setPradinisSveikasSkaicius(new BigInteger(Long.toString(number)));
+			k.setSveikasisSkaicius(new BigInteger(Long.toString(number)));
+			k.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(number)));
 			k.setIvardziuotine(ivardziuotine);
 			try {
 				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));

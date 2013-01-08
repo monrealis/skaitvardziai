@@ -39,8 +39,8 @@ public class Trupmena implements Comparable<Trupmena> {
 		k.setPoskyris(Poskyris.Kelintinis);
 		k.setIvardziuotine(true);
 		k.setGimine(Gimine.M);
-		k.setSveikasSkaicius(new BigInteger(Long.toString(vardiklis)));
-		k.setPradinisSveikasSkaicius(new BigInteger(Long.toString(vardiklis)));
+		k.setSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
+		k.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
 		k.setSkaicius(Skaicius.D);
 		
 		long liekana100 = skaitiklis % 100;

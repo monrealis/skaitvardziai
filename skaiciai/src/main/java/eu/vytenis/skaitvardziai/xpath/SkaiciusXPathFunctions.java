@@ -43,8 +43,8 @@ public class SkaiciusXPathFunctions {
 		}
 		long r = Long.parseLong(("" + skaicius).toString());
 		FormaIrSkaiciai fs = Utils.parse(parametrai, null);
-		fs.setSveikasSkaicius(new BigInteger(skaicius + ""));
-		fs.setPradinisSveikasSkaicius(new BigInteger(skaicius + ""));
+		fs.setSveikasisSkaicius(new BigInteger(skaicius + ""));
+		fs.setPradinisSveikasisSkaicius(new BigInteger(skaicius + ""));
 		return new SveikasisSkaicius(r).toString(fs);
 	}
 	

@@ -21,9 +21,9 @@ public class FormaIrSkaiciai implements Cloneable {
 	/** Ar įvardžiuotinė forma.*/
 	private boolean ivardziuotine = false;
 	/** Skaičius, kurį bandoma parašyti, */
-	private BigInteger pradinisSveikasSkaicius;
+	private BigInteger pradinisSveikasisSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
-	private BigInteger sveikasSkaicius;
+	private BigInteger sveikasisSkaicius;
 	
 	public FormaIrSkaiciai() {
 		
@@ -53,17 +53,17 @@ public class FormaIrSkaiciai implements Cloneable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
-	public BigInteger getPradinisSveikasSkaicius() {
-		return pradinisSveikasSkaicius;
+	public BigInteger getPradinisSveikasisSkaicius() {
+		return pradinisSveikasisSkaicius;
 	}
-	public void setPradinisSveikasSkaicius(BigInteger pradinisSkaicius) {
-		this.pradinisSveikasSkaicius = pradinisSkaicius;
+	public void setPradinisSveikasisSkaicius(BigInteger pradinisSkaicius) {
+		this.pradinisSveikasisSkaicius = pradinisSkaicius;
 	}
-	public BigInteger getSveikasSkaicius() {
-		return sveikasSkaicius;
+	public BigInteger getSveikasisSkaicius() {
+		return sveikasisSkaicius;
 	}
-	public void setSveikasSkaicius(BigInteger skaicius) {
-		this.sveikasSkaicius = skaicius;
+	public void setSveikasisSkaicius(BigInteger skaicius) {
+		this.sveikasisSkaicius = skaicius;
 	}
 	
 	public Skaicius getSkaicius() {
@@ -100,7 +100,7 @@ public class FormaIrSkaiciai implements Cloneable {
 	 * @return this objektas
 	 */
 	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
-		setSveikasSkaicius(naujasSkaicius);
+		setSveikasisSkaicius(naujasSkaicius);
 		return this;
 	}
 

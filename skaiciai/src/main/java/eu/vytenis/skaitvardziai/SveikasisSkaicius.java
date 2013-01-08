@@ -50,8 +50,8 @@ public class SveikasisSkaicius {
 	}
 	
 	private void vienzenklis(List<ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
-		BigInteger sveikasSkaicius = forma.getSveikasSkaicius();
-		BigInteger tikrasSkaicius = forma.getPradinisSveikasSkaicius();
+		BigInteger sveikasSkaicius = forma.getSveikasisSkaicius();
+		BigInteger tikrasSkaicius = forma.getPradinisSveikasisSkaicius();
 		Gimine gimine = forma.getGimine();
 		Poskyris poskyris = forma.getPoskyris();
 		boolean ivardziuotinis = forma.isIvardziuotine();
@@ -79,7 +79,7 @@ public class SveikasisSkaicius {
 	}
 	
 	private void dvizenklis(List<ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
-		BigInteger sveikasSkaicius = forma.getSveikasSkaicius();
+		BigInteger sveikasSkaicius = forma.getSveikasisSkaicius();
 		Poskyris poskyris = forma.getPoskyris();
 		Gimine gimine = forma.getGimine();
 		boolean ivardziuotinis = forma.isIvardziuotine();
@@ -111,7 +111,7 @@ public class SveikasisSkaicius {
 	}
 	
 	private void trizenklis(List<ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
-		BigInteger sveikasSkaicius = forma.getSveikasSkaicius();
+		BigInteger sveikasSkaicius = forma.getSveikasisSkaicius();
 		Poskyris poskyris = forma.getPoskyris();
 		Gimine gimine = forma.getGimine();
 		Skaicius skaicius = forma.getSkaicius();
@@ -143,7 +143,7 @@ public class SveikasisSkaicius {
 	}
 	
 	private void daugiazenklis(List<ZodzioInfo> zodziai, FormaIrSkaiciai forma, BigInteger tukstancioLaipsnis) {
-		BigInteger sveikasSkaicius = forma.getSveikasSkaicius();
+		BigInteger sveikasSkaicius = forma.getSveikasisSkaicius();
 		Poskyris poskyris = forma.getPoskyris();
 		Gimine gimine = forma.getGimine();
 		Skaicius skaicius = forma.getSkaicius();		
@@ -182,8 +182,8 @@ public class SveikasisSkaicius {
 	}
 	
 	private void daugiazenklis(List<ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
-		BigInteger sveikasSkaicius = forma.getSveikasSkaicius();
-		BigInteger tikrasSkaicius = forma.getPradinisSveikasSkaicius();
+		BigInteger sveikasSkaicius = forma.getSveikasisSkaicius();
+		BigInteger tikrasSkaicius = forma.getPradinisSveikasisSkaicius();
 		Poskyris poskyris = forma.getPoskyris();
 		//Gimine gimine = forma.getGimine();
 		//Skaicius skaicius = forma.getSkaicius();
@@ -203,7 +203,7 @@ public class SveikasisSkaicius {
 		if (forma.getPoskyris() != Poskyris.Kuopinis) {
 			throw new IllegalArgumentException("forma.poskyris has invalid value " + forma.getPoskyris());
 		}
-		BigInteger skaicius = forma.getSveikasSkaicius();
+		BigInteger skaicius = forma.getSveikasisSkaicius();
 		ZodzioInfo z = ZodzioInfo.getKuopinis(skaicius);
 		if (z == null) {
 			throw new IllegalArgumentException(skaicius + " is invalid value");
@@ -218,8 +218,8 @@ public class SveikasisSkaicius {
 		k.setSkaicius(skaicius);
 		k.setLinksnis(linksnis);
 		k.setPoskyris(poskyris);
-		k.setSveikasSkaicius(reiksme);
-		k.setPradinisSveikasSkaicius(reiksme);
+		k.setSveikasisSkaicius(reiksme);
+		k.setPradinisSveikasisSkaicius(reiksme);
 		k.setGimine(gimine);
 		return toString(k);
 	}

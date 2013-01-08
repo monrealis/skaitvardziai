@@ -31,8 +31,8 @@ public class KelintiniaiTest {
 			k.setGimine(gimine);
 			k.setIvardziuotine(ivardziuotine);
 			k.setSkaicius(skaicius);
-			k.setSveikasSkaicius(new BigInteger(Long.toString(number)));
-			k.setPradinisSveikasSkaicius(new BigInteger(Long.toString(number)));
+			k.setSveikasisSkaicius(new BigInteger(Long.toString(number)));
+			k.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(number)));
 			try {
 				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
 			} catch (Throwable t) {

@@ -76,7 +76,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	 * @throws Exception klaida
 	 */
 	protected void testXslt() throws Exception {		
-		StreamSource input = new StreamSource(BaseSkaiciusXPathFunctionsTest.class.getResourceAsStream("input.xml"));
+		StreamSource input = new StreamSource(new StringReader("<root />"));
 		StringWriter w = new StringWriter();
 		getTransformerFactory().newTransformer(getXsltSource()).transform(input, new StreamResult(w));
 		String output = w.toString().trim();

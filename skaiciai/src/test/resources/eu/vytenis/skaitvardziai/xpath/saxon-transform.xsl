@@ -3,7 +3,7 @@
 	<xsl:output method="text" />
 
 	<xsl:template match="/">
-		<xsl:value-of select="sk:sveikasis('15')" />
+		<xsl:value-of select="sk:sveikasis(15)" />
 		<xsl:text>: penkiolika;</xsl:text>
 		
 		<xsl:value-of select="sk:trupmena(1, 2)"  />

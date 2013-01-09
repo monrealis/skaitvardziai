@@ -5,12 +5,11 @@
 	<xsl:template match="/">
 		<xsl:value-of select="sk:sveikasis(15)" />
 		<xsl:text>: penkiolika;</xsl:text>
-		 
+		
 		<xsl:value-of select="sk:trupmena(1, 2)"  />
-		<xsl:text>: viena antroji;</xsl:text>		
+		<xsl:text>: viena antroji;</xsl:text>
 		
 		<xsl:value-of select="sk:trupmena(2, 3)"/>
-		<xsl:text>: dvi trečiosios;</xsl:text>		
-		
+		<xsl:text>: dvi trečiosios;</xsl:text>
 	</xsl:template>
 </xsl:stylesheet>

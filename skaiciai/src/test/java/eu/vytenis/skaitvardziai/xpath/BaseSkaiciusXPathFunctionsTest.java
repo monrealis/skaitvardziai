@@ -1,5 +1,8 @@
 package eu.vytenis.skaitvardziai.xpath;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,7 @@ import org.junit.Test;
 public abstract class BaseSkaiciusXPathFunctionsTest {
 	
 	/** XSLT bylos kelias (nuo {@link BaseSkaiciusXPathFunctionsTest}). */
-	private String xsltResourceName;
+	private String defaultXsltResourceName = "saxon-transform.xsl";
 	/** {@link TransformerFactory} realizuojančios klasės pavadinimas. */
 	private String transformerFactoryClass;
 	
@@ -30,8 +33,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	 * @param xsltResourceName XSLT resurso pavadinimas
 	 * @param transformerFactoryClass XSLT procesoriaus klasės pavadinimas
 	 */
-	public BaseSkaiciusXPathFunctionsTest(String xsltResourceName, String transformerFactoryClass) {
-		this.xsltResourceName = xsltResourceName;		
+	public BaseSkaiciusXPathFunctionsTest(String transformerFactoryClass) {
 		this.transformerFactoryClass = transformerFactoryClass;
 	}
 
@@ -46,13 +48,22 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	}
 	
 	
+	protected String getXsltText() throws IOException {
+		InputStream is = BaseSkaiciusXPathFunctionsTest.class.getResourceAsStream(defaultXsltResourceName);
+		byte[] bytes = new byte[is.available()];
+		is.read(bytes);
+		is.close();
+		return new String(bytes, "UTF-8");
+	}
+	
 	/**
-	 * Grąžina XSL transformacija {@link Source} formatu pagal lauką {@link #xsltResourceName}.
+	 * Grąžina XSL transformacija {@link Source} formatu pagal lauką {@link #defaultXsltResourceName}.
 	 * @return XSL transformacija
 	 * @throws Exception klaida
 	 */
-	private Source getXslt() throws Exception {
-		StreamSource transform = new StreamSource(BaseSkaiciusXPathFunctionsTest.class.getResourceAsStream(xsltResourceName));
+	protected Source getXsltSource() throws Exception {
+		String text = getXsltText();
+		StreamSource transform = new StreamSource(new StringReader(text));
 		return transform;
 	}
 	
@@ -67,7 +78,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	protected void testXslt() throws Exception {		
 		StreamSource input = new StreamSource(BaseSkaiciusXPathFunctionsTest.class.getResourceAsStream("input.xml"));
 		StringWriter w = new StringWriter();
-		getTransformerFactory().newTransformer(getXslt()).transform(input, new StreamResult(w));
+		getTransformerFactory().newTransformer(getXsltSource()).transform(input, new StreamResult(w));
 		String output = w.toString().trim();
 		System.out.println(output);
 		
@@ -86,7 +97,5 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 			}
 		}
 		Assert.assertEquals(new ArrayList<String>(), invalidLines);
-		
-		
 	}
 }

@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.xpath;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 
@@ -9,7 +11,14 @@ import org.junit.Test;
 public class SkaiciusXPathFunctionsJreTest extends BaseSkaiciusXPathFunctionsTest {
 	
 	public SkaiciusXPathFunctionsJreTest() {
-		super("xalan-transform.xsl", "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
+		super("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
+	}
+	
+	@Override
+	protected String getXsltText() throws IOException {
+		String r = super.getXsltText();
+		r = r.replaceAll("java:", "xalan://");
+		return r;
 	}
 	
 	@Test

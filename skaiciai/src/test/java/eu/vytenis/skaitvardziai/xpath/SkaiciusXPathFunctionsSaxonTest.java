@@ -8,7 +8,7 @@ import org.junit.Test;
 public class SkaiciusXPathFunctionsSaxonTest extends BaseSkaiciusXPathFunctionsTest {
 	
 	public SkaiciusXPathFunctionsSaxonTest() {
-		super("saxon-transform.xsl", "net.sf.saxon.TransformerFactoryImpl");
+		super("net.sf.saxon.TransformerFactoryImpl");
 	}
 	
 	

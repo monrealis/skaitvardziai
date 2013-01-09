@@ -4,7 +4,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  * Skaičius: vienaskaita, daugiskaita.
  *
  */
-public enum Skaicius {
+public enum Skaicius implements Aliased {
 	/** Vienaskaita. */
 	V,
 	/** Daugiskaita. */
@@ -12,9 +12,9 @@ public enum Skaicius {
 	
 	public String alias() {
 		if (this == V) {
-			return "vns";
+			return "SV";
 		} else if (this == D) {
-			return "dgs";
+			return "SD";
 		} else {
 			return name();
 		}

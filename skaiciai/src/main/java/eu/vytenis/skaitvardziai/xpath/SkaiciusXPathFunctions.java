@@ -9,6 +9,7 @@ import java.util.Map;
 
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
@@ -84,20 +85,15 @@ public class SkaiciusXPathFunctions {
 			addAll(t, Poskyris.values());
 			symbols = Collections.unmodifiableMap(t);
 		}
-		private static void addAll(Map<String, Object> symbols, Enum<?>[] values) {
-			for (Enum<?> e : values) {
-				String name;
-				if (e instanceof Skaicius) {
-					name = ((Skaicius) e).alias();
-				} else if (e instanceof Gimine) {
-					name = ((Gimine) e).alias();
-				} else {
-					name = e.name();
+		private static void addAll(Map<String, Object> symbols, Enum<? extends Aliased>[] values) {
+			for (Enum<? extends Aliased> e : values) {
+				Aliased a = (Aliased) e;
+				String alias = a.alias();
+				if (symbols.containsKey(alias)) {
+					throw new IllegalArgumentException(alias + ": duplicate value. "
+							+ e.getClass().getSimpleName() + " and " + symbols.get(alias).getClass().getSimpleName());					
 				}
-				if (symbols.containsKey(name)) {
-					throw new IllegalArgumentException(e.name() + ": duplicate value");					
-				}
-				symbols.put(name, e);
+				symbols.put(alias, e);
 			}
 			
 		}

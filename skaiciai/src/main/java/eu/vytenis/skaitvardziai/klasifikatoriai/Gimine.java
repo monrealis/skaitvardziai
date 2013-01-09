@@ -4,7 +4,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 /**
  * Giminė.
  */
-public enum Gimine {
+public enum Gimine implements Aliased {
 	/** Vyriška giminė.*/
 	V,
 	/** Moteriška giminė.*/
@@ -12,9 +12,9 @@ public enum Gimine {
 	
 	public String alias() {
 		if (this == V) {
-			return "vyr";
+			return "VG";
 		} else if (this == M) {
-			return "mot";
+			return "MG";
 		} else {
 			return name();
 		}

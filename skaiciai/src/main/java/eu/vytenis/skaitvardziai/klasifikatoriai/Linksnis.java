@@ -3,7 +3,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 /**
  * Lietuvių kalbos linksnių sąrašas.
  */
-public enum Linksnis {
+public enum Linksnis implements Aliased {
 	/** Vardininkas. */
 	V,
 	/** Kilmininkas. */
@@ -17,5 +17,9 @@ public enum Linksnis {
 	/** Vietininkas. */
 	Vt,
 	/** Šauksmininkas. */
-	S
+	S;
+	
+	public String alias() {
+		return name();
+	};
 }

@@ -44,7 +44,7 @@ public class KelintiniaiIvTest {
 	@Test
 	public void testNuo1Iki20VVyr() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		//s.put(0, "nulinysis");
+		s.put(0, "nulinis");
 		s.put(1, "pirmasis");
 		s.put(2, "antrasis");
 		s.put(3, "trečiasis");
@@ -234,7 +234,7 @@ public class KelintiniaiIvTest {
 	@Test
 	public void testNuo1Iki20KVyr() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		//s.put(0, "nulinysis"); TODO
+		s.put(0, "nulinio");
 		s.put(1, "pirmojo");
 		s.put(2, "antrojo");
 		s.put(3, "trečiojo");
@@ -426,7 +426,7 @@ public class KelintiniaiIvTest {
 	@Test
 	public void testNuo1Iki20DgsVVyr() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		//s.put(0, "nulinysis");
+		s.put(0, "nuliniai");
 		s.put(1, "pirmieji");
 		s.put(2, "antrieji");
 		s.put(3, "tretieji");
@@ -615,7 +615,7 @@ public class KelintiniaiIvTest {
 	@Test
 	public void testNuo1Iki20DgsKVyr() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		//s.put(0, "nulinysis"); TODO
+		s.put(0, "nulinių");
 		s.put(1, "pirmųjų");
 		s.put(2, "antrųjų");
 		s.put(3, "trečiųjų");

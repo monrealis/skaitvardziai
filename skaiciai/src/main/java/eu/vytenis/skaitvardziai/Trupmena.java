@@ -35,30 +35,30 @@ public class Trupmena implements Comparable<Trupmena> {
 		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
 		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
 		
-		FormaIrSkaiciai k = new FormaIrSkaiciai();
-		k.setPoskyris(Poskyris.Kelintinis);
-		k.setIvardziuotine(true);
-		k.setGimine(Gimine.M);
-		k.setSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
-		k.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
-		k.setSkaicius(Skaicius.D);
+		FormaIrSkaiciai vfs = new FormaIrSkaiciai();
+		vfs.setPoskyris(Poskyris.Kelintinis);
+		vfs.setIvardziuotine(true);
+		vfs.setGimine(Gimine.M);
+		vfs.setSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
+		vfs.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
+		vfs.setSkaicius(Skaicius.D);
 		
 		long liekana100 = skaitiklis % 100;
 		long liekana10 = skaitiklis % 10;
 		if (liekana10 == 0) {
-			k.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
+			vfs.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
 		} else if (liekana100 > 10 && liekana100 < 20) {
-			k.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
-		} else if (liekana10 == 1) {
-			k.setLinksnis(Linksnis.V); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
+			vfs.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
+		} else {
+			vfs.setLinksnis(linksnis); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
 		}
 		
 		if (liekana10 == 1 && liekana100 != 11) {
-			k.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
+			vfs.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
 		}
 		
 		
-		return s.toString(Linksnis.V, Gimine.M) + " " + v.toString(k);
+		return s.toString(linksnis, Gimine.M) + " " + v.toString(vfs);
 	}
 	
 	public double toDouble() {

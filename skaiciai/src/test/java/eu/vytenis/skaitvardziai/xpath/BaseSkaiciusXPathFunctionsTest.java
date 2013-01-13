@@ -25,26 +25,24 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	
 	/** XSLT bylos kelias (nuo {@link BaseSkaiciusXPathFunctionsTest}). */
 	private String defaultXsltResourceName = "saxon-transform.xsl";
-	/** {@link TransformerFactory} realizuojančios klasės pavadinimas. */
-	private String transformerFactoryClass;
 	
 	/**
 	 * Sukuria su pradinėmis reikšmėmis.
 	 * @param xsltResourceName XSLT resurso pavadinimas
 	 * @param transformerFactoryClass XSLT procesoriaus klasės pavadinimas
 	 */
-	public BaseSkaiciusXPathFunctionsTest(String transformerFactoryClass) {
-		this.transformerFactoryClass = transformerFactoryClass;
+	public BaseSkaiciusXPathFunctionsTest() {
 	}
 
 	
 	/**
 	 * Grąžina XSLT procesoriaus klasę pagal {@link #transformerFactoryClass} reikšmę.
+	 * @param transformerFactoryClassName {@link TransformerFactory} realizuojančios klasės pavadinimas
 	 * @return XSLT procesorius
 	 * @throws Exception klaida
 	 */
-	protected TransformerFactory getTransformerFactory() throws Exception {
-		return (TransformerFactory) Class.forName(transformerFactoryClass).newInstance();
+	protected TransformerFactory getTransformerFactory(String transformerFactoryClassName) throws Exception {
+		return (TransformerFactory) Class.forName(transformerFactoryClassName).newInstance();
 	}
 	
 	
@@ -72,13 +70,14 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	 * Patikrina, ar įvykdyta XSL transformaciją suformuoja tokį XML'ą, kokį reikia.
 	 * Po transformacijos gautas tekstas turi būti toks: faktinis_tekstas_1 : reikalingas_tekstas_1 ; faktinis_tekstas_2 : reikalingas_tekstas_2 ; ... .
 	 * Jei faktinis_tekstas_n nesutampa su reikalingu_tekstu_n - klaida. 
-	 * {@link BaseSkaiciusXPathFunctionsTest} realizuojančios klasės metodą turėtų padaryti public ir uždėti anotacija {@link Test}.
+	 * {@link BaseSkaiciusXPathFunctionsTest} realizuojančios klasės metodas su {@link Test} anotacija turėtų pakviesti šį metodą.
+	 * @param transformerFactoryClassName {@link TransformerFactory} realizuojančios klasės pavadinimas 
 	 * @throws Exception klaida
 	 */
-	protected void testXslt() throws Exception {		
+	protected void testXslt(String transformerFactoryClassName) throws Exception {		
 		StreamSource input = new StreamSource(new StringReader("<root />"));
 		StringWriter w = new StringWriter();
-		getTransformerFactory().newTransformer(getXsltSource()).transform(input, new StreamResult(w));
+		getTransformerFactory(transformerFactoryClassName).newTransformer(getXsltSource()).transform(input, new StreamResult(w));
 		String output = w.toString().trim();
 		System.out.println(output);
 		

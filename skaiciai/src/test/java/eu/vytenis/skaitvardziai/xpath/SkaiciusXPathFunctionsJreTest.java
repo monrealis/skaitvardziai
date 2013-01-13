@@ -10,10 +10,6 @@ import org.junit.Test;
  */
 public class SkaiciusXPathFunctionsJreTest extends BaseSkaiciusXPathFunctionsTest {
 	
-	public SkaiciusXPathFunctionsJreTest() {
-		super("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
-	}
-	
 	@Override
 	protected String getXsltText() throws IOException {
 		String r = super.getXsltText();
@@ -23,7 +19,7 @@ public class SkaiciusXPathFunctionsJreTest extends BaseSkaiciusXPathFunctionsTes
 	
 	@Test
 	public void testXslt() throws Exception {
-		super.testXslt();
+		super.testXslt("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
 	}
 
 }

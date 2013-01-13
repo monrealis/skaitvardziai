@@ -7,14 +7,9 @@ import org.junit.Test;
  */
 public class SkaiciusXPathFunctionsSaxonTest extends BaseSkaiciusXPathFunctionsTest {
 	
-	public SkaiciusXPathFunctionsSaxonTest() {
-		super("net.sf.saxon.TransformerFactoryImpl");
-	}
-	
-	
 	@Test
 	public void testXslt() throws Exception {
-		super.testXslt();
+		super.testXslt("net.sf.saxon.TransformerFactoryImpl");
 	}
 	
 

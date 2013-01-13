@@ -9,7 +9,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
-public class Trupmena implements Comparable<Trupmena> {
+public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 	private long skaitiklis;
 	private long vardiklis;
 	

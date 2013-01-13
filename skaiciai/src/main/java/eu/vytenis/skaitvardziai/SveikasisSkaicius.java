@@ -15,7 +15,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
-public class SveikasisSkaicius {
+public class SveikasisSkaicius implements SkaitineReiksme {
 	public static BigInteger THOUSAND = new BigInteger("1000");
 	public static BigInteger HUNDRED = new BigInteger("100");
 	public static BigInteger TWENTY = new BigInteger("20");
@@ -186,7 +186,7 @@ public class SveikasisSkaicius {
 		BigInteger tikrasSkaicius = forma.getPradinisSveikasisSkaicius();
 		Poskyris poskyris = forma.getPoskyris();
 		//Gimine gimine = forma.getGimine();
-		//Skaicius skaicius = forma.getSkaicius();
+		//SkaitineReiksme skaicius = forma.getSkaicius();
 		if (!sveikasSkaicius.equals(tikrasSkaicius)) {
 			throw new IllegalArgumentException();
 		}

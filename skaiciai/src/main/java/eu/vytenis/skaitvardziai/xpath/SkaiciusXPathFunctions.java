@@ -6,7 +6,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+import eu.vytenis.skaitvardziai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
@@ -75,7 +78,7 @@ public class SkaiciusXPathFunctions {
 	}
 	
 	
-	private static class Utils {
+	public static class Utils {
 		private static final Map<String, Object> symbols;
 		static {
 			Map<String, Object> t = new HashMap<String, Object>();
@@ -121,6 +124,20 @@ public class SkaiciusXPathFunctions {
 				}
 			}
 			return r;
+		}
+		
+		public static SkaitineReiksme parse(String skaicius) {
+			Pattern tr = Pattern.compile("(\\d+)\\s*/\\s*(\\d+)");
+			Matcher m = tr.matcher(skaicius);
+			if (skaicius.matches("\\d+")) {
+				return new SveikasisSkaicius(Long.parseLong(skaicius));
+			} else if (m.matches()) {
+				long sk = Long.parseLong(m.group(1));
+				long v = Long.parseLong(m.group(2));
+				return new Trupmena(sk, v);				
+			} else {
+				throw new IllegalArgumentException(skaicius + " is not a supported number");
+			}
 		}
 	}
 

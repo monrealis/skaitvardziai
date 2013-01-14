@@ -17,15 +17,26 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
 public class SveikasisSkaicius implements SkaitineReiksme {
-	public static BigInteger THOUSAND = new BigInteger("1000");
-	public static BigInteger HUNDRED = new BigInteger("100");
+	public static BigInteger ELEVEN = new BigInteger("11");
 	public static BigInteger TWENTY = new BigInteger("20");
+	public static BigInteger HUNDRED = new BigInteger("100");
+	public static BigInteger THOUSAND = new BigInteger("1000");	
 	public static BigInteger BILLION = new BigInteger("1000000000");
 	
 	private BigInteger reiksme;
 	
 	public SveikasisSkaicius(long reiksme) {
 		this.reiksme = new BigInteger(Long.toString(reiksme));
+	}
+	
+	public SveikasisSkaicius(String reiksme) {
+		CheckUtil.checkNotNull("reiksme", reiksme);
+		this.reiksme = new BigInteger(reiksme);
+	}  
+	
+	public SveikasisSkaicius(BigInteger reiksme) {
+		CheckUtil.checkNotNull("reiksme", reiksme);
+		this.reiksme = reiksme;
 	}
 	
 	public BigInteger getReiksme() {

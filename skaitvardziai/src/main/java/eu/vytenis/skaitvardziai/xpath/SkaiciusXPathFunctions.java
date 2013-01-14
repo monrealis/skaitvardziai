@@ -44,9 +44,8 @@ public class SkaiciusXPathFunctions {
 		if (parametrai == null) {
 			parametrai = "";
 		}
-		long r = Long.parseLong(("" + skaicius).toString());
 		Forma f = Utils.parse(parametrai, null);
-		return new SveikasisSkaicius(r).toString(f);
+		return new SveikasisSkaicius(Integer.toString(skaicius)).toString(f);
 	}
 	
 	
@@ -127,10 +126,10 @@ public class SkaiciusXPathFunctions {
 			Pattern tr = Pattern.compile("(\\d+)\\s*/\\s*(\\d+)");
 			Matcher m = tr.matcher(skaicius);
 			if (skaicius.matches("\\d+")) {
-				return new SveikasisSkaicius(Long.parseLong(skaicius));
+				return new SveikasisSkaicius(skaicius);
 			} else if (m.matches()) {
-				long sk = Long.parseLong(m.group(1));
-				long v = Long.parseLong(m.group(2));
+				String sk = m.group(1);
+				String v = m.group(2);
 				return new Trupmena(sk, v);				
 			} else {
 				throw new IllegalArgumentException(skaicius + " is not a supported number");

@@ -1,6 +1,5 @@
 package eu.vytenis.skaitvardziai;
 
-import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -8,7 +7,7 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -25,18 +24,16 @@ public class KelintiniaiTest {
 			SveikasisSkaicius sk = new SveikasisSkaicius(number);
 					
 			
-			FormaIrSkaiciai k = new FormaIrSkaiciai();
-			k.setPoskyris(Poskyris.Kelintinis);
-			k.setLinksnis(linksnis);
-			k.setGimine(gimine);
-			k.setIvardziuotine(ivardziuotine);
-			k.setSkaicius(skaicius);
-			k.setSveikasisSkaicius(new BigInteger(Long.toString(number)));
-			k.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(number)));
+			Forma f = new Forma();
+			f.setPoskyris(Poskyris.Kelintinis);
+			f.setLinksnis(linksnis);
+			f.setGimine(gimine);
+			f.setIvardziuotine(ivardziuotine);
+			f.setSkaicius(skaicius);
 			try {
-				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
+				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(f));
 			} catch (Throwable t) {
-				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(k));
+				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(f));
 			}
 		}
 	}

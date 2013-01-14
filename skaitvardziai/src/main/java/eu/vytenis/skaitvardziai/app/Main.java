@@ -10,7 +10,7 @@ import java.io.Writer;
 import eu.vytenis.skaitvardziai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
-import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctions;
 
 public class Main {
@@ -77,18 +77,16 @@ public class Main {
 			usage();
 			return;
 		}
-		FormaIrSkaiciai fs = SkaiciusXPathFunctions.Utils.parse(parametrai, null);
+		Forma f = SkaiciusXPathFunctions.Utils.parse(parametrai, null);
 		BufferedReader br = new BufferedReader(r);
 		String line;
 		while ((line = br.readLine()) != null) {
 			SkaitineReiksme sr = SkaiciusXPathFunctions.Utils.parse(line);
 			if (sr instanceof SveikasisSkaicius) {
 				SveikasisSkaicius ss = (SveikasisSkaicius) sr;
-				fs.setSveikasisSkaicius(ss.getReiksme());
-				fs.setPradinisSveikasisSkaicius(ss.getReiksme());
-				outPrintln(ss.toString(fs));
+				outPrintln(ss.toString(f));
 			} else if (sr instanceof Trupmena) {
-				outPrintln(((Trupmena) sr).toString(fs.getLinksnis()));
+				outPrintln(((Trupmena) sr).toString(f.getLinksnis()));
 			} else {
 				throw new IllegalArgumentException();
 			}

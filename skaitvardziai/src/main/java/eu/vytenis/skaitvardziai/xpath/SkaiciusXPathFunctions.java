@@ -1,6 +1,5 @@
 package eu.vytenis.skaitvardziai.xpath;
 
-import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import eu.vytenis.skaitvardziai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
-import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -46,10 +45,8 @@ public class SkaiciusXPathFunctions {
 			parametrai = "";
 		}
 		long r = Long.parseLong(("" + skaicius).toString());
-		FormaIrSkaiciai fs = Utils.parse(parametrai, null);
-		fs.setSveikasisSkaicius(new BigInteger(skaicius + ""));
-		fs.setPradinisSveikasisSkaicius(new BigInteger(skaicius + ""));
-		return new SveikasisSkaicius(r).toString(fs);
+		Forma f = Utils.parse(parametrai, null);
+		return new SveikasisSkaicius(r).toString(f);
 	}
 	
 	
@@ -73,8 +70,8 @@ public class SkaiciusXPathFunctions {
 		if (parametrai == null) {
 			parametrai = "";
 		}
-		FormaIrSkaiciai fs = Utils.parse(parametrai, Arrays.<Class<?>>asList(Linksnis.class));
-		return new Trupmena(skaitiklis, vardiklis).toString(fs.getLinksnis());
+		Forma f = Utils.parse(parametrai, Arrays.<Class<?>>asList(Linksnis.class));
+		return new Trupmena(skaitiklis, vardiklis).toString(f.getLinksnis());
 	}
 	
 	
@@ -100,12 +97,12 @@ public class SkaiciusXPathFunctions {
 			}
 			
 		}
-		public static FormaIrSkaiciai parse(String parametrai, List<Class<?>> supportedParams) {
+		public static Forma parse(String parametrai, List<Class<?>> supportedParams) {
 			if (supportedParams == null) {
 				supportedParams = Arrays.<Class<?>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class);
 			}
 			String[] params = parametrai.isEmpty() ? new String[]{} : parametrai.split("\\s*,\\s*");
-			FormaIrSkaiciai r = new FormaIrSkaiciai();
+			Forma r = new Forma();
 			for (String param : params) {
 				Object o = symbols.get(param);
 				if (o != null && !supportedParams.contains(o.getClass())) {

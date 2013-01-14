@@ -79,7 +79,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 		StringWriter w = new StringWriter();
 		getTransformerFactory(transformerFactoryClassName).newTransformer(getXsltSource()).transform(input, new StreamResult(w));
 		String output = w.toString().trim();
-		System.out.println(output);
+		//System.out.println(output);
 		
 		String[] lines = output.split("\\s*;\\s*");
 		List<String> invalidLines = new ArrayList<String>();

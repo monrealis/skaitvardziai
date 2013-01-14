@@ -2,24 +2,18 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.math.BigInteger;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
+
 
 /**
  * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius) bei
  * patį pradinį ir einamąjį skaičius.
  *
  */
-// TODO išskaidyti į formą ir skaičius
 public class FormaIrSkaiciai implements Cloneable {
-	/** Skaitvardžio poskyris. */
-	private Poskyris poskyris = Poskyris.Pagrindinis;
-	/** Skaitvardžio giminė. */
-	private Gimine gimine = Gimine.V;
-	/** Skaitvardžio skaičius. */
-	private Skaicius skaicius = Skaicius.V;
-	/** Skaitvardžio linksnis. */
-	private Linksnis linksnis = Linksnis.V;
-	/** Ar įvardžiuotinė forma.*/
-	private boolean ivardziuotine = false;
+	
+	/** Gramatinė forma. */
+	private Forma forma = new Forma();
 	/** Skaičius, kurį bandoma parašyti, */
 	private BigInteger pradinisSveikasisSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
@@ -29,30 +23,15 @@ public class FormaIrSkaiciai implements Cloneable {
 		
 	}
 	
-	public Poskyris getPoskyris() {
-		return poskyris;
+	public FormaIrSkaiciai(Forma forma) {
+		CheckUtil.checkNotNull("forma", forma);
+		this.forma = forma;
 	}
-	public void setPoskyris(Poskyris poskyris) {
-		this.poskyris = poskyris;
+	
+	public Forma getForma() {
+		return forma;
 	}
-	public Gimine getGimine() {
-		return gimine;
-	}
-	public void setGimine(Gimine gimine) {
-		this.gimine = gimine;
-	}
-	public Linksnis getLinksnis() {
-		return linksnis;
-	}
-	public boolean isIvardziuotine() {
-		return ivardziuotine;
-	}
-	public void setIvardziuotine(boolean ivardziuotine) {
-		this.ivardziuotine = ivardziuotine;
-	}
-	public void setLinksnis(Linksnis linksnis) {
-		this.linksnis = linksnis;
-	}
+
 	public BigInteger getPradinisSveikasisSkaicius() {
 		return pradinisSveikasisSkaicius;
 	}
@@ -65,22 +44,14 @@ public class FormaIrSkaiciai implements Cloneable {
 	public void setSveikasisSkaicius(BigInteger skaicius) {
 		this.sveikasisSkaicius = skaicius;
 	}
-	
-	public Skaicius getSkaicius() {
-		return skaicius;
-	}
-	
-	public void setSkaicius(Skaicius skaicius) {
-		this.skaicius = skaicius;
-	}
-	
+
 	/**
 	 * Pakeičia poskyrį ir grąžina this objektą.
 	 * @param poskyris naujas poskyris
 	 * @return this
 	 */
 	public FormaIrSkaiciai poskyris(Poskyris poskyris) {
-		setPoskyris(poskyris);
+		getForma().setPoskyris(poskyris);
 		return this;
 	}
 	
@@ -90,7 +61,7 @@ public class FormaIrSkaiciai implements Cloneable {
 	 * @return this
 	 */
 	public FormaIrSkaiciai gimine(Gimine gimine) {
-		setGimine(gimine);
+		getForma().setGimine(gimine);
 		return this;
 	}
 	
@@ -110,13 +81,14 @@ public class FormaIrSkaiciai implements Cloneable {
 	 */
 	@Override
 	public FormaIrSkaiciai clone() {
-		FormaIrSkaiciai k;
+		FormaIrSkaiciai fs;
 		try {
-			k = (FormaIrSkaiciai) super.clone();
+			fs = (FormaIrSkaiciai) super.clone();
+			fs.forma = forma.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
-		return k;
+		return fs;
 	}
 
 }

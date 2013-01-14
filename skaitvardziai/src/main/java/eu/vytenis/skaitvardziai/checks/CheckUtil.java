@@ -9,6 +9,17 @@ import java.math.BigInteger;
 public class CheckUtil {
 
 	/**
+	 * Patikrina, ar objektas nėra null. Jei null, meta {@link IllegalArgumentException}.
+	 * @param name lauko pavadinimas (naudojamas klaidos pranešime)
+	 * @param object objektas, tikrinamas ar ne null
+	 */
+	public static void checkNotNull(String name, Object object) {
+		if (object == null) {
+			throw new IllegalArgumentException(name + " cannot be null");
+		}
+		
+	}
+	/**
 	 * Patikrina, ar skaičius priklauso intervalui [min, max].
 	 * @param name kintamojo pavadinimas (matomas klaidos pranešime)
 	 * @param value reikšmė (neprivalomas)

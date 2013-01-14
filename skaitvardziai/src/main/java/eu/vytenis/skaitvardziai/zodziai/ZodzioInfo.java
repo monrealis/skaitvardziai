@@ -82,15 +82,15 @@ public class ZodzioInfo {
 	 * skaitvardį iš vieno ar daugiau tinkamų formų nedalomų skaitvardžių.
 	 * (pvz, "dvidešimt pirmą" iš žodžių "dvidešimt", "pirmas" ir parametrų "kelintinis, galininkas".
 	 * @param zodziai žodžių sąrašas
-	 * @param forma parametrų objektas
+	 * @param formaSkaiciai parametrų objektas
 	 * @return skaitvardis
 	 */
-	public static String toString(List<? extends ZodzioInfo> zodziai, FormaIrSkaiciai forma) {
-		Linksnis linksnis = forma.getLinksnis();
+	public static String toString(List<? extends ZodzioInfo> zodziai, FormaIrSkaiciai formaSkaiciai) {
+		Linksnis linksnis = formaSkaiciai.getForma().getLinksnis();
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
-		boolean kelintinis = forma.getPoskyris() == Poskyris.Kelintinis;
-		Skaicius skaicius = forma.getSkaicius();
+		boolean kelintinis = formaSkaiciai.getForma().getPoskyris() == Poskyris.Kelintinis;
+		Skaicius skaicius = formaSkaiciai.getForma().getSkaicius();
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodzioInfo dabartinis = zodziai.get(i);

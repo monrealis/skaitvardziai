@@ -4,8 +4,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import eu.vytenis.skaitvardziai.app.MainTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsJreTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsSaxonTest;
+import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsXalanTest;
 
 @SuiteClasses({
 	PagrindiniaiVyrTest.class,
@@ -19,7 +21,10 @@ import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsSaxonTest;
 	TrupmenosTest.class,
 	
 	SkaiciusXPathFunctionsJreTest.class,
-	SkaiciusXPathFunctionsSaxonTest.class})
+	SkaiciusXPathFunctionsSaxonTest.class,
+	SkaiciusXPathFunctionsXalanTest.class,
+	
+	MainTest.class})
 @RunWith(Suite.class)
 public class SkaiciaiSuite {
 

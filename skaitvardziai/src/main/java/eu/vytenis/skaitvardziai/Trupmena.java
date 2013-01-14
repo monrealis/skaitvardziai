@@ -1,9 +1,8 @@
 package eu.vytenis.skaitvardziai;
 
-import java.math.BigInteger;
 import java.util.Comparator;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -35,30 +34,28 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
 		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
 		
-		FormaIrSkaiciai vfs = new FormaIrSkaiciai();
-		vfs.setPoskyris(Poskyris.Kelintinis);
-		vfs.setIvardziuotine(true);
-		vfs.setGimine(Gimine.M);
-		vfs.setSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
-		vfs.setPradinisSveikasisSkaicius(new BigInteger(Long.toString(vardiklis)));
-		vfs.setSkaicius(Skaicius.D);
+		Forma vf = new Forma();
+		vf.setPoskyris(Poskyris.Kelintinis);
+		vf.setIvardziuotine(true);
+		vf.setGimine(Gimine.M);
+		vf.setSkaicius(Skaicius.D);
 		
 		long liekana100 = skaitiklis % 100;
 		long liekana10 = skaitiklis % 10;
 		if (liekana10 == 0) {
-			vfs.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
+			vf.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
 		} else if (liekana100 > 10 && liekana100 < 20) {
-			vfs.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
+			vf.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
 		} else {
-			vfs.setLinksnis(linksnis); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
+			vf.setLinksnis(linksnis); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
 		}
 		
 		if (liekana10 == 1 && liekana100 != 11) {
-			vfs.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
+			vf.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
 		}
 		
 		
-		return s.toString(linksnis, Gimine.M) + " " + v.toString(vfs);
+		return s.toString(linksnis, Gimine.M) + " " + v.toString(vf);
 	}
 	
 	public double toDouble() {

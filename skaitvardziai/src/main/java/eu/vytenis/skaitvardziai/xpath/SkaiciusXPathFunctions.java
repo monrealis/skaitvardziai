@@ -100,7 +100,8 @@ public class SkaiciusXPathFunctions {
 			if (supportedParams == null) {
 				supportedParams = Arrays.<Class<?>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class);
 			}
-			String[] params = parametrai.isEmpty() ? new String[]{} : parametrai.split("\\s*,\\s*");
+			// TODO įvardžiuotinė forma
+			String[] params = parametrai.length() == 0 ? new String[]{} : parametrai.split("\\s*,\\s*");
 			Forma r = new Forma();
 			for (String param : params) {
 				Object o = symbols.get(param);

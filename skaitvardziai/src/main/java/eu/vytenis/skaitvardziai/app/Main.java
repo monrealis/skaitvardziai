@@ -11,7 +11,7 @@ import eu.vytenis.skaitvardziai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
-import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctions;
+import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
 
 public class Main {
 	
@@ -77,11 +77,11 @@ public class Main {
 			usage();
 			return;
 		}
-		Forma f = SkaiciusXPathFunctions.Utils.parse(parametrai, null);
+		Forma f = SkaitvardziaiTextParser.get().parseForma(parametrai, null);
 		BufferedReader br = new BufferedReader(r);
 		String line;
 		while ((line = br.readLine()) != null) {
-			SkaitineReiksme sr = SkaiciusXPathFunctions.Utils.parse(line);
+			SkaitineReiksme sr = SkaitvardziaiTextParser.get().parseSkaicius(line);
 			if (sr instanceof SveikasisSkaicius) {
 				SveikasisSkaicius ss = (SveikasisSkaicius) sr;
 				outPrintln(ss.toString(f));

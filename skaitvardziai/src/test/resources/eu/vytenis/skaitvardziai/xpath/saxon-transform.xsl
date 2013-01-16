@@ -29,6 +29,13 @@
 		<xsl:value-of select="sk:sveikasis(37, 'MG')" />
 		<xsl:text>: trisdešimt septynios;</xsl:text>
 		
+		<xsl:value-of select="sk:sveikasis(37, 'Vt')" />
+		<xsl:text>: trisdešimt septyniuose;</xsl:text>		
+		<xsl:value-of select="sk:sveikasis(37, 'vt')" />
+		<xsl:text>: trisdešimt septyniuose;</xsl:text>
+		<xsl:value-of select="sk:sveikasis(37, 'VT')" />
+		<xsl:text>: trisdešimt septyniuose;</xsl:text>
+		
 		<xsl:value-of select="sk:sveikasis(38, 'MG,K')" />
 		<xsl:text>: trisdešimt aštuonių;</xsl:text>
 		
@@ -43,6 +50,12 @@
 		
 		<xsl:value-of select="sk:sveikasis(2, 'PD,N,MG')" />
 		<xsl:text>: dvejoms;</xsl:text>
+		
+		<xsl:value-of select="sk:sveikasis(102, 'Kl,MG')" />
+		<xsl:text>: šimtas antra;</xsl:text>
+		
+		<xsl:value-of select="sk:sveikasis(1014, 'Kl,iv')" />
+		<xsl:text>: tūkstantis keturioliktasis;</xsl:text>
 		
 		<xsl:value-of select="sk:trupmena(1, 2)"  />
 		<xsl:text>: viena antroji;</xsl:text>

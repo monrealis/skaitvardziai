@@ -30,7 +30,7 @@ public enum Poskyris implements Aliased {
 		} else if (this == Trupmeninis) {
 			return "PT";
 		} else if (this == Kelintinis) {
-			return "PKl";
+			return "Kl";
 		} else {
 			return name();
 		}

@@ -274,7 +274,6 @@ public class Zodis {
 		kelintiniaiVyrGim.put(80L, new Zodis("aštuoniasdešimtas", "aštuoniasdešimto", "aštuoniasdešimtam", "aštuoniasdešimtą", "aštuoniasdešimtu", "aštuoniasdešimtame", "aštuoniasdešimtas", "aštuoniasdešimti", "aštuoniasdešimtų", "aštuoniasdešimtiems", "aštuoniasdešimtus", "aštuoniasdešimtais", "aštuoniasdešimtuose", "aštuoniasdešimti"));
 		kelintiniaiVyrGim.put(90L, new Zodis("devyniasdešimtas", "devyniasdešimto", "devyniasdešimtam", "devyniasdešimtą", "devyniasdešimtu", "devyniasdešimtame", "devyniasdešimtas", "devyniasdešimti", "devyniasdešimtų", "devyniasdešimtiems", "devyniasdešimtus", "devyniasdešimtais", "devyniasdešimtuose", "devyniasdešimti"));		
 		
-		// TODO perskaityti (žemiau)
 		kelintiniaiMotGim.put(0L, new Zodis("nulinė", "nulinės", "nulinei", "nulinę", "nuline", "nulinėje", "nulinė", "nulinės", "nulinių", "nulinėms", "nulines", "nulinėmis", "nulinėse", "nulinės"));
 		kelintiniaiMotGim.put(1L, new Zodis("pirma", "pirmos", "pirmai", "pirmą", "pirma", "pirmoje", "pirma", "pirmos", "pirmų", "pirmoms", "pirmas", "pirmomis", "pirmose", "pirmos"));
 		kelintiniaiMotGim.put(2L, new Zodis("antra", "antros", "antrai", "antrą", "antra", "antroje", "antra", "antros", "antrų", "antroms", "antras", "antromis", "antrose", "antros"));
@@ -303,7 +302,8 @@ public class Zodis {
 		kelintiniaiMotGim.put(70L, new Zodis("septyniasdešimta", "septyniasdešimtos", "septyniasdešimtai", "septyniasdešimtą", "septyniasdešimta", "septyniasdešimtoje", "septyniasdešimta", "septyniasdešimtos", "septyniasdešimtų", "septyniasdešimtoms", "septyniasdešimtas", "septyniasdešimtomis", "septyniasdešimtose", "septyniasdešimtos"));
 		kelintiniaiMotGim.put(80L, new Zodis("aštuoniasdešimta", "aštuoniasdešimtos", "aštuoniasdešimtai", "aštuoniasdešimtą", "aštuoniasdešimta", "aštuoniasdešimtoje", "aštuoniasdešimta", "aštuoniasdešimtos", "aštuoniasdešimtų", "aštuoniasdešimtoms", "aštuoniasdešimtas", "aštuoniasdešimtomis", "aštuoniasdešimtose", "aštuoniasdešimtos"));
 		kelintiniaiMotGim.put(90L, new Zodis("devyniasdešimta", "devyniasdešimtos", "devyniasdešimtai", "devyniasdešimtą", "devyniasdešimta", "devyniasdešimtoje", "devyniasdešimta", "devyniasdešimtos", "devyniasdešimtų", "devyniasdešimtoms", "devyniasdešimtas", "devyniasdešimtomis", "devyniasdešimtose", "devyniasdešimtos"));
-				
+		
+		// TODO perskaityti (žemiau)
 		kelintiniaiIvVyrGim.put(1L, new Zodis("pirmasis", "pirmojo", "pirmajam", "pirmąjį", "pirmuoju", "pirmajame", "pirmasis", "pirmieji", "pirmųjų", "pirmiesiems", "pirmuosius", "pirmaisiais", "pirmuosiuose", "pirmieji"));
 		kelintiniaiIvVyrGim.put(2L, new Zodis("antrasis", "antrojo", "antrajam", "antrąjį", "antruoju", "antrajame", "antrasis", "antrieji", "antrųjų", "antriesiems", "antruosius", "antraisiais", "antruosiuose", "antrieji"));
 		kelintiniaiIvVyrGim.put(3L, new Zodis("trečiasis", "trečiojo", "trečiajam", "trečiąjį", "trečiuoju", "trečiajame", "trečiasis", "tretieji", "trečiųjų", "tretiesiems", "trečiuosius", "trečiaisiais", "trečiuosiuose", "tretieji"));

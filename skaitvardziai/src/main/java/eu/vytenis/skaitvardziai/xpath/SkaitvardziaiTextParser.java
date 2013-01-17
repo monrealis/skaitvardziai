@@ -60,13 +60,17 @@ public class SkaitvardziaiTextParser {
 		
 	}
 	public Forma parseForma(String parametrai, List<Class<?>> supportedParams) {
+		String[] params = parametrai.length() == 0 ? new String[]{} : parametrai.split("\\s*,\\s*");
+		return parseForma(params, supportedParams);
+	}
+	
+	public Forma parseForma(String[] parameters, List<Class<?>> supportedParams) {
 		if (supportedParams == null) {
 			supportedParams = Arrays.<Class<?>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class, Ivardziuotinis.class);
 		}
-		String[] params = parametrai.length() == 0 ? new String[]{} : parametrai.split("\\s*,\\s*");
 		Forma r = new Forma();
 		Map<Class<?>, Object> usedClasses = new HashMap<Class<?>, Object>();
-		for (String param : params) {
+		for (String param : parameters) {
 			Object o = symbols.get(param);
 			if (o != null && !supportedParams.contains(o.getClass())) {
 				throw new SkaitvardziaiRuntimeException(param + " is not supported, because parameter class " + o.getClass() + " is not supported"); 

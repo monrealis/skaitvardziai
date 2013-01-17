@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
+import org.apache.commons.cli.ParseException;
 import org.junit.Assert;
 import org.junit.Test;
 
+
+// TODO parašyti testų
 public class MainTest {
 
 	private OutAndErr main(Object... args) {
@@ -23,6 +26,8 @@ public class MainTest {
 			try {
 				Main.main(params);
 			} catch (IOException e) {
+				throw new RuntimeException(e);
+			} catch (ParseException e) {
 				throw new RuntimeException(e);
 			}
 			return new OutAndErr(out.getText(), err.getText());

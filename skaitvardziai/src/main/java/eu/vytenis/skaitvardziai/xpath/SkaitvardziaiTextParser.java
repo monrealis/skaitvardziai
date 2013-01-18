@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -19,6 +21,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Ivardziuotinis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.util.LetterUtils;
 
 public class SkaitvardziaiTextParser {
 	private static final Map<String, Object> symbols;
@@ -43,14 +46,19 @@ public class SkaitvardziaiTextParser {
 				// Nerealizuota logika parse() metode usedClasses kintamajam
 			}
 			Aliased aliased = (Aliased) e;
-			String alias = aliased.alias();
-			String[] aliases = {alias,
-					!alias.equals(alias.toUpperCase()) ? alias.toUpperCase() : null,
-					!alias.equals(alias.toLowerCase()) ? alias.toLowerCase() : null};
+			
+			String[] names = {aliased.alias(), aliased.longName()};
+			Set<String> aliases = new TreeSet<String>();
+			for (String name : names) {				
+				aliases.add(name);
+				aliases.add(name.toUpperCase(LetterUtils.LT));
+				aliases.add(name.toLowerCase(LetterUtils.LT));
+				aliases.add(LetterUtils.translateLtToLatin(name));
+				aliases.add(LetterUtils.translateLtToLatin(name.toLowerCase(LetterUtils.LT)));
+				aliases.add(LetterUtils.translateLtToLatin(name.toUpperCase(LetterUtils.LT)));
+			}
+			
 			for (String a : aliases) {
-				if (a == null) {
-					continue;
-				}
 				if (symbols.containsKey(a)) {
 					throw new IllegalArgumentException(a + ": duplicate value. " + e.getClass().getSimpleName() + " and " + symbols.get(a).getClass().getSimpleName());					
 				}

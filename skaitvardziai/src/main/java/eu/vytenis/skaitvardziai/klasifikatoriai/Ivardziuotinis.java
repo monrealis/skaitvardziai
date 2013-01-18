@@ -6,12 +6,20 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  */
 public enum Ivardziuotinis implements Aliased {
 	/** Įvardžiuotinė forma. */
-	Iv;
+	Iv("Įv", "Įvardžiuotinis");
+	private String alias;
+	private String longName;
+	
+	private Ivardziuotinis(String alias, String longName) {
+		this.alias = alias;
+		this.longName = longName;
+	}
+	
 	public String alias() {
-		if (this == Iv) {
-			return "Iv";
-		} else {
-			return name();
-		}
-	};
+		return alias;
+	}
+	
+	public String longName() {
+		return longName;
+	}
 }

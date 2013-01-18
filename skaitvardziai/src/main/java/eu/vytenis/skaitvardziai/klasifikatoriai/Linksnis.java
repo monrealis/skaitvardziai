@@ -5,21 +5,32 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  */
 public enum Linksnis implements Aliased {
 	/** Vardininkas. */
-	V,
+	V("V", "Vardininkas"),
 	/** Kilmininkas. */
-	K,
+	K("K", "Kilmininkas"),
 	/** Naudininkas. */
-	N,
+	N("N", "Naudininkas"),
 	/** Galininkas. */
-	G,
+	G("G", "Galininkas"),
 	/** Įnagininkas. */
-	I,
+	I("Į", "Įnagininkas"),
 	/** Vietininkas. */
-	Vt,
+	Vt("Vt", "Vietininkas"),
 	/** Šauksmininkas. */
-	S;
+	S("Š", "Šauksmininkas");
+	private String alias;
+	private String longName;
+	
+	private Linksnis(String alias, String longName) {
+		this.alias = alias;
+		this.longName = longName;		
+	}
 	
 	public String alias() {
-		return name();
+		return alias;
 	};
+	
+	public String longName() {
+		return longName;
+	}
 }

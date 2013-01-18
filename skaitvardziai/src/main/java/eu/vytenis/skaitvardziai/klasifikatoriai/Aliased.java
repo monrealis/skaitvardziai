@@ -13,5 +13,11 @@ public interface Aliased {
 	 * @return santrumpa
 	 */
 	String alias();
+	
+	/**
+	 * Grąžina unikalų pavadinimą
+	 * @return pavadinimas
+	 */
+	String longName();
 
 }

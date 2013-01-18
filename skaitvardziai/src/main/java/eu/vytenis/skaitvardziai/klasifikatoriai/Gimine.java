@@ -6,18 +6,24 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  */
 public enum Gimine implements Aliased {
 	/** Vyriška giminė.*/
-	V,
+	V("VG", "Vyriškas"),
 	/** Moteriška giminė.*/
-	M;
+	M("MG", "Moteriškas");
+	
+	private String alias;
+	private String longName;
+	
+	private Gimine(String alias, String longName) {
+		this.alias = alias;
+		this.longName = longName;		
+	}
 	
 	public String alias() {
-		if (this == V) {
-			return "VG";
-		} else if (this == M) {
-			return "MG";
-		} else {
-			return name();
-		}
+		return alias;
+	}
+	
+	public String longName() {
+		return longName;
 	}
 
 }

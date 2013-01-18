@@ -6,18 +6,23 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  */
 public enum Skaicius implements Aliased {
 	/** Vienaskaita. */
-	V,
+	V("SV", "Vienaskaita"),
 	/** Daugiskaita. */
-	D;
+	D("SD", "Daugiskaita");
+	private String alias;
+	private String longName;
+	
+	private Skaicius(String alias, String longName) {
+		this.alias = alias;
+		this.longName = longName;		
+	}
 	
 	public String alias() {
-		if (this == V) {
-			return "SV";
-		} else if (this == D) {
-			return "SD";
-		} else {
-			return name();
-		}
+		return alias;
+	}
+	
+	public String longName() {
+		return longName;
 	}
 
 }

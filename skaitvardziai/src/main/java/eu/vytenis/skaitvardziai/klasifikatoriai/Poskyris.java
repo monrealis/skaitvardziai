@@ -4,16 +4,20 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  * Skaitvardžio skyrius.
  */
 public enum Poskyris implements Aliased {
-	Pagrindinis(Skyrius.Kiekinis),
-	Dauginis(Skyrius.Kiekinis),
-	Kuopinis(Skyrius.Kiekinis),
-	Trupmeninis(Skyrius.Kiekinis),
-	Kelintinis(Skyrius.Kelintinis);
+	Pagrindinis(Skyrius.Kiekinis, "PP", "Pagrindinis"),
+	Dauginis(Skyrius.Kiekinis, "PD", "Dauginis"),
+	Kuopinis(Skyrius.Kiekinis, "PK", "Kuopinis"),
+	Trupmeninis(Skyrius.Kiekinis, "PT", "Trupmeninis"),
+	Kelintinis(Skyrius.Kelintinis, "Kl", "Kelintinis");
 	
 	private Skyrius skyrius;
+	private String alias;
+	private String longName;
 	
-	private Poskyris(Skyrius skyrius) {
+	private Poskyris(Skyrius skyrius, String alias, String longName) {
 		this.skyrius = skyrius;
+		this.alias = alias;
+		this.longName = longName;
 	}
 	
 	public Skyrius getSkyrius() {
@@ -21,19 +25,11 @@ public enum Poskyris implements Aliased {
 	}
 	
 	public String alias() {
-		if (this == Pagrindinis) {
-			return "PP";
-		} else if (this == Dauginis) {
-			return "PD";
-		} else if (this == Kuopinis) {
-			return "PK";
-		} else if (this == Trupmeninis) {
-			return "PT";
-		} else if (this == Kelintinis) {
-			return "Kl";
-		} else {
-			return name();
-		}
+		return alias;
+	}
+	
+	public String longName() {
+		return longName;
 	}
 
 }

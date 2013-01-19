@@ -86,9 +86,6 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		return new Double(toDouble()).compareTo(o.toDouble());
 	}
 	
-	// TODO realizuoti LinksnisHolder ir pagal jį grąžinti toString
-	// TODO įvardžiuotinių vienaskaita / daugiskaita
-
 	public static class SkaitiklisComparer implements Comparator<Trupmena> {
 
 		public int compare(Trupmena o1, Trupmena o2) {

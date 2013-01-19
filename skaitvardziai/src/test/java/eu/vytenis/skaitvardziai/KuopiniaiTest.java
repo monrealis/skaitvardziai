@@ -5,15 +5,28 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
 
 public class KuopiniaiTest {
 	
+	private static final SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
+	
 	private void assertKuopinis(long skaicius, Linksnis linksnis, String tekstas) {
-		Assert.assertEquals(tekstas, new SveikasisSkaicius(skaicius).toString(Poskyris.Kuopinis, linksnis, Gimine.V));
+		Forma f = new Forma();
+		f.setPoskyris(Poskyris.Kuopinis);
+		f.setLinksnis(linksnis);
+		f.setGimine(Gimine.V);
+		
+		SveikasisSkaicius ss = new SveikasisSkaicius(skaicius);
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis();
+		Assert.assertEquals(tekstas, ss.toString(f, sl));
+		Assert.assertEquals(DGS_K, sl);
 	}
 	@Test
 	public void testKuopiniai() {

@@ -215,7 +215,7 @@ public class Zodis {
 		pagrindiniaiVyrGim.put(1000000L, new Zodis("milijonas", "milijono", "milijonui", "milijoną", "milijonu", "milijone", "milijone", "milijonai", "milijonų", "milijonams", "milijonus", "milijonais", "milijonuose", "milijonai").kitasDgsKilm().valdomas());
 		pagrindiniaiVyrGim.put(1000000000L, new Zodis("milijardas", "milijardo", "milijardui", "milijardą", "milijardu", "milijarde", "milijarde", "milijardai", "milijardų", "milijardams", "milijardus", "milijardais", "milijarduose", "milijardai").kitasDgsKilm().valdomas());
 		
-		kuopiniai.put(1L, new Zodis("vienetas", "vieneto", "vienetui", "vienetą", "vienetu", "vienete", "vienete").kitasDgsKilm()); // Ne visai tinka, bet tegul būna
+		kuopiniai.put(1L, new Zodis("vienetas", "vieneto", "vienetui", "vienetą", "vienetu", "vienete", "vienete").kitasDgsKilm()); // Ne visai tinka, bet tegul būna. Žr. http://ualgiman.dtiltas.lt/skaitvardis.html -  "Vienetas prie šios grupės prisijungia tik pagal gramatinius požymius..."
 		kuopiniai.put(2L, new Zodis("dvejetas", "dvejeto", "dvejetui", "dvejetą", "dvejetu", "dvejete", "dvejete").kitasDgsKilm());
 		kuopiniai.put(3L, new Zodis("trejetas", "trejeto", "trejetui", "trejetą", "trejetu", "trejete", "trejete").kitasDgsKilm());
 		kuopiniai.put(4L, new Zodis("ketvertas", "ketverto", "ketvertui", "ketvertą", "ketvertu", "ketverte", "ketverte").kitasDgsKilm());
@@ -385,6 +385,7 @@ public class Zodis {
 		}
 		if (skaicius.equals(BigInteger.ONE)) {
 			logger.warning(z + " naudojamas kaip kuopinis skaitvardis");
+			// žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
 		}
 		return z;
 	}

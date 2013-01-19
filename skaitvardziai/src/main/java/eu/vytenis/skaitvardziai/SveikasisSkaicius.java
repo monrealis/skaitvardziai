@@ -14,6 +14,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
 public class SveikasisSkaicius implements SkaitineReiksme {
@@ -239,6 +240,19 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	}
 	
 	public String toString(Forma forma) {
+		return toString(forma, null);
+	}
+	
+	/**
+	 * Grąžina skaitvardžio tekstą.
+	 * @param forma gramatinė skaitvardžio forma 
+	 * @param skaiciusIrLinksnis jei ne null, metodas užpildo (grąžina rezultatą), kokia bus kito žodžio gramatinė forma (pvz, jei grąžina "dvi", tai kitas žodis bus daugiskaitos vardininkas) 
+	 * @return skaitvardis (tekstas)
+	 */
+	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
+		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis();
+		r.clear();
+		
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma);
 		fs.setSveikasisSkaicius(reiksme);
 		fs.setPradinisSveikasisSkaicius(reiksme);		
@@ -251,11 +265,18 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		if (poskyris == Poskyris.Kuopinis) {
 			// Kadangi skaičiai tik nuo 1 iki 9, neapsimoka skaičiuoti standartiškai ir keliuose metoduose daryti papildomus tikrinimus
 			kuopinis(zodziai, fs);
+			r.setSkaicius(Skaicius.D);
+			r.setLinksnis(Linksnis.K);
 		} else {
 			daugiazenklis(zodziai, fs);			
 		}
 		Collections.reverse(zodziai);
-		return ZodzioInfo.toString(zodziai, fs);
+		String text = ZodzioInfo.toString(zodziai, fs);
+		if (skaiciusIrLinksnis != null) {
+			skaiciusIrLinksnis.setLinksnis(r.getLinksnis());
+			skaiciusIrLinksnis.setSkaicius(r.getSkaicius());
+		}
+		return text;
 	}
 	
 	public String toString(Linksnis linksnis, Gimine gimine) {

@@ -35,12 +35,44 @@ public class SkaiciusIrLinksnis implements Cloneable {
 		this.linksnis = linksnis;
 	}
 	
+	public void clear() {
+		skaicius = null;
+		linksnis = null;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof SkaiciusIrLinksnis)) {
+			return false;
+		}
+		SkaiciusIrLinksnis o = (SkaiciusIrLinksnis) obj;
+		return skaicius == o.skaicius && linksnis == o.linksnis;
+	}
+	
+	@Override
+	public int hashCode() {
+		return (skaicius != null ? skaicius.hashCode() : 0) << 16 | (linksnis != null ? linksnis.hashCode() : 0);
+	}
+	
 	@Override
 	public SkaiciusIrLinksnis clone() {
 		try {
 			return (SkaiciusIrLinksnis) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
+		}
+	}
+	
+	@Override
+	public String toString() {
+		if (skaicius != null && linksnis != null) {
+			return skaicius + " " + linksnis;
+		} else if (skaicius != null) {
+			return skaicius.toString();
+		} else if (linksnis != null) {
+			return linksnis.toString();
+		} else {
+			return "";
 		}
 	}
 

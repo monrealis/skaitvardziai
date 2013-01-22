@@ -8,23 +8,31 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
 
 
-public class PagrindiniaiVyrTest {
+public class PagrindiniaiVyrTest extends BaseTest {
 	
 	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = e.getValue();
+			String expected = removeDaikt(e.getValue());
+			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue());
 			long number = e.getKey().longValue();
 			SveikasisSkaicius sk = new SveikasisSkaicius(number);
-					
-			try {
-				Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
-			} catch (Throwable t) {
-				Assert.assertEquals("Invalid text", expected, sk.toString(linksnis, Gimine.V));
+			
+			Forma f = new Forma();
+			f.setLinksnis(linksnis);
+			f.setGimine(Gimine.V);
+			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis();
+			actualSl.clear();
+			String actual = sk.toString(f, actualSl);
+			Assert.assertEquals(expected, actual);
+			if (sl != null) {
+				Assert.assertEquals(sl, actualSl);
 			}
 		}
 	}
@@ -32,27 +40,27 @@ public class PagrindiniaiVyrTest {
 	@Test
 	public void testNuo1Iki20V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(0, "nulis");
-		s.put(1, "vienas");
-		s.put(2, "du");
-		s.put(3, "trys");
-		s.put(4, "keturi");
-		s.put(5, "penki");
-		s.put(6, "šeši");
-		s.put(7, "septyni");
-		s.put(8, "aštuoni");
-		s.put(9, "devyni");
-		s.put(10, "dešimt");
-		s.put(11, "vienuolika");
-		s.put(12, "dvylika");
-		s.put(13, "trylika");
-		s.put(14, "keturiolika");
-		s.put(15, "penkiolika");
-		s.put(16, "šešiolika");
-		s.put(17, "septyniolika");
-		s.put(18, "aštuoniolika");
-		s.put(19, "devyniolika");
-		s.put(20, "dvidešimt");		
+		s.put(0, "nulis" + vyrDgsK());
+		s.put(1, "vienas" + vyrVnsV());
+		s.put(2, "du" + vyrDgsV());
+		s.put(3, "trys" + vyrDgsV());
+		s.put(4, "keturi" + vyrDgsV());
+		s.put(5, "penki" + vyrDgsV());
+		s.put(6, "šeši" + vyrDgsV());
+		s.put(7, "septyni" + vyrDgsV());
+		s.put(8, "aštuoni" + vyrDgsV());
+		s.put(9, "devyni" + vyrDgsV());
+		s.put(10, "dešimt" + vyrDgsK());
+		s.put(11, "vienuolika" + vyrDgsK());
+		s.put(12, "dvylika" + vyrDgsK());
+		s.put(13, "trylika" + vyrDgsK());
+		s.put(14, "keturiolika" + vyrDgsK());
+		s.put(15, "penkiolika" + vyrDgsK());
+		s.put(16, "šešiolika" + vyrDgsK());
+		s.put(17, "septyniolika" + vyrDgsK());
+		s.put(18, "aštuoniolika" + vyrDgsK());
+		s.put(19, "devyniolika" + vyrDgsK());
+		s.put(20, "dvidešimt" + vyrDgsK());		
 		testSkaiciai(s, Linksnis.V);
 	}
 	

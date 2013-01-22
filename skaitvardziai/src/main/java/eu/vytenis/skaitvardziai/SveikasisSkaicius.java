@@ -15,6 +15,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
 public class SveikasisSkaicius implements SkaitineReiksme {
@@ -263,13 +264,15 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		}
 		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();		
 		if (poskyris == Poskyris.Kuopinis) {
-			// Kadangi skaičiai tik nuo 1 iki 9, neapsimoka skaičiuoti standartiškai ir keliuose metoduose daryti papildomus tikrinimus
 			kuopinis(zodziai, fs);
-			r.setSkaicius(Skaicius.D);
-			r.setLinksnis(Linksnis.K);
 		} else {
 			daugiazenklis(zodziai, fs);			
 		}
+		Zodis paskutinis = zodziai.iterator().next().getZodis();
+		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
+		r.setSkaicius(kitas.getSkaicius());
+		r.setLinksnis(kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis());
+		
 		Collections.reverse(zodziai);
 		String text = ZodzioInfo.toString(zodziai, fs);
 		if (skaiciusIrLinksnis != null) {

@@ -3,6 +3,7 @@ package eu.vytenis.skaitvardziai.zodziai;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
@@ -16,11 +17,13 @@ import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
+// TODO padaryti nekoreguojamą (immutable)
 public class Zodis {
 	/** Žurnalas. */
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
+	// TODO panaudoti SkaiciusIrLinksnis
 	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
 	
 	
@@ -158,6 +161,22 @@ public class Zodis {
 		return this;
 	}
 	
+	
+	/**
+	 * Grąžina lentelę [skaičius ir linksnis (pvz., vns vard.) -> skaitvardis].
+	 * @return lentelė
+	 */
+	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {
+		Map<SkaiciusIrLinksnis, String> r = new HashMap<SkaiciusIrLinksnis, String>();
+		for (Entry<Skaicius, Map<Linksnis, String>> e1 : linksniaiPagalSkaicius.entrySet()) {
+			for (Entry<Linksnis, String> e2 : e1.getValue().entrySet()) {
+				if (e2.getValue() != null) {
+					r.put(new SkaiciusIrLinksnis(e1.getKey(), e2.getKey()), e2.getValue());
+				}
+			}
+		}
+		return r;
+	}
 
 	
 	public String toString(SkaiciusIrLinksnis skaiciusIrLinksnis) {

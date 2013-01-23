@@ -3,43 +3,18 @@ package eu.vytenis.skaitvardziai;
 import java.util.Map;
 import java.util.TreeMap;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
 
 
 public class PagrindiniaiVyrTest extends BaseTest {
-	
-	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = removeDaikt(e.getValue());
-			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue());
-			long number = e.getKey().longValue();
-			SveikasisSkaicius sk = new SveikasisSkaicius(number);
-			
-			Forma f = new Forma();
-			f.setLinksnis(linksnis);
-			f.setGimine(Gimine.V);
-			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis();
-			actualSl.clear();
-			String actual = sk.toString(f, actualSl);
-			Assert.assertEquals(expected, actual);
-			if (sl != null) {
-				try {
-					Assert.assertEquals(sl, actualSl);
-				}  catch (AssertionError ex) {
-					throw new  RuntimeException(ex.getMessage() + ": " + number, ex);
-				}
-			}
-		}
+	public PagrindiniaiVyrTest() {
+		pagrindiniuGimine = Gimine.V;
 	}
+
 	
 	@Test
 	public void testNuo1Iki20V() {

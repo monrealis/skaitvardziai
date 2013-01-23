@@ -1,7 +1,12 @@
 package eu.vytenis.skaitvardziai;
 
+import java.util.Map;
 import java.util.Map.Entry;
 
+import junit.framework.Assert;
+
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
@@ -34,6 +39,22 @@ public abstract class BaseTest {
 	protected String vyrDgsK() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
+	
+	protected String motVnsV() {
+		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V));
+	}
+
+	protected String motVnsK() {
+		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K));
+	}
+	
+	protected String motDgsV() {
+		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));
+	}
+	
+	protected String motDgsK() {
+		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
+	}
 
 	
 	/**
@@ -43,7 +64,9 @@ public abstract class BaseTest {
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
 	protected String removeDaikt(String text) {
-		for (String s : DAIKT_VYR_G.getVisosFormos().values()) {
+		Assert.assertNotNull(pagrindiniuGimine);
+		Zodis z = pagrindiniuGimine == Gimine.V ? DAIKT_VYR_G : DAIKT_MOT_G;
+		for (String s : z.getVisosFormos().values()) {
 			if (text.endsWith(s)) {
 				return text.substring(0, text.length() - s.length()).trim();
 			}
@@ -64,5 +87,32 @@ public abstract class BaseTest {
 			}
 		}
 		return null;
+	}
+	
+	protected Gimine pagrindiniuGimine;
+	
+	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
+		Assert.assertNotNull(pagrindiniuGimine);
+		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
+			String expected = removeDaikt(e.getValue());
+			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue());
+			long number = e.getKey().longValue();
+			SveikasisSkaicius sk = new SveikasisSkaicius(number);
+			
+			Forma f = new Forma();
+			f.setLinksnis(linksnis);
+			f.setGimine(pagrindiniuGimine);
+			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis();
+			actualSl.clear();
+			String actual = sk.toString(f, actualSl);
+			Assert.assertEquals(expected, actual);
+			if (sl != null) {
+				try {
+					Assert.assertEquals(sl, actualSl);
+				}  catch (AssertionError ex) {
+					throw new  RuntimeException(ex.getMessage() + ": " + number, ex);
+				}
+			}
+		}
 	}
 }

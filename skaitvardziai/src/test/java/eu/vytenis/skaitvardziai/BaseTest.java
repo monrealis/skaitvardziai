@@ -14,21 +14,27 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
 public abstract class BaseTest {
 
 	/** Vyriškosios giminės daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis", "šunimis", "šunyse", "šunys.šauksm"); // šunes :)
+	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis", "šunimis", "šunyse", "šunys!"); // šunes :)
 	/** Moteriškosios giminės daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_MOT_G = new Zodis("katė", "katės", "katei", "katę", "kate", "katėje", "kate", "katės", "kačių", "katėms", "kates", "katėmis", "katėse", "katės.šauksm"); // šunes :)
+	public static final Zodis DAIKT_MOT_G = new Zodis("katė", "katės", "katei", "katę", "kate", "katėje", "kate", "katės", "kačių", "katėms", "kates", "katėmis", "katėse", "katės!");
 
-	protected String vyrDgsK() {
-		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
-	}
 	
 	protected String vyrVnsV() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V));
+	}
+
+	protected String vyrVnsK() {
+		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K));
 	}
 	
 	protected String vyrDgsV() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));
 	}
+	
+	protected String vyrDgsK() {
+		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
+	}
+
 	
 	/**
 	 * Iš teksto pabaigos, jei yra, pašalina paskutinį daiktvardį. Jei nėra, nieko nepakeičia.

@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai;
 
+import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,6 +18,11 @@ public class TrupmenosTest {
 			String expected = e.getValue();
 			Trupmena t = e.getKey();
 			Assert.assertEquals("Invalid text", expected, t.toString(linksnis));
+			if (t.getSkaitiklis().compareTo(BigInteger.ZERO) > 0) {
+				Trupmena n = new Trupmena(t.getSkaitiklis().negate(), t.getVardiklis());
+				Assert.assertEquals("Invalid text", "minus " + expected, n.toString(linksnis));
+				
+			}
 		}
 	}
 	

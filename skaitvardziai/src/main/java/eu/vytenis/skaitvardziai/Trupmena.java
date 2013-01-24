@@ -49,6 +49,9 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 	}
 	
 	public String toString(Linksnis linksnis) {
+		boolean nonNegative = this.skaitiklis.compareTo(BigInteger.ZERO) >= 0;
+		BigInteger skaitiklis = nonNegative ? this.skaitiklis : this.skaitiklis.negate();
+
 		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
 		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
 		
@@ -73,7 +76,11 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		}
 		
 		
-		return s.toString(linksnis, Gimine.M) + " " + v.toString(vf);
+		String r = s.toString(linksnis, Gimine.M) + " " + v.toString(vf);
+		if (!nonNegative) {
+			r = "minus " + r;
+		}
+		return r;
 	}
 	
 	public double toDouble() {

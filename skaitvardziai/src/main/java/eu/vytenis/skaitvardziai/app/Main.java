@@ -23,6 +23,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
 
 // TODO suformuoti vykdomąjį JAR
+// TODO pridėti parametrą analogišką "echo -n"
 public class Main {
 	
 	private static ThreadLocal<Writer> systemOut = new ThreadLocal<Writer>();

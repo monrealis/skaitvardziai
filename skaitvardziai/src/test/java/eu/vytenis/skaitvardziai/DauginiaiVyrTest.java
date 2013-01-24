@@ -3,50 +3,43 @@ package eu.vytenis.skaitvardziai;
 import java.util.Map;
 import java.util.TreeMap;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 
 
-public class DauginiaiVyrTest {
-	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = e.getValue();
-			long number = e.getKey().longValue();
-			SveikasisSkaicius sk = new SveikasisSkaicius(number);
-					
-			Assert.assertEquals("Invalid text", expected, sk.toString(Poskyris.Dauginis, linksnis, Gimine.V));
-		}
-	}
+public class DauginiaiVyrTest extends BaseTest {
 	
+	public DauginiaiVyrTest() {
+		poskyris = Poskyris.Dauginis;
+		gimine = Gimine.V;
+	}
+
 	@Test
 	public void testNuo1Iki20V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(1, "vieneri");
-		s.put(2, "dveji");
-		s.put(3, "treji");
-		s.put(4, "ketveri");
-		s.put(5, "penkeri");
-		s.put(6, "šešeri");
-		s.put(7, "septyneri");
-		s.put(8, "aštuoneri");
-		s.put(9, "devyneri");
-		s.put(10, "dešimt");
-		s.put(11, "vienuolika");
-		s.put(12, "dvylika");
-		s.put(13, "trylika");
-		s.put(14, "keturiolika");
-		s.put(15, "penkiolika");
-		s.put(16, "šešiolika");
-		s.put(17, "septyniolika");
-		s.put(18, "aštuoniolika");
-		s.put(19, "devyniolika");
-		s.put(20, "dvidešimt");		
+		s.put(1, "vieneri" + vyrDgsV());
+		s.put(2, "dveji" + vyrDgsV());
+		s.put(3, "treji" + vyrDgsV());
+		s.put(4, "ketveri" + vyrDgsV());
+		s.put(5, "penkeri" + vyrDgsV());
+		s.put(6, "šešeri" + vyrDgsV());
+		s.put(7, "septyneri" + vyrDgsV());
+		s.put(8, "aštuoneri" + vyrDgsV());
+		s.put(9, "devyneri" + vyrDgsV());
+		s.put(10, "dešimt" + vyrDgsK());
+		s.put(11, "vienuolika" + vyrDgsK());
+		s.put(12, "dvylika" + vyrDgsK());
+		s.put(13, "trylika" + vyrDgsK());
+		s.put(14, "keturiolika" + vyrDgsK());
+		s.put(15, "penkiolika" + vyrDgsK());
+		s.put(16, "šešiolika" + vyrDgsK());
+		s.put(17, "septyniolika" + vyrDgsK());
+		s.put(18, "aštuoniolika" + vyrDgsK());
+		s.put(19, "devyniolika" + vyrDgsK());
+		s.put(20, "dvidešimt" + vyrDgsK());		
 		testSkaiciai(s, Linksnis.V);
 	}
 	

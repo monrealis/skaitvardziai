@@ -244,25 +244,25 @@ public class Zodis {
 		kuopiniai.put(8L, new Zodis("aštuonetas", "aštuoneto", "aštuonetui", "aštuonetą", "aštuonetu", "aštuonete", "aštuonete").kitasDgsKilm());
 		kuopiniai.put(9L, new Zodis("devynetas", "devyneto", "devynetui", "devynetą", "devynetu", "devynete", "devynete").kitasDgsKilm());
 		
-		dauginiaiMotGim.put(1L, new Zodis("vienerios", "vienerių", "vienerioms", "vienerias", "vieneriomis", "vieneriose", "vienerios")); // http://ualgiman.dtiltas.lt/skaitvardis.html
-		dauginiaiMotGim.put(2L, new Zodis("dvejos", "dvejų", "dvejoms", "dvejas", "dvejomis", "dvejose", "dvejos"));
-		dauginiaiMotGim.put(3L, new Zodis("trejos", "trejų", "trejoms", "trejas", "trejomis", "trejose", "trejos"));
-		dauginiaiMotGim.put(4L, new Zodis("ketverios", "ketverių", "ketverioms", "ketverias", "ketveriomis", "ketveriose", "ketverios"));
-		dauginiaiMotGim.put(5L, new Zodis("penkerios", "penkerių", "penkerioms", "penkerias", "penkeriomis", "penkeriose", "penkerios"));
-		dauginiaiMotGim.put(6L, new Zodis("šešerios", "šešerių", "šešerioms", "šešerias", "šešeriomis", "šešeriose", "šešerios"));
-		dauginiaiMotGim.put(7L, new Zodis("septynerios", "septynerių", "septynerioms", "septynerias", "septyneriomis", "septyneriose", "septynerios"));
-		dauginiaiMotGim.put(8L, new Zodis("aštuonerios", "aštuonerių", "aštuonerioms", "aštuonerias", "aštuoneriomis", "aštuoneriose", "aštuonerios"));
-		dauginiaiMotGim.put(9L, new Zodis("devynerios", "devynerių", "devynerioms", "devynerias", "devyneriomis", "devyneriose", "devynerios"));
+		dauginiaiMotGim.put(1L, new Zodis("vienerios", "vienerių", "vienerioms", "vienerias", "vieneriomis", "vieneriose", "vienerios").kitasDgs()); // http://ualgiman.dtiltas.lt/skaitvardis.html
+		dauginiaiMotGim.put(2L, new Zodis("dvejos", "dvejų", "dvejoms", "dvejas", "dvejomis", "dvejose", "dvejos").kitasDgs());
+		dauginiaiMotGim.put(3L, new Zodis("trejos", "trejų", "trejoms", "trejas", "trejomis", "trejose", "trejos").kitasDgs());
+		dauginiaiMotGim.put(4L, new Zodis("ketverios", "ketverių", "ketverioms", "ketverias", "ketveriomis", "ketveriose", "ketverios").kitasDgs());
+		dauginiaiMotGim.put(5L, new Zodis("penkerios", "penkerių", "penkerioms", "penkerias", "penkeriomis", "penkeriose", "penkerios").kitasDgs());
+		dauginiaiMotGim.put(6L, new Zodis("šešerios", "šešerių", "šešerioms", "šešerias", "šešeriomis", "šešeriose", "šešerios").kitasDgs());
+		dauginiaiMotGim.put(7L, new Zodis("septynerios", "septynerių", "septynerioms", "septynerias", "septyneriomis", "septyneriose", "septynerios").kitasDgs());
+		dauginiaiMotGim.put(8L, new Zodis("aštuonerios", "aštuonerių", "aštuonerioms", "aštuonerias", "aštuoneriomis", "aštuoneriose", "aštuonerios").kitasDgs());
+		dauginiaiMotGim.put(9L, new Zodis("devynerios", "devynerių", "devynerioms", "devynerias", "devyneriomis", "devyneriose", "devynerios").kitasDgs());
 		
-		dauginiaiVyrGim.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri")); // http://ualgiman.dtiltas.lt/skaitvardis.html
-		dauginiaiVyrGim.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji"));
-		dauginiaiVyrGim.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji"));
-		dauginiaiVyrGim.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri"));
-		dauginiaiVyrGim.put(5L, new Zodis("penkeri", "penkerių", "penkeriems", "penkerius", "penkeriais", "penkeriuose", "penkeri"));
-		dauginiaiVyrGim.put(6L, new Zodis("šešeri", "šešerių", "šešeriems", "šešerius", "šešeriais", "šešeriuose", "šešeri"));
-		dauginiaiVyrGim.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri"));
-		dauginiaiVyrGim.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri"));
-		dauginiaiVyrGim.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri"));
+		dauginiaiVyrGim.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri").kitasDgs()); // http://ualgiman.dtiltas.lt/skaitvardis.html
+		dauginiaiVyrGim.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji").kitasDgs());
+		dauginiaiVyrGim.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji").kitasDgs());
+		dauginiaiVyrGim.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri").kitasDgs());
+		dauginiaiVyrGim.put(5L, new Zodis("penkeri", "penkerių", "penkeriems", "penkerius", "penkeriais", "penkeriuose", "penkeri").kitasDgs());
+		dauginiaiVyrGim.put(6L, new Zodis("šešeri", "šešerių", "šešeriems", "šešerius", "šešeriais", "šešeriuose", "šešeri").kitasDgs());
+		dauginiaiVyrGim.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri").kitasDgs());
+		dauginiaiVyrGim.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri").kitasDgs());
+		dauginiaiVyrGim.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri").kitasDgs());
 		
 		kelintiniaiVyrGim.put(0L, new Zodis("nulinis", "nulinio", "nuliniui", "nulinį", "nuliniu", "nulinyje", "nulini", "nuliniai", "nulinių", "nuliniams", "nulinius", "nuliniais", "nuliniuose", "nuliniai"));
 		kelintiniaiVyrGim.put(1L, new Zodis("pirmas", "pirmo", "pirmam", "pirmą", "pirmu", "pirmame", "pirmas", "pirmi", "pirmų", "pirmiems", "pirmus", "pirmais", "pirmuose", "pirmi"));

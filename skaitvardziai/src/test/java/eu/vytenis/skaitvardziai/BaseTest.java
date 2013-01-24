@@ -4,10 +4,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import junit.framework.Assert;
-
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
@@ -18,6 +18,7 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
  */
 public abstract class BaseTest {
 
+	// TODO dauginiams parinkti kitokius daiktavardžius, pavyzdžiui, "Joninės"
 	/** Vyriškosios giminės daiktavardis su visais linksniais. */
 	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis", "šunimis", "šunyse", "šunys!"); // šunes :)
 	/** Moteriškosios giminės daiktavardis su visais linksniais. */
@@ -64,8 +65,8 @@ public abstract class BaseTest {
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
 	protected String removeDaikt(String text) {
-		Assert.assertNotNull(pagrindiniuGimine);
-		Zodis z = pagrindiniuGimine == Gimine.V ? DAIKT_VYR_G : DAIKT_MOT_G;
+		Assert.assertNotNull(gimine);
+		Zodis z = gimine == Gimine.V ? DAIKT_VYR_G : DAIKT_MOT_G;
 		for (String s : z.getVisosFormos().values()) {
 			if (text.endsWith(s)) {
 				return text.substring(0, text.length() - s.length()).trim();
@@ -89,10 +90,12 @@ public abstract class BaseTest {
 		return null;
 	}
 	
-	protected Gimine pagrindiniuGimine;
+	protected Gimine gimine;
+	protected Poskyris poskyris;
 	
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		Assert.assertNotNull(pagrindiniuGimine);
+		Assert.assertNotNull(gimine);
+		Assert.assertNotNull(poskyris);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = removeDaikt(e.getValue());
 			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue());
@@ -100,19 +103,22 @@ public abstract class BaseTest {
 			SveikasisSkaicius sk = new SveikasisSkaicius(number);
 			
 			Forma f = new Forma();
+			f.setPoskyris(poskyris);
 			f.setLinksnis(linksnis);
-			f.setGimine(pagrindiniuGimine);
+			f.setGimine(gimine);
 			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis();
 			actualSl.clear();
 			String actual = sk.toString(f, actualSl);
 			Assert.assertEquals(expected, actual);
 			if (sl != null) {
-				try {
-					Assert.assertEquals(sl, actualSl);
-				}  catch (AssertionError ex) {
-					throw new  RuntimeException(ex.getMessage() + ": " + number, ex);
-				}
+				Assert.assertEquals("Invalid form. Expected '" + e.getValue() + "' for " + number, sl, actualSl);
 			}
 		}
 	}
 }
+
+
+////
+///
+///
+//

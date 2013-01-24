@@ -3,25 +3,18 @@ package eu.vytenis.skaitvardziai;
 import java.util.Map;
 import java.util.TreeMap;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 
 
-public class DauginiaiMotTest {
-	private void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = e.getValue();
-			long number = e.getKey().longValue();
-			SveikasisSkaicius sk = new SveikasisSkaicius(number);
-					
-			Assert.assertEquals("Invalid text", expected, sk.toString(Poskyris.Dauginis, linksnis, Gimine.M));
-		}
+public class DauginiaiMotTest extends BaseTest {
+
+	public DauginiaiMotTest() {
+		poskyris = Poskyris.Dauginis;
+		gimine = Gimine.M;
 	}
 	
 	@Test

@@ -7,13 +7,15 @@ import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 
 
 
 public class PagrindiniaiMotTest extends BaseTest {
 	
 	public PagrindiniaiMotTest() {
-		pagrindiniuGimine = Gimine.M;
+		poskyris = Poskyris.Pagrindinis;
+		gimine = Gimine.M;
 	}
 	
 	@Test

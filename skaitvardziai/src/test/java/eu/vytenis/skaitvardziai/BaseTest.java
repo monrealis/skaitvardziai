@@ -110,8 +110,12 @@ public abstract class BaseTest {
 				try {
 					Assert.assertEquals(sl, actualSl);
 				}  catch (AssertionError ex) {
-					throw new  RuntimeException(ex.getMessage() + ": " + number, ex);
+					throw new RuntimeException(ex.getMessage() + ": " + number, ex);
 				}
+			}
+			if (number > 0) {
+				String minusActual = new SveikasisSkaicius(-number).toString(f);
+				Assert.assertEquals("minus " + expected, minusActual);
 			}
 		}
 	}

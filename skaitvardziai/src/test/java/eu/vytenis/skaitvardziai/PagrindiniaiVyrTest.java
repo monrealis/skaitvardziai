@@ -14,7 +14,6 @@ public class PagrindiniaiVyrTest extends BaseTest {
 	public PagrindiniaiVyrTest() {
 		pagrindiniuGimine = Gimine.V;
 	}
-
 	
 	@Test
 	public void testNuo1Iki20V() {

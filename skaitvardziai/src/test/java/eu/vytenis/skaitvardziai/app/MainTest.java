@@ -48,6 +48,9 @@ public class MainTest {
 		assertOutErr("vienas\n", "", 1);
 		assertOutErr("šimtas dešimt\n", "", 110);
 		
+		assertOutErr("vienas", "", "-n", 1);
+		assertOutErr("šimtas dešimt", "", "-n", 110);
+		
 	}
 	
 	public class OutAndErr {

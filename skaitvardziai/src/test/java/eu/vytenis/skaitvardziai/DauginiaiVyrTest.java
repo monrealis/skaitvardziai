@@ -46,43 +46,43 @@ public class DauginiaiVyrTest extends BaseTest {
 	@Test
 	public void testNuo20Iki100V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(21, "dvidešimt vieneri");
-		s.put(22, "dvidešimt dveji");
-		s.put(24, "dvidešimt ketveri");
-		s.put(30, "trisdešimt");
-		s.put(48, "keturiasdešimt aštuoneri");
-		s.put(50, "penkiasdešimt");
-		s.put(55, "penkiasdešimt penkeri");
-		s.put(60, "šešiasdešimt");
-		s.put(70, "septyniasdešimt");
-		s.put(80, "aštuoniasdešimt");
-		s.put(90, "devyniasdešimt");
-		s.put(92, "devyniasdešimt dveji");
-		s.put(100, "šimtas");
+		s.put(21, "dvidešimt vieneri" + vyrDgsV());
+		s.put(22, "dvidešimt dveji" + vyrDgsV());
+		s.put(24, "dvidešimt ketveri" + vyrDgsV());
+		s.put(30, "trisdešimt" + vyrDgsK());
+		s.put(48, "keturiasdešimt aštuoneri" + vyrDgsV());
+		s.put(50, "penkiasdešimt" + vyrDgsK());
+		s.put(55, "penkiasdešimt penkeri" + vyrDgsV());
+		s.put(60, "šešiasdešimt" + vyrDgsK());
+		s.put(70, "septyniasdešimt" + vyrDgsK());
+		s.put(80, "aštuoniasdešimt" + vyrDgsK());
+		s.put(90, "devyniasdešimt" + vyrDgsK());
+		s.put(92, "devyniasdešimt dveji" + vyrDgsV());
+		s.put(100, "šimtas" + vyrDgsK());
 		testSkaiciai(s, Linksnis.V);
 	}
 	
 	@Test
 	public void testNuo100Iki1000V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(101, "šimtas vieneri");
-		s.put(200, "du šimtai");
-		s.put(210, "du šimtai dešimt");
-		s.put(300, "trys šimtai");
-		s.put(313, "trys šimtai trylika");
-		s.put(400, "keturi šimtai");
-		s.put(441, "keturi šimtai keturiasdešimt vieneri");
-		s.put(500, "penki šimtai");
-		s.put(582, "penki šimtai aštuoniasdešimt dveji");
-		s.put(600, "šeši šimtai");
-		s.put(691, "šeši šimtai devyniasdešimt vieneri");
-		s.put(700, "septyni šimtai");
-		s.put(715, "septyni šimtai penkiolika");
-		s.put(800, "aštuoni šimtai");
-		s.put(862, "aštuoni šimtai šešiasdešimt dveji");
-		s.put(900, "devyni šimtai");
-		s.put(963, "devyni šimtai šešiasdešimt treji");
-		s.put(1000, "tūkstantis");
+		s.put(101, "šimtas vieneri" + vyrDgsV());
+		s.put(200, "du šimtai" + vyrDgsK());
+		s.put(210, "du šimtai dešimt" + vyrDgsK());
+		s.put(300, "trys šimtai" + vyrDgsK());
+		s.put(313, "trys šimtai trylika" + vyrDgsK());
+		s.put(400, "keturi šimtai" + vyrDgsK());
+		s.put(441, "keturi šimtai keturiasdešimt vieneri" + vyrDgsV());
+		s.put(500, "penki šimtai" + vyrDgsK());
+		s.put(582, "penki šimtai aštuoniasdešimt dveji" + vyrDgsV());
+		s.put(600, "šeši šimtai" + vyrDgsK());
+		s.put(691, "šeši šimtai devyniasdešimt vieneri" + vyrDgsV());
+		s.put(700, "septyni šimtai" + vyrDgsK());
+		s.put(715, "septyni šimtai penkiolika" + vyrDgsK());
+		s.put(800, "aštuoni šimtai" + vyrDgsK());
+		s.put(862, "aštuoni šimtai šešiasdešimt dveji" + vyrDgsV());
+		s.put(900, "devyni šimtai" + vyrDgsK());
+		s.put(963, "devyni šimtai šešiasdešimt treji" + vyrDgsV());
+		s.put(1000, "tūkstantis" + vyrDgsK());
 
 		testSkaiciai(s, Linksnis.V);
 	}
@@ -90,69 +90,69 @@ public class DauginiaiVyrTest extends BaseTest {
 	@Test
 	public void testNuo1Iki20K() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(1, "vienerių");
-		s.put(2, "dvejų");
-		s.put(3, "trejų");
-		s.put(4, "ketverių");
-		s.put(5, "penkerių");
-		s.put(6, "šešerių");
-		s.put(7, "septynerių");
-		s.put(8, "aštuonerių");
-		s.put(9, "devynerių");
-		s.put(10, "dešimties");
-		s.put(11, "vienuolikos");
-		s.put(12, "dvylikos");
-		s.put(13, "trylikos");
-		s.put(14, "keturiolikos");
-		s.put(15, "penkiolikos");
-		s.put(16, "šešiolikos");
-		s.put(17, "septyniolikos");
-		s.put(18, "aštuoniolikos");
-		s.put(19, "devyniolikos");
-		s.put(20, "dvidešimties");		
+		s.put(1, "vienerių" + vyrDgsK());
+		s.put(2, "dvejų" + vyrDgsK());
+		s.put(3, "trejų" + vyrDgsK());
+		s.put(4, "ketverių" + vyrDgsK());
+		s.put(5, "penkerių" + vyrDgsK());
+		s.put(6, "šešerių" + vyrDgsK());
+		s.put(7, "septynerių" + vyrDgsK());
+		s.put(8, "aštuonerių" + vyrDgsK());
+		s.put(9, "devynerių" + vyrDgsK());
+		s.put(10, "dešimties" + vyrDgsK());
+		s.put(11, "vienuolikos" + vyrDgsK());
+		s.put(12, "dvylikos" + vyrDgsK());
+		s.put(13, "trylikos" + vyrDgsK());
+		s.put(14, "keturiolikos" + vyrDgsK());
+		s.put(15, "penkiolikos" + vyrDgsK());
+		s.put(16, "šešiolikos" + vyrDgsK());
+		s.put(17, "septyniolikos" + vyrDgsK());
+		s.put(18, "aštuoniolikos" + vyrDgsK());
+		s.put(19, "devyniolikos" + vyrDgsK());
+		s.put(20, "dvidešimties" + vyrDgsK());		
 		testSkaiciai(s, Linksnis.K);
 	}
 	
 	@Test
 	public void testNuo20Iki100K() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(21, "dvidešimt vienerių");
-		s.put(22, "dvidešimt dvejų");
-		s.put(24, "dvidešimt ketverių");
-		s.put(30, "trisdešimties");
-		s.put(48, "keturiasdešimt aštuonerių");
-		s.put(50, "penkiasdešimties");
-		s.put(55, "penkiasdešimt penkerių");
-		s.put(60, "šešiasdešimties");
-		s.put(70, "septyniasdešimties");
-		s.put(80, "aštuoniasdešimties");
-		s.put(90, "devyniasdešimties");
-		s.put(92, "devyniasdešimt dvejų");
-		s.put(100, "šimto");
+		s.put(21, "dvidešimt vienerių" + vyrDgsK());
+		s.put(22, "dvidešimt dvejų" + vyrDgsK());
+		s.put(24, "dvidešimt ketverių" + vyrDgsK());
+		s.put(30, "trisdešimties" + vyrDgsK());
+		s.put(48, "keturiasdešimt aštuonerių" + vyrDgsK());
+		s.put(50, "penkiasdešimties" + vyrDgsK());
+		s.put(55, "penkiasdešimt penkerių" + vyrDgsK());
+		s.put(60, "šešiasdešimties" + vyrDgsK());
+		s.put(70, "septyniasdešimties" + vyrDgsK());
+		s.put(80, "aštuoniasdešimties" + vyrDgsK());
+		s.put(90, "devyniasdešimties" + vyrDgsK());
+		s.put(92, "devyniasdešimt dvejų" + vyrDgsK());
+		s.put(100, "šimto" + vyrDgsK());
 		testSkaiciai(s, Linksnis.K);
 	}
 	
 	@Test
 	public void testNuo100Iki1000K() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(101, "šimto vienerių");
-		s.put(200, "dviejų šimtų");
-		s.put(210, "dviejų šimtų dešimties");
-		s.put(300, "trijų šimtų");
-		s.put(313, "trijų šimtų trylikos");
-		s.put(400, "keturių šimtų");
-		s.put(441, "keturių šimtų keturiasdešimt vienerių");
-		s.put(500, "penkių šimtų");
-		s.put(582, "penkių šimtų aštuoniasdešimt dvejų");
-		s.put(600, "šešių šimtų");
-		s.put(691, "šešių šimtų devyniasdešimt vienerių");
-		s.put(700, "septynių šimtų");
-		s.put(715, "septynių šimtų penkiolikos");
-		s.put(800, "aštuonių šimtų");
-		s.put(862, "aštuonių šimtų šešiasdešimt dvejų");
-		s.put(900, "devynių šimtų");
-		s.put(963, "devynių šimtų šešiasdešimt trejų");
-		s.put(1000, "tūkstančio");
+		s.put(101, "šimto vienerių" + vyrDgsK());
+		s.put(200, "dviejų šimtų" + vyrDgsK());
+		s.put(210, "dviejų šimtų dešimties" + vyrDgsK());
+		s.put(300, "trijų šimtų" + vyrDgsK());
+		s.put(313, "trijų šimtų trylikos" + vyrDgsK());
+		s.put(400, "keturių šimtų" + vyrDgsK());
+		s.put(441, "keturių šimtų keturiasdešimt vienerių" + vyrDgsK());
+		s.put(500, "penkių šimtų" + vyrDgsK());
+		s.put(582, "penkių šimtų aštuoniasdešimt dvejų" + vyrDgsK());
+		s.put(600, "šešių šimtų" + vyrDgsK());
+		s.put(691, "šešių šimtų devyniasdešimt vienerių" + vyrDgsK());
+		s.put(700, "septynių šimtų" + vyrDgsK());
+		s.put(715, "septynių šimtų penkiolikos" + vyrDgsK());
+		s.put(800, "aštuonių šimtų" + vyrDgsK());
+		s.put(862, "aštuonių šimtų šešiasdešimt dvejų" + vyrDgsK());
+		s.put(900, "devynių šimtų" + vyrDgsK());
+		s.put(963, "devynių šimtų šešiasdešimt trejų" + vyrDgsK());
+		s.put(1000, "tūkstančio" + vyrDgsK());
 
 		testSkaiciai(s, Linksnis.K);
 	}

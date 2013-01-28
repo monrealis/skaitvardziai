@@ -90,8 +90,10 @@ public abstract class BaseTest {
 		return null;
 	}
 	
+	protected Skaicius skaicius;
 	protected Gimine gimine;
 	protected Poskyris poskyris;
+	protected boolean ivardziuotinis;
 	
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		Assert.assertNotNull(gimine);
@@ -104,8 +106,10 @@ public abstract class BaseTest {
 			
 			Forma f = new Forma();
 			f.setPoskyris(poskyris);
+			f.setSkaicius(skaicius);
 			f.setLinksnis(linksnis);
 			f.setGimine(gimine);
+			f.setIvardziuotine(ivardziuotinis);
 			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis();
 			actualSl.clear();
 			String actual = sk.toString(f, actualSl);

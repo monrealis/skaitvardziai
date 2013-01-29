@@ -24,7 +24,7 @@ public class KuopiniaiTest {
 		f.setGimine(Gimine.V);
 		
 		SveikasisSkaicius ss = new SveikasisSkaicius(skaicius);
-		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis();
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
 		Assert.assertEquals(tekstas, ss.toString(f, sl));
 		Assert.assertEquals(DGS_K, sl);
 	}

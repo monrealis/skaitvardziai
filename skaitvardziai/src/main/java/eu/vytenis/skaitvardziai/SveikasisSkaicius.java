@@ -251,8 +251,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	 * @return skaitvardis (tekstas)
 	 */
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis();
-		r.clear();
+		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
 		
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma);
 		fs.setSveikasisSkaicius(reiksme);
@@ -270,7 +269,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		}
 		Zodis paskutinis = zodziai.iterator().next().getZodis();
 		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
-		r.setSkaicius(kitas.getSkaicius());
+		r.setSkaicius(kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius());
 		r.setLinksnis(kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis());
 		
 		Collections.reverse(zodziai);

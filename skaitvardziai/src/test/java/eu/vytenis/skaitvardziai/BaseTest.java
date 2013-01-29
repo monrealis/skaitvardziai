@@ -56,6 +56,22 @@ public abstract class BaseTest {
 	protected String motDgsK() {
 		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
+	
+	protected String gimineSkaiciusLinksnis(Gimine gimine, SkaiciusIrLinksnis skaiciusLinksnis) {
+		Zodis z;
+		if (gimine == Gimine.V) {
+			z = DAIKT_VYR_G;
+		} else if (gimine == Gimine.M) {
+			z = DAIKT_MOT_G;
+		} else {
+			throw new IllegalArgumentException();
+		}
+		String r = z.getVisosFormos().get(skaiciusLinksnis);
+		if (r == null) {
+			throw new IllegalArgumentException();			
+		}
+		return " " + r;
+	}
 
 	
 	/**
@@ -110,8 +126,7 @@ public abstract class BaseTest {
 			f.setLinksnis(linksnis);
 			f.setGimine(gimine);
 			f.setIvardziuotine(ivardziuotinis);
-			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis();
-			actualSl.clear();
+			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
 			String actual = sk.toString(f, actualSl);
 			Assert.assertEquals(expected, actual);
 			if (sl != null) {

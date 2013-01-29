@@ -6,13 +6,10 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  */
 public class SkaiciusIrLinksnis implements Cloneable {
 	/** Skaičius (vienaskaita/daugiskaita). */
-	private Skaicius skaicius = Skaicius.V;
+	private Skaicius skaicius;
 	/** Linksnis. */
-	private Linksnis linksnis = Linksnis.V;
-	
-	public SkaiciusIrLinksnis() {
-		
-	}
+	private Linksnis linksnis;
+
 	
 	public SkaiciusIrLinksnis(Skaicius skaicius, Linksnis linksnis) {
 		this.skaicius = skaicius;
@@ -34,11 +31,7 @@ public class SkaiciusIrLinksnis implements Cloneable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
-	
-	public void clear() {
-		skaicius = null;
-		linksnis = null;
-	}
+
 	
 	@Override
 	public boolean equals(Object obj) {

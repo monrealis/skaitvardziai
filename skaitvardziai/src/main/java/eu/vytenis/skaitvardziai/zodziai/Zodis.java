@@ -32,7 +32,7 @@ public class Zodis {
 	 * Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null
 	 * (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad antras žodis daugiskaita, bet linksnis gali būti bet koks).
 	 */
-	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(Skaicius.V, null);
+	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
 	
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private boolean valdomas = false;
@@ -185,7 +185,7 @@ public class Zodis {
 	}
 	
 	public String toString() {
-		return toString(new SkaiciusIrLinksnis());
+		return toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V));
 	}
 
 

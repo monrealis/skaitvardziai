@@ -3,6 +3,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 import java.math.BigInteger;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.ImmutableCapable;
 
 
 /**
@@ -10,7 +11,7 @@ import eu.vytenis.skaitvardziai.checks.CheckUtil;
  * patį pradinį ir einamąjį skaičius.
  *
  */
-public class FormaIrSkaiciai implements Cloneable {
+public class FormaIrSkaiciai implements Cloneable, ImmutableCapable {
 	
 	/** Gramatinė forma. */
 	private Forma forma = new Forma();
@@ -18,6 +19,9 @@ public class FormaIrSkaiciai implements Cloneable {
 	private BigInteger pradinisSveikasisSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
 	private BigInteger sveikasisSkaicius;
+	
+	/** Ar žodis neredaguojamas? */
+	private boolean immutable;
 	
 	public FormaIrSkaiciai() {
 		
@@ -73,6 +77,14 @@ public class FormaIrSkaiciai implements Cloneable {
 	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
 		setSveikasisSkaicius(naujasSkaicius);
 		return this;
+	}
+	
+	public boolean isImmutable() {
+		return immutable;
+	}
+	
+	public void setImmutable(boolean immutable) {
+		this.immutable = immutable;		
 	}
 
 	/**

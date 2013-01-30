@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import eu.vytenis.skaitvardziai.checks.ImmutableCapable;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -18,13 +19,16 @@ import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
  *
  */
 // TODO padaryti nekoreguojamą (immutable)
-public class Zodis {
+public class Zodis implements ImmutableCapable {
 	/** Žurnalas. */
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	// TODO panaudoti SkaiciusIrLinksnis
 	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
+	
+	/** Ar žodis neredaguojamas? */
+	private boolean immutable;
 	
 	
 	/**
@@ -158,6 +162,19 @@ public class Zodis {
 	
 	public Zodis nekaitomasLinksniuojant() {
 		setNekaitomasLinksniuojant(true);
+		return this;
+	}
+	
+	public boolean isImmutable() {
+		return immutable;
+	}
+	
+	public void setImmutable(boolean immutable) {
+		this.immutable = immutable;
+	}
+	
+	public Zodis immutable() {
+		setImmutable(true);
 		return this;
 	}
 	

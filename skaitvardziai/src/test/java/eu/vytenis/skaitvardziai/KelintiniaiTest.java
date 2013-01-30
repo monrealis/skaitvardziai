@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
@@ -15,7 +14,6 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 	
 
 	public KelintiniaiTest() {
-		poskyris = Poskyris.Kelintinis;
 	}
 
 	@Test

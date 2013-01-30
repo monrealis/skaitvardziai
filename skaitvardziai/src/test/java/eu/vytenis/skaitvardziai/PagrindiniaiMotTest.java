@@ -5,6 +5,7 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -15,9 +16,15 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 public class PagrindiniaiMotTest extends BaseTest {
 	
 	public PagrindiniaiMotTest() {
-		skaicius = Skaicius.V;
-		poskyris = Poskyris.Pagrindinis;
-		gimine = Gimine.M;
+	}
+	
+	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
+		Forma f = new Forma();
+		f.setSkaicius(Skaicius.V);
+		f.setPoskyris(Poskyris.Pagrindinis);
+		f.setGimine(Gimine.M);
+		f.setLinksnis(linksnis);
+		super.testSkaiciai(skaiciai, f);
 	}
 	
 	@Test

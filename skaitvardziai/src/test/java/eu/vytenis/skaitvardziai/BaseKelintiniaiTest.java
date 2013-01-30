@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -19,13 +20,15 @@ public abstract class BaseKelintiniaiTest extends BaseTest {
 
 	
 	public BaseKelintiniaiTest() {
-		poskyris = Poskyris.Kelintinis;
 	}
 
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Skaicius skaicius, Linksnis linksnis, Gimine gimine, boolean ivardziuotinis) {
-		this.skaicius = skaicius;
-		this.gimine = gimine;
-		this.ivardziuotinis = ivardziuotinis;
+		Forma f = new Forma();
+		f.setPoskyris(Poskyris.Kelintinis);
+		f.setGimine(gimine);
+		f.setSkaicius(skaicius);
+		f.setLinksnis(linksnis);
+		f.setIvardziuotine(ivardziuotinis);
 		
 		Map<Number, String> temp = new HashMap<Number, String>();
 		for (Entry<? extends Number, String> e : skaiciai.entrySet()) {
@@ -34,7 +37,7 @@ public abstract class BaseKelintiniaiTest extends BaseTest {
 		}
 		skaiciai = temp;
 		
-		super.testSkaiciai(skaiciai, linksnis);
+		super.testSkaiciai(skaiciai, f);
 	}
 	
 

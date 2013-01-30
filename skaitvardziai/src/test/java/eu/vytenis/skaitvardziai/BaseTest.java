@@ -7,7 +7,6 @@ import junit.framework.Assert;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
@@ -80,7 +79,7 @@ public abstract class BaseTest {
 	 * @param text pradinis tekstas
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
-	protected String removeDaikt(String text) {
+	protected String removeDaikt(String text, Gimine gimine) {
 		Assert.assertNotNull(gimine);
 		Zodis z = gimine == Gimine.V ? DAIKT_VYR_G : DAIKT_MOT_G;
 		for (String s : z.getVisosFormos().values()) {
@@ -106,28 +105,16 @@ public abstract class BaseTest {
 		return null;
 	}
 	
-	protected Skaicius skaicius;
-	protected Gimine gimine;
-	protected Poskyris poskyris;
-	protected boolean ivardziuotinis;
-	
-	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		Assert.assertNotNull(gimine);
-		Assert.assertNotNull(poskyris);
+	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Forma forma) {
+		Assert.assertNotNull(forma);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = removeDaikt(e.getValue());
+			String expected = removeDaikt(e.getValue(), forma.getGimine());
 			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue());
 			long number = e.getKey().longValue();
 			SveikasisSkaicius sk = new SveikasisSkaicius(number);
 			
-			Forma f = new Forma();
-			f.setPoskyris(poskyris);
-			f.setSkaicius(skaicius);
-			f.setLinksnis(linksnis);
-			f.setGimine(gimine);
-			f.setIvardziuotine(ivardziuotinis);
 			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
-			String actual = sk.toString(f, actualSl);
+			String actual = sk.toString(forma, actualSl);
 			Assert.assertEquals(expected, actual);
 			if (sl != null) {
 				Assert.assertEquals("Invalid form. Expected '" + e.getValue() + "' for " + number, sl, actualSl);

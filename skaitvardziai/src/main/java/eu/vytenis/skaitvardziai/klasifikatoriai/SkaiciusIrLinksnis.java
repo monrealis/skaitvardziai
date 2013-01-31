@@ -1,18 +1,18 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import eu.vytenis.skaitvardziai.checks.ImmutableCapable;
+import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 
 /**
  * Skaičiaus (vienaskaita/daugiskaita) ir linksnio pora.
  *
  */
-public class SkaiciusIrLinksnis implements Cloneable, ImmutableCapable {
+public class SkaiciusIrLinksnis implements Cloneable, UnmodifiableCapable {
 	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius = Skaicius.V;
 	/** Linksnis. */
 	private Linksnis linksnis = Linksnis.V;
 	/** Ar skaičius ir linksnis neredaguojami? */
-	private boolean immutable;
+	private boolean unmodifiable;
 	
 	public SkaiciusIrLinksnis() {
 		
@@ -44,12 +44,14 @@ public class SkaiciusIrLinksnis implements Cloneable, ImmutableCapable {
 		linksnis = null;
 	}
 	
-	public boolean isImmutable() {
-		return immutable;
+	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
+	public boolean isUnmodifiable() {
+		return unmodifiable;
 	}
 	
-	public void setImmutable(boolean immutable) {
-		this.immutable = immutable;
+	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
+	public void setUnmodifiable(boolean unmodifiable) {
+		this.unmodifiable = unmodifiable;
 	}
 	
 	@Override

@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import java.util.logging.Logger;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
-import eu.vytenis.skaitvardziai.checks.ImmutableCapable;
+import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -20,7 +20,7 @@ import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
-public class Zodis implements ImmutableCapable {
+public class Zodis implements UnmodifiableCapable {
 	/** Žurnalas. */
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
@@ -29,7 +29,7 @@ public class Zodis implements ImmutableCapable {
 	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
 	
 	/** Ar žodis neredaguojamas? */
-	private boolean immutable;
+	private boolean unmodifiable;
 	
 	
 	/**
@@ -166,19 +166,15 @@ public class Zodis implements ImmutableCapable {
 		return this;
 	}
 	
-	public boolean isImmutable() {
-		return immutable;
+	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
+	public boolean isUnmodifiable() {
+		return unmodifiable;
 	}
 	
-	public void setImmutable(boolean immutable) {
-		this.immutable = immutable;
+	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
+	public void setUnmodifiable(boolean unmodifiable) {
+		this.unmodifiable = unmodifiable;
 	}
-	
-	public Zodis immutable() {
-		setImmutable(true);
-		return this;
-	}
-	
 	
 	/**
 	 * Grąžina lentelę [skaičius ir linksnis (pvz., vns vard.) -> skaitvardis].

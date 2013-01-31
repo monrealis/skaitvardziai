@@ -1,12 +1,12 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import eu.vytenis.skaitvardziai.checks.ImmutableCapable;
+import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 
 /**
  * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius).
  *
  */
-public class Forma implements Cloneable, ImmutableCapable {
+public class Forma implements Cloneable, UnmodifiableCapable {
 	/** Skaitvardžio poskyris. */
 	private Poskyris poskyris = Poskyris.Pagrindinis;
 	/** Skaitvardžio giminė. */
@@ -18,7 +18,7 @@ public class Forma implements Cloneable, ImmutableCapable {
 	/** Ar įvardžiuotinė forma.*/
 	private boolean ivardziuotine = false;
 	/** Ar forma neredaguojama? */
-	private boolean immutable;
+	private boolean unmodifiable;
 	
 	public Poskyris getPoskyris() {
 		return poskyris;
@@ -51,11 +51,14 @@ public class Forma implements Cloneable, ImmutableCapable {
 		this.ivardziuotine = ivardziuotine;
 	}
 	
-	public boolean isImmutable() {
-		return immutable;
+	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
+	public boolean isUnmodifiable() {
+		return unmodifiable;
 	}
-	public void setImmutable(boolean immutable) {
-		this.immutable = immutable;
+	
+	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
+	public void setUnmodifiable(boolean unmodifiable) {
+		this.unmodifiable = unmodifiable;
 	}
 	
 	/**

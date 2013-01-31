@@ -424,6 +424,19 @@ public class Zodis implements ImmutableCapable {
 		kelintiniaiIvMotGim.put(1000000L, new Zodis("milijonoji", "milijonosios", "milijonajai", "milijonąją", "milijonąja", "milijonojoje", "milijonoji", "milijonosios", "milijonųjų", "milijonosioms", "milijonąsias", "milijonosiomis", "milijonosiose", "milijonosios"));
 		kelintiniaiIvMotGim.put(1000000000L, new Zodis("milijardoji", "milijardosios", "milijardajai", "milijardąją", "milijardąja", "milijardojoje", "milijardoji", "milijardosios", "milijardųjų", "milijardosioms", "milijardąsias", "milijardosiomis", "milijardosiose", "milijardosios"));
 	}
+
+	static {
+		// Žodžius padaro neredaguojamus
+		CheckUtil.ensureUnmodifiable(pagrindiniaiMotGimMap.values());
+		CheckUtil.ensureUnmodifiable(pagrindiniaiVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kuopiniaiMap.values());
+		CheckUtil.ensureUnmodifiable(dauginiaiMotGimMap.values());
+		CheckUtil.ensureUnmodifiable(dauginiaiVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiIvVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiMotGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiIvMotGimMap.values());		
+	}
 	
 	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {

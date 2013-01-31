@@ -96,4 +96,32 @@ public class CheckUtil {
 			}
 		}
 	}
+	
+	/**
+	 * Patikrina, ar objektą galima koreguoti.
+	 * @param name objekto pavadinimas (klaidos pranešimui)
+	 * @param immutable objetas
+	 */
+	public static void checkCanModify(String name, ImmutableCapable immutable) {
+		if (immutable == null) {
+			return;
+		}
+		if (immutable.isImmutable()) {
+			throw new IllegalStateException(name + " is read-only. Cannot modify read-only object");
+		}
+	}
+	
+	/**
+	 * Peržiūri perduotus objektus ir, jei objektai yra modifikuojami, padaro juos nemodifikuojamais.
+	 * @param immutables objektų sąrašas
+	 */
+	public static void ensureUnmodifiable(Iterable<? extends ImmutableCapable> immutables) {
+		for (ImmutableCapable ic : immutables) {
+			if (!ic.isImmutable()) {
+				ic.setImmutable(true);
+			}
+		}
+	}
+	
+	
 }

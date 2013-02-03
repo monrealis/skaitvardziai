@@ -28,7 +28,6 @@ public class PagrindiniaiVyrTest extends BaseTest {
 		super.testSkaiciai(skaiciai, f);
 	}
 
-
 	
 	@Test
 	public void testNuo1Iki20V() {

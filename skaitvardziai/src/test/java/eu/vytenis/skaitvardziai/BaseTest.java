@@ -119,6 +119,10 @@ public abstract class BaseTest {
 			if (sl != null) {
 				Assert.assertEquals("Invalid form. Expected '" + e.getValue() + "' for " + number, sl, actualSl);
 			}
+			if (number > 0) {
+				String minusActual = new SveikasisSkaicius(-number).toString(forma);
+				Assert.assertEquals("minus " + expected, minusActual);
+			}
 		}
 	}
 }

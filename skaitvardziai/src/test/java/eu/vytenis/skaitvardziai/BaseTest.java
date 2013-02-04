@@ -158,7 +158,7 @@ public abstract class BaseTest {
 			
 			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
 			String actual = sk.toString(forma, actualSl);
-			Assert.assertEquals(expected, actual);
+			Assert.assertEquals(number + ": comparation failed", expected, actual);
 			if (sl != null) {
 				Assert.assertEquals(number + ": invalid form. Expected '" + e.getValue() + "'", sl, actualSl);
 			}

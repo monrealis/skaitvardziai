@@ -1,10 +1,14 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
+import java.util.Arrays;
+
+import eu.vytenis.skaitvardziai.util.CompareUtils;
+
 /**
  * Skaičiaus (vienaskaita/daugiskaita) ir linksnio pora.
  *
  */
-public class SkaiciusIrLinksnis implements Cloneable {
+public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis> {
 	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius;
 	/** Linksnis. */
@@ -54,6 +58,14 @@ public class SkaiciusIrLinksnis implements Cloneable {
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	/**
+	 * Palygina pagal skaičių, paskui pagal linksnį.
+	 * Žiūrėti: {@link Comparable#compareTo(Object)}	
+	 */
+	public int compareTo(SkaiciusIrLinksnis o) {
+		return CompareUtils.compareLists(Arrays.<Enum<?>>asList(skaicius, linksnis), Arrays.<Enum<?>>asList(o.skaicius, o.linksnis));
 	}
 	
 	@Override

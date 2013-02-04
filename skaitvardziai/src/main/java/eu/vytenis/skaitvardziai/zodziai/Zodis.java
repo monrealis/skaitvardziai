@@ -3,7 +3,7 @@ package eu.vytenis.skaitvardziai.zodziai;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
@@ -24,8 +24,7 @@ public class Zodis {
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
-	// TODO panaudoti SkaiciusIrLinksnis
-	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
+	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
 	
 	
 	/**
@@ -74,16 +73,22 @@ public class Zodis {
 
 
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
-		CheckUtil.checkNotNull("skaicius", skaicius);
-		Map<Linksnis, String> s = getLinksniaiPagalSkaicius(skaicius, true);
+		CheckUtil.checkNotNull("skaicius", skaicius);		
+		CheckUtil.checkNotNull("vnsV", vnsV);
+		CheckUtil.checkNotNull("vnsK", vnsK);
+		CheckUtil.checkNotNull("vnsN", vnsN);
+		CheckUtil.checkNotNull("vnsG", vnsG);
+		CheckUtil.checkNotNull("vnsI", vnsI);
+		CheckUtil.checkNotNull("vnsVt", vnsVt);
+		CheckUtil.checkNotNull("vnsS", vnsS);
 		
-		s.put(Linksnis.V, vnsV);
-		s.put(Linksnis.K, vnsK);
-		s.put(Linksnis.N, vnsN);
-		s.put(Linksnis.G, vnsG);
-		s.put(Linksnis.I, vnsI);
-		s.put(Linksnis.Vt, vnsVt);
-		s.put(Linksnis.S, vnsS);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.V), vnsV);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.K), vnsK);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.N), vnsN);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.G), vnsG);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.I), vnsI);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.Vt), vnsVt);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.S), vnsS);
 	}
 	
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -92,39 +97,37 @@ public class Zodis {
 	
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS,
 			String dgsV, String dgsK, String dgsN, String dgsG, String dgsI, String dgsVt, String dgsS) {
-		Map<Linksnis, String> vns = getLinksniaiPagalSkaicius(Skaicius.V, true);
-		Map<Linksnis, String> dgs = getLinksniaiPagalSkaicius(Skaicius.D, true);
+		CheckUtil.checkNotNull("vnsV", vnsV);
+		CheckUtil.checkNotNull("vnsK", vnsK);
+		CheckUtil.checkNotNull("vnsN", vnsN);
+		CheckUtil.checkNotNull("vnsG", vnsG);
+		CheckUtil.checkNotNull("vnsI", vnsI);
+		CheckUtil.checkNotNull("vnsVt", vnsVt);
+		CheckUtil.checkNotNull("vnsS", vnsS);
 		
-		vns.put(Linksnis.V, vnsV);
-		vns.put(Linksnis.K, vnsK);
-		vns.put(Linksnis.N, vnsN);
-		vns.put(Linksnis.G, vnsG);
-		vns.put(Linksnis.I, vnsI);
-		vns.put(Linksnis.Vt, vnsVt);
-		vns.put(Linksnis.S, vnsS);
+		CheckUtil.checkNotNull("dgsV", dgsV);
+		CheckUtil.checkNotNull("dgsK", dgsK);
+		CheckUtil.checkNotNull("dgsN", dgsN);
+		CheckUtil.checkNotNull("dgsG", dgsG);
+		CheckUtil.checkNotNull("dgsI", dgsI);
+		CheckUtil.checkNotNull("dgsVt", dgsVt);
+		CheckUtil.checkNotNull("dgsS", dgsS);
 		
-		dgs.put(Linksnis.V, dgsV);
-		dgs.put(Linksnis.K, dgsK);
-		dgs.put(Linksnis.N, dgsN);
-		dgs.put(Linksnis.G, dgsG);
-		dgs.put(Linksnis.I, dgsI);
-		dgs.put(Linksnis.Vt, dgsVt);
-		dgs.put(Linksnis.S, dgsS);
-	}
-
-	/**
-	 * Grąžina lentelę [linksnis -> žodis].
-	 * @param skaicius vienaskaita/daugiskaita
-	 * @param sukurtiJeiReikia jei lentelės nėra, sukuria tuščią ir tada grąžina
-	 * @return lentelė [linksnis -> žodis]
-	 */
-	private Map<Linksnis, String> getLinksniaiPagalSkaicius(Skaicius skaicius, boolean sukurtiJeiReikia) {
-		Map<Linksnis, String> r = linksniaiPagalSkaicius.get(skaicius);
-		if (r == null && sukurtiJeiReikia) {
-			r = new HashMap<Linksnis, String>();
-			linksniaiPagalSkaicius.put(skaicius, r);
-		}
-		return r;
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V), vnsV);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K), vnsK);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.N), vnsN);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.G), vnsG);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.I), vnsI);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.Vt), vnsVt);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.S), vnsS);
+		
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V), dgsV);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K), dgsK);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.N), dgsN);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.G), dgsG);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.I), dgsI);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.Vt), dgsVt);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
 	}
 	
 	
@@ -173,21 +176,12 @@ public class Zodis {
 	 * @return lentelė
 	 */
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {
-		Map<SkaiciusIrLinksnis, String> r = new HashMap<SkaiciusIrLinksnis, String>();
-		for (Entry<Skaicius, Map<Linksnis, String>> e1 : linksniaiPagalSkaicius.entrySet()) {
-			for (Entry<Linksnis, String> e2 : e1.getValue().entrySet()) {
-				if (e2.getValue() != null) {
-					r.put(new SkaiciusIrLinksnis(e1.getKey(), e2.getKey()), e2.getValue());
-				}
-			}
-		}
-		return r;
+		return new HashMap<SkaiciusIrLinksnis, String>(formos);
 	}
 
 	
 	public String toString(SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		Map<Linksnis, String> z = getLinksniaiPagalSkaicius(skaiciusIrLinksnis.getSkaicius(), false);
-		return z != null ? z.get(skaiciusIrLinksnis.getLinksnis()) : null;
+		return formos.get(skaiciusIrLinksnis);
 	}
 	
 	

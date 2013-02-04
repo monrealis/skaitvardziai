@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -72,16 +73,21 @@ public class Zodis {
 	private static final Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 
 
-	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
-		Map<Linksnis, String> vns = getLinksniaiPagalSkaicius(Skaicius.V, true);
+	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
+		CheckUtil.checkNotNull("skaicius", skaicius);
+		Map<Linksnis, String> s = getLinksniaiPagalSkaicius(skaicius, true);
 		
-		vns.put(Linksnis.V, vnsV);
-		vns.put(Linksnis.K, vnsK);
-		vns.put(Linksnis.N, vnsN);
-		vns.put(Linksnis.G, vnsG);
-		vns.put(Linksnis.I, vnsI);
-		vns.put(Linksnis.Vt, vnsVt);
-		vns.put(Linksnis.S, vnsS);
+		s.put(Linksnis.V, vnsV);
+		s.put(Linksnis.K, vnsK);
+		s.put(Linksnis.N, vnsN);
+		s.put(Linksnis.G, vnsG);
+		s.put(Linksnis.I, vnsI);
+		s.put(Linksnis.Vt, vnsVt);
+		s.put(Linksnis.S, vnsS);
+	}
+	
+	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
+		this(Skaicius.V, vnsV, vnsK, vnsN, vnsG, vnsI, vnsVt, vnsS);
 	}
 	
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS,
@@ -184,8 +190,17 @@ public class Zodis {
 		return z != null ? z.get(skaiciusIrLinksnis.getLinksnis()) : null;
 	}
 	
+	
+	@Override	
 	public String toString() {
-		return toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V));
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V);
+		String r = toString(sl);
+		if (r == null) {
+			// Jei žodis neturi vienaskaitos vardininko, grąžiname daugiskaitos vardininką (pvz., marškiniai)
+			sl.setSkaicius(Skaicius.D);
+			r = toString(sl);
+		}
+		return r;
 	}
 
 

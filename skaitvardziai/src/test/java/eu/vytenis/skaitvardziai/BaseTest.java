@@ -1,5 +1,9 @@
 package eu.vytenis.skaitvardziai;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -17,11 +21,23 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
  */
 public abstract class BaseTest {
 
-	// TODO dauginiams parinkti kitokius daiktavardžius, pavyzdžiui, "Joninės"
 	/** Vyriškosios giminės daiktavardis su visais linksniais. */
 	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis", "šunimis", "šunyse", "šunys!"); // šunes :)
 	/** Moteriškosios giminės daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_MOT_G = new Zodis("katė", "katės", "katei", "katę", "kate", "katėje", "kate", "katės", "kačių", "katėms", "kates", "katėmis", "katėse", "katės!");
+	public static final Zodis DAIKT_MOT_G = new Zodis("žema pilis", "žemos pilies", "žemai piliai", "žemą pilį", "žema pilimi", "žemoje pilyje", "žema pilie", "žemos pilys", "žemų pilių", "žemoms pilims", "žemas pilis", "žemomis pilimis", "žemose pilyse", "žemos pilys!"); // du žodžiai - kad būtų unikalios reikšmės
+	/** Vyriškosios giminės daugiskaitinis daiktavardis su visais linksniais. */
+	public static final Zodis DAIKT_DGS_VYR_G = new Zodis(Skaicius.D, "metai", "metų", "metams", "metus", "metais","metuose", "metai!");
+	/** Moteriškosios giminės daugiskaitinis daiktavardis su visais linksniais. */
+	public static final Zodis DAIKT_DGS_MOT_G = new Zodis(Skaicius.D, "metai", "metų", "metams", "metus", "metais","metuose", "metai!");
+	
+	static {
+		for (Zodis z : Arrays.asList(DAIKT_VYR_G, DAIKT_MOT_G, DAIKT_DGS_VYR_G, DAIKT_DGS_MOT_G)) {
+			Collection<String> v = z.getVisosFormos().values();
+			int size = v.size();
+			int uniqueSize = new HashSet<String>(v).size();
+			Assert.assertEquals("Not all words unique for '" + z + "'", size, uniqueSize);			
+		}
+	}
 
 	
 	protected String vyrVnsV() {
@@ -56,6 +72,22 @@ public abstract class BaseTest {
 		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
 	
+	protected String dVyrDgsV() {
+		return " " + DAIKT_DGS_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));		
+	}
+	
+	protected String dVyrDgsK() {
+		return " " + DAIKT_DGS_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));		
+	}
+	
+	protected String dMotDgsV() {
+		return " " + DAIKT_DGS_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));		
+	}
+	
+	protected String dMotDgsK() {
+		return " " + DAIKT_DGS_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));		
+	}
+	
 	protected String gimineSkaiciusLinksnis(Gimine gimine, SkaiciusIrLinksnis skaiciusLinksnis) {
 		Zodis z;
 		if (gimine == Gimine.V) {
@@ -81,10 +113,13 @@ public abstract class BaseTest {
 	 */
 	protected String removeDaikt(String text, Gimine gimine) {
 		Assert.assertNotNull(gimine);
-		Zodis z = gimine == Gimine.V ? DAIKT_VYR_G : DAIKT_MOT_G;
-		for (String s : z.getVisosFormos().values()) {
-			if (text.endsWith(s)) {
-				return text.substring(0, text.length() - s.length()).trim();
+		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
+		
+		for (Zodis z : zodziai) {
+			for (String s : z.getVisosFormos().values()) {
+				if (text.endsWith(s)) {
+					return text.substring(0, text.length() - s.length()).trim();
+				}
 			}
 		}
 		return text;
@@ -96,10 +131,15 @@ public abstract class BaseTest {
 	 * @param text pradinis tekstas
 	 * @return daiktvardžio skaičius ir linksnis arba null
 	 */
-	protected SkaiciusIrLinksnis getDaiktSkaiciusIrLinksnis(String text) {
-		for (Entry<SkaiciusIrLinksnis, String> e: DAIKT_VYR_G.getVisosFormos().entrySet()) {
-			if (text.endsWith(e.getValue())) {				
-				return e.getKey();
+	// TODO sujungti su removeDaikt()
+	protected SkaiciusIrLinksnis getDaiktSkaiciusIrLinksnis(String text, Gimine gimine) {
+		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
+		
+		for (Zodis z : zodziai) {
+			for (Entry<SkaiciusIrLinksnis, String> e: z.getVisosFormos().entrySet()) {
+				if (text.endsWith(e.getValue())) {				
+					return e.getKey();
+				}
 			}
 		}
 		return null;
@@ -109,7 +149,10 @@ public abstract class BaseTest {
 		Assert.assertNotNull(forma);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String expected = removeDaikt(e.getValue(), forma.getGimine());
-			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue());
+			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue(), forma.getGimine());
+			if (!expected.equals(e.getValue()) && sl == null) {
+				throw new IllegalStateException();				
+			}
 			long number = e.getKey().longValue();
 			SveikasisSkaicius sk = new SveikasisSkaicius(number);
 			
@@ -117,7 +160,7 @@ public abstract class BaseTest {
 			String actual = sk.toString(forma, actualSl);
 			Assert.assertEquals(expected, actual);
 			if (sl != null) {
-				Assert.assertEquals("Invalid form. Expected '" + e.getValue() + "' for " + number, sl, actualSl);
+				Assert.assertEquals(number + ": invalid form. Expected '" + e.getValue() + "'", sl, actualSl);
 			}
 			if (number > 0) {
 				String minusActual = new SveikasisSkaicius(-number).toString(forma);

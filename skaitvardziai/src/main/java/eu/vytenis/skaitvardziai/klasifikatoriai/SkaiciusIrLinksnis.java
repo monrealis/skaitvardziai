@@ -2,18 +2,21 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.util.Arrays;
 
+import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.util.CompareUtils;
 
 /**
  * Skaičiaus (vienaskaita/daugiskaita) ir linksnio pora.
  *
  */
-public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis> {
+public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis>, UnmodifiableCapable {
 	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius;
 	/** Linksnis. */
 	private Linksnis linksnis;
 
+	/** Ar skaičius ir linksnis neredaguojami? */
+	private boolean unmodifiable;
 	
 	public SkaiciusIrLinksnis(Skaicius skaicius, Linksnis linksnis) {
 		this.skaicius = skaicius;
@@ -36,6 +39,16 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 		this.linksnis = linksnis;
 	}
 
+	
+	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
+	public boolean isUnmodifiable() {
+		return unmodifiable;
+	}
+	
+	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
+	public void setUnmodifiable(boolean unmodifiable) {
+		this.unmodifiable = unmodifiable;
+	}
 	
 	@Override
 	public boolean equals(Object obj) {

@@ -1,12 +1,14 @@
 package eu.vytenis.skaitvardziai.zodziai;
 
 import java.math.BigInteger;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -18,13 +20,15 @@ import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
-// TODO padaryti nekoreguojamą (immutable)
-public class Zodis {
+public class Zodis implements UnmodifiableCapable {
 	/** Žurnalas. */
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
+	
+	/** Ar žodis neredaguojamas? */
+	private boolean unmodifiable;
 	
 	
 	/**
@@ -50,26 +54,26 @@ public class Zodis {
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	
 	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> pagrindiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> pagrindiniaiMotGimMap;
 	/** Pagrindiniai skaitvardžiai (vyriškos giminės). */
-	private static final Map<Long, Zodis> pagrindiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> pagrindiniaiVyrGimMap;
 	
 	/** Kuopiniai skaitvardžiai.*/
-	private static final Map<Long, Zodis> kuopiniai = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kuopiniaiMap;
 	
 	/** Dauginiai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> dauginiaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> dauginiaiMotGimMap;
 	/** Dauginiai skaitvardžiai (vyriškos giminės). */
-	private static final Map<Long, Zodis> dauginiaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> dauginiaiVyrGimMap;
 	
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiVyrGimMap;
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiIvVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiIvVyrGimMap;
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiMotGimMap;
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+	private static final Map<Long, Zodis> kelintiniaiIvMotGimMap;
 
 
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -170,6 +174,15 @@ public class Zodis {
 		return this;
 	}
 	
+	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
+	public boolean isUnmodifiable() {
+		return unmodifiable;
+	}
+	
+	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
+	public void setUnmodifiable(boolean unmodifiable) {
+		this.unmodifiable = unmodifiable;
+	}
 	
 	/**
 	 * Grąžina lentelę [skaičius ir linksnis (pvz., vns vard.) -> skaitvardis].
@@ -200,6 +213,26 @@ public class Zodis {
 
 
 	static {
+		Map<Long, Zodis> pagrindiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> pagrindiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> kuopiniai = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> dauginiaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> dauginiaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> kelintiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> kelintiniaiIvVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> kelintiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+		Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();		
+		
+		pagrindiniaiMotGimMap = Collections.unmodifiableMap(pagrindiniaiMotGim);
+		pagrindiniaiVyrGimMap = Collections.unmodifiableMap(pagrindiniaiVyrGim);
+		kuopiniaiMap = Collections.unmodifiableMap(kuopiniai);
+		dauginiaiMotGimMap = Collections.unmodifiableMap(dauginiaiMotGim);
+		dauginiaiVyrGimMap = Collections.unmodifiableMap(dauginiaiVyrGim);
+		kelintiniaiVyrGimMap = Collections.unmodifiableMap(kelintiniaiVyrGim);
+		kelintiniaiIvVyrGimMap = Collections.unmodifiableMap(kelintiniaiIvVyrGim);
+		kelintiniaiMotGimMap = Collections.unmodifiableMap(kelintiniaiMotGim);
+		kelintiniaiIvMotGimMap = Collections.unmodifiableMap(kelintiniaiIvMotGim);
+		
 		pagrindiniaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
 		pagrindiniaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgs());
 		pagrindiniaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgs());
@@ -395,18 +428,31 @@ public class Zodis {
 		kelintiniaiIvMotGim.put(1000000L, new Zodis("milijonoji", "milijonosios", "milijonajai", "milijonąją", "milijonąja", "milijonojoje", "milijonoji", "milijonosios", "milijonųjų", "milijonosioms", "milijonąsias", "milijonosiomis", "milijonosiose", "milijonosios"));
 		kelintiniaiIvMotGim.put(1000000000L, new Zodis("milijardoji", "milijardosios", "milijardajai", "milijardąją", "milijardąja", "milijardojoje", "milijardoji", "milijardosios", "milijardųjų", "milijardosioms", "milijardąsias", "milijardosiomis", "milijardosiose", "milijardosios"));
 	}
+
+	static {
+		// Žodžius padaro neredaguojamus
+		CheckUtil.ensureUnmodifiable(pagrindiniaiMotGimMap.values());
+		CheckUtil.ensureUnmodifiable(pagrindiniaiVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kuopiniaiMap.values());
+		CheckUtil.ensureUnmodifiable(dauginiaiMotGimMap.values());
+		CheckUtil.ensureUnmodifiable(dauginiaiVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiIvVyrGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiMotGimMap.values());
+		CheckUtil.ensureUnmodifiable(kelintiniaiIvMotGimMap.values());		
+	}
 	
 	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
-			return pagrindiniaiVyrGim.get(skaicius);
+			return pagrindiniaiVyrGimMap.get(skaicius);
 		} else {
-			return pagrindiniaiMotGim.get(skaicius);
+			return pagrindiniaiMotGimMap.get(skaicius);
 		}
 		
 	}	
 	
 	public static Zodis getKuopinis(BigInteger skaicius) {
-		Zodis z = kuopiniai.get(skaicius);
+		Zodis z = kuopiniaiMap.get(skaicius);
 		if (z == null) {
 			throw new IllegalArgumentException("Illegal argument " + skaicius);
 		}
@@ -419,32 +465,32 @@ public class Zodis {
 	
 	public static Zodis getDauginis(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
-			return dauginiaiVyrGim.get(skaicius);
+			return dauginiaiVyrGimMap.get(skaicius);
 		} else {
-			return dauginiaiMotGim.get(skaicius);
+			return dauginiaiMotGimMap.get(skaicius);
 		}
 	}	
 	
 	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, boolean ivardziuotinis) {
 		if (gimine == Gimine.M) {
 			if (ivardziuotinis) {
-				return kelintiniaiIvMotGim.get(skaicius);
+				return kelintiniaiIvMotGimMap.get(skaicius);
 			} else {
-				return kelintiniaiMotGim.get(skaicius);
+				return kelintiniaiMotGimMap.get(skaicius);
 			}
 		} else {
 			if (ivardziuotinis) {
-				return kelintiniaiIvVyrGim.get(skaicius);
+				return kelintiniaiIvVyrGimMap.get(skaicius);
 			} else {
-				return kelintiniaiVyrGim.get(skaicius);
+				return kelintiniaiVyrGimMap.get(skaicius);
 			}
 		}
 	}	
 	public static Zodis getKelintinisIv(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.M) {
-			return kelintiniaiIvMotGim.get(skaicius);
+			return kelintiniaiIvMotGimMap.get(skaicius);
 		} else {
-			return kelintiniaiIvVyrGim.get(skaicius);
+			return kelintiniaiIvVyrGimMap.get(skaicius);
 		}
 	}	
 }

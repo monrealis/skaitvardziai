@@ -5,15 +5,26 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
 
 public class PagrindiniaiMotTest extends BaseTest {
 	
 	public PagrindiniaiMotTest() {
-		pagrindiniuGimine = Gimine.M;
+	}
+	
+	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
+		Forma f = new Forma();
+		f.setSkaicius(Skaicius.V);
+		f.setPoskyris(Poskyris.Pagrindinis);
+		f.setGimine(Gimine.M);
+		f.setLinksnis(linksnis);
+		super.testSkaiciai(skaiciai, f);
 	}
 	
 	@Test
@@ -65,13 +76,13 @@ public class PagrindiniaiMotTest extends BaseTest {
 	@Test
 	public void testNuo100Iki1000V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
-		s.put(101, "šimtas viena" + motDgsV());
-		s.put(200, "du šimtai" + motDgsV());
+		s.put(101, "šimtas viena" + motVnsV());
+		s.put(200, "du šimtai" + motDgsK());
 		s.put(210, "du šimtai dešimt" + motDgsK());
 		s.put(300, "trys šimtai" + motDgsK());
 		s.put(313, "trys šimtai trylika" + motDgsK());
 		s.put(400, "keturi šimtai" + motDgsK());
-		s.put(441, "keturi šimtai keturiasdešimt viena" + motDgsV());
+		s.put(441, "keturi šimtai keturiasdešimt viena" + motVnsV());
 		s.put(500, "penki šimtai" + motDgsK());
 		s.put(582, "penki šimtai aštuoniasdešimt dvi" + motDgsV());
 		s.put(600, "šeši šimtai" + motDgsK());
@@ -148,7 +159,7 @@ public class PagrindiniaiMotTest extends BaseTest {
 		s.put(500, "penkių šimtų" + motDgsK());
 		s.put(582, "penkių šimtų aštuoniasdešimt dviejų" + motDgsK());
 		s.put(600, "šešių šimtų" + motDgsK());
-		s.put(691, "šešių šimtų devyniasdešimt vienos" + motDgsK());
+		s.put(691, "šešių šimtų devyniasdešimt vienos" + motVnsK());
 		s.put(700, "septynių šimtų" + motDgsK());
 		s.put(715, "septynių šimtų penkiolikos" + motDgsK());
 		s.put(800, "aštuonių šimtų" + motDgsK());

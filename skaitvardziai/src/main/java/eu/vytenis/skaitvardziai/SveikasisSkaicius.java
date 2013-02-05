@@ -251,12 +251,14 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	 * @return skaitvardis (tekstas)
 	 */
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis();
-		r.clear();
+		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
+		
+		boolean nonNegative = reiksme.compareTo(BigInteger.ZERO) >= 0;
+		BigInteger abs =  nonNegative ? reiksme : reiksme.negate();
 		
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma);
-		fs.setSveikasisSkaicius(reiksme);
-		fs.setPradinisSveikasisSkaicius(reiksme);		
+		fs.setSveikasisSkaicius(abs);
+		fs.setPradinisSveikasisSkaicius(abs);		
 		
 		Poskyris poskyris = forma.getPoskyris();
 		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Kuopinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
@@ -270,7 +272,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		}
 		Zodis paskutinis = zodziai.iterator().next().getZodis();
 		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
-		r.setSkaicius(kitas.getSkaicius());
+		r.setSkaicius(kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius());
 		r.setLinksnis(kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis());
 		
 		Collections.reverse(zodziai);
@@ -278,6 +280,9 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		if (skaiciusIrLinksnis != null) {
 			skaiciusIrLinksnis.setLinksnis(r.getLinksnis());
 			skaiciusIrLinksnis.setSkaicius(r.getSkaicius());
+		}
+		if (!nonNegative) {
+			text = "minus " + text;
 		}
 		return text;
 	}

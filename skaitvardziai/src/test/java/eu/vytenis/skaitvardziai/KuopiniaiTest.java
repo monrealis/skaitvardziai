@@ -24,7 +24,7 @@ public class KuopiniaiTest {
 		f.setGimine(Gimine.V);
 		
 		SveikasisSkaicius ss = new SveikasisSkaicius(skaicius);
-		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis();
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
 		Assert.assertEquals(tekstas, ss.toString(f, sl));
 		Assert.assertEquals(DGS_K, sl);
 	}
@@ -113,14 +113,15 @@ public class KuopiniaiTest {
 	public void testNegalimiSkaiciai() {
 		for (long l = -1000L; l <= 1000; ++l) {
 			SveikasisSkaicius s = new SveikasisSkaicius(l);
-			if (l >= 1 && l <= 9) {
+			long abs = Math.abs(l);
+			if (abs >= 1 && abs <= 9) {
 				for (Linksnis linksnis : Linksnis.values()) {
 					s.toString(Poskyris.Kuopinis, linksnis, Gimine.V);
 				}
 			} else {
 				try {
-					s.toString(Poskyris.Kuopinis, Linksnis.V, Gimine.V);
-					Assert.fail();
+					String text = s.toString(Poskyris.Kuopinis, Linksnis.V, Gimine.V);
+					Assert.fail(text);
 				} catch (IllegalArgumentException e) {
 					// OK
 				}

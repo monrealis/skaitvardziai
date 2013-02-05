@@ -3,9 +3,10 @@ package eu.vytenis.skaitvardziai.zodziai;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -23,8 +24,7 @@ public class Zodis {
 	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
-	// TODO panaudoti SkaiciusIrLinksnis
-	private Map<Skaicius, Map<Linksnis, String>> linksniaiPagalSkaicius = new HashMap<Skaicius, Map<Linksnis,String>>();
+	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
 	
 	
 	/**
@@ -32,7 +32,7 @@ public class Zodis {
 	 * Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null
 	 * (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad antras žodis daugiskaita, bet linksnis gali būti bet koks).
 	 */
-	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(Skaicius.V, null);
+	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
 	
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private boolean valdomas = false;
@@ -72,53 +72,62 @@ public class Zodis {
 	private static final Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 
 
-	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
-		Map<Linksnis, String> vns = getLinksniaiPagalSkaicius(Skaicius.V, true);
+	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
+		CheckUtil.checkNotNull("skaicius", skaicius);		
+		CheckUtil.checkNotNull("vnsV", vnsV);
+		CheckUtil.checkNotNull("vnsK", vnsK);
+		CheckUtil.checkNotNull("vnsN", vnsN);
+		CheckUtil.checkNotNull("vnsG", vnsG);
+		CheckUtil.checkNotNull("vnsI", vnsI);
+		CheckUtil.checkNotNull("vnsVt", vnsVt);
+		CheckUtil.checkNotNull("vnsS", vnsS);
 		
-		vns.put(Linksnis.V, vnsV);
-		vns.put(Linksnis.K, vnsK);
-		vns.put(Linksnis.N, vnsN);
-		vns.put(Linksnis.G, vnsG);
-		vns.put(Linksnis.I, vnsI);
-		vns.put(Linksnis.Vt, vnsVt);
-		vns.put(Linksnis.S, vnsS);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.V), vnsV);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.K), vnsK);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.N), vnsN);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.G), vnsG);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.I), vnsI);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.Vt), vnsVt);
+		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.S), vnsS);
+	}
+	
+	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
+		this(Skaicius.V, vnsV, vnsK, vnsN, vnsG, vnsI, vnsVt, vnsS);
 	}
 	
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS,
 			String dgsV, String dgsK, String dgsN, String dgsG, String dgsI, String dgsVt, String dgsS) {
-		Map<Linksnis, String> vns = getLinksniaiPagalSkaicius(Skaicius.V, true);
-		Map<Linksnis, String> dgs = getLinksniaiPagalSkaicius(Skaicius.D, true);
+		CheckUtil.checkNotNull("vnsV", vnsV);
+		CheckUtil.checkNotNull("vnsK", vnsK);
+		CheckUtil.checkNotNull("vnsN", vnsN);
+		CheckUtil.checkNotNull("vnsG", vnsG);
+		CheckUtil.checkNotNull("vnsI", vnsI);
+		CheckUtil.checkNotNull("vnsVt", vnsVt);
+		CheckUtil.checkNotNull("vnsS", vnsS);
 		
-		vns.put(Linksnis.V, vnsV);
-		vns.put(Linksnis.K, vnsK);
-		vns.put(Linksnis.N, vnsN);
-		vns.put(Linksnis.G, vnsG);
-		vns.put(Linksnis.I, vnsI);
-		vns.put(Linksnis.Vt, vnsVt);
-		vns.put(Linksnis.S, vnsS);
+		CheckUtil.checkNotNull("dgsV", dgsV);
+		CheckUtil.checkNotNull("dgsK", dgsK);
+		CheckUtil.checkNotNull("dgsN", dgsN);
+		CheckUtil.checkNotNull("dgsG", dgsG);
+		CheckUtil.checkNotNull("dgsI", dgsI);
+		CheckUtil.checkNotNull("dgsVt", dgsVt);
+		CheckUtil.checkNotNull("dgsS", dgsS);
 		
-		dgs.put(Linksnis.V, dgsV);
-		dgs.put(Linksnis.K, dgsK);
-		dgs.put(Linksnis.N, dgsN);
-		dgs.put(Linksnis.G, dgsG);
-		dgs.put(Linksnis.I, dgsI);
-		dgs.put(Linksnis.Vt, dgsVt);
-		dgs.put(Linksnis.S, dgsS);
-	}
-
-	/**
-	 * Grąžina lentelę [linksnis -> žodis].
-	 * @param skaicius vienaskaita/daugiskaita
-	 * @param sukurtiJeiReikia jei lentelės nėra, sukuria tuščią ir tada grąžina
-	 * @return lentelė [linksnis -> žodis]
-	 */
-	private Map<Linksnis, String> getLinksniaiPagalSkaicius(Skaicius skaicius, boolean sukurtiJeiReikia) {
-		Map<Linksnis, String> r = linksniaiPagalSkaicius.get(skaicius);
-		if (r == null && sukurtiJeiReikia) {
-			r = new HashMap<Linksnis, String>();
-			linksniaiPagalSkaicius.put(skaicius, r);
-		}
-		return r;
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V), vnsV);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K), vnsK);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.N), vnsN);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.G), vnsG);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.I), vnsI);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.Vt), vnsVt);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.S), vnsS);
+		
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V), dgsV);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K), dgsK);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.N), dgsN);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.G), dgsG);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.I), dgsI);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.Vt), dgsVt);
+		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
 	}
 	
 	
@@ -167,25 +176,25 @@ public class Zodis {
 	 * @return lentelė
 	 */
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {
-		Map<SkaiciusIrLinksnis, String> r = new HashMap<SkaiciusIrLinksnis, String>();
-		for (Entry<Skaicius, Map<Linksnis, String>> e1 : linksniaiPagalSkaicius.entrySet()) {
-			for (Entry<Linksnis, String> e2 : e1.getValue().entrySet()) {
-				if (e2.getValue() != null) {
-					r.put(new SkaiciusIrLinksnis(e1.getKey(), e2.getKey()), e2.getValue());
-				}
-			}
-		}
-		return r;
+		return new HashMap<SkaiciusIrLinksnis, String>(formos);
 	}
 
 	
 	public String toString(SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		Map<Linksnis, String> z = getLinksniaiPagalSkaicius(skaiciusIrLinksnis.getSkaicius(), false);
-		return z != null ? z.get(skaiciusIrLinksnis.getLinksnis()) : null;
+		return formos.get(skaiciusIrLinksnis);
 	}
 	
+	
+	@Override	
 	public String toString() {
-		return toString(new SkaiciusIrLinksnis());
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V);
+		String r = toString(sl);
+		if (r == null) {
+			// Jei žodis neturi vienaskaitos vardininko, grąžiname daugiskaitos vardininką (pvz., marškiniai)
+			sl.setSkaicius(Skaicius.D);
+			r = toString(sl);
+		}
+		return r;
 	}
 
 
@@ -244,25 +253,25 @@ public class Zodis {
 		kuopiniai.put(8L, new Zodis("aštuonetas", "aštuoneto", "aštuonetui", "aštuonetą", "aštuonetu", "aštuonete", "aštuonete").kitasDgsKilm());
 		kuopiniai.put(9L, new Zodis("devynetas", "devyneto", "devynetui", "devynetą", "devynetu", "devynete", "devynete").kitasDgsKilm());
 		
-		dauginiaiMotGim.put(1L, new Zodis("vienerios", "vienerių", "vienerioms", "vienerias", "vieneriomis", "vieneriose", "vienerios")); // http://ualgiman.dtiltas.lt/skaitvardis.html
-		dauginiaiMotGim.put(2L, new Zodis("dvejos", "dvejų", "dvejoms", "dvejas", "dvejomis", "dvejose", "dvejos"));
-		dauginiaiMotGim.put(3L, new Zodis("trejos", "trejų", "trejoms", "trejas", "trejomis", "trejose", "trejos"));
-		dauginiaiMotGim.put(4L, new Zodis("ketverios", "ketverių", "ketverioms", "ketverias", "ketveriomis", "ketveriose", "ketverios"));
-		dauginiaiMotGim.put(5L, new Zodis("penkerios", "penkerių", "penkerioms", "penkerias", "penkeriomis", "penkeriose", "penkerios"));
-		dauginiaiMotGim.put(6L, new Zodis("šešerios", "šešerių", "šešerioms", "šešerias", "šešeriomis", "šešeriose", "šešerios"));
-		dauginiaiMotGim.put(7L, new Zodis("septynerios", "septynerių", "septynerioms", "septynerias", "septyneriomis", "septyneriose", "septynerios"));
-		dauginiaiMotGim.put(8L, new Zodis("aštuonerios", "aštuonerių", "aštuonerioms", "aštuonerias", "aštuoneriomis", "aštuoneriose", "aštuonerios"));
-		dauginiaiMotGim.put(9L, new Zodis("devynerios", "devynerių", "devynerioms", "devynerias", "devyneriomis", "devyneriose", "devynerios"));
+		dauginiaiMotGim.put(1L, new Zodis("vienerios", "vienerių", "vienerioms", "vienerias", "vieneriomis", "vieneriose", "vienerios").kitasDgs()); // http://ualgiman.dtiltas.lt/skaitvardis.html
+		dauginiaiMotGim.put(2L, new Zodis("dvejos", "dvejų", "dvejoms", "dvejas", "dvejomis", "dvejose", "dvejos").kitasDgs());
+		dauginiaiMotGim.put(3L, new Zodis("trejos", "trejų", "trejoms", "trejas", "trejomis", "trejose", "trejos").kitasDgs());
+		dauginiaiMotGim.put(4L, new Zodis("ketverios", "ketverių", "ketverioms", "ketverias", "ketveriomis", "ketveriose", "ketverios").kitasDgs());
+		dauginiaiMotGim.put(5L, new Zodis("penkerios", "penkerių", "penkerioms", "penkerias", "penkeriomis", "penkeriose", "penkerios").kitasDgs());
+		dauginiaiMotGim.put(6L, new Zodis("šešerios", "šešerių", "šešerioms", "šešerias", "šešeriomis", "šešeriose", "šešerios").kitasDgs());
+		dauginiaiMotGim.put(7L, new Zodis("septynerios", "septynerių", "septynerioms", "septynerias", "septyneriomis", "septyneriose", "septynerios").kitasDgs());
+		dauginiaiMotGim.put(8L, new Zodis("aštuonerios", "aštuonerių", "aštuonerioms", "aštuonerias", "aštuoneriomis", "aštuoneriose", "aštuonerios").kitasDgs());
+		dauginiaiMotGim.put(9L, new Zodis("devynerios", "devynerių", "devynerioms", "devynerias", "devyneriomis", "devyneriose", "devynerios").kitasDgs());
 		
-		dauginiaiVyrGim.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri")); // http://ualgiman.dtiltas.lt/skaitvardis.html
-		dauginiaiVyrGim.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji"));
-		dauginiaiVyrGim.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji"));
-		dauginiaiVyrGim.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri"));
-		dauginiaiVyrGim.put(5L, new Zodis("penkeri", "penkerių", "penkeriems", "penkerius", "penkeriais", "penkeriuose", "penkeri"));
-		dauginiaiVyrGim.put(6L, new Zodis("šešeri", "šešerių", "šešeriems", "šešerius", "šešeriais", "šešeriuose", "šešeri"));
-		dauginiaiVyrGim.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri"));
-		dauginiaiVyrGim.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri"));
-		dauginiaiVyrGim.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri"));
+		dauginiaiVyrGim.put(1L, new Zodis("vieneri", "vienerių", "vieneriems", "vienerius", "vieneriais", "vieneriuose", "vieneri").kitasDgs()); // http://ualgiman.dtiltas.lt/skaitvardis.html
+		dauginiaiVyrGim.put(2L, new Zodis("dveji", "dvejų", "dvejiems", "dvejus", "dvejais", "dvejuose", "dveji").kitasDgs());
+		dauginiaiVyrGim.put(3L, new Zodis("treji", "trejų", "trejiems", "trejus", "trejais", "trejuose", "treji").kitasDgs());
+		dauginiaiVyrGim.put(4L, new Zodis("ketveri", "ketverių", "ketveriems", "ketverius", "ketveriais", "ketveriuose", "ketveri").kitasDgs());
+		dauginiaiVyrGim.put(5L, new Zodis("penkeri", "penkerių", "penkeriems", "penkerius", "penkeriais", "penkeriuose", "penkeri").kitasDgs());
+		dauginiaiVyrGim.put(6L, new Zodis("šešeri", "šešerių", "šešeriems", "šešerius", "šešeriais", "šešeriuose", "šešeri").kitasDgs());
+		dauginiaiVyrGim.put(7L, new Zodis("septyneri", "septynerių", "septyneriems", "septynerius", "septyneriais", "septyneriuose", "septyneri").kitasDgs());
+		dauginiaiVyrGim.put(8L, new Zodis("aštuoneri", "aštuonerių", "aštuoneriems", "aštuonerius", "aštuoneriais", "aštuoneriuose", "aštuoneri").kitasDgs());
+		dauginiaiVyrGim.put(9L, new Zodis("devyneri", "devynerių", "devyneriems", "devynerius", "devyneriais", "devyneriuose", "devyneri").kitasDgs());
 		
 		kelintiniaiVyrGim.put(0L, new Zodis("nulinis", "nulinio", "nuliniui", "nulinį", "nuliniu", "nulinyje", "nulini", "nuliniai", "nulinių", "nuliniams", "nulinius", "nuliniais", "nuliniuose", "nuliniai"));
 		kelintiniaiVyrGim.put(1L, new Zodis("pirmas", "pirmo", "pirmam", "pirmą", "pirmu", "pirmame", "pirmas", "pirmi", "pirmų", "pirmiems", "pirmus", "pirmais", "pirmuose", "pirmi"));

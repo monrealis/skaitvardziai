@@ -3,41 +3,19 @@ package eu.vytenis.skaitvardziai;
 import java.util.Map;
 import java.util.TreeMap;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
-public class KelintiniaiIvTest {
-
+public class KelintiniaiIvTest extends BaseKelintiniaiTest {
 	
-	private void testSkaiciai(Map<? extends Number, String> skaiciai, Skaicius skaicius, Linksnis linksnis, Gimine gimine, boolean ivardziuotine) {
-		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = e.getValue();
-			long number = e.getKey().longValue();
-			SveikasisSkaicius sk = new SveikasisSkaicius(number);
-					
-			
-			Forma f = new Forma();
-			f.setPoskyris(Poskyris.Kelintinis);
-			f.setLinksnis(linksnis);
-			f.setGimine(gimine);
-			f.setSkaicius(skaicius);
-			f.setIvardziuotine(ivardziuotine);
-			try {
-				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(f));
-			} catch (Throwable t) {
-				Assert.assertEquals("Invalid text for " + number + ".", expected, sk.toString(f));
-			}
-		}
+	public KelintiniaiIvTest() {
 	}
-	
+
+
 	@Test
 	public void testNuo1Iki20VVyr() {
 		Map<Number, String> s = new TreeMap<Number, String>();

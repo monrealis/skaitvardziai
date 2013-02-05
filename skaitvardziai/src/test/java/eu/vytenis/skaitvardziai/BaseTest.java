@@ -111,55 +111,38 @@ public abstract class BaseTest {
 	 * @param text pradinis tekstas
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
-	protected String removeDaikt(String text, Gimine gimine) {
+	protected String removeDaikt(String text, Gimine gimine, SkaiciusIrLinksnis skaiciusIrLinksnis) {
 		Assert.assertNotNull(gimine);
+		Assert.assertNotNull(skaiciusIrLinksnis);
+		Assert.assertNull(skaiciusIrLinksnis.getSkaicius());
+		Assert.assertNull(skaiciusIrLinksnis.getLinksnis());
+		
 		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
 		
 		for (Zodis z : zodziai) {
-			for (String s : z.getVisosFormos().values()) {
-				if (text.endsWith(s)) {
-					return text.substring(0, text.length() - s.length()).trim();
+			for (Entry<SkaiciusIrLinksnis, String> e : z.getVisosFormos().entrySet()) {
+				if (text.endsWith(e.getValue())) {
+					skaiciusIrLinksnis.setSkaicius(e.getKey().getSkaicius());
+					skaiciusIrLinksnis.setLinksnis(e.getKey().getLinksnis());
+					return text.substring(0, text.length() - e.getValue().length()).trim();
 				}
 			}
 		}
 		return text;
 	}
 	
-	/**
-	 * Jei teksto pabaigoje yra daiktavardis, grąžina jo skaičių ir linksnį. Jei nėra - grąžina null.
-	 * Pavyzdžiui, iš "dešimt šunų" grąžina "daugiskaitos kilmininkas".
-	 * @param text pradinis tekstas
-	 * @return daiktvardžio skaičius ir linksnis arba null
-	 */
-	// TODO sujungti su removeDaikt()
-	protected SkaiciusIrLinksnis getDaiktSkaiciusIrLinksnis(String text, Gimine gimine) {
-		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
-		
-		for (Zodis z : zodziai) {
-			for (Entry<SkaiciusIrLinksnis, String> e: z.getVisosFormos().entrySet()) {
-				if (text.endsWith(e.getValue())) {				
-					return e.getKey();
-				}
-			}
-		}
-		return null;
-	}
-	
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Forma forma) {
 		Assert.assertNotNull(forma);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			String expected = removeDaikt(e.getValue(), forma.getGimine());
-			SkaiciusIrLinksnis sl = getDaiktSkaiciusIrLinksnis(e.getValue(), forma.getGimine());
-			if (!expected.equals(e.getValue()) && sl == null) {
-				throw new IllegalStateException();				
-			}
+			SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
+			String expected = removeDaikt(e.getValue(), forma.getGimine(), sl);
 			long number = e.getKey().longValue();
 			SveikasisSkaicius sk = new SveikasisSkaicius(number);
 			
 			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
 			String actual = sk.toString(forma, actualSl);
 			Assert.assertEquals(number + ": comparation failed", expected, actual);
-			if (sl != null) {
+			if (sl != null && (sl.getSkaicius() != null || sl.getLinksnis() != null)) {
 				Assert.assertEquals(number + ": invalid form. Expected '" + e.getValue() + "'", sl, actualSl);
 			}
 			if (number > 0) {

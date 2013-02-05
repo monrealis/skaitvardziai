@@ -72,7 +72,7 @@ public class Main {
 			}
 		}
 	}
-	
+	/*
 	private static PrintWriter outPrintWriter() {
 		Writer w = systemOut.get();
 		if (w != null) {
@@ -91,6 +91,7 @@ public class Main {
 			return new PrintWriter(System.err);
 		}
 	}
+	*/
 	
 	private static void help(Options options) throws IOException {
 		HelpFormatter f = new HelpFormatter();

@@ -38,7 +38,7 @@ public class MainTest {
 	}
 	
 	private void assertOutErr(String out, String err, Object... args) {
-		OutAndErr oe = main(1);
+		OutAndErr oe = main(args);
  		Assert.assertEquals(out, oe.getOut());
 		Assert.assertEquals(err, oe.getErr());
 	}
@@ -46,6 +46,10 @@ public class MainTest {
 	@Test
 	public void testOneArg() {
 		assertOutErr("vienas\n", "", 1);
+		assertOutErr("šimtas dešimt\n", "", 110);
+		
+		assertOutErr("vienas", "", "-n", 1);
+		assertOutErr("šimtas dešimt", "", "-n", 110);
 		
 	}
 	

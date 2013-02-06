@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.logging.Logger;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
@@ -13,6 +12,8 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.log.Log;
+import eu.vytenis.skaitvardziai.log.LogFactory;
 import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
 
@@ -22,7 +23,7 @@ import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
  */
 public class Zodis implements UnmodifiableCapable {
 	/** Žurnalas. */
-	private static final Logger logger = Logger.getLogger(Zodis.class.getName());
+	private static final Log log = LogFactory.getLog(Zodis.class);
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
@@ -457,8 +458,10 @@ public class Zodis implements UnmodifiableCapable {
 			throw new IllegalArgumentException("Illegal argument " + skaicius);
 		}
 		if (skaicius.equals(BigInteger.ONE)) {
-			logger.warning(z + " naudojamas kaip kuopinis skaitvardis");
-			// žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
+			if (log.isWarnEnabled()) {
+				log.warn(z + " naudojamas kaip kuopinis skaitvardis");
+				// 	žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
+			}
 		}
 		return z;
 	}

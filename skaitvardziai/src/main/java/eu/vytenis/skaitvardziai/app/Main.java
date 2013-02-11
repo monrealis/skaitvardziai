@@ -8,14 +8,10 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
@@ -110,13 +106,24 @@ public class Main {
 	public static void main(String[] args) throws IOException, ParseException {
 		Options options = new Options();
 		options.addOption("h", "help", false, "show help");
-		options.addOption("n", false, "do not output the trailing newline");
+		options.addOption("n", "no-newline", false, "do not output the trailing newline");
+		options.addOption("f", "form", true, "numeral form");
+		
 		
 		CommandLineParser parser = new PosixParser();
 		CommandLine cli = parser.parse(options, args);
+		
 		if (cli.hasOption("h")) {
 			help(options);
 			return;
+		}
+
+		Forma f;
+		if (cli.hasOption("f")) {
+			String formParam = cli.getOptionValue("f");
+			f = SkaitvardziaiTextParser.get().parseForma(formParam, null);
+		} else {
+			f = new Forma();
 		}
 		
 		Reader r = null;
@@ -131,14 +138,9 @@ public class Main {
 			return;
 		}
 		boolean noNewLine = cli.hasOption("n") && !readSysIn;
-		List<String> params = new ArrayList<String>();
-		for (Option o : cli.getOptions()) {
-			if (Arrays.asList("h", "n").contains(o.getOpt())) {
-				continue;
-			}
-			params.add(o.getArgName());			
-		}
-		Forma f = SkaitvardziaiTextParser.get().parseForma(params.toArray(new String[]{}), null);
+		
+
+		
 		BufferedReader br = new BufferedReader(r);
 		String line;
 		while ((line = br.readLine()) != null) {

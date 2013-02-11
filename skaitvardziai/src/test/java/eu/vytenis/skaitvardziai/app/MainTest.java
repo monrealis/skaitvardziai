@@ -71,7 +71,9 @@ public class MainTest {
 		assertOutErr("šimtas dešimt\n", "", 110);
 		
 		assertOutErr("vienas", "", "-n", 1);
-		assertOutErr("šimtas dešimt", "", "-n", 110);
+		assertOutErr("šimtas dešimt", "", "--no-newline", 110);
+		
+		assertOutErr("vieno", "", "-f", "K", "-n", 1);
 		
 	}
 	

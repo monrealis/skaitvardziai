@@ -42,6 +42,28 @@ public class MainTest {
  		Assert.assertEquals(out, oe.getOut());
 		Assert.assertEquals(err, oe.getErr());
 	}
+	
+	private void assertOutErrRegExp(String out, String err, Object... args) {
+		OutAndErr oe = main(args);
+		if (!oe.getOut().matches(out)) {
+			Assert.fail(out + "\ndoes not match\n" + oe.getOut());
+		}
+		if (!oe.getErr().matches(err)) {
+			Assert.fail(err + "\ndoes not match\n" + oe.getErr());
+		}
+	}
+	
+	@Test	
+	public void testHelp() {
+		assertOutErrRegExp("(?ms)^usage:.*Prints text that represents given number\n$", "^$", "-h");
+		assertOutErrRegExp("(?ms)^usage:.*Prints text that represents given number\n$", "^$", "--help");
+		assertOutErrRegExp("(?ms)^usage:.*Prints text that represents given number\n$", "^$", "--help", "-h");
+	}
+	
+	@Test
+	public void testUsage() {
+		assertOutErrRegExp("(?ms)^usage:.*\n$", "^$", 1, 1);
+	}
 
 	@Test
 	public void testOneArg() {

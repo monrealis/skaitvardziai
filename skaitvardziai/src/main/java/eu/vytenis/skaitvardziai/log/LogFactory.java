@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-// Panaudoti analogiškai http://grepcode.com/file/repo1.maven.org/maven2/org.apache.ibatis/ibatis-sqlmap/3.0-beta-6/org/apache/ibatis/logging/LogFactory.java
-// TODO realizuoti
+/**
+ * Loginimo objektų fabrikas.
+ */
+// Žr. http://grepcode.com/file/repo1.maven.org/maven2/org.apache.ibatis/ibatis-sqlmap/3.0-beta-6/org/apache/ibatis/logging/LogFactory.java
 public class LogFactory {
 
 	

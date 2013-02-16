@@ -22,7 +22,9 @@ import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
 
-// TODO suformuoti vykdomąjį JAR
+/**
+ * Komandinės eilutės interfeiso pagrindinė klasė.
+ */
 public class Main {
 	
 	private static ThreadLocal<Writer> systemOut = new ThreadLocal<Writer>();

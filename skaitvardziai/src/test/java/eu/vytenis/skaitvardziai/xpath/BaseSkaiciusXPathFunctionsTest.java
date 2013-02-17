@@ -84,7 +84,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 		String[] lines = output.split("\\s*;\\s*");
 		List<String> invalidLines = new ArrayList<String>();
 		for (String line : lines) {
-			String[] actualExpected = line.split("\\s*:\\s*");
+			String[] actualExpected = line.split("\\s*=\\s*");
 			if (actualExpected.length != 2) {
 				invalidLines.add(line);
 			} else {

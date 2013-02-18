@@ -16,7 +16,7 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	/** Skaitvardžio linksnis. */
 	private Linksnis linksnis = Linksnis.V;
 	/** Ar įvardžiuotinė forma.*/
-	private boolean ivardziuotine = false;
+	private boolean ivardziuotine = false; // TODO padaryti enum
 	/** Ar forma neredaguojama? */
 	private boolean unmodifiable;
 	

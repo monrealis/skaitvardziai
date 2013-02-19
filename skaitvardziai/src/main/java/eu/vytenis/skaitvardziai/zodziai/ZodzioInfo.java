@@ -14,6 +14,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
  * Žodžio ir skaičiaus (vienaskaitos/daugiskaitos) dvejetas.
  *
  */
+// TODO išmesti arba pervadinti
 public class ZodzioInfo {
 	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius = Skaicius.V;

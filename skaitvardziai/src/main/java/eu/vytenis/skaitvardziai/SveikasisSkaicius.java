@@ -19,10 +19,22 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
 
 public class SveikasisSkaicius implements SkaitineReiksme {
+	
+	/** Kokių poskyrių gali būti sveikųjų skaičių skaitvardžiai. */
+	private static final List<Poskyris> SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI = Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis, Poskyris.Kuopinis);
+	
+	/** Kokių poskyrių gali būti sveikųjų skaičių skaitvardžiai. */
+	private static final List<Poskyris> SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI = Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis);
+	
+	/** {@link BigInteger} skaičius 11. */
 	public static BigInteger ELEVEN = new BigInteger("11");
+	/** {@link BigInteger} skaičius 20. */
 	public static BigInteger TWENTY = new BigInteger("20");
+	/** {@link BigInteger} skaičius 100. */
 	public static BigInteger HUNDRED = new BigInteger("100");
-	public static BigInteger THOUSAND = new BigInteger("1000");	
+	/** {@link BigInteger} skaičius 1000. */
+	public static BigInteger THOUSAND = new BigInteger("1000");
+	/** {@link BigInteger} skaičius 1000 000 0000. */
 	public static BigInteger BILLION = new BigInteger("1000000000");
 	
 	private BigInteger reiksme;
@@ -45,10 +57,16 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		return reiksme;
 	}
 	
-	private void checkPoskyris(Poskyris poskyris) {
-		List<Poskyris> expected = Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis);
-		if (!expected.contains(poskyris)) {
-			throw new IllegalArgumentException(poskyris + " is invalid: " + expected + " expected");
+	private static void checkSveikojoSkaiciausPoskyris(Poskyris poskyris) {
+		if (!SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI.contains(poskyris)) {
+			throw new IllegalArgumentException(poskyris + " is invalid: " + SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI + " expected");
+		}	
+	}
+	
+	
+	private static void checkSveikojoSkaiciausPoskyrisNekuopinis(Poskyris poskyris) {
+		if (!SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI.contains(poskyris)) {
+			throw new IllegalArgumentException(poskyris + " is invalid: " + SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI + " expected");
 		}	
 	}
 	
@@ -72,7 +90,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		Skaicius skaicius = formaIrSkaiciai.getForma().getSkaicius();
 				
 		CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, BigInteger.TEN);
-		checkPoskyris(poskyris);
+		checkSveikojoSkaiciausPoskyrisNekuopinis(poskyris);
 		
 		if (sveikasSkaicius.equals(BigInteger.ZERO) && tikrasSkaicius.equals(BigInteger.ZERO) || sveikasSkaicius.compareTo(BigInteger.ZERO) > 0) {
 			if (poskyris == Poskyris.Pagrindinis) {
@@ -100,7 +118,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		Skaicius skaicius = formaIrSkaiciai.getForma().getSkaicius();
 		
 		CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, HUNDRED);
-		checkPoskyris(poskyris);
+		checkSveikojoSkaiciausPoskyrisNekuopinis(poskyris);
 		
 		if (sveikasSkaicius.compareTo(BigInteger.TEN) < 0) {
 			vienzenklis(zodziai, formaIrSkaiciai);
@@ -131,7 +149,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		Skaicius skaicius = formaIrSkaiciai.getForma().getSkaicius();
 		
 		CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, THOUSAND);
-		checkPoskyris(poskyris);
+		checkSveikojoSkaiciausPoskyrisNekuopinis(poskyris);
 		
 		BigInteger dvizenklis = sveikasSkaicius.mod(HUNDRED);
 		dvizenklis(zodziai, formaIrSkaiciai.clone().sveikasSkaicius(dvizenklis));
@@ -162,7 +180,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		Gimine gimine = formaIrSkaiciai.getForma().getGimine();
 		Skaicius skaicius = formaIrSkaiciai.getForma().getSkaicius();		
 
-		checkPoskyris(poskyris);
+		checkSveikojoSkaiciausPoskyrisNekuopinis(poskyris);
 		checkPowerOfThousand(tukstancioLaipsnis);
 		
 		BigInteger sk = sveikasSkaicius;
@@ -204,7 +222,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		if (!sveikasSkaicius.equals(tikrasSkaicius)) {
 			throw new IllegalArgumentException();
 		}
-		checkPoskyris(poskyris);
+		checkSveikojoSkaiciausPoskyrisNekuopinis(poskyris);
 		daugiazenklis(zodziai, forma, BILLION);
 	}
 	
@@ -261,9 +279,8 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		fs.setPradinisSveikasisSkaicius(abs);		
 		
 		Poskyris poskyris = forma.getPoskyris();
-		if (!Arrays.asList(Poskyris.Pagrindinis, Poskyris.Kuopinis, Poskyris.Dauginis, Poskyris.Kelintinis).contains(poskyris)) {
-			throw new IllegalArgumentException(poskyris + "");
-		}
+		checkSveikojoSkaiciausPoskyris(poskyris);
+
 		List<ZodzioInfo> zodziai = new ArrayList<ZodzioInfo>();		
 		if (poskyris == Poskyris.Kuopinis) {
 			kuopinis(zodziai, fs);

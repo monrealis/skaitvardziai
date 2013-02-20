@@ -140,16 +140,17 @@ public class Zodis implements UnmodifiableCapable {
 		return kitas;
 	}
 	
-	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
-		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
-		return this;
-	}
-	
 	public Zodis kitasDgs() {
 		return kitas(Skaicius.D, null);
 	}
+	
 	public Zodis kitasDgsKilm() {
 		return kitas(Skaicius.D, Linksnis.K);
+	}
+	
+	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
+		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
+		return this;
 	}
 	
 	public boolean isValdomas() {

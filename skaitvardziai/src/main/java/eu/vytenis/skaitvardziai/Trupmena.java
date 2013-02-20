@@ -83,14 +83,14 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		return r;
 	}
 	
+	public int compareTo(Trupmena o) {
+		return new Double(toDouble()).compareTo(o.toDouble());
+	}
+	
 	public double toDouble() {
 		BigDecimal s = new BigDecimal(skaitiklis);
 		BigDecimal v = new BigDecimal(vardiklis);
 		return s.divide(v).doubleValue();
-	}
-	
-	public int compareTo(Trupmena o) {
-		return new Double(toDouble()).compareTo(o.toDouble());
 	}
 	
 	public static class SkaitiklisComparer implements Comparator<Trupmena> {

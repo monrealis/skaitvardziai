@@ -55,6 +55,14 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	public String toString() {
 		return toString(Linksnis.V, Gimine.V);
 	}
+
+	public String toString(Linksnis linksnis, Gimine gimine) {
+		return toString(Poskyris.Pagrindinis, linksnis, gimine);
+	}
+	
+	public String toString(Poskyris poskyris, Linksnis linksnis, Gimine gimine) {
+		return toString(poskyris, Skaicius.V, linksnis, gimine);
+	}
 	
 	public String toString(Poskyris poskyris, Skaicius skaicius, Linksnis linksnis, Gimine gimine) {
 		Forma f = new Forma();
@@ -63,10 +71,6 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		f.setPoskyris(poskyris);
 		f.setGimine(gimine);
 		return toString(f);
-	}
-	
-	public String toString(Poskyris poskyris, Linksnis linksnis, Gimine gimine) {
-		return toString(poskyris, Skaicius.V, linksnis, gimine);
 	}
 	
 	public String toString(Forma forma) {
@@ -111,10 +115,6 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 			text = "minus " + text;
 		}
 		return text;
-	}
-	
-	public String toString(Linksnis linksnis, Gimine gimine) {
-		return toString(Poskyris.Pagrindinis, linksnis, gimine);
 	}
 
 }

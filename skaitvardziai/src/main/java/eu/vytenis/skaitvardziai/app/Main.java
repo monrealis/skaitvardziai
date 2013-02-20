@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.Writer;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -27,134 +26,118 @@ import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
  */
 public class Main {
 	
-	private static ThreadLocal<Writer> systemOut = new ThreadLocal<Writer>();
-	private static ThreadLocal<Writer> systemErr = new ThreadLocal<Writer>();
-	
-	public static void setOut(Writer writer) {
-		systemOut.set(writer);
-	}
+	/** Nuskaityti komandinės eilutės parametrai. */
+	private CommandLine commandLine;
+	/** Įvedamų duomenų šaltinis (įvedami skaičiai). */
+	private Reader reader;
+	private Forma forma;
+	private Options options;
 
-	public static void setErr(Writer writer) {
-		systemErr.set(writer);
-	}
-	
-	
-	
-	@SuppressWarnings("unused")
-	private static void errPrint(String text, boolean appendNewLine) throws IOException {
-		Writer w = systemErr.get();
-		if (w != null) {
-			w.write(text);
-			if (appendNewLine) {
-				w.write("\n");				
-			}
-		} else {
-			System.err.print(text);
-			if (appendNewLine) {
-				System.err.println();
-			}
-		}
-	}
-	
-	private static void outPrint(String text,  boolean appendNewLine) throws IOException {
-		Writer w = systemOut.get();
-		if (w != null) {
-			w.write(text);
-			if (appendNewLine) {
-				w.write("\n");
-			}
-		} else {
-			System.out.print(text);
-			if (appendNewLine) {
-				System.out.println();
-			}
-		}
-	}
-	/*
-	private static PrintWriter outPrintWriter() {
-		Writer w = systemOut.get();
-		if (w != null) {
-			return new PrintWriter(w);
-		} else {
-			return new PrintWriter(System.out);
-		}
+	public static void main(String[] args) throws IOException {
+		Main main = new Main();
+		main.doMain(args);
 		
 	}
 	
-	private static PrintWriter errPrintWriter() {
-		Writer w = systemOut.get();
-		if (w != null) {
-			return new PrintWriter(w);
-		} else {
-			return new PrintWriter(System.err);
+	public void doMain(String[] args) throws IOException {
+		try {
+			tryMain(args);
+		} catch (ExitSilentlyException e) {
+			usage();
 		}
 	}
-	*/
 	
-	private static void help(Options options) throws IOException {
-		HelpFormatter f = new HelpFormatter();
-		StringWriter out = new StringWriter();
-		f.printHelp(new PrintWriter(out), 80, "java -jar main.jar", "Parameters", options, 2, 2, "Prints text that represents given number", true);
-		outPrint(out.toString(), false);
+	private void tryMain(String[] args) throws IOException, ExitSilentlyException {
+		createOptions();		
+		
+		parseCommandLine(args);
+		
+		if (commandLine.hasOption("h")) {
+			help();
+			return;
+		}
+
+		parseForma();
+		
+		boolean readSysIn = commandLine.getArgs().length == 0;
+		if (readSysIn) {
+			reader = new InputStreamReader(System.in);
+			readSysIn = true;
+		} else {
+			createArgValuesReader();
+		}
+		boolean noNewLine = commandLine.hasOption("n") && !readSysIn;
+		String newLine = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
+		
+		processInput(newLine);
 	}
-	
-	private static void usage(Options options) throws IOException {
-		HelpFormatter f = new HelpFormatter();
-		StringWriter out = new StringWriter();
-		f.printUsage(new PrintWriter(out), 80, "java -jar main.jar", options);
-		outPrint(out.toString(), false);
+
+	private void parseCommandLine(String[] args) throws IOException, ExitSilentlyException {
+		CommandLineParser parser = new PosixParser();
+		try {
+			commandLine = parser.parse(options, args);
+		} catch (ParseException e) {
+			throw new ExitSilentlyException(e);
+		}
 	}
-	
-	public static void main(String[] args) throws IOException, ParseException {
-		Options options = new Options();
+
+	private void createArgValuesReader() {
+		StringBuilder b = new StringBuilder();
+		for (String line : commandLine.getArgs()) {
+			b.append(line).append(SystemIo.NEW_LINE);
+		}
+		reader = new StringReader(b.toString());
+	}
+
+	private void createOptions() {
+		options = new Options();
+		
 		options.addOption("h", "help", false, "show help");
 		options.addOption("n", "no-newline", false, "do not output the trailing newline");
 		options.addOption("f", "form", true, "numeral form");
-		
-		
-		CommandLineParser parser = new PosixParser();
-		CommandLine cli = parser.parse(options, args);
-		
-		if (cli.hasOption("h")) {
-			help(options);
-			return;
-		}
+	}
+	
+	private void help() throws IOException {
+		HelpFormatter f = new HelpFormatter();
+		StringWriter out = new StringWriter();
+		f.printHelp(new PrintWriter(out), 80, "java -jar main.jar", "Parameters", options, 2, 2, "Prints text that represents given number", true);
+		SystemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
+	}
+	
+	public void usage() throws IOException {
+		HelpFormatter f = new HelpFormatter();
+		StringWriter out = new StringWriter();
+		f.printUsage(new PrintWriter(out), 80, "java -jar main.jar", options);
+		SystemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
+	}
+	
 
-		Forma f;
-		if (cli.hasOption("f")) {
-			String formParam = cli.getOptionValue("f");
-			f = SkaitvardziaiTextParser.get().parseForma(formParam, null);
+	private void parseForma() {
+		if (commandLine.hasOption("f")) {
+			String formParam = commandLine.getOptionValue("f");
+			forma = SkaitvardziaiTextParser.get().parseForma(formParam, null);
 		} else {
-			f = new Forma();
+			forma = new Forma();
 		}
-		
-		Reader r = null;
-		boolean readSysIn = false;
-		if (cli.getArgs().length == 0) {
-			r = new InputStreamReader(System.in);
-			readSysIn = true;
-		} else if (cli.getArgs().length == 1) {
-			r = new StringReader(cli.getArgs()[0]);
-		} else {
-			usage(options);
-			return;
-		}
-		boolean noNewLine = cli.hasOption("n") && !readSysIn;
-		
-
-		
-		BufferedReader br = new BufferedReader(r);
+	}
+	
+	private void processInput(String newLine) throws IOException {
+		BufferedReader br = new BufferedReader(reader);
 		String line;
 		while ((line = br.readLine()) != null) {
-			SkaitineReiksme sr = SkaitvardziaiTextParser.get().parseSkaicius(line);
-			if (sr instanceof SveikasisSkaicius) {
-				SveikasisSkaicius ss = (SveikasisSkaicius) sr;
-				outPrint(ss.toString(f), !noNewLine);
-			} else if (sr instanceof Trupmena) {
-				outPrint(((Trupmena) sr).toString(f.getLinksnis()), !noNewLine);
-			} else {
-				throw new IllegalArgumentException();
-			}
+			processInputText(newLine, line);
+		}
+	}
+
+	private void processInputText(String newLine, String line) throws IOException {
+		SkaitineReiksme sr = SkaitvardziaiTextParser.get().parseSkaicius(line);
+		if (sr instanceof SveikasisSkaicius) {
+			SveikasisSkaicius ss = (SveikasisSkaicius) sr;
+			SystemIo.printOut(ss.toString(forma), newLine);
+		} else if (sr instanceof Trupmena) {
+			SystemIo.printOut(((Trupmena) sr).toString(forma.getLinksnis()), newLine);
+		} else {
+			throw new IllegalArgumentException();
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
-import org.apache.commons.cli.ParseException;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -15,8 +14,8 @@ public class MainTest {
 	private OutAndErr main(Object... args) {
 		DecoratingOutWriter out = new DecoratingOutWriter(System.out);
 		DecoratingOutWriter err = new DecoratingOutWriter(System.err);
-		Main.setOut(out);
-		Main.setErr(err);
+		SystemIo.setOut(out);
+		SystemIo.setErr(err);
 		
 		try {
 			String[] params = new String[args.length];
@@ -27,13 +26,11 @@ public class MainTest {
 				Main.main(params);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
-			} catch (ParseException e) {
-				throw new RuntimeException(e);
 			}
 			return new OutAndErr(out.getText(), err.getText());
 		} finally {
-			Main.setOut(null);
-			Main.setErr(null);
+			SystemIo.setOut(null);
+			SystemIo.setErr(null);
 		}
 	}
 	
@@ -62,7 +59,7 @@ public class MainTest {
 	
 	@Test
 	public void testUsage() {
-		assertOutErrRegExp("(?ms)^usage:.*\n$", "^$", 1, 1);
+		assertOutErrRegExp("(?ms)^usage:.*\n$", "^$", "-X", 1);
 	}
 
 	@Test

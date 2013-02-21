@@ -33,13 +33,13 @@ public class Main {
 	private Forma forma;
 	private Options options;
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		Main main = new Main();
 		main.doMain(args);
 		
 	}
 	
-	public void doMain(String[] args) throws IOException {
+	public void doMain(String[] args) {
 		try {
 			tryMain(args);
 		} catch (ExitSilentlyException e) {
@@ -47,7 +47,7 @@ public class Main {
 		}
 	}
 	
-	private void tryMain(String[] args) throws IOException, ExitSilentlyException {
+	private void tryMain(String[] args) {
 		createOptions();		
 		
 		parseCommandLine(args);
@@ -72,7 +72,7 @@ public class Main {
 		processInput(newLine);
 	}
 
-	private void parseCommandLine(String[] args) throws IOException, ExitSilentlyException {
+	private void parseCommandLine(String[] args) {
 		CommandLineParser parser = new PosixParser();
 		try {
 			commandLine = parser.parse(options, args);
@@ -97,14 +97,14 @@ public class Main {
 		options.addOption("f", "form", true, "numeral form");
 	}
 	
-	private void help() throws IOException {
+	private void help() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printHelp(new PrintWriter(out), 80, "java -jar main.jar", "Parameters", options, 2, 2, "Prints text that represents given number", true);
 		SystemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
 	
-	public void usage() throws IOException {
+	public void usage() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printUsage(new PrintWriter(out), 80, "java -jar main.jar", options);
@@ -121,7 +121,15 @@ public class Main {
 		}
 	}
 	
-	private void processInput(String newLine) throws IOException {
+	private void processInput(String newLine) {
+		try {
+			tryProcessInput(newLine);
+		} catch (IOException e) {
+			throw new SkaitvardziaiIOException(e);
+		}
+	}
+
+	private void tryProcessInput(String newLine) throws IOException {
 		BufferedReader br = new BufferedReader(reader);
 		String line;
 		while ((line = br.readLine()) != null) {
@@ -129,7 +137,7 @@ public class Main {
 		}
 	}
 
-	private void processInputText(String newLine, String line) throws IOException {
+	private void processInputText(String newLine, String line) {
 		SkaitineReiksme sr = SkaitvardziaiTextParser.get().parseSkaicius(line);
 		if (sr instanceof SveikasisSkaicius) {
 			SveikasisSkaicius ss = (SveikasisSkaicius) sr;

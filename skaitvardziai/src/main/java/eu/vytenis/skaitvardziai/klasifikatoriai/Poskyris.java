@@ -3,7 +3,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 /**
  * Skaitvardžio skyrius.
  */
-public enum Poskyris implements Aliased {
+public enum Poskyris implements Aliased, FormosElementas {
 	Pagrindinis(Skyrius.Kiekinis, "PP", "Pagrindinis"),
 	Dauginis(Skyrius.Kiekinis, "PD", "Dauginis"),
 	Kuopinis(Skyrius.Kiekinis, "PK", "Kuopinis"),

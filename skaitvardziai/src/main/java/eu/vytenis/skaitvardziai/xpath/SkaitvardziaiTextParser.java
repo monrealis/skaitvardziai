@@ -16,6 +16,7 @@ import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Ivardziuotinis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
@@ -67,44 +68,99 @@ public class SkaitvardziaiTextParser {
 		}
 		
 	}
-	public Forma parseForma(String parametrai, List<Class<?>> supportedParams) {
+	public Forma parseForma(String parametrai, List<Class<?  extends FormosElementas>> supportedParams) {
 		String[] params = parametrai.length() == 0 ? new String[]{} : parametrai.split("\\s*,\\s*");
 		return parseForma(params, supportedParams);
 	}
 	
-	public Forma parseForma(String[] parameters, List<Class<?>> supportedParams) {
+	@SuppressWarnings("unchecked")
+	public Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParams) {
 		if (supportedParams == null) {
-			supportedParams = Arrays.<Class<?>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class, Ivardziuotinis.class);
+			supportedParams = Arrays.<Class<? extends FormosElementas>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class, Ivardziuotinis.class);
 		}
 		Forma r = new Forma();
-		Map<Class<?>, Object> usedClasses = new HashMap<Class<?>, Object>();
+		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String param : parameters) {
 			Object o = symbols.get(param);
 			if (o != null && !supportedParams.contains(o.getClass())) {
-				throw new SkaitvardziaiRuntimeException(param + " is not supported, because parameter class " + o.getClass() + " is not supported"); 
+				throw new UnsupportedPartException(param, o); 
 			}
 			if (o == null) {
-				throw new SkaitvardziaiRuntimeException(param + " is not supported");
-			} else if (o instanceof Linksnis) {
-				r.setLinksnis((Linksnis) o);
-			} else if (o instanceof Skaicius) {
-				r.setSkaicius((Skaicius) o);
-			} else if (o instanceof Gimine) {
-				r.setGimine((Gimine) o);
-			} else if (o instanceof Poskyris) {
-				r.setPoskyris((Poskyris) o);
-			} else if (o instanceof Ivardziuotinis) {
-				r.setIvardziuotine(true);
+				throw new UnsupportedPartException(param, null);
 			}
-			if (usedClasses.containsKey(o.getClass())) {
-				Object i = usedClasses.get(o.getClass());
-				throw new SkaitvardziaiRuntimeException(o.getClass() + " instance is used more than one time. Duplicate values: "
-						+ o.getClass() + ": " + i + "; " + o.getClass() + ": " + o);
+			
+			FormosElementas fe = (FormosElementas) o;
+			r.setElementas(fe);
+			
+			if (usedClasses.containsKey(fe.getClass())) {
+				FormosElementas oldFe = usedClasses.get(fe.getClass());
+				throw new DuplicatePartException(fe, oldFe);
 			}
-			usedClasses.put(o.getClass(), o);
+			usedClasses.put(fe.getClass(), fe);
 			
 		}
 		return r;
+	}
+	
+	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {
+		/** Klasės versija. */
+		private static final long serialVersionUID = 7783672469749826083L;
+		
+		/** Tekstas, kurį parsinant iškrito klaida. */
+		private String parsedText;
+		/** Po parsinimo gautas objektas (gali būti null). */
+		private Object resultObject;		
+		
+		public UnsupportedPartException(String parsedText, Object resultObject) {
+			super(buildMessage(parsedText, resultObject));
+			this.parsedText = parsedText;
+			this.resultObject = parsedText;
+		}
+		
+		public String getParsedText() {
+			return parsedText;
+		}
+		
+		public Object getResultObject() {
+			return resultObject;
+		}
+		
+		private static String buildMessage(String parsedText, Object resultObject) {
+			if (resultObject == null) {
+				return parsedText + " is not supported, because parameter class " + parsedText.getClass() + " is not supported";
+			} else {
+				return parsedText + " is not supported";		
+			}
+		}
+	}
+	
+	public static class DuplicatePartException extends SkaitvardziaiRuntimeException {
+
+		/** Klasės versija. */
+		private static final long serialVersionUID = 8618555191243325555L;
+		
+		private FormosElementas newElement;
+		private FormosElementas existingElement;		
+		
+		public DuplicatePartException(FormosElementas newElement, FormosElementas existingElement) {
+			super(buildMessage(newElement, existingElement));
+			this.newElement = newElement;
+			this.existingElement = existingElement;
+		}
+		
+		public FormosElementas getNewElement() {
+			return newElement;
+		}
+		
+		public FormosElementas getExistingElement() {
+			return existingElement;
+		}
+		
+		private static String buildMessage(FormosElementas newElement, Object existingElement) {
+			return newElement.getClass() + " instance is used more than one time. Duplicate values: "
+					+ newElement.getClass() + ": " + existingElement + "; " + newElement.getClass() + ": " + newElement;
+		}
+		
 	}
 	
 	public SkaitineReiksme parseSkaicius(String skaicius) {

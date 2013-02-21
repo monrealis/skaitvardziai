@@ -4,7 +4,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  * Skaičius: vienaskaita, daugiskaita.
  *
  */
-public enum Skaicius implements Aliased {
+public enum Skaicius implements Aliased, FormosElementas {
 	/** Vienaskaita. */
 	V("SV", "Vienaskaita"),
 	/** Daugiskaita. */

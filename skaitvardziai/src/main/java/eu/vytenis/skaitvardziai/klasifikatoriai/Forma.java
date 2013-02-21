@@ -61,6 +61,20 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 		this.unmodifiable = unmodifiable;
 	}
 	
+	public void setElementas(FormosElementas elementas) {
+		if (elementas instanceof Linksnis) {
+			setLinksnis((Linksnis) elementas);
+		} else if (elementas instanceof Skaicius) {
+			setSkaicius((Skaicius) elementas);
+		} else if (elementas instanceof Gimine) {
+			setGimine((Gimine) elementas);
+		} else if (elementas instanceof Poskyris) {
+			setPoskyris((Poskyris) elementas);
+		} else if (elementas instanceof Ivardziuotinis) {
+			setIvardziuotine(true);
+		}
+	}
+	
 	/**
 	 * Klonuoja objektą su visais jo laukais.
 	 * @return klonas

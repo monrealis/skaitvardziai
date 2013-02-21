@@ -4,7 +4,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 /**
  * Giminė.
  */
-public enum Gimine implements Aliased {
+public enum Gimine implements Aliased, FormosElementas {
 	/** Vyriška giminė.*/
 	V("VG", "Vyriškas"),
 	/** Moteriška giminė.*/

@@ -6,10 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.log.Log;
@@ -456,7 +458,7 @@ public class Zodis implements UnmodifiableCapable {
 	public static Zodis getKuopinis(BigInteger skaicius) {
 		Zodis z = kuopiniaiMap.get(skaicius);
 		if (z == null) {
-			throw new IllegalArgumentException("Illegal argument " + skaicius);
+			throw new WordNotFoundException(Poskyris.Kuopinis, skaicius);
 		}
 		if (skaicius.equals(BigInteger.ONE)) {
 			if (log.isWarnEnabled()) {
@@ -496,5 +498,17 @@ public class Zodis implements UnmodifiableCapable {
 		} else {
 			return kelintiniaiIvVyrGimMap.get(skaicius);
 		}
-	}	
+	}
+	
+	public static class WordNotFoundException extends SkaitvardziaiRuntimeException {
+
+		/** Klasės versija. */
+		private static final long serialVersionUID = -3871360931584928662L;
+		
+		public WordNotFoundException(Poskyris poskyris, BigInteger skaicius) {
+			super(poskyris + " word not found for number " + skaicius);
+			
+		}
+		
+	}
 }

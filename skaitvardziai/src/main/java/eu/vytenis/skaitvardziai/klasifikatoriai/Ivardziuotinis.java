@@ -4,7 +4,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  * Įvardžiuotinės formos požymis.
  *
  */
-public enum Ivardziuotinis implements Aliased {
+public enum Ivardziuotinis implements Aliased, FormosElementas {
 	/** Įvardžiuotinė forma. */
 	Iv("Įv", "Įvardžiuotinis");
 	private String alias;

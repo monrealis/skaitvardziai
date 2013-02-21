@@ -5,6 +5,7 @@ import java.util.Arrays;
 import eu.vytenis.skaitvardziai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
@@ -59,11 +60,12 @@ public class SkaiciusXPathFunctions {
 	 * @param vardiklis vardiklis
 	 * @return tekstinė skaitvardžio reikšmė
 	 */
+	@SuppressWarnings("unchecked")
 	public static String trupmena(int skaitiklis, int vardiklis, String forma) {
 		if (forma == null) {
 			forma = "";
 		}
-		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, Arrays.<Class<?>>asList(Linksnis.class));
+		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, Arrays.<Class<? extends FormosElementas>>asList(Linksnis.class));
 		return new Trupmena(skaitiklis, vardiklis).toString(f.getLinksnis());
 	}
 	

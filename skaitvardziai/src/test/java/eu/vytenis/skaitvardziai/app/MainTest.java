@@ -14,24 +14,25 @@ public class MainTest {
 	private OutAndErr main(Object... args) {
 		DecoratingOutWriter out = new DecoratingOutWriter(System.out);
 		DecoratingOutWriter err = new DecoratingOutWriter(System.err);
+		
 		SystemIo.setOut(out);
 		SystemIo.setErr(err);
 		
-		try {
-			String[] params = new String[args.length];
-			for (int i = 0; i < args.length; ++i) {
-				params[i] = args[i] != null ? args[i].toString() : null;
-			}
-			try {
-				Main.main(params);
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-			return new OutAndErr(out.getText(), err.getText());
+		try {			
+			return doMain(out, err, args);
 		} finally {
 			SystemIo.setOut(null);
 			SystemIo.setErr(null);
 		}
+	}
+
+	private OutAndErr doMain(DecoratingOutWriter out, DecoratingOutWriter err, Object... args) {
+		String[] params = new String[args.length];
+		for (int i = 0; i < args.length; ++i) {
+			params[i] = args[i] != null ? args[i].toString() : null;
+		}
+		Main.main(params);
+		return new OutAndErr(out.getText(), err.getText());
 	}
 	
 	private void assertOutErr(String out, String err, Object... args) {

@@ -11,6 +11,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
 
 public class KuopiniaiTest {
@@ -122,7 +123,7 @@ public class KuopiniaiTest {
 				try {
 					String text = s.toString(Poskyris.Kuopinis, Linksnis.V, Gimine.V);
 					Assert.fail(text);
-				} catch (IllegalArgumentException e) {
+				} catch (Zodis.WordNotFoundException e) {
 					// OK
 				}
 			}

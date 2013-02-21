@@ -18,7 +18,14 @@ public class SystemIo {
 		systemErr.set(writer);
 	}
 	
-	public static void printErr(String text, String newLine) throws IOException {
+	public static void printErr(String text, String newLine) {
+		try {
+			tryPrintErr(text, newLine);
+		} catch (IOException e) {
+			throw new SkaitvardziaiIOException(e);
+		}
+	}
+	private static void tryPrintErr(String text, String newLine) throws IOException {
 		Writer w = systemErr.get();
 		if (w != null) {
 			w.write(text + newLine);
@@ -27,7 +34,14 @@ public class SystemIo {
 		}
 	}
 	
-	public static void printOut(String text, String newLine) throws IOException {
+	public static void printOut(String text, String newLine) {
+		try {
+			tryPrintOut(text, newLine);
+		} catch (IOException e) {
+			throw new SkaitvardziaiIOException(e);
+		}
+	}
+	private static void tryPrintOut(String text, String newLine) throws IOException {
 		Writer w = systemOut.get();
 		if (w != null) {
 			w.write(text + newLine);

@@ -31,6 +31,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	/** {@link BigInteger} skaičius 1000 000 0000. */
 	public static BigInteger BILLION = new BigInteger("1000000000");
 	
+	/** Skaitinė reikšmė (sveikasis skaičius). */
 	private BigInteger reiksme;
 	
 	public SveikasisSkaicius(long reiksme) {
@@ -93,8 +94,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		fs.setSveikasisSkaicius(abs);
 		fs.setPradinisSveikasisSkaicius(abs);		
 		
-		Poskyris poskyris = forma.getPoskyris();
-		BuilderCheckUtil.checkSveikojoSkaiciausPoskyris(poskyris);
+		BuilderCheckUtil.checkSveikojoSkaiciausPoskyris(forma.getPoskyris());
 
 		SveikasisBuilder b = new SveikasisBuilder();
 		b.build(fs);

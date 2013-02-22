@@ -2,6 +2,8 @@ package eu.vytenis.skaitvardziai.checks;
 
 import java.math.BigInteger;
 
+import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
+
 /**
  * Operacijoms reikšmėms validuoti.
  *
@@ -15,7 +17,7 @@ public class CheckUtil {
 	 */
 	public static void checkNotNull(String name, Object object) {
 		if (object == null) {
-			throw new IllegalArgumentException(name + " cannot be null");
+			throw new ObjectNullException(name);
 		}
 		
 	}
@@ -30,17 +32,20 @@ public class CheckUtil {
 		if (value == null) {
 			return;
 		}
+		Range range = new Range(min, true, max, true);
+		InvalidRangeException exc = new InvalidRangeException(name, value, range);		
+		// TODO iškelti tikrinimus į Range
 		if (min != null && max != null) {
 			if (value.compareTo(min) < 0 || value.compareTo(max) > 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range [" + min + ", " + max + "]");
+				throw exc;
 			}
 		} else if (min != null) {
 			if (value.compareTo(min) < 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range [" + min + ", infinity)");
+				throw exc;
 			}
 		} else if (max != null) {
 			if (value.compareTo(max) > 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range (infinity, " + max + "]");
+				throw exc;
 			}
 		}
 	}
@@ -56,17 +61,18 @@ public class CheckUtil {
 		if (value == null) {
 			return;
 		}
+		InvalidRangeException exc = new InvalidRangeException(name, value, new Range(min, false, max, false));
 		if (min != null && max != null) {
 			if (value.compareTo(min) <= 0 || value.compareTo(max) >= 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range (" + min + ", " + max + ")");
+				throw exc;
 			}
 		} else if (min != null) {
 			if (value.compareTo(min) <= 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range (" + min + ", infinity)");
+				throw exc;
 			}
 		} else if (max != null) {
 			if (value.compareTo(max) >= 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range (infinity, " + max + ")");
+				throw exc;
 			}
 		}
 	}
@@ -82,17 +88,19 @@ public class CheckUtil {
 		if (value == null) {
 			return;
 		}
+		Range range = new Range(min, true, max, false);
+		InvalidRangeException exc = new InvalidRangeException(name, value, range);
 		if (min != null && max != null) {
 			if (value.compareTo(min) < 0 || value.compareTo(max) >= 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range [" + min + ", " + max + ")");
+				throw exc;
 			}
 		} else if (min != null) {
 			if (value.compareTo(min) < 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range [" + min + ", infinity)");
+				throw exc;
 			}
 		} else if (max != null) {
 			if (value.compareTo(max) >= 0) {
-				throw new IllegalArgumentException(name + " = " + value + " must be in range (infinity, " + max + "]");
+				throw exc;
 			}
 		}
 	}
@@ -123,5 +131,68 @@ public class CheckUtil {
 		}
 	}
 	
+	
+	public static class ObjectNullException extends SkaitvardziaiRuntimeException {
+
+		/** Klasės versija. */
+		private static final long serialVersionUID = 363562983326179288L;
+		
+		public ObjectNullException(String objectName) {
+			super(objectName + " cannot be null");			
+		}
+		
+	}
+	
+	public static class InvalidRangeException extends SkaitvardziaiRuntimeException {
+
+		/** Klasės versija. */
+		private static final long serialVersionUID = -8245329095498329074L;
+		
+		private String objectName;
+		private Number value;
+		private Range range;
+
+		public InvalidRangeException(String objectName, Number value, Range range) {
+			super(buildMessage(objectName, value, range));
+			
+			this.objectName = objectName;
+			this.value = value;
+			this.range = range;
+		}
+
+		public String getObjectName() {
+			return objectName;
+		}
+		
+		public Number getValue() {
+			return value;
+		}
+		
+		public Range getRange() {
+			return range;
+		}
+		public static String buildMessage(String objectName, Number value, Range range) {			
+			String text = objectName + " = " + value + " must be in range " + range;
+			return text;
+		}
+	}
+	
+	public static class NotModifiableException extends SkaitvardziaiRuntimeException {
+
+		/** Klasės versija. */
+		private static final long serialVersionUID = 3258850566232546106L;
+		
+		private String objectName;
+		
+		public NotModifiableException(String objectName) {
+			super(objectName + " is read-only. Cannot modify read-only object");
+			this.objectName = objectName;
+		}
+		
+		public String getObjectName() {
+			return objectName;
+		}
+		
+	}
 	
 }

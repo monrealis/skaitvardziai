@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import eu.vytenis.skaitvardziai.app.MainTest;
+import eu.vytenis.skaitvardziai.checks.CheckUtilTest;
 import eu.vytenis.skaitvardziai.checks.RangeEndTest;
 import eu.vytenis.skaitvardziai.checks.RangeTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsJreTest;
@@ -29,7 +30,8 @@ import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsXalanTest;
 	MainTest.class,
 
 	RangeTest.class,
-	RangeEndTest.class})
+	RangeEndTest.class,
+	CheckUtilTest.class})
 @RunWith(Suite.class)
 public class SkaiciaiSuite {
 

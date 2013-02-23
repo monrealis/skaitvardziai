@@ -1,10 +1,8 @@
 package eu.vytenis.skaitvardziai.zodziai;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -15,7 +13,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
  *
  */
 // TODO išmesti arba pervadinti
-public class ZodzioInfo {
+public class ZodisJunginyje {
 	/** Žodis. */
 	private Zodis zodis;	
 	
@@ -30,35 +28,12 @@ public class ZodzioInfo {
 	 */
 	private boolean daugyba = false;
 	
-	public ZodzioInfo(Zodis zodis) {
+	public ZodisJunginyje(Zodis zodis) {
 		this.zodis = zodis;
 	}
 	
 	public Zodis getZodis() {
 		return zodis;
-	}
-	
-	public static ZodzioInfo getPagrindinis(BigInteger skaicius, Gimine gimine) {
-		Zodis zodis = Zodis.getPagrindinis(skaicius, gimine);
-		return new ZodzioInfo(zodis);
-	}
-	
-	public static ZodzioInfo getDauginis(BigInteger skaicius, Gimine gimine) {
-		Zodis zodis = Zodis.getDauginis(skaicius, gimine);
-		return new ZodzioInfo(zodis);
-	}
-	
-	public static ZodzioInfo getKelintinis(BigInteger sveikasSkaicius, Gimine gimine, boolean ivardziuotinis) {
-		Zodis zodis = Zodis.getKelintinis(sveikasSkaicius, gimine, ivardziuotinis);
-		return new ZodzioInfo(zodis);
-	}
-	
-	public static ZodzioInfo getKuopinis(BigInteger skaicius) {
-		Zodis zodis = Zodis.getKuopinis(skaicius);
-		if (zodis == null) {
-			return null;
-		}
-		return new ZodzioInfo(zodis);
 	}
 	
 	/**
@@ -69,7 +44,7 @@ public class ZodzioInfo {
 	 * @param formaSkaiciai parametrų objektas
 	 * @return skaitvardis
 	 */
-	public static String toString(List<? extends ZodzioInfo> zodziai, FormaIrSkaiciai formaSkaiciai) {
+	public static String toString(List<? extends ZodisJunginyje> zodziai, FormaIrSkaiciai formaSkaiciai) {
 		Linksnis linksnis = formaSkaiciai.getForma().getLinksnis();
 		StringBuilder r = new StringBuilder();
 		boolean pirmas = true;
@@ -77,9 +52,9 @@ public class ZodzioInfo {
 		Skaicius skaicius = formaSkaiciai.getForma().getSkaicius();
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
-			ZodzioInfo dabartinis = zodziai.get(i);
-			ZodzioInfo ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
-			ZodzioInfo kitas = i < zodziai.size() - 1 ? zodziai.get(i + 1) : null;
+			ZodisJunginyje dabartinis = zodziai.get(i);
+			ZodisJunginyje ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
+			ZodisJunginyje kitas = i < zodziai.size() - 1 ? zodziai.get(i + 1) : null;
 			boolean paskutinis = kitas == null
 					|| !kelintinis && kitas != null && kitas.isDaugyba();
 					// TODO turbūt parašyti kažkokią sąlyga panašią į
@@ -125,7 +100,7 @@ public class ZodzioInfo {
 		this.daugyba = daugyba;
 	}
 	
-	public ZodzioInfo daugyba() {
+	public ZodisJunginyje daugyba() {
 		setDaugyba(true);
 		return this;
 	}

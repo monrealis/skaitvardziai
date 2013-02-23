@@ -5,7 +5,6 @@ import java.math.BigInteger;
 import java.util.Collections;
 import java.util.List;
 
-import eu.vytenis.skaitvardziai.builder.BuilderCheckUtil;
 import eu.vytenis.skaitvardziai.builder.SveikasisBuilder;
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
@@ -16,7 +15,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
-import eu.vytenis.skaitvardziai.zodziai.ZodzioInfo;
+import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
 public class SveikasisSkaicius implements SkaitineReiksme {
 	
@@ -85,13 +84,11 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	 * @return skaitvardis (tekstas)
 	 */
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		BuilderCheckUtil.checkSveikojoSkaiciausPoskyris(forma.getPoskyris());
-
 		BigInteger abs = getAbsReiksme();
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs, abs);
-		List<ZodzioInfo> zodziai = getZodziai(fs);
+		List<ZodisJunginyje> zodziai = getZodziai(fs);
 		
-		String text = ZodzioInfo.toString(zodziai, fs);
+		String text = ZodisJunginyje.toString(zodziai, fs);
 		if (!isNonNegative()) {
 			text = "minus " + text;
 		}
@@ -107,15 +104,15 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		return reiksme.compareTo(BigInteger.ZERO) >= 0;
 	}
 
-	private List<ZodzioInfo> getZodziai(FormaIrSkaiciai fs) {
+	private List<ZodisJunginyje> getZodziai(FormaIrSkaiciai fs) {
 		SveikasisBuilder b = new SveikasisBuilder();
 		b.build(fs);
-		List<ZodzioInfo> zodziai = b.getZodziai();
+		List<ZodisJunginyje> zodziai = b.getZodziai();
 		Collections.reverse(zodziai);
 		return zodziai;
 	}
 
-	private void updateSkaiciusIrLinksnis(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodzioInfo> zodziai) {
+	private void updateSkaiciusIrLinksnis(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodisJunginyje> zodziai) {
 		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
 		
 		Zodis paskutinis = zodziai.get(zodziai.size() - 1).getZodis();

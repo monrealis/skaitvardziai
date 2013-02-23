@@ -85,36 +85,48 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	 * @return skaitvardis (tekstas)
 	 */
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
-		
-		boolean nonNegative = reiksme.compareTo(BigInteger.ZERO) >= 0;
-		BigInteger abs =  nonNegative ? reiksme : reiksme.negate();
-		
-		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma);
-		fs.setSveikasisSkaicius(abs);
-		fs.setPradinisSveikasisSkaicius(abs);		
-		
 		BuilderCheckUtil.checkSveikojoSkaiciausPoskyris(forma.getPoskyris());
 
+		BigInteger abs = getAbsReiksme();
+		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs, abs);
+		List<ZodzioInfo> zodziai = getZodziai(fs);
+		
+		String text = ZodzioInfo.toString(zodziai, fs);
+		if (!isNonNegative()) {
+			text = "minus " + text;
+		}
+		updateSkaiciusIrLinksnis(forma, skaiciusIrLinksnis, zodziai);
+		return text;
+	}
+	
+	private BigInteger getAbsReiksme() {
+		BigInteger abs = isNonNegative() ? reiksme : reiksme.negate();
+		return abs;
+	}
+	private boolean isNonNegative() {
+		return reiksme.compareTo(BigInteger.ZERO) >= 0;
+	}
+
+	private List<ZodzioInfo> getZodziai(FormaIrSkaiciai fs) {
 		SveikasisBuilder b = new SveikasisBuilder();
 		b.build(fs);
 		List<ZodzioInfo> zodziai = b.getZodziai();
+		Collections.reverse(zodziai);
+		return zodziai;
+	}
+
+	private void updateSkaiciusIrLinksnis(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodzioInfo> zodziai) {
+		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
 		
-		Zodis paskutinis = zodziai.iterator().next().getZodis();
+		Zodis paskutinis = zodziai.get(zodziai.size() - 1).getZodis();
 		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
 		r.setSkaicius(kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius());
 		r.setLinksnis(kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis());
-		
-		Collections.reverse(zodziai);
-		String text = ZodzioInfo.toString(zodziai, fs);
 		if (skaiciusIrLinksnis != null) {
 			skaiciusIrLinksnis.setLinksnis(r.getLinksnis());
 			skaiciusIrLinksnis.setSkaicius(r.getSkaicius());
 		}
-		if (!nonNegative) {
-			text = "minus " + text;
-		}
-		return text;
 	}
+
 
 }

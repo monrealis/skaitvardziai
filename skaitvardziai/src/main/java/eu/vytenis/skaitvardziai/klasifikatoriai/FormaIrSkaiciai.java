@@ -32,6 +32,13 @@ public class FormaIrSkaiciai implements Cloneable, UnmodifiableCapable {
 		this.forma = forma;
 	}
 	
+	public FormaIrSkaiciai(Forma forma, BigInteger sveikasisSkaicius, BigInteger pradinisSveikasisSkaicius) {
+		CheckUtil.checkNotNull("forma", forma);
+		this.forma = forma;
+		this.sveikasisSkaicius = sveikasisSkaicius;
+		this.pradinisSveikasisSkaicius = pradinisSveikasisSkaicius;
+	}
+	
 	public Forma getForma() {
 		return forma;
 	}

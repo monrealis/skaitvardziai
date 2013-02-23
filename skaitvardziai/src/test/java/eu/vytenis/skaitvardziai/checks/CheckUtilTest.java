@@ -3,6 +3,9 @@ package eu.vytenis.skaitvardziai.checks;
 import static org.junit.Assert.*;
 
 import java.math.BigInteger;
+import java.util.Arrays;
+
+import junit.framework.Assert;
 
 import org.junit.Test;
 
@@ -45,25 +48,44 @@ public class CheckUtilTest {
 		CheckUtil.checkInclusive(NAME, toBi(-11), toBi(-10), toBi(-9));		
 	}
 	
-	@Test(expected = RangeEnd.InvalidRangeException.class)
+	@Test(expected = CheckUtil.InvalidRangeException.class)
 	public void testCheckInclusive_FailsMore() {
 		CheckUtil.checkInclusive(NAME, toBi(-9), toBi(-11), toBi(-10));		
 	}
 
 	@Test
-	public void testCheckExclusive() {
-		fail("Not yet implemented");
+	public void testCheckExclusive_Succeeds() {
+		CheckUtil.checkExclusive(NAME, toBi(-10), toBi(-11), toBi(-9));
+		CheckUtil.checkExclusive(NAME, toBi(-10), null, toBi(-9));
+		CheckUtil.checkExclusive(NAME, toBi(-10), null, null);
 	}
 
+	@Test(expected = CheckUtil.InvalidRangeException.class)
+	public void testCheckExclusive_FailsLess() {
+		CheckUtil.checkExclusive(NAME, toBi(-11), toBi(-11), toBi(-9));
+	}
+	
+	@Test(expected = CheckUtil.InvalidRangeException.class)
+	public void testCheckExclusive_FailsMore() {
+		CheckUtil.checkExclusive(NAME, toBi(-9), toBi(-11), toBi(-9));
+	}
+	
 	@Test
-	public void testCheckMinInclusive() {
-		fail("Not yet implemented");
+	public void testCheckMinInclusive_Succeeds() {
+		CheckUtil.checkMinInclusive(NAME, toBi(-10), toBi(-10), toBi(-9));
+		CheckUtil.checkMinInclusive(NAME, toBi(-10), toBi(-10), null);
+	}
+	
+	@Test(expected = CheckUtil.InvalidRangeException.class)
+	public void testCheckMinInclusive_FailsLess() {
+		CheckUtil.checkExclusive(NAME, toBi(-11), toBi(-10), toBi(-9));
 	}
 
 	@Test
 	public void testCheckCanModify_Success() {
 		CheckUtil.checkCanModify(NAME, MODIFIABLE);
 	}
+	
 	@Test(expected = CheckUtil.NotModifiableException.class)
 	public void testCheckCanModify_Fails() {
 		CheckUtil.checkCanModify(NAME, UNMODIFIABLE);
@@ -71,7 +93,10 @@ public class CheckUtilTest {
 
 	@Test
 	public void testEnsureUnmodifiable() {
-		fail("Not yet implemented");
+		CheckUtil.ensureUnmodifiable(Arrays.asList(UNMODIFIABLE, MODIFIABLE));
+		
+		Assert.assertEquals(true, UNMODIFIABLE.isUnmodifiable());
+		Assert.assertEquals(true, MODIFIABLE.isUnmodifiable());
 	}
 
 	private BigInteger toBi(Number number) {
@@ -93,7 +118,7 @@ public class CheckUtilTest {
 		}
 
 		public void setUnmodifiable(boolean unmodifiable) {
-			this.setUnmodifiable(unmodifiable);			
+			this.unmodifiable = unmodifiable;			
 		}
 		
 	}

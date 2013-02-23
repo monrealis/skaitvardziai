@@ -115,7 +115,7 @@ public class CheckUtil {
 			return;
 		}
 		if (unmodifiable.isUnmodifiable()) {
-			throw new IllegalStateException(name + " is read-only. Cannot modify read-only object");
+			throw new NotModifiableException(name);
 		}
 	}
 	

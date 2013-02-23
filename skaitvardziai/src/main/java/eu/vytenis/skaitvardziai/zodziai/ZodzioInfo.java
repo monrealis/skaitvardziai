@@ -16,8 +16,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
  */
 // TODO išmesti arba pervadinti
 public class ZodzioInfo {
-	/** Skaičius (vienaskaita/daugiskaita). */
-	private Skaicius skaicius = Skaicius.V;
 	/** Žodis. */
 	private Zodis zodis;	
 	
@@ -32,17 +30,8 @@ public class ZodzioInfo {
 	 */
 	private boolean daugyba = false;
 	
-	public ZodzioInfo(Zodis zodis, Skaicius skaicius) {
-		this.zodis = zodis;
-		this.skaicius = skaicius;
-	}
-	
 	public ZodzioInfo(Zodis zodis) {
 		this.zodis = zodis;
-	}
-	
-	public Skaicius getSkaicius() {
-		return skaicius;
 	}
 	
 	public Zodis getZodis() {
@@ -59,16 +48,10 @@ public class ZodzioInfo {
 		return new ZodzioInfo(zodis);
 	}
 	
-	public static ZodzioInfo getKelintinis(BigInteger sveikasSkaicius, Skaicius skaicius, Gimine gimine, boolean ivardziuotinis) {
+	public static ZodzioInfo getKelintinis(BigInteger sveikasSkaicius, Gimine gimine, boolean ivardziuotinis) {
 		Zodis zodis = Zodis.getKelintinis(sveikasSkaicius, gimine, ivardziuotinis);
-		return new ZodzioInfo(zodis, skaicius);
+		return new ZodzioInfo(zodis);
 	}
-
-	public static ZodzioInfo getKelintinisIv(BigInteger sveikasSkaicius, Skaicius skaicius, Gimine gimine) {
-		Zodis zodis = Zodis.getKelintinisIv(sveikasSkaicius, gimine);
-		return new ZodzioInfo(zodis, skaicius);
-	}
-
 	
 	public static ZodzioInfo getKuopinis(BigInteger skaicius) {
 		Zodis zodis = Zodis.getKuopinis(skaicius);
@@ -148,7 +131,7 @@ public class ZodzioInfo {
 	}
 	@Override
 	public String toString() {
-		return zodis.toString() + " " + skaicius + " " + daugyba;
+		return zodis.toString() + " " + daugyba;
 	}
 
 }

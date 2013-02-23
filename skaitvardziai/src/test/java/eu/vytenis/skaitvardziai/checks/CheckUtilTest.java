@@ -1,7 +1,5 @@
 package eu.vytenis.skaitvardziai.checks;
 
-import static org.junit.Assert.*;
-
 import java.math.BigInteger;
 import java.util.Arrays;
 

@@ -492,13 +492,6 @@ public class Zodis implements UnmodifiableCapable {
 			}
 		}
 	}	
-	public static Zodis getKelintinisIv(BigInteger skaicius, Gimine gimine) {
-		if (gimine == Gimine.M) {
-			return kelintiniaiIvMotGimMap.get(skaicius);
-		} else {
-			return kelintiniaiIvVyrGimMap.get(skaicius);
-		}
-	}
 	
 	public static class WordNotFoundException extends SkaitvardziaiRuntimeException {
 

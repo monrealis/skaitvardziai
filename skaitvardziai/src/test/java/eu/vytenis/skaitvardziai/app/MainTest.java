@@ -1,8 +1,6 @@
 package eu.vytenis.skaitvardziai.app;
 
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,10 +8,12 @@ import org.junit.Test;
 
 // TODO parašyti testų
 public class MainTest {
+	
+	private static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
 
-	private OutAndErr main(Object... args) {
-		DecoratingOutWriter out = new DecoratingOutWriter(System.out);
-		DecoratingOutWriter err = new DecoratingOutWriter(System.err);
+	private SystemOutputFiles main(Object... args) {
+		DecoratingWriter out = new DecoratingWriter(System.out);
+		DecoratingWriter err = new DecoratingWriter(System.err);
 		
 		SystemIo.setOut(out);
 		SystemIo.setErr(err);
@@ -26,96 +26,79 @@ public class MainTest {
 		}
 	}
 
-	private OutAndErr doMain(DecoratingOutWriter out, DecoratingOutWriter err, Object... args) {
+	private SystemOutputFiles doMain(DecoratingWriter out, DecoratingWriter err, Object... args) {
+		String[] params = getMainArgs(args);
+		Main.main(params);
+		return new SystemOutputFiles(out.getText(), err.getText());
+	}
+
+	private String[] getMainArgs(Object... args) {
 		String[] params = new String[args.length];
 		for (int i = 0; i < args.length; ++i) {
 			params[i] = args[i] != null ? args[i].toString() : null;
 		}
-		Main.main(params);
-		return new OutAndErr(out.getText(), err.getText());
-	}
-	
-	private void assertOutErr(String out, String err, Object... args) {
-		OutAndErr oe = main(args);
- 		Assert.assertEquals(out, oe.getOut());
-		Assert.assertEquals(err, oe.getErr());
-	}
-	
-	private void assertOutErrRegExp(String out, String err, Object... args) {
-		OutAndErr oe = main(args);
-		if (!oe.getOut().matches(out)) {
-			Assert.fail(out + "\ndoes not match\n" + oe.getOut());
-		}
-		if (!oe.getErr().matches(err)) {
-			Assert.fail(err + "\ndoes not match\n" + oe.getErr());
-		}
+		return params;
 	}
 	
 	@Test	
 	public void testHelp() {
-		assertOutErrRegExp("(?ms)^usage:.*Prints text that represents given number\n$", "^$", "-h");
-		assertOutErrRegExp("(?ms)^usage:.*Prints text that represents given number\n$", "^$", "--help");
-		assertOutErrRegExp("(?ms)^usage:.*Prints text that represents given number\n$", "^$", "--help", "-h");
+		Pattern p = Pattern.compile("(?ms)^usage:.*Prints text that represents given number[\n\r]+$");
+		
+		assertOutMatches(p, "-h");
+		assertOutMatches(p, "--help");
+		assertOutMatches(p, "--help", "-h");
 	}
 	
 	@Test
 	public void testUsage() {
-		assertOutErrRegExp("(?ms)^usage:.*\n$", "^$", "-X", 1);
+		Pattern p = Pattern.compile("(?ms)^usage:.*\n$");
+		assertOutMatches(p, "-X", 1);
 	}
 
 	@Test
 	public void testOneArg() {
-		assertOutErr("vienas\n", "", 1);
-		assertOutErr("šimtas dešimt\n", "", 110);
+		assertOut("vienas\n", 1);
+		assertOut("šimtas dešimt\n", 110);
 		
-		assertOutErr("vienas", "", "-n", 1);
-		assertOutErr("šimtas dešimt", "", "--no-newline", 110);
+		assertOut("vienas", "-n", 1);
+		assertOut("šimtas dešimt", "--no-newline", 110);
 		
-		assertOutErr("vieno", "", "-f", "K", "-n", 1);
-		
+		assertOut("vieno", "-f", "K", "-n", 1);		
 	}
 	
-	public class OutAndErr {
-		
-		private String out;
-		private String err;
-		
-		public OutAndErr(String out, String err) {
-			this.out = out;
-			this.err = err;			
-		}
-		
-		public String getOut() {
-			return out;
-		}
-		
-		public String getErr() {
-			return err;
-		}
-		
+	private void assertOut(String out, Object... args) {
+		assertOutErr(out, "", args);
 	}
 	
-	public static class DecoratingOutWriter extends OutputStreamWriter {
-		
-		private StringBuilder text = new StringBuilder();
-		public DecoratingOutWriter(OutputStream outputStream) {
-			super(outputStream);
-		}
-		
-		@Override
-		public void write(char[] cbuf) throws IOException {
-			text.append(cbuf);
-			super.write(cbuf);
-		}
-		
-		@Override
-		public void write(String str) throws IOException {
-			text.append(str);
-			super.write(str);
-		}
-		
-		public String getText() {
-			return text.toString();
+	@SuppressWarnings("unused")
+	private void assertErr(String err, Object... args) {
+		assertOutErr("", err, args);
+	}
+	
+	private void assertOutErr(String out, String err, Object... args) {
+		SystemOutputFiles oe = main(args);
+ 		Assert.assertEquals(out, oe.getOut());
+		Assert.assertEquals(err, oe.getErr());
+	}
+	
+	private void assertOutMatches(Pattern out, Object... args) {
+		assertOutErrMatches(out, EMPTY_PATTERN, args);
+	}
+	
+	@SuppressWarnings("unused")
+	private void assertErrMatches(Pattern err, Object... args) {
+		assertOutErrMatches(EMPTY_PATTERN, err, args);
+	}
+	
+	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
+		SystemOutputFiles oe = main(args);
+		assertMatches(oe.getOut(), out);	
+		assertMatches(oe.getErr(), err);
+	}
+	
+	private void assertMatches(String text, Pattern pattern) {
+		if (!pattern.matcher(text).matches()) {
+			Assert.fail(text + "\ndoes not match\n" + pattern.pattern());
 		}
 	}
 

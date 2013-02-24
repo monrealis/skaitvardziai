@@ -84,7 +84,7 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	 * @return skaitvardis (tekstas)
 	 */
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		BigInteger abs = getAbsReiksme();
+		BigInteger abs = abs(reiksme);
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs, abs);
 		List<ZodisJunginyje> zodziai = getZodziai(fs);
 		
@@ -96,10 +96,10 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 		return text;
 	}
 	
-	private BigInteger getAbsReiksme() {
-		BigInteger abs = isNonNegative() ? reiksme : reiksme.negate();
-		return abs;
+	public static BigInteger abs(BigInteger number) {
+		return number.compareTo(BigInteger.ZERO) >= 0 ? number : number.negate();		
 	}
+	
 	private boolean isNonNegative() {
 		return reiksme.compareTo(BigInteger.ZERO) >= 0;
 	}

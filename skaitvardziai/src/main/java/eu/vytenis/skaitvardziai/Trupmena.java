@@ -2,7 +2,6 @@ package eu.vytenis.skaitvardziai;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.Comparator;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
@@ -49,38 +48,51 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 	}
 	
 	public String toString(Linksnis linksnis) {
-		boolean nonNegative = this.skaitiklis.compareTo(BigInteger.ZERO) >= 0;
-		BigInteger skaitiklis = nonNegative ? this.skaitiklis : this.skaitiklis.negate();
-
-		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
-		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
+		Forma vf = getVardiklioFormaIsskyriusSkaiciuIrLinksni();
+		updateVardiklioLinksnis(vf, linksnis);
+		updateVardiklioSkaicius(vf);
 		
+		return toString(linksnis, vf);
+	}
+
+	private Forma getVardiklioFormaIsskyriusSkaiciuIrLinksni() {
 		Forma vf = new Forma();
 		vf.setPoskyris(Poskyris.Kelintinis);
 		vf.setIvardziuotine(true);
 		vf.setGimine(Gimine.M);
-		vf.setSkaicius(Skaicius.D);
+		return vf;
+	}
+	
+	private void updateVardiklioLinksnis(Forma vardiklioForma, Linksnis skaitiklioLinksnis) {
+		BigInteger skaitiklisAbs = SveikasisSkaicius.abs(skaitiklis);
+		BigInteger liekana100 = skaitiklisAbs.mod(SveikasisSkaicius.HUNDRED);
+		BigInteger liekana10 = skaitiklisAbs.mod(BigInteger.TEN);
 		
-		BigInteger liekana100 = skaitiklis.mod(SveikasisSkaicius.HUNDRED);
-		BigInteger liekana10 = skaitiklis.mod(BigInteger.TEN);
 		if (liekana10.equals(BigInteger.ZERO)) {
-			vf.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
+			vardiklioForma.setLinksnis(Linksnis.K); // pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
 		} else if (liekana100.compareTo(BigInteger.TEN) > 0 && liekana100.compareTo(SveikasisSkaicius.TWENTY) < 0) {
-			vf.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
+			vardiklioForma.setLinksnis(Linksnis.K); // pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
 		} else {
-			vf.setLinksnis(linksnis); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
-		}
+			vardiklioForma.setLinksnis(skaitiklioLinksnis); // pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
+		}		
+	}
+	
+	private void updateVardiklioSkaicius(Forma vardiklioForma) {
+		BigInteger skaitiklisAbs = SveikasisSkaicius.abs(skaitiklis);
+		BigInteger liekana100 = skaitiklisAbs.mod(SveikasisSkaicius.HUNDRED);
+		BigInteger liekana10 = skaitiklisAbs.mod(BigInteger.TEN);
 		
 		if (liekana10.equals(BigInteger.ONE) && !liekana100.equals(SveikasisSkaicius.ELEVEN)) {
-			vf.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
+			vardiklioForma.setSkaicius(Skaicius.V); // pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet vienuolika _dešimtųjų_ (dgs)
+		} else {
+			vardiklioForma.setSkaicius(Skaicius.D);
 		}
-		
-		
-		String r = s.toString(linksnis, Gimine.M) + " " + v.toString(vf);
-		if (!nonNegative) {
-			r = "minus " + r;
-		}
-		return r;
+	}
+
+	private String toString(Linksnis skaitiklioLinksnis, Forma vardiklioForma) {
+		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
+		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
+		return s.toString(skaitiklioLinksnis, Gimine.M) + " " + v.toString(vardiklioForma);
 	}
 	
 	public int compareTo(Trupmena o) {
@@ -92,18 +104,5 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		BigDecimal v = new BigDecimal(vardiklis);
 		return s.divide(v).doubleValue();
 	}
-	
-	public static class SkaitiklisComparer implements Comparator<Trupmena> {
 
-		public int compare(Trupmena o1, Trupmena o2) {
-			return o1.getSkaitiklis().compareTo(o2.getSkaitiklis());
-		}
-	}
-	
-	public static class VardiklisComparer implements Comparator<Trupmena> {
-
-		public int compare(Trupmena o1, Trupmena o2) {
-			return o1.getVardiklis().compareTo(o2.getVardiklis());
-		}
-	}
 }

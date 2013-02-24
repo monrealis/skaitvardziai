@@ -32,6 +32,10 @@ public class Main {
 	private Reader reader;
 	private Forma forma;
 	private Options options;
+	
+	private boolean inputFromSystemIn;
+	private String outputNewLineSeparator;
+	
 
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -42,34 +46,55 @@ public class Main {
 	public void doMain(String[] args) {
 		try {
 			tryMain(args);
-		} catch (ExitSilentlyException e) {
+		} catch (ShowUsageException e) {
 			usage();
+		} catch (ShowHelpException e) {
+			help();
 		}
 	}
 	
 	private void tryMain(String[] args) {
 		createOptions();		
-		
 		parseCommandLine(args);
 		
-		if (commandLine.hasOption("h")) {
-			help();
-			return;
-		}
-
-		parseForma();
+		checkHelpOption();
 		
-		boolean readSysIn = commandLine.getArgs().length == 0;
-		if (readSysIn) {
+		parseForma();		
+		calculateReader();
+		calculateOutputNewLineSeparator();
+		
+		processInput();
+	}
+	
+	private void checkHelpOption() {
+		if (commandLine.hasOption("h")) {
+			throw new ShowHelpException();
+		}
+		
+	}
+
+	private void parseForma() {
+		if (commandLine.hasOption("f")) {
+			String formParam = commandLine.getOptionValue("f");
+			forma = SkaitvardziaiTextParser.get().parseForma(formParam, null);
+		} else {
+			forma = new Forma();
+		}
+	}
+
+	private void calculateReader() {
+		inputFromSystemIn = commandLine.getArgs().length == 0;
+		if (inputFromSystemIn) {
 			reader = new InputStreamReader(System.in);
-			readSysIn = true;
+			inputFromSystemIn = true;
 		} else {
 			createArgValuesReader();
 		}
-		boolean noNewLine = commandLine.hasOption("n") && !readSysIn;
-		String newLine = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
-		
-		processInput(newLine);
+	}
+
+	private void calculateOutputNewLineSeparator() {
+		boolean noNewLine = commandLine.hasOption("n") && !inputFromSystemIn;
+		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
 	}
 
 	private void parseCommandLine(String[] args) {
@@ -77,7 +102,7 @@ public class Main {
 		try {
 			commandLine = parser.parse(options, args);
 		} catch (ParseException e) {
-			throw new ExitSilentlyException(e);
+			throw new ShowUsageException(e);
 		}
 	}
 
@@ -91,10 +116,9 @@ public class Main {
 
 	private void createOptions() {
 		options = new Options();
-		
-		options.addOption("h", "help", false, "show help");
-		options.addOption("n", "no-newline", false, "do not output the trailing newline");
-		options.addOption("f", "form", true, "numeral form");
+		for (Option o : Option.getOptionsForArgs()) {
+			options.addOption(o.getShortName(), o.getName(), o.isHasArg(), o.getDescription());
+		}
 	}
 	
 	private void help() {
@@ -110,20 +134,11 @@ public class Main {
 		f.printUsage(new PrintWriter(out), 80, "java -jar main.jar", options);
 		SystemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
-	
 
-	private void parseForma() {
-		if (commandLine.hasOption("f")) {
-			String formParam = commandLine.getOptionValue("f");
-			forma = SkaitvardziaiTextParser.get().parseForma(formParam, null);
-		} else {
-			forma = new Forma();
-		}
-	}
 	
-	private void processInput(String newLine) {
+	private void processInput() {
 		try {
-			tryProcessInput(newLine);
+			tryProcessInput(outputNewLineSeparator);
 		} catch (IOException e) {
 			throw new SkaitvardziaiIOException(e);
 		}
@@ -147,6 +162,45 @@ public class Main {
 		} else {
 			throw new IllegalArgumentException();
 		}
+	}
+	
+	public enum Option {		
+		Help("h", "help", false, "show help"),
+		NoNewline("n", "no-newline", false, "do not output the trailing newline"),
+		Form("f", "form", true, "numeral form");
+		
+		private String shortName;
+		private String name;
+		private boolean hasArg;
+		private String description;
+		
+		private Option(String shortName, String name, boolean hasArg, String description) {
+			this.shortName = shortName;
+			this.name = name;
+			this.hasArg = hasArg;
+			this.description = description;
+		}
+		
+		public String getShortName() {
+			return shortName;
+		}
+		
+		public String getName() {
+			return name;
+		}
+		
+		public String getDescription() {
+			return description;
+		}
+		
+		public boolean isHasArg() {
+			return hasArg;
+		}
+		
+		public static Option[] getOptionsForArgs() {
+			return new Option[] {Help, NoNewline, Form};
+		}
+
 	}
 
 }

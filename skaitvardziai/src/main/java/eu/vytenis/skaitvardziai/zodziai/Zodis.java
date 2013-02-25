@@ -480,7 +480,7 @@ public class Zodis implements UnmodifiableCapable {
 	
 	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, Rusis rusis) {
 		if (gimine == Gimine.M) {
-			if (rusis == rusis.Iv) {
+			if (rusis == Rusis.Iv) {
 				return kelintiniaiIvMotGimMap.get(skaicius);
 			} else {
 				return kelintiniaiMotGimMap.get(skaicius);

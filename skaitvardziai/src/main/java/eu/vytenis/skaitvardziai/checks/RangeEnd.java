@@ -2,7 +2,7 @@ package eu.vytenis.skaitvardziai.checks;
 
 import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
 
-public class RangeEnd {
+public class RangeEnd<T extends Number & Comparable<?>> {
 	private static final String MINUS = "-";
 	private static final String INFINITY = "infinity";
 	private static final String OPEN_SYMBOL_LEFT = "(";
@@ -10,10 +10,10 @@ public class RangeEnd {
 	private static final String OPEN_SYMBOL_RIGHT = ")";
 	private static final String CLOSED_SYMBOL_RIGHT= "]";
 
-	private Number value;
+	private T value;
 	private boolean inclusive;
 
-	public RangeEnd(Number value, boolean inclusive) {
+	public RangeEnd(T value, boolean inclusive) {
 		if (value == null && inclusive) {
 			throw new InvalidRangeException();
 		}
@@ -50,7 +50,7 @@ public class RangeEnd {
 		return value != null && isInclusive();			
 	}
 	
-	public class InvalidRangeException extends SkaitvardziaiRuntimeException {
+	public static class InvalidRangeException extends SkaitvardziaiRuntimeException {
 
 		/** Klasės versija. */
 		private static final long serialVersionUID = 2933652317892072250L;

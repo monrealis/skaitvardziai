@@ -32,7 +32,7 @@ public class CheckUtil {
 		if (value == null) {
 			return;
 		}
-		Range range = new Range(min, true, max, true);
+		Range<BigInteger> range = new Range<BigInteger>(min, true, max, true);
 		InvalidRangeException exc = new InvalidRangeException(name, value, range);		
 		// TODO iškelti tikrinimus į Range
 		if (min != null && max != null) {
@@ -61,7 +61,7 @@ public class CheckUtil {
 		if (value == null) {
 			return;
 		}
-		InvalidRangeException exc = new InvalidRangeException(name, value, new Range(min, false, max, false));
+		InvalidRangeException exc = new InvalidRangeException(name, value, new Range<BigInteger>(min, false, max, false));
 		if (min != null && max != null) {
 			if (value.compareTo(min) <= 0 || value.compareTo(max) >= 0) {
 				throw exc;
@@ -88,7 +88,7 @@ public class CheckUtil {
 		if (value == null) {
 			return;
 		}
-		Range range = new Range(min, true, max, false);
+		Range<BigInteger> range = new Range<BigInteger>(min, true, max, false);
 		InvalidRangeException exc = new InvalidRangeException(name, value, range);
 		if (min != null && max != null) {
 			if (value.compareTo(min) < 0 || value.compareTo(max) >= 0) {
@@ -150,9 +150,9 @@ public class CheckUtil {
 		
 		private String objectName;
 		private Number value;
-		private Range range;
+		private Range<BigInteger> range;
 
-		public InvalidRangeException(String objectName, Number value, Range range) {
+		public InvalidRangeException(String objectName, Number value, Range<BigInteger> range) {
 			super(buildMessage(objectName, value, range));
 			
 			this.objectName = objectName;
@@ -168,10 +168,10 @@ public class CheckUtil {
 			return value;
 		}
 		
-		public Range getRange() {
+		public Range<BigInteger> getRange() {
 			return range;
 		}
-		public static String buildMessage(String objectName, Number value, Range range) {			
+		public static String buildMessage(String objectName, Number value, Range<BigInteger> range) {			
 			String text = objectName + " = " + value + " must be in range " + range;
 			return text;
 		}

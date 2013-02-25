@@ -8,16 +8,16 @@ public class RangeEndTest {
 
 	@Test(expected = RangeEnd.InvalidRangeException.class)
 	public void testRangeEndInvalid() {
-		new RangeEnd(null, true);
+		new RangeEnd<Integer>(null, true);
 	}
 	
 	@Test
 	public void testGetLeftString() {
-		Assert.assertEquals("(-infinity", new RangeEnd(null, false).getLeftString());
-		Assert.assertEquals("(-10", new RangeEnd(-10, false).getLeftString());
-		Assert.assertEquals("(10", new RangeEnd(10, false).getLeftString());
-		Assert.assertEquals("[-20", new RangeEnd(-20, true).getLeftString());
-		Assert.assertEquals("[20", new RangeEnd(20, true).getLeftString());
+		Assert.assertEquals("(-infinity", new RangeEnd<Integer>(null, false).getLeftString());
+		Assert.assertEquals("(-10", new RangeEnd<Integer>(-10, false).getLeftString());
+		Assert.assertEquals("(10", new RangeEnd<Integer>(10, false).getLeftString());
+		Assert.assertEquals("[-20", new RangeEnd<Integer>(-20, true).getLeftString());
+		Assert.assertEquals("[20", new RangeEnd<Integer>(20, true).getLeftString());
 	}
 	
 	
@@ -25,11 +25,11 @@ public class RangeEndTest {
 
 	@Test
 	public void testGetRightString() {
-		Assert.assertEquals("infinity)", new RangeEnd(null, false).getRightString());
-		Assert.assertEquals("-10)", new RangeEnd(-10, false).getRightString());
-		Assert.assertEquals("10)", new RangeEnd(10, false).getRightString());
-		Assert.assertEquals("-20]", new RangeEnd(-20, true).getRightString());
-		Assert.assertEquals("20]", new RangeEnd(20, true).getRightString());
+		Assert.assertEquals("infinity)", new RangeEnd<Integer>(null, false).getRightString());
+		Assert.assertEquals("-10)", new RangeEnd<Integer>(-10, false).getRightString());
+		Assert.assertEquals("10)", new RangeEnd<Integer>(10, false).getRightString());
+		Assert.assertEquals("-20]", new RangeEnd<Integer>(-20, true).getRightString());
+		Assert.assertEquals("20]", new RangeEnd<Integer>(20, true).getRightString());
 	}
 
 }

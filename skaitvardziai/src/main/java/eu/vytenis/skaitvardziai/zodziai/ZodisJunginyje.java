@@ -13,7 +13,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
  * Žodžio ir skaičiaus (vienaskaitos/daugiskaitos) dvejetas.
  *
  */
-// TODO išmesti arba pervadinti
 public class ZodisJunginyje {
 	/** Žodis. */
 	private Zodis zodis;	

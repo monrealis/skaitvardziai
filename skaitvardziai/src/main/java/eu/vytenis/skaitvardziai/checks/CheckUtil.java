@@ -33,20 +33,8 @@ public class CheckUtil {
 			return;
 		}
 		Range<BigInteger> range = new Range<BigInteger>(min, true, max, true);
-		InvalidRangeException exc = new InvalidRangeException(name, value, range);		
-		// TODO iškelti tikrinimus į Range
-		if (min != null && max != null) {
-			if (value.compareTo(min) < 0 || value.compareTo(max) > 0) {
-				throw exc;
-			}
-		} else if (min != null) {
-			if (value.compareTo(min) < 0) {
-				throw exc;
-			}
-		} else if (max != null) {
-			if (value.compareTo(max) > 0) {
-				throw exc;
-			}
+		if (!range.contains(value)) {
+			throw new InvalidRangeException(name, value, range);
 		}
 	}
 	
@@ -60,20 +48,10 @@ public class CheckUtil {
 	public static void checkExclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
 		if (value == null) {
 			return;
-		}
-		InvalidRangeException exc = new InvalidRangeException(name, value, new Range<BigInteger>(min, false, max, false));
-		if (min != null && max != null) {
-			if (value.compareTo(min) <= 0 || value.compareTo(max) >= 0) {
-				throw exc;
-			}
-		} else if (min != null) {
-			if (value.compareTo(min) <= 0) {
-				throw exc;
-			}
-		} else if (max != null) {
-			if (value.compareTo(max) >= 0) {
-				throw exc;
-			}
+		}		
+		Range<BigInteger> range = new Range<BigInteger>(min, false, max, false);
+		if (!range.contains(value)) {
+			throw new InvalidRangeException(name, value, range);
 		}
 	}
 	
@@ -89,19 +67,8 @@ public class CheckUtil {
 			return;
 		}
 		Range<BigInteger> range = new Range<BigInteger>(min, true, max, false);
-		InvalidRangeException exc = new InvalidRangeException(name, value, range);
-		if (min != null && max != null) {
-			if (value.compareTo(min) < 0 || value.compareTo(max) >= 0) {
-				throw exc;
-			}
-		} else if (min != null) {
-			if (value.compareTo(min) < 0) {
-				throw exc;
-			}
-		} else if (max != null) {
-			if (value.compareTo(max) >= 0) {
-				throw exc;
-			}
+		if (!range.contains(value)) {
+			throw new InvalidRangeException(name, value, range);
 		}
 	}
 	

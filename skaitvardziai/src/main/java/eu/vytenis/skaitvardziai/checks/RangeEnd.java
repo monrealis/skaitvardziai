@@ -22,7 +22,7 @@ public class RangeEnd<T extends Number & Comparable<?>> {
 	}
 
 	
-	public Number getValue() {
+	public T getValue() {
 		return value;
 	}
 	

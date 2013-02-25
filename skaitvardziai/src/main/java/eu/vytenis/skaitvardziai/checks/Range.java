@@ -1,6 +1,6 @@
 package eu.vytenis.skaitvardziai.checks;
 
-public class Range<T extends Number & Comparable<?>> {
+public class Range<T extends Number & Comparable<T>> {
 	private RangeEnd<T> min;
 	private RangeEnd<T> max;
 
@@ -12,5 +12,27 @@ public class Range<T extends Number & Comparable<?>> {
 	@Override
 	public String toString() {
 		return min.getLeftString() + "; " + max.getRightString();
+	}
+	
+	public boolean contains(T number) {
+		CheckUtil.checkNotNull("number", number);
+		
+		boolean satisfiesLeft = isSatisfiesMin(number);
+		boolean satisfiesRight = isSatisfiesMax(number);
+		return satisfiesLeft && satisfiesRight;		
+	}
+
+	protected boolean isSatisfiesMin(T number) {
+		boolean satisfiesLeft = min.getValue() == null
+				|| !min.isInclusive() && number.compareTo(min.getValue()) > 0
+				|| min.isInclusive() && number.compareTo(min.getValue()) >= 0;
+		return satisfiesLeft;
+	}
+	
+	protected boolean isSatisfiesMax(T number) {
+		boolean satisfiesRight = max.getValue() == null
+						|| !max.isInclusive() && number.compareTo(max.getValue()) < 0
+						|| max.isInclusive() && number.compareTo(max.getValue()) <= 0;
+		return satisfiesRight;
 	}
 }

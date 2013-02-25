@@ -8,6 +8,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
@@ -58,7 +59,7 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 	private Forma getVardiklioFormaIsskyriusSkaiciuIrLinksni() {
 		Forma vf = new Forma();
 		vf.setPoskyris(Poskyris.Kelintinis);
-		vf.setIvardziuotine(true);
+		vf.setRusis(Rusis.Iv);
 		vf.setGimine(Gimine.M);
 		return vf;
 	}

@@ -12,6 +12,7 @@ import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.log.Log;
@@ -477,15 +478,15 @@ public class Zodis implements UnmodifiableCapable {
 		}
 	}	
 	
-	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, boolean ivardziuotinis) {
+	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, Rusis rusis) {
 		if (gimine == Gimine.M) {
-			if (ivardziuotinis) {
+			if (rusis == rusis.Iv) {
 				return kelintiniaiIvMotGimMap.get(skaicius);
 			} else {
 				return kelintiniaiMotGimMap.get(skaicius);
 			}
 		} else {
-			if (ivardziuotinis) {
+			if (rusis == Rusis.Iv) {
 				return kelintiniaiIvVyrGimMap.get(skaicius);
 			} else {
 				return kelintiniaiVyrGimMap.get(skaicius);

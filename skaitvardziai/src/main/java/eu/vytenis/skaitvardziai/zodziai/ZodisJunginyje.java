@@ -2,6 +2,7 @@ package eu.vytenis.skaitvardziai.zodziai;
 
 import java.util.List;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -29,6 +30,7 @@ public class ZodisJunginyje {
 	private boolean daugyba = false;
 	
 	public ZodisJunginyje(Zodis zodis) {
+		CheckUtil.checkNotNull("zodis", zodis);
 		this.zodis = zodis;
 	}
 	

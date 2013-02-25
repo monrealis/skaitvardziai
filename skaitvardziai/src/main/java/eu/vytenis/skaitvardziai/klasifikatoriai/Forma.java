@@ -7,17 +7,11 @@ import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
  *
  */
 public class Forma implements Cloneable, UnmodifiableCapable {
-	/** Skaitvardžio poskyris. */
 	private Poskyris poskyris = Poskyris.Pagrindinis;
-	/** Skaitvardžio giminė. */
 	private Gimine gimine = Gimine.V;
-	/** Skaitvardžio skaičius. */
 	private Skaicius skaicius = Skaicius.V;
-	/** Skaitvardžio linksnis. */
 	private Linksnis linksnis = Linksnis.V;
-	/** Ar įvardžiuotinė forma.*/
-	private boolean ivardziuotine = false; // TODO padaryti enum
-	/** Ar forma neredaguojama? */
+	private Rusis rusis = Rusis.P;
 	private boolean unmodifiable;
 	
 	public Poskyris getPoskyris() {
@@ -44,23 +38,18 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
-	public boolean isIvardziuotine() {
-		return ivardziuotine;
+	public Rusis getRusis() {
+		return rusis;
 	}
-	public void setIvardziuotine(boolean ivardziuotine) {
-		this.ivardziuotine = ivardziuotine;
-	}
-	
-	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
+	public void setRusis(Rusis rusis) {
+		this.rusis = rusis;
+	}	
 	public boolean isUnmodifiable() {
 		return unmodifiable;
-	}
-	
-	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
+	}	
 	public void setUnmodifiable(boolean unmodifiable) {
 		this.unmodifiable = unmodifiable;
-	}
-	
+	}	
 	public void setElementas(FormosElementas elementas) {
 		if (elementas instanceof Linksnis) {
 			setLinksnis((Linksnis) elementas);
@@ -70,8 +59,8 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 			setGimine((Gimine) elementas);
 		} else if (elementas instanceof Poskyris) {
 			setPoskyris((Poskyris) elementas);
-		} else if (elementas instanceof Ivardziuotinis) {
-			setIvardziuotine(true);
+		} else if (elementas instanceof Rusis) {
+			setRusis((Rusis) elementas);
 		}
 	}
 	

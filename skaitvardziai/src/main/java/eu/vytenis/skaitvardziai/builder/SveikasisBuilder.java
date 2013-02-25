@@ -10,6 +10,7 @@ import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
@@ -73,13 +74,13 @@ public class SveikasisBuilder {
 				// nieko
 			} else if (tukstanciu.equals(BigInteger.ONE)) {
 				if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana.equals(BigInteger.ZERO)) {
-					zodziai.add(getSuma(Zodis.getKelintinis(tukstancioLaipsnis, gimine, true)));
+					zodziai.add(getSuma(Zodis.getKelintinis(tukstancioLaipsnis, gimine, Rusis.Iv)));
 				} else {
 					zodziai.add(getSuma(Zodis.getPagrindinis(tukstancioLaipsnis, Gimine.V)));
 				}			
 			} else if (tukstanciu.compareTo(BigInteger.ONE) > 0 && tukstanciu.compareTo(SveikasisSkaicius.THOUSAND) < 0) {
 				if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana.equals(BigInteger.ZERO)) {
-					zodziai.add(getDaugyba(Zodis.getKelintinis(tukstancioLaipsnis, gimine, true)));
+					zodziai.add(getDaugyba(Zodis.getKelintinis(tukstancioLaipsnis, gimine, Rusis.Iv)));
 					trizenkliai.buildTrizenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 				} else {
 					zodziai.add(getDaugyba(Zodis.getPagrindinis(tukstancioLaipsnis, Gimine.V)));
@@ -108,14 +109,14 @@ public class SveikasisBuilder {
 			BigInteger liekana = sveikasSkaicius.mod(SveikasisSkaicius.HUNDRED);
 			if (simtai.equals(BigInteger.ONE)) {
 				if (poskyris == Poskyris.Kelintinis && liekana.equals(BigInteger.ZERO)) {
-					zodziai.add(getSuma(Zodis.getKelintinis(SveikasisSkaicius.HUNDRED, gimine, true)));
+					zodziai.add(getSuma(Zodis.getKelintinis(SveikasisSkaicius.HUNDRED, gimine, Rusis.Iv)));
 				} else {
 					zodziai.add(getSuma(Zodis.getPagrindinis(SveikasisSkaicius.HUNDRED, Gimine.V)));
 				}
 				
 			} else if (simtai.compareTo(BigInteger.ONE) > 0) {
 				if (poskyris == Poskyris.Kelintinis && liekana.equals(BigInteger.ZERO)) {
-					zodziai.add(getDaugyba(Zodis.getKelintinis(SveikasisSkaicius.HUNDRED, gimine, true)));
+					zodziai.add(getDaugyba(Zodis.getKelintinis(SveikasisSkaicius.HUNDRED, gimine, Rusis.Iv)));
 					zodziai.add(getSuma(Zodis.getPagrindinis(simtai, Gimine.V)));
 				} else {
 					zodziai.add(getDaugyba(Zodis.getPagrindinis(SveikasisSkaicius.HUNDRED, Gimine.V)));
@@ -132,7 +133,7 @@ public class SveikasisBuilder {
 			BigInteger sveikasSkaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
 			Gimine gimine = formaIrSkaiciai.getForma().getGimine();
-			boolean ivardziuotinis = formaIrSkaiciai.getForma().isIvardziuotine();
+			Rusis rusis = formaIrSkaiciai.getForma().getRusis();
 			
 			CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, SveikasisSkaicius.HUNDRED);
 			
@@ -140,7 +141,7 @@ public class SveikasisBuilder {
 				vienzenkliai.buildVienzenklis(formaIrSkaiciai);
 			} else if (sveikasSkaicius.compareTo(SveikasisSkaicius.TWENTY) < 0) {
 				if (poskyris == Poskyris.Kelintinis) {
-					zodziai.add(getSuma(Zodis.getKelintinis(sveikasSkaicius, gimine, ivardziuotinis)));
+					zodziai.add(getSuma(Zodis.getKelintinis(sveikasSkaicius, gimine, rusis)));
 				} else {
 					zodziai.add(getSuma(Zodis.getPagrindinis(sveikasSkaicius, Gimine.V)));
 				}
@@ -151,7 +152,7 @@ public class SveikasisBuilder {
 				
 				vienzenkliai.buildVienzenklis(formaIrSkaiciai.clone().sveikasSkaicius(vienetai));
 				if (poskyris == Poskyris.Kelintinis && vienetai.equals(BigInteger.ZERO)) {
-					zodziai.add(getSuma(Zodis.getKelintinis(desimtys.multiply(BigInteger.TEN), gimine, ivardziuotinis)));
+					zodziai.add(getSuma(Zodis.getKelintinis(desimtys.multiply(BigInteger.TEN), gimine, rusis)));
 				} else {
 					zodziai.add(getSuma(Zodis.getPagrindinis(desimtys.multiply(BigInteger.TEN), Gimine.V)));
 				}
@@ -167,7 +168,7 @@ public class SveikasisBuilder {
 			BigInteger tikrasSkaicius = formaIrSkaiciai.getPradinisSveikasisSkaicius();
 			Gimine gimine = formaIrSkaiciai.getForma().getGimine();
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
-			boolean ivardziuotinis = formaIrSkaiciai.getForma().isIvardziuotine();
+			Rusis rusis = formaIrSkaiciai.getForma().getRusis();
 					
 			CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, BigInteger.TEN);
 			
@@ -181,7 +182,7 @@ public class SveikasisBuilder {
 				} else if (poskyris == Poskyris.Dauginis) {
 					zodziai.add(getSuma(Zodis.getDauginis(sveikasSkaicius, gimine)));
 				} else if (poskyris == Poskyris.Kelintinis) {
-					zodziai.add(getSuma(Zodis.getKelintinis(sveikasSkaicius, gimine, (!sveikasSkaicius.equals(BigInteger.ZERO) ? ivardziuotinis : false))));
+					zodziai.add(getSuma(Zodis.getKelintinis(sveikasSkaicius, gimine, (!sveikasSkaicius.equals(BigInteger.ZERO) ? rusis : Rusis.P))));
 				} else {
 					throw new IllegalArgumentException();
 				}

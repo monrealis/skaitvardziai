@@ -18,7 +18,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Ivardziuotinis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -32,7 +32,7 @@ public class SkaitvardziaiTextParser {
 		addAll(t, Skaicius.values());
 		addAll(t, Gimine.values());
 		addAll(t, Poskyris.values());
-		addAll(t, Ivardziuotinis.values());
+		addAll(t, Rusis.values());
 		symbols = Collections.unmodifiableMap(t);
 	}
 	private static final SkaitvardziaiTextParser instance = new SkaitvardziaiTextParser();
@@ -76,7 +76,7 @@ public class SkaitvardziaiTextParser {
 	@SuppressWarnings("unchecked")
 	public Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParams) {
 		if (supportedParams == null) {
-			supportedParams = Arrays.<Class<? extends FormosElementas>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class, Ivardziuotinis.class);
+			supportedParams = Arrays.<Class<? extends FormosElementas>>asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class, Rusis.class);
 		}
 		Forma r = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();

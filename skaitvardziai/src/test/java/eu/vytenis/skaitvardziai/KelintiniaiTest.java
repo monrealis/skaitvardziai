@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
@@ -14,6 +15,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 	
 
 	public KelintiniaiTest() {
+		setRusis(Rusis.P);
 	}
 
 	@Test
@@ -40,7 +42,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuonioliktas");
 		s.put(19, "devynioliktas");
 		s.put(20, "dvidešimtas");		
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -59,7 +61,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimtas");
 		s.put(92, "devyniasdešimt antras");
 		s.put(100, "šimtasis");
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -84,7 +86,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečias");
 		s.put(1000, "tūkstantasis");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -107,7 +109,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtas");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtas");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -134,7 +136,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuoniolikta");
 		s.put(19, "devyniolikta");
 		s.put(20, "dvidešimta");		
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M);
 	}
 	
 	@Test
@@ -153,7 +155,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimta");
 		s.put(92, "devyniasdešimt antra");
 		s.put(100, "šimtoji");
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M);
 	}
 	
 	@Test
@@ -178,7 +180,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečia");
 		s.put(1000, "tūkstantoji");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M);
 	}
 	
 	@Test
@@ -201,7 +203,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirta");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirta");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.V, Gimine.M);
 	}
 	
 	///-------	
@@ -229,7 +231,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuoniolikto");
 		s.put(19, "devyniolikto");
 		s.put(20, "dvidešimto");		
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -248,7 +250,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimto");
 		s.put(92, "devyniasdešimt antro");
 		s.put(100, "šimtojo");
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -273,7 +275,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečio");
 		s.put(1000, "tūkstantojo");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -298,7 +300,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirto");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirto");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -325,7 +327,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuonioliktos");
 		s.put(19, "devynioliktos");
 		s.put(20, "dvidešimtos");		
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M);
 	}
 	
 	@Test
@@ -344,7 +346,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimtos");
 		s.put(92, "devyniasdešimt antros");
 		s.put(100, "šimtosios");
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M);
 	}
 	
 	@Test
@@ -369,7 +371,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečios");
 		s.put(1000, "tūkstantosios");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M);
 	}
 	
 	@Test
@@ -392,7 +394,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtos");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtos");
 
-		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.V, Linksnis.K, Gimine.M);
 	}
 	
 	
@@ -422,7 +424,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuoniolikti");
 		s.put(19, "devyniolikti");
 		s.put(20, "dvidešimti");		
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -441,7 +443,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimti");
 		s.put(92, "devyniasdešimt antri");
 		s.put(100, "šimtieji");
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -466,7 +468,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt treti");
 		s.put(1000, "tūkstantieji");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -489,7 +491,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirti");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirti");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.V);
 	}
 	
 	@Test
@@ -516,7 +518,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuonioliktos");
 		s.put(19, "devynioliktos");
 		s.put(20, "dvidešimtos");		
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M);
 	}
 	
 	@Test
@@ -535,7 +537,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimtos");
 		s.put(92, "devyniasdešimt antros");
 		s.put(100, "šimtosios");
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M);
 	}
 	
 	@Test
@@ -560,7 +562,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečios");
 		s.put(1000, "tūkstantosios");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M);
 	}
 	
 	@Test
@@ -583,7 +585,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtos");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtos");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.V, Gimine.M);
 	}
 	
 	///-------	
@@ -611,7 +613,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuonioliktų");
 		s.put(19, "devynioliktų");
 		s.put(20, "dvidešimtų");		
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -630,7 +632,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimtų");
 		s.put(92, "devyniasdešimt antrų");
 		s.put(100, "šimtųjų");
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -655,7 +657,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečių");
 		s.put(1000, "tūkstantųjų");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -678,7 +680,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtų");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtų");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.V);
 	}
 	
 	@Test
@@ -705,7 +707,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(18, "aštuonioliktų");
 		s.put(19, "devynioliktų");
 		s.put(20, "dvidešimtų");		
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M);
 	}
 	
 	@Test
@@ -724,7 +726,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(90, "devyniasdešimtų");
 		s.put(92, "devyniasdešimt antrų");
 		s.put(100, "šimtųjų");
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M);
 	}
 	
 	@Test
@@ -749,7 +751,7 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(963, "devyni šimtai šešiasdešimt trečių");
 		s.put(1000, "tūkstantųjų");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M);
 	}
 	
 	@Test
@@ -772,6 +774,6 @@ public class KelintiniaiTest extends BaseKelintiniaiTest {
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt ketvirtų");
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt ketvirtų");
 
-		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M, false);
+		testSkaiciai(s, Skaicius.D, Linksnis.K, Gimine.M);
 	}
 }

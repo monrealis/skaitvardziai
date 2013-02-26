@@ -17,6 +17,7 @@ import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementasFieldHandler;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
@@ -90,7 +91,7 @@ public class SkaitvardziaiTextParser {
 			}
 			
 			FormosElementas fe = (FormosElementas) o;
-			r.setElementas(fe);
+			FormosElementasFieldHandler.setElementas(r, fe);
 			
 			if (usedClasses.containsKey(fe.getClass())) {
 				FormosElementas oldFe = usedClasses.get(fe.getClass());

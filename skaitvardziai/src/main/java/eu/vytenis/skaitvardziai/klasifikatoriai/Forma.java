@@ -1,9 +1,5 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 
 /**
@@ -11,19 +7,7 @@ import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
  *
  */
 public class Forma implements Cloneable, UnmodifiableCapable {
-	private static final Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> fieldHandlers;
-	static {
-		Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> h
-			= new HashMap<Class<? extends FormosElementas>, Forma.FormosElementasFieldHandler<? extends FormosElementas>>();
-		h.put(Linksnis.class, new LinksnisHandler());
-		h.put(Skaicius.class, new SkaiciusHandler());
-		h.put(Gimine.class, new GimineHandler());
-		h.put(Poskyris.class, new PoskyrisHandler());
-		h.put(Rusis.class, new RusisHandler());
-		
-		fieldHandlers = Collections.unmodifiableMap(h);
-		
-	}
+
 	private Poskyris poskyris = Poskyris.Pagrindinis;
 	private Gimine gimine = Gimine.V;
 	private Skaicius skaicius = Skaicius.V;
@@ -73,12 +57,6 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 		this.unmodifiable = unmodifiable;
 	}	
 	
-	@SuppressWarnings("unchecked")
-	public  <T extends FormosElementas>  void setElementas(T elementas) {
-		FormosElementasFieldHandler<T> h = (FormosElementasFieldHandler<T>) fieldHandlers.get(elementas.getClass());
-		h.setField(this, elementas);
-	}
-	
 	/**
 	 * Klonuoja objektą su visais jo laukais.
 	 * @return klonas
@@ -92,50 +70,6 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 			throw new RuntimeException(e);
 		}
 		return k;
-	}
-	
-	
-	
-	public static abstract class FormosElementasFieldHandler<T extends FormosElementas> {
-		public abstract void setField(Forma forma, T formosElementas);
-				
-	}
-	
-	public static class LinksnisHandler extends FormosElementasFieldHandler<Linksnis> {
-		@Override
-		public void setField(Forma forma, Linksnis linksnis) {
-			forma.setLinksnis(linksnis);			
-		}		
-	}
-	
-	public static class SkaiciusHandler extends FormosElementasFieldHandler<Skaicius> {
-		@Override
-		public void setField(Forma forma, Skaicius skaicius) {
-			forma.setSkaicius(skaicius);			
-		}		
-	}
-	
-	public static class GimineHandler extends FormosElementasFieldHandler<Gimine> {
-		@Override
-		public void setField(Forma forma, Gimine gimine) {
-			forma.setGimine(gimine);			
-		}
-		
-	}
-	
-	public static class PoskyrisHandler extends FormosElementasFieldHandler<Poskyris> {
-		@Override
-		public void setField(Forma forma, Poskyris poskyris) {
-			forma.setPoskyris(poskyris);			
-		}
-		
-	}
-	
-	public static class RusisHandler extends FormosElementasFieldHandler<Rusis> {
-		@Override
-		public void setField(Forma forma, Rusis rusis) {
-			forma.setRusis(rusis);
-		}
 	}
 
 }

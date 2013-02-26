@@ -55,6 +55,11 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	public void setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 	}
+	
+	public SkaiciusIrLinksnis toSkaiciusLinksnis() {
+		return new SkaiciusIrLinksnis(skaicius, linksnis);
+	}
+	
 	public Rusis getRusis() {
 		return rusis;
 	}
@@ -88,6 +93,8 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 		}
 		return k;
 	}
+	
+	
 	
 	public static abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		public abstract void setField(Forma forma, T formosElementas);

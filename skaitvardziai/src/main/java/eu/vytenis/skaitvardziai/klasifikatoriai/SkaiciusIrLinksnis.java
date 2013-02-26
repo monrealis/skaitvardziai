@@ -10,6 +10,9 @@ import eu.vytenis.skaitvardziai.util.CompareUtils;
  *
  */
 public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis>, UnmodifiableCapable {
+	
+	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V).unmodifiable();
+	
 	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius;
 	/** Linksnis. */
@@ -49,6 +52,12 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	public void setUnmodifiable(boolean unmodifiable) {
 		this.unmodifiable = unmodifiable;
 	}
+	
+	public SkaiciusIrLinksnis unmodifiable() {
+		setUnmodifiable(true);
+		return this;
+	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {

@@ -6,7 +6,6 @@ import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
 /**
@@ -46,11 +45,10 @@ public class ZodisJunginyje {
 	 * @return skaitvardis
 	 */
 	public static String toString(List<? extends ZodisJunginyje> zodziai, FormaIrSkaiciai formaSkaiciai) {
-		Linksnis linksnis = formaSkaiciai.getForma().getLinksnis();
 		StringBuilder r = new StringBuilder();
-		boolean pirmas = true;
 		boolean kelintinis = formaSkaiciai.getForma().getPoskyris() == Poskyris.Kelintinis;
-		Skaicius skaicius = formaSkaiciai.getForma().getSkaicius();
+		
+		SkaiciusIrLinksnis skaiciusLinksnis = formaSkaiciai.getForma().toSkaiciusLinksnis();
 		
 		for (int i = 0; i < zodziai.size(); ++i) {
 			ZodisJunginyje dabartinis = zodziai.get(i);
@@ -60,31 +58,27 @@ public class ZodisJunginyje {
 			boolean paskutinisJunginyje = kitas == null;
 			boolean paskutinisFragmente = (kitas == null || kitas.isDaugyba());
 
-			if (pirmas) {
-				pirmas = false;
-			} else {
-				r.append(" ");
-			}
-			
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			
 			if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
 				SkaiciusIrLinksnis sl = ankstesnis.getZodis().getKitas().clone();
 				if (sl.getLinksnis() == null) {
-					sl.setLinksnis(kelintinis ? Linksnis.V : linksnis);
+					sl.setLinksnis(kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis());
 					// pvz. (kelintinis == true),  "du _šimtai_ dešimtojo"
 					// pvz. (kelintinis == false), "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas", "keturis _šimtus_ keturiasdešimt vieną"
 				}
 				s = zodis.toString(sl);
-			} else if (!paskutinisJunginyje && kelintinis) {
-				s = zodis.toString(); // pvz., "_šimtas_ pirmojo"
-			} else if (!paskutinisFragmente && zodis.isNekaitomasLinksniuojant()) {
-				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
 			} else {
-				s = zodis.toString(new SkaiciusIrLinksnis(skaicius, linksnis)); // pvz., "dvidešimt _vieną_"
+				boolean vv;
+				if (kelintinis) {
+					vv = !paskutinisJunginyje; // pvz., "_šimtas_ pirmojo"
+				} else {
+					vv = !paskutinisFragmente && zodis.isNekaitomasLinksniuojant(); // pvz, "_dvidešimt_ dviejų"
+				}		
+				s = zodis.toString(vv ? SkaiciusIrLinksnis.VNS_VARD : skaiciusLinksnis);  // pvz. (vnsVard = false), "dvidešimt _vieną_"
 			}
-			r.append(s);
+			r.append(i > 0 ? " " : "").append(s);
 		}
 		return r.toString();		
 	}

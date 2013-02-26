@@ -3,6 +3,7 @@ package eu.vytenis.skaitvardziai.checks;
 /**
  * Interfeisas, per kurį objektai gali būti pažymėti, kad jie negali būti redaguojami.
  */
+// TODO apsaugoti
 public interface UnmodifiableCapable {
 	
 	/**

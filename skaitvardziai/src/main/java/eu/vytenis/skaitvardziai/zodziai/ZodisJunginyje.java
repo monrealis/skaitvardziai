@@ -56,10 +56,9 @@ public class ZodisJunginyje {
 			ZodisJunginyje dabartinis = zodziai.get(i);
 			ZodisJunginyje ankstesnis = i > 0 ? zodziai.get(i - 1) : null;
 			ZodisJunginyje kitas = i < zodziai.size() - 1 ? zodziai.get(i + 1) : null;
-			boolean paskutinis = kitas == null
-					|| !kelintinis && kitas != null && kitas.isDaugyba();
-					// TODO turbūt parašyti kažkokią sąlyga panašią į
-					// kelintinis && kitas == null ?? 
+			
+			boolean paskutinisJunginyje = kitas == null;
+			boolean paskutinisFragmente = (kitas == null || kitas.isDaugyba());
 
 			if (pirmas) {
 				pirmas = false;
@@ -69,22 +68,19 @@ public class ZodisJunginyje {
 			
 			Zodis zodis = dabartinis.getZodis();
 			String s;
-			if (zodis.isValdomas() && ankstesnis != null && !paskutinis && kelintinis && dabartinis.isDaugyba()) {
-				SkaiciusIrLinksnis kitoSkaiciusLinksnis = ankstesnis.getZodis().getKitas().clone();
-				if (kitoSkaiciusLinksnis.getLinksnis() == null) {
-					kitoSkaiciusLinksnis.setLinksnis(Linksnis.V);
+			
+			if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
+				SkaiciusIrLinksnis sl = ankstesnis.getZodis().getKitas().clone();
+				if (sl.getLinksnis() == null) {
+					sl.setLinksnis(kelintinis ? Linksnis.V : linksnis);
+					// pvz. (kelintinis == true),  "du _šimtai_ dešimtojo"
+					// pvz. (kelintinis == false), "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas", "keturis _šimtus_ keturiasdešimt vieną"
 				}
-				s = zodis.toString(kitoSkaiciusLinksnis); //pvz., "du _šimtai_ dešimtojo"
-			} else if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
-				SkaiciusIrLinksnis kitoSkaiciusLinksnis = ankstesnis.getZodis().getKitas().clone();
-				if (kitoSkaiciusLinksnis.getLinksnis() == null) {
-					kitoSkaiciusLinksnis.setLinksnis(linksnis);
-				}
-				s = zodis.toString(kitoSkaiciusLinksnis); // pvz., "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas"
-			} else if (!paskutinis && zodis.isNekaitomasLinksniuojant()) {
-				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
-			} else if (!paskutinis && kelintinis) {
+				s = zodis.toString(sl);
+			} else if (!paskutinisJunginyje && kelintinis) {
 				s = zodis.toString(); // pvz., "_šimtas_ pirmojo"
+			} else if (!paskutinisFragmente && zodis.isNekaitomasLinksniuojant()) {
+				s = zodis.toString(); // pvz, "_dvidešimt_ dviejų"
 			} else {
 				s = zodis.toString(new SkaiciusIrLinksnis(skaicius, linksnis)); // pvz., "dvidešimt _vieną_"
 			}

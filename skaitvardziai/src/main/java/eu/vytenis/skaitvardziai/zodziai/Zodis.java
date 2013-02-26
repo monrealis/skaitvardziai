@@ -2,7 +2,6 @@ package eu.vytenis.skaitvardziai.zodziai;
 
 import java.math.BigInteger;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -58,26 +57,26 @@ public class Zodis implements UnmodifiableCapable {
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	
 	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> pagrindiniaiMotGimMap;
+	static final Map<Long, Zodis> pagrindiniaiMotGimMap;
 	/** Pagrindiniai skaitvardžiai (vyriškos giminės). */
-	private static final Map<Long, Zodis> pagrindiniaiVyrGimMap;
+	static final Map<Long, Zodis> pagrindiniaiVyrGimMap;
 	
 	/** Kuopiniai skaitvardžiai.*/
-	private static final Map<Long, Zodis> kuopiniaiMap;
+	static final Map<Long, Zodis> kuopiniaiMap;
 	
 	/** Dauginiai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> dauginiaiMotGimMap;
+	static final Map<Long, Zodis> dauginiaiMotGimMap;
 	/** Dauginiai skaitvardžiai (vyriškos giminės). */
-	private static final Map<Long, Zodis> dauginiaiVyrGimMap;
+	static final Map<Long, Zodis> dauginiaiVyrGimMap;
 	
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiVyrGimMap;
+	static final Map<Long, Zodis> kelintiniaiVyrGimMap;
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiIvVyrGimMap;
+	static final Map<Long, Zodis> kelintiniaiIvVyrGimMap;
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiMotGimMap;
+	static final Map<Long, Zodis> kelintiniaiMotGimMap;
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	private static final Map<Long, Zodis> kelintiniaiIvMotGimMap;
+	static final Map<Long, Zodis> kelintiniaiIvMotGimMap;
 
 
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -152,6 +151,7 @@ public class Zodis implements UnmodifiableCapable {
 	}
 	
 	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
+		CheckUtil.checkCanModify("Zodis", this);
 		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
 		return this;
 	}
@@ -162,6 +162,7 @@ public class Zodis implements UnmodifiableCapable {
 
 	
 	public Zodis valdomas() {
+		CheckUtil.checkCanModify("Zodis", this);
 		valdomas = true;
 		return this;
 	}
@@ -171,6 +172,7 @@ public class Zodis implements UnmodifiableCapable {
 	}
 	
 	public void setNekaitomasLinksniuojant(boolean nekaitomasLinksniuojant) {
+		CheckUtil.checkCanModify("Zodis", this);
 		this.nekaitomasLinksniuojant = nekaitomasLinksniuojant;
 	}
 	
@@ -186,6 +188,7 @@ public class Zodis implements UnmodifiableCapable {
 	
 	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
+		CheckUtil.checkCanModify("Zodis", this);
 		this.unmodifiable = unmodifiable;
 	}
 	
@@ -194,7 +197,7 @@ public class Zodis implements UnmodifiableCapable {
 	 * @return lentelė
 	 */
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {
-		return new HashMap<SkaiciusIrLinksnis, String>(formos);
+		return Collections.unmodifiableMap(formos);
 	}
 
 	

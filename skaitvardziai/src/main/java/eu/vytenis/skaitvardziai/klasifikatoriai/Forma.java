@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 
 /**
@@ -19,24 +20,28 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 		return poskyris;
 	}
 	public void setPoskyris(Poskyris poskyris) {
+		CheckUtil.checkCanModify("Forma", this);
 		this.poskyris = poskyris;
 	}
 	public Gimine getGimine() {
 		return gimine;
 	}
 	public void setGimine(Gimine gimine) {
+		CheckUtil.checkCanModify("Forma", this);
 		this.gimine = gimine;
 	}
 	public Skaicius getSkaicius() {
 		return skaicius;
 	}
 	public void setSkaicius(Skaicius skaicius) {
+		CheckUtil.checkCanModify("Forma", this);
 		this.skaicius = skaicius;
 	}
 	public Linksnis getLinksnis() {
 		return linksnis;
 	}
 	public void setLinksnis(Linksnis linksnis) {
+		CheckUtil.checkCanModify("Forma", this);
 		this.linksnis = linksnis;
 	}
 	
@@ -48,12 +53,14 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 		return rusis;
 	}
 	public void setRusis(Rusis rusis) {
+		CheckUtil.checkCanModify("Forma", this);
 		this.rusis = rusis;
 	}	
 	public boolean isUnmodifiable() {
 		return unmodifiable;
 	}	
 	public void setUnmodifiable(boolean unmodifiable) {
+		CheckUtil.checkCanModify("Forma", this);
 		this.unmodifiable = unmodifiable;
 	}	
 	

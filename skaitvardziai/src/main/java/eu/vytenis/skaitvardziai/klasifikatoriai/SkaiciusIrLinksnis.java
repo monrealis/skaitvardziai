@@ -2,6 +2,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.util.Arrays;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.util.CompareUtils;
 
@@ -31,6 +32,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 	
 	public void setSkaicius(Skaicius skaicius) {
+		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 		this.skaicius = skaicius;
 	}
 	
@@ -39,6 +41,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 	
 	public void setLinksnis(Linksnis linksnis) {
+		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 		this.linksnis = linksnis;
 	}
 
@@ -50,6 +53,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	
 	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
+		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 		this.unmodifiable = unmodifiable;
 	}
 	

@@ -3,7 +3,6 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 import java.math.BigInteger;
 
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
-import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 
 
 /**
@@ -11,7 +10,7 @@ import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
  * patį pradinį ir einamąjį skaičius.
  *
  */
-public class FormaIrSkaiciai implements Cloneable, UnmodifiableCapable {
+public class FormaIrSkaiciai implements Cloneable {
 	
 	/** Gramatinė forma. */
 	private Forma forma = new Forma();
@@ -19,9 +18,6 @@ public class FormaIrSkaiciai implements Cloneable, UnmodifiableCapable {
 	private BigInteger pradinisSveikasisSkaicius;
 	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
 	private BigInteger sveikasisSkaicius;
-	
-	/** Ar žodis neredaguojamas? */
-	private boolean unmodifiable;
 	
 	public FormaIrSkaiciai() {
 		
@@ -84,16 +80,6 @@ public class FormaIrSkaiciai implements Cloneable, UnmodifiableCapable {
 	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
 		setSveikasisSkaicius(naujasSkaicius);
 		return this;
-	}
-	
-	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
-	public boolean isUnmodifiable() {
-		return unmodifiable;
-	}
-	
-	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
-	public void setUnmodifiable(boolean unmodifiable) {
-		this.unmodifiable = unmodifiable;		
 	}
 
 	/**

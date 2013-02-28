@@ -116,6 +116,7 @@ public class CheckUtilTest {
 		}
 
 		public void setUnmodifiable(boolean unmodifiable) {
+			CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 			this.unmodifiable = unmodifiable;			
 		}
 		

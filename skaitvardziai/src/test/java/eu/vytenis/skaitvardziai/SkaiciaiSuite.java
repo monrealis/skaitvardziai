@@ -8,9 +8,11 @@ import eu.vytenis.skaitvardziai.app.MainTest;
 import eu.vytenis.skaitvardziai.checks.CheckUtilTest;
 import eu.vytenis.skaitvardziai.checks.RangeEndTest;
 import eu.vytenis.skaitvardziai.checks.RangeTest;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnisTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsJreTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsSaxonTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsXalanTest;
+import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 
 @SuiteClasses({
 	PagrindiniaiVyrTest.class,
@@ -31,7 +33,9 @@ import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsXalanTest;
 
 	RangeTest.class,
 	RangeEndTest.class,
-	CheckUtilTest.class})
+	CheckUtilTest.class,
+	SkaiciusIrLinksnisTest.class,
+	ZodisTest.class})
 @RunWith(Suite.class)
 public class SkaiciaiSuite {
 

@@ -2,6 +2,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.util.Arrays;
 
+import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.util.CompareUtils;
 
@@ -10,6 +11,9 @@ import eu.vytenis.skaitvardziai.util.CompareUtils;
  *
  */
 public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis>, UnmodifiableCapable {
+	
+	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V).unmodifiable();
+	
 	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius;
 	/** Linksnis. */
@@ -28,6 +32,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 	
 	public void setSkaicius(Skaicius skaicius) {
+		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 		this.skaicius = skaicius;
 	}
 	
@@ -36,6 +41,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 	
 	public void setLinksnis(Linksnis linksnis) {
+		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 		this.linksnis = linksnis;
 	}
 
@@ -47,8 +53,15 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	
 	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
+		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
 		this.unmodifiable = unmodifiable;
 	}
+	
+	public SkaiciusIrLinksnis unmodifiable() {
+		setUnmodifiable(true);
+		return this;
+	}
+	
 	
 	@Override
 	public boolean equals(Object obj) {

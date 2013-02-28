@@ -1,0 +1,38 @@
+PARSER_BEGIN(SkaitvardziaiFunctionParser)
+
+package eu.vytenis.parser;
+
+public class SkaitvardziaiFunctionParser {}
+
+PARSER_END(SkaitvardziaiFunctionParser)
+
+
+SKIP : { " " | "\t" | "\n" | "\r" }
+
+TOKEN: {
+  < NULL: "null" >
+  |
+  < INTEGER: (["0" - "9"])+ >
+}
+
+TOKEN [IGNORE_CASE]: {
+	< NAME: (["a" - "z"])+ >
+}
+
+SimpleNode start() : {} 
+{
+
+  FunctionInvocation()
+  { return jjtThis; }
+}
+
+void FunctionInvocation() : {} {
+	<NAME> "(" FunctionInvocationArgs() ")"
+}
+
+void FunctionInvocationArgs() : {} {
+	<INTEGER>
+}
+
+
+

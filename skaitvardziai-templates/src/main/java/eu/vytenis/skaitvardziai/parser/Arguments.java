@@ -6,17 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eu.vytenis.parser.SimpleNode;
-import eu.vytenis.parser.SkaitvardziaiFunctionParserTreeConstants;
-import eu.vytenis.parser.Token;
+import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
+import eu.vytenis.skaitvardziai.parser.tree.Token;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class Arguments {
 
 	public static Object[] getArguments(SimpleNode functionCallNode) {
-		SimpleNode argsNode = Nodes.getOnlyChild(functionCallNode, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENTS);
-		List<SimpleNode> argNodes = Nodes.getChildren(argsNode, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENT);
+		SimpleNode argsNode = Nodes.getOnlyChild(functionCallNode, TreeConstants.getArguments());
+		List<SimpleNode> argNodes = Nodes.getChildren(argsNode, TreeConstants.getArgument());
 		
 		List<Object> r = new ArrayList<Object>();
 		for (SimpleNode n : argNodes) {
@@ -36,10 +35,10 @@ public class Arguments {
 	private static final Map<String, ArgHandler> argHandlers;
 	static {
 		Map<String, ArgHandler> h = new HashMap<String, Arguments.ArgHandler>();
-		h.put(SkaitvardziaiFunctionParserTreeConstants.jjtNodeName[SkaitvardziaiFunctionParserTreeConstants.JJTNULL], new NullHandler());
-		h.put(SkaitvardziaiFunctionParserTreeConstants.jjtNodeName[SkaitvardziaiFunctionParserTreeConstants.JJTSTRING], new StringHandler());
-		h.put(SkaitvardziaiFunctionParserTreeConstants.jjtNodeName[SkaitvardziaiFunctionParserTreeConstants.JJTINTEGER], new IntegerHandler());
-		h.put(SkaitvardziaiFunctionParserTreeConstants.jjtNodeName[SkaitvardziaiFunctionParserTreeConstants.JJTFRACTION], new FractionHandler());
+		h.put(TreeConstants.getNull(), new NullHandler());
+		h.put(TreeConstants.getString(), new StringHandler());
+		h.put(TreeConstants.getInteger(), new IntegerHandler());
+		h.put(TreeConstants.getFraction(), new FractionHandler());
 		argHandlers = Collections.unmodifiableMap(h);
 	}
 
@@ -74,8 +73,8 @@ public class Arguments {
 		}
 
 		private String getNumberString(SimpleNode node) {
-			SimpleNode minus = Nodes.getOnlyChild(node, SkaitvardziaiFunctionParserTreeConstants.JJTMINUS);
-			SimpleNode unsigned = Nodes.getOnlyChild(node, SkaitvardziaiFunctionParserTreeConstants.JJTUNSIGNEDINTEGER);
+			SimpleNode minus = Nodes.getOnlyChild(node, TreeConstants.getMinus());
+			SimpleNode unsigned = Nodes.getOnlyChild(node, TreeConstants.getUnsignedInteger());
 			
 			String number = ((Token) unsigned.jjtGetValue()).image;
 			if (minus != null) {
@@ -91,7 +90,7 @@ public class Arguments {
 		private IntegerHandler integerHandler = new IntegerHandler();
 
 		public Object getValue(SimpleNode node) {
-			List<SimpleNode> skaitiklisVardiklis = Nodes.getChildren(node, SkaitvardziaiFunctionParserTreeConstants.JJTINTEGER);
+			List<SimpleNode> skaitiklisVardiklis = Nodes.getChildren(node, TreeConstants.getInteger());
 			String s = integerHandler.getNumberString(skaitiklisVardiklis.get(0));
 			String v = integerHandler.getNumberString(skaitiklisVardiklis.get(1));
 			return new Trupmena(s, v);

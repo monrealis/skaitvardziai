@@ -5,9 +5,9 @@ import java.io.StringReader;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.vytenis.parser.ParseException;
-import eu.vytenis.parser.SimpleNode;
-import eu.vytenis.parser.SkaitvardziaiFunctionParser;
+import eu.vytenis.skaitvardziai.parser.tree.ParseException;
+import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
+import eu.vytenis.skaitvardziai.parser.tree.TreeParser;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
@@ -73,7 +73,7 @@ public class SkaitvardziaiFunctionParserTest {
 		if (removeWhitespace) {
 			functionCallText = functionCallText.replaceAll("\\s", "");			
 		}
-		SimpleNode call = new SkaitvardziaiFunctionParser(new StringReader(functionCallText)).FunctionCall();
+		SimpleNode call = new TreeParser(new StringReader(functionCallText)).FunctionCall();
 		System.out.println();
 		System.out.println(functionCallText);
 		call.dump("");

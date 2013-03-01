@@ -6,14 +6,14 @@ options {
 	NODE_SCOPE_HOOK = false;
 }
 
-PARSER_BEGIN(SkaitvardziaiFunctionParser)
+PARSER_BEGIN(TreeParser)
 
-package eu.vytenis.parser;
+package eu.vytenis.skaitvardziai.parser.tree;
 
 @SuppressWarnings({"serial", "unused"})
-public class SkaitvardziaiFunctionParser {}
+public class TreeParser {}
 
-PARSER_END(SkaitvardziaiFunctionParser)
+PARSER_END(TreeParser)
 
 
 SKIP : { " " | "\t" | "\n" | "\r" }

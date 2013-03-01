@@ -4,28 +4,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import eu.vytenis.parser.SimpleNode;
-import eu.vytenis.parser.SkaitvardziaiFunctionParserTreeConstants;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 
 public class Nodes {
 
-	public static List<SimpleNode> getChildren(SimpleNode node, int id) {
+	public static List<SimpleNode> getChildren(SimpleNode node, String name) {
 		if (node == null) {
 			return Collections.emptyList();
 		}
 		List<SimpleNode> r = new ArrayList<SimpleNode>();
 		for (int i = 0; i < node.jjtGetNumChildren(); ++i) {
 			SimpleNode n = (SimpleNode) node.jjtGetChild(i);
-			if (n.toString().equals(SkaitvardziaiFunctionParserTreeConstants.jjtNodeName[id])) {
+			if (n.toString().equals(name)) {
 				r.add(n);
 			}
 		}
 		return r;		
 	}
 
-	public static SimpleNode getOnlyChild(SimpleNode node, int id) {
-		List<SimpleNode> r = getChildren(node, id);
+	public static SimpleNode getOnlyChild(SimpleNode node, String name) {
+		List<SimpleNode> r = getChildren(node, name);
 		if (r.size() > 1) {
 			throw new MoreThanOneChildException();
 		}

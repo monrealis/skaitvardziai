@@ -1,11 +1,20 @@
 options {
 	UNICODE_INPUT = true;
 	STATIC = false;
+	
+	MULTI=false;
+	NODE_PREFIX="";
+	
+	NODE_SCOPE_HOOK = false;
 }
 
 PARSER_BEGIN(SkaitvardziaiFunctionParser)
+
 package eu.vytenis.parser;
+
+@SuppressWarnings({"serial", "unused"})
 public class SkaitvardziaiFunctionParser {}
+
 PARSER_END(SkaitvardziaiFunctionParser)
 
 
@@ -23,11 +32,11 @@ TOKEN: {
 
 
 TOKEN: {
-	< STRING_LITERAL: (<STRING_LITERAL_SINGLE_QUOTED> | <STRING_LITERAL_DOUBLE_QUOTED>) >
-	|
 	< #STRING_LITERAL_DOUBLE_QUOTED: "\"" (~["\""])* "\"" >
 	|
 	< #STRING_LITERAL_SINGLE_QUOTED: "'" (~["'"])* "'" >
+	|
+	< STRING_LITERAL: (<STRING_LITERAL_SINGLE_QUOTED> | <STRING_LITERAL_DOUBLE_QUOTED>) >
   
 }
 
@@ -35,15 +44,12 @@ TOKEN: {
 	<INTEGER_LITERAL: <DIGIT> (<DIGIT>)* >
 }
 
-SimpleNode start() : {} 
-{
-
-  Call()
-  { return jjtThis; }
+SimpleNode FunctionCall() : {} {
+	Identifier() "(" Arguments() ")" { return jjtThis; }
 }
 
-void Call() : {} {
-	<IDENTIFIER> "(" Arguments() ")"
+void Identifier() : {Token value;} {
+	value = <IDENTIFIER> {jjtThis.value = value;}
 }
 
 void Arguments() : {} {
@@ -51,6 +57,19 @@ void Arguments() : {} {
 }
 
 void Argument() : {} {
-	<INTEGER_LITERAL> | <STRING_LITERAL>
+	LOOKAHEAD(2)
+	FractionLiteral() | IntegerLiteral() | StringLiteral() 
+}
+
+void IntegerLiteral() : {Token value;} {
+	value = <INTEGER_LITERAL> {jjtThis.value = value;}
+}
+
+void StringLiteral() : {Token value;} {
+	value = <STRING_LITERAL> {jjtThis.value = value;}
+}
+
+void FractionLiteral() : {} {
+	IntegerLiteral() "/" IntegerLiteral()
 }
 

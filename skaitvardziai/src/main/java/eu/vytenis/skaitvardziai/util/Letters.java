@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class LetterUtils {
+public class Letters {
 	
 	public static final Locale LT = new Locale("lt");
 	/** Lentelė lietuviškos raidės -> lotyniškos raidės. */

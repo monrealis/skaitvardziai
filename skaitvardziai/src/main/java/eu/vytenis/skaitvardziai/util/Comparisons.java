@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Pagalbinės operacijos objektams lyginti.
  */
-public class CompareUtils {
+public class Comparisons {
 
 
 	/**

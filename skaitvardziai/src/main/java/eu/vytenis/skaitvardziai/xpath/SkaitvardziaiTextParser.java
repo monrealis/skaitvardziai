@@ -23,7 +23,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.util.LetterUtils;
+import eu.vytenis.skaitvardziai.util.Letters;
 
 public class SkaitvardziaiTextParser {
 	private static final Map<String, Object> symbols;
@@ -53,11 +53,11 @@ public class SkaitvardziaiTextParser {
 			Set<String> aliases = new TreeSet<String>();
 			for (String name : names) {				
 				aliases.add(name);
-				aliases.add(name.toUpperCase(LetterUtils.LT));
-				aliases.add(name.toLowerCase(LetterUtils.LT));
-				aliases.add(LetterUtils.translateLtToLatin(name));
-				aliases.add(LetterUtils.translateLtToLatin(name.toLowerCase(LetterUtils.LT)));
-				aliases.add(LetterUtils.translateLtToLatin(name.toUpperCase(LetterUtils.LT)));
+				aliases.add(name.toUpperCase(Letters.LT));
+				aliases.add(name.toLowerCase(Letters.LT));
+				aliases.add(Letters.translateLtToLatin(name));
+				aliases.add(Letters.translateLtToLatin(name.toLowerCase(Letters.LT)));
+				aliases.add(Letters.translateLtToLatin(name.toUpperCase(Letters.LT)));
 			}
 			
 			for (String a : aliases) {

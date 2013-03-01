@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
@@ -80,14 +80,14 @@ public class Zodis implements UnmodifiableCapable {
 
 
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
-		CheckUtil.checkNotNull("skaicius", skaicius);		
-		CheckUtil.checkNotNull("vnsV", vnsV);
-		CheckUtil.checkNotNull("vnsK", vnsK);
-		CheckUtil.checkNotNull("vnsN", vnsN);
-		CheckUtil.checkNotNull("vnsG", vnsG);
-		CheckUtil.checkNotNull("vnsI", vnsI);
-		CheckUtil.checkNotNull("vnsVt", vnsVt);
-		CheckUtil.checkNotNull("vnsS", vnsS);
+		Checks.checkNotNull("skaicius", skaicius);		
+		Checks.checkNotNull("vnsV", vnsV);
+		Checks.checkNotNull("vnsK", vnsK);
+		Checks.checkNotNull("vnsN", vnsN);
+		Checks.checkNotNull("vnsG", vnsG);
+		Checks.checkNotNull("vnsI", vnsI);
+		Checks.checkNotNull("vnsVt", vnsVt);
+		Checks.checkNotNull("vnsS", vnsS);
 		
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.V), vnsV);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.K), vnsK);
@@ -104,21 +104,21 @@ public class Zodis implements UnmodifiableCapable {
 	
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS,
 			String dgsV, String dgsK, String dgsN, String dgsG, String dgsI, String dgsVt, String dgsS) {
-		CheckUtil.checkNotNull("vnsV", vnsV);
-		CheckUtil.checkNotNull("vnsK", vnsK);
-		CheckUtil.checkNotNull("vnsN", vnsN);
-		CheckUtil.checkNotNull("vnsG", vnsG);
-		CheckUtil.checkNotNull("vnsI", vnsI);
-		CheckUtil.checkNotNull("vnsVt", vnsVt);
-		CheckUtil.checkNotNull("vnsS", vnsS);
+		Checks.checkNotNull("vnsV", vnsV);
+		Checks.checkNotNull("vnsK", vnsK);
+		Checks.checkNotNull("vnsN", vnsN);
+		Checks.checkNotNull("vnsG", vnsG);
+		Checks.checkNotNull("vnsI", vnsI);
+		Checks.checkNotNull("vnsVt", vnsVt);
+		Checks.checkNotNull("vnsS", vnsS);
 		
-		CheckUtil.checkNotNull("dgsV", dgsV);
-		CheckUtil.checkNotNull("dgsK", dgsK);
-		CheckUtil.checkNotNull("dgsN", dgsN);
-		CheckUtil.checkNotNull("dgsG", dgsG);
-		CheckUtil.checkNotNull("dgsI", dgsI);
-		CheckUtil.checkNotNull("dgsVt", dgsVt);
-		CheckUtil.checkNotNull("dgsS", dgsS);
+		Checks.checkNotNull("dgsV", dgsV);
+		Checks.checkNotNull("dgsK", dgsK);
+		Checks.checkNotNull("dgsN", dgsN);
+		Checks.checkNotNull("dgsG", dgsG);
+		Checks.checkNotNull("dgsI", dgsI);
+		Checks.checkNotNull("dgsVt", dgsVt);
+		Checks.checkNotNull("dgsS", dgsS);
 		
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V), vnsV);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K), vnsK);
@@ -151,7 +151,7 @@ public class Zodis implements UnmodifiableCapable {
 	}
 	
 	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
-		CheckUtil.checkCanModify("Zodis", this);
+		Checks.checkCanModify("Zodis", this);
 		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
 		return this;
 	}
@@ -162,7 +162,7 @@ public class Zodis implements UnmodifiableCapable {
 
 	
 	public Zodis valdomas() {
-		CheckUtil.checkCanModify("Zodis", this);
+		Checks.checkCanModify("Zodis", this);
 		valdomas = true;
 		return this;
 	}
@@ -172,7 +172,7 @@ public class Zodis implements UnmodifiableCapable {
 	}
 	
 	public void setNekaitomasLinksniuojant(boolean nekaitomasLinksniuojant) {
-		CheckUtil.checkCanModify("Zodis", this);
+		Checks.checkCanModify("Zodis", this);
 		this.nekaitomasLinksniuojant = nekaitomasLinksniuojant;
 	}
 	
@@ -188,7 +188,7 @@ public class Zodis implements UnmodifiableCapable {
 	
 	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
-		CheckUtil.checkCanModify("Zodis", this);
+		Checks.checkCanModify("Zodis", this);
 		this.unmodifiable = unmodifiable;
 	}
 	
@@ -439,15 +439,15 @@ public class Zodis implements UnmodifiableCapable {
 
 	static {
 		// Žodžius padaro neredaguojamus
-		CheckUtil.ensureUnmodifiable(pagrindiniaiMotGimMap.values());
-		CheckUtil.ensureUnmodifiable(pagrindiniaiVyrGimMap.values());
-		CheckUtil.ensureUnmodifiable(kuopiniaiMap.values());
-		CheckUtil.ensureUnmodifiable(dauginiaiMotGimMap.values());
-		CheckUtil.ensureUnmodifiable(dauginiaiVyrGimMap.values());
-		CheckUtil.ensureUnmodifiable(kelintiniaiVyrGimMap.values());
-		CheckUtil.ensureUnmodifiable(kelintiniaiIvVyrGimMap.values());
-		CheckUtil.ensureUnmodifiable(kelintiniaiMotGimMap.values());
-		CheckUtil.ensureUnmodifiable(kelintiniaiIvMotGimMap.values());		
+		Checks.ensureUnmodifiable(pagrindiniaiMotGimMap.values());
+		Checks.ensureUnmodifiable(pagrindiniaiVyrGimMap.values());
+		Checks.ensureUnmodifiable(kuopiniaiMap.values());
+		Checks.ensureUnmodifiable(dauginiaiMotGimMap.values());
+		Checks.ensureUnmodifiable(dauginiaiVyrGimMap.values());
+		Checks.ensureUnmodifiable(kelintiniaiVyrGimMap.values());
+		Checks.ensureUnmodifiable(kelintiniaiIvVyrGimMap.values());
+		Checks.ensureUnmodifiable(kelintiniaiMotGimMap.values());
+		Checks.ensureUnmodifiable(kelintiniaiIvMotGimMap.values());		
 	}
 	
 	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {

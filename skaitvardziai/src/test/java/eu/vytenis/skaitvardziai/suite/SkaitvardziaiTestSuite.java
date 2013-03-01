@@ -5,7 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import eu.vytenis.skaitvardziai.app.MainTest;
-import eu.vytenis.skaitvardziai.checks.CheckUtilTest;
+import eu.vytenis.skaitvardziai.checks.ChecksTest;
 import eu.vytenis.skaitvardziai.checks.RangeEndTest;
 import eu.vytenis.skaitvardziai.checks.RangeTest;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnisTest;
@@ -42,7 +42,7 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 
 	RangeTest.class,
 	RangeEndTest.class,
-	CheckUtilTest.class,
+	ChecksTest.class,
 	SkaiciusIrLinksnisTest.class,
 	ZodisTest.class})
 @RunWith(Suite.class)

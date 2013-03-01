@@ -2,9 +2,9 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.util.Arrays;
 
-import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
-import eu.vytenis.skaitvardziai.util.CompareUtils;
+import eu.vytenis.skaitvardziai.util.Comparisons;
 
 /**
  * Skaičiaus (vienaskaita/daugiskaita) ir linksnio pora.
@@ -32,7 +32,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 	
 	public void setSkaicius(Skaicius skaicius) {
-		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
+		Checks.checkCanModify("SkaiciusLinksnis", this);
 		this.skaicius = skaicius;
 	}
 	
@@ -41,7 +41,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 	
 	public void setLinksnis(Linksnis linksnis) {
-		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
+		Checks.checkCanModify("SkaiciusLinksnis", this);
 		this.linksnis = linksnis;
 	}
 
@@ -53,7 +53,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	
 	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
-		CheckUtil.checkCanModify("SkaiciusLinksnis", this);
+		Checks.checkCanModify("SkaiciusLinksnis", this);
 		this.unmodifiable = unmodifiable;
 	}
 	
@@ -91,7 +91,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	 * Žiūrėti: {@link Comparable#compareTo(Object)}	
 	 */
 	public int compareTo(SkaiciusIrLinksnis o) {
-		return CompareUtils.compareLists(Arrays.<Enum<?>>asList(skaicius, linksnis), Arrays.<Enum<?>>asList(o.skaicius, o.linksnis));
+		return Comparisons.compareLists(Arrays.<Enum<?>>asList(skaicius, linksnis), Arrays.<Enum<?>>asList(o.skaicius, o.linksnis));
 	}
 	
 	@Override

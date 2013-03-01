@@ -1,16 +1,15 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.checks.CheckUtil.NotModifiableException;
+import eu.vytenis.skaitvardziai.checks.Checks.NotModifiableException;
 
 public class SkaiciusIrLinksnisTest {
 
 	@Test
 	public void testVnsVard() {
-		assertTrue(SkaiciusIrLinksnis.VNS_VARD.isUnmodifiable());
+		Assert.assertTrue(SkaiciusIrLinksnis.VNS_VARD.isUnmodifiable());
 	}
 	
 	@Test(expected = NotModifiableException.class)

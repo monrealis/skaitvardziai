@@ -8,7 +8,7 @@ import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
  * Operacijoms reikšmėms validuoti.
  *
  */
-public class CheckUtil {
+public class Checks {
 
 	/**
 	 * Patikrina, ar objektas nėra null. Jei null, meta {@link IllegalArgumentException}.

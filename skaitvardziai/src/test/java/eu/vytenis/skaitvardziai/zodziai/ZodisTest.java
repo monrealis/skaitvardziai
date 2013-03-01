@@ -2,7 +2,7 @@ package eu.vytenis.skaitvardziai.zodziai;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.checks.CheckUtil.NotModifiableException;
+import eu.vytenis.skaitvardziai.checks.Checks.NotModifiableException;
 
 public class ZodisTest {
 

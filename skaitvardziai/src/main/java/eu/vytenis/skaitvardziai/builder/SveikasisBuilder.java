@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
-import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.util.Numbers;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
@@ -50,8 +50,8 @@ public class SveikasisBuilder {
 			if (!sveikasSkaicius.equals(tikrasSkaicius)) {
 				throw new IllegalArgumentException();
 			}
-			BuilderCheckUtil.checkPoskyris("forma.poskyris", poskyris, SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI);
-			daugiazenkliai.buildDaugiazenklis(forma, SveikasisSkaicius.BILLION);
+			BuilderChecks.checkPoskyris("forma.poskyris", poskyris, SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI);
+			daugiazenkliai.buildDaugiazenklis(forma, Numbers.BILLION);
 		}
 
 		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {
@@ -59,13 +59,13 @@ public class SveikasisBuilder {
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
 			Gimine gimine = formaIrSkaiciai.getForma().getGimine();
 		
-			BuilderCheckUtil.checkPowerOfThousand("tukstancioLaipsnis", tukstancioLaipsnis);
+			BuilderChecks.checkPowerOfThousand("tukstancioLaipsnis", tukstancioLaipsnis);
 			
 			BigInteger sk = sveikasSkaicius;
 			BigInteger tukstanciu = sk.divide(tukstancioLaipsnis);
 			BigInteger tukstanciuLiekana = sveikasSkaicius.mod(tukstancioLaipsnis);
-			if (tukstancioLaipsnis.compareTo(SveikasisSkaicius.THOUSAND) > 0) {
-				buildDaugiazenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciuLiekana), tukstancioLaipsnis.divide(SveikasisSkaicius.THOUSAND));
+			if (tukstancioLaipsnis.compareTo(Numbers.THOUSAND) > 0) {
+				buildDaugiazenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciuLiekana), tukstancioLaipsnis.divide(Numbers.THOUSAND));
 			} else {
 				trizenkliai.buildTrizenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciuLiekana));
 			}
@@ -78,7 +78,7 @@ public class SveikasisBuilder {
 				} else {
 					zodziai.add(getSuma(Zodis.getPagrindinis(tukstancioLaipsnis, Gimine.V)));
 				}			
-			} else if (tukstanciu.compareTo(BigInteger.ONE) > 0 && tukstanciu.compareTo(SveikasisSkaicius.THOUSAND) < 0) {
+			} else if (tukstanciu.compareTo(BigInteger.ONE) > 0 && tukstanciu.compareTo(Numbers.THOUSAND) < 0) {
 				if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana.equals(BigInteger.ZERO)) {
 					zodziai.add(getDaugyba(Zodis.getKelintinis(tukstancioLaipsnis, gimine, Rusis.Iv)));
 					trizenkliai.buildTrizenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
@@ -100,26 +100,26 @@ public class SveikasisBuilder {
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
 			Gimine gimine = formaIrSkaiciai.getForma().getGimine();
 			
-			CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, SveikasisSkaicius.THOUSAND);
+			Checks.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, Numbers.THOUSAND);
 			
-			BigInteger dvizenklis = sveikasSkaicius.mod(SveikasisSkaicius.HUNDRED);
+			BigInteger dvizenklis = sveikasSkaicius.mod(Numbers.HUNDRED);
 			dvizenkliai.buildDvizenklis(formaIrSkaiciai.clone().sveikasSkaicius(dvizenklis));
 			
-			BigInteger simtai = sveikasSkaicius.divide(SveikasisSkaicius.HUNDRED);
-			BigInteger liekana = sveikasSkaicius.mod(SveikasisSkaicius.HUNDRED);
+			BigInteger simtai = sveikasSkaicius.divide(Numbers.HUNDRED);
+			BigInteger liekana = sveikasSkaicius.mod(Numbers.HUNDRED);
 			if (simtai.equals(BigInteger.ONE)) {
 				if (poskyris == Poskyris.Kelintinis && liekana.equals(BigInteger.ZERO)) {
-					zodziai.add(getSuma(Zodis.getKelintinis(SveikasisSkaicius.HUNDRED, gimine, Rusis.Iv)));
+					zodziai.add(getSuma(Zodis.getKelintinis(Numbers.HUNDRED, gimine, Rusis.Iv)));
 				} else {
-					zodziai.add(getSuma(Zodis.getPagrindinis(SveikasisSkaicius.HUNDRED, Gimine.V)));
+					zodziai.add(getSuma(Zodis.getPagrindinis(Numbers.HUNDRED, Gimine.V)));
 				}
 				
 			} else if (simtai.compareTo(BigInteger.ONE) > 0) {
 				if (poskyris == Poskyris.Kelintinis && liekana.equals(BigInteger.ZERO)) {
-					zodziai.add(getDaugyba(Zodis.getKelintinis(SveikasisSkaicius.HUNDRED, gimine, Rusis.Iv)));
+					zodziai.add(getDaugyba(Zodis.getKelintinis(Numbers.HUNDRED, gimine, Rusis.Iv)));
 					zodziai.add(getSuma(Zodis.getPagrindinis(simtai, Gimine.V)));
 				} else {
-					zodziai.add(getDaugyba(Zodis.getPagrindinis(SveikasisSkaicius.HUNDRED, Gimine.V)));
+					zodziai.add(getDaugyba(Zodis.getPagrindinis(Numbers.HUNDRED, Gimine.V)));
 					zodziai.add(getSuma(Zodis.getPagrindinis(simtai, Gimine.V)));
 				}
 			}
@@ -135,11 +135,11 @@ public class SveikasisBuilder {
 			Gimine gimine = formaIrSkaiciai.getForma().getGimine();
 			Rusis rusis = formaIrSkaiciai.getForma().getRusis();
 			
-			CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, SveikasisSkaicius.HUNDRED);
+			Checks.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, Numbers.HUNDRED);
 			
 			if (sveikasSkaicius.compareTo(BigInteger.TEN) < 0) {
 				vienzenkliai.buildVienzenklis(formaIrSkaiciai);
-			} else if (sveikasSkaicius.compareTo(SveikasisSkaicius.TWENTY) < 0) {
+			} else if (sveikasSkaicius.compareTo(Numbers.TWENTY) < 0) {
 				if (poskyris == Poskyris.Kelintinis) {
 					zodziai.add(getSuma(Zodis.getKelintinis(sveikasSkaicius, gimine, rusis)));
 				} else {
@@ -170,7 +170,7 @@ public class SveikasisBuilder {
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
 			Rusis rusis = formaIrSkaiciai.getForma().getRusis();
 					
-			CheckUtil.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, BigInteger.TEN);
+			Checks.checkMinInclusive("forma.sveikasSkaicius", sveikasSkaicius, BigInteger.ZERO, BigInteger.TEN);
 			
 			if (sveikasSkaicius.equals(BigInteger.ZERO) && tikrasSkaicius.equals(BigInteger.ZERO) || sveikasSkaicius.compareTo(BigInteger.ZERO) > 0) {
 				if (poskyris == Poskyris.Pagrindinis) {
@@ -195,7 +195,7 @@ public class SveikasisBuilder {
 	private class Kuopiniai {
 
 		private String buildKuopinis(FormaIrSkaiciai formaIrSkaiciai) {
-			BuilderCheckUtil.checkPoskyris("formaIrSkaiciai.poskyris", formaIrSkaiciai.getForma().getPoskyris(), Arrays.asList(Poskyris.Kuopinis));
+			BuilderChecks.checkPoskyris("formaIrSkaiciai.poskyris", formaIrSkaiciai.getForma().getPoskyris(), Arrays.asList(Poskyris.Kuopinis));
 			BigInteger skaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			
 			zodziai.add(getSuma(Zodis.getKuopinis(skaicius)));		

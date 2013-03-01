@@ -6,9 +6,9 @@ import java.util.List;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.util.Numbers;
 
-public class BuilderCheckUtil {
+public class BuilderChecks {
 
 	public static void checkPoskyris(String objectName, Poskyris poskyris, List<Poskyris> validPoskyriai) {
 		if (!SveikasisBuilder.SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI.contains(poskyris)) {
@@ -18,7 +18,7 @@ public class BuilderCheckUtil {
 
 
 	public static void checkPowerOfThousand(String objectName, BigInteger powerOfThousand) {
-		BigInteger thousand = SveikasisSkaicius.THOUSAND;
+		BigInteger thousand = Numbers.THOUSAND;
 		List<BigInteger> expected = new ArrayList<BigInteger>();
 		for (int i = 1; i <= 3; ++i) {
 			expected.add(thousand.pow(i));

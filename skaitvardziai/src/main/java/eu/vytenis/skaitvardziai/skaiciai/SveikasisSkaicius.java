@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.builder.SveikasisBuilder;
-import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
@@ -19,18 +19,6 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
 public class SveikasisSkaicius implements SkaitineReiksme {
 	
-	/** {@link BigInteger} skaičius 11. */
-	public static BigInteger ELEVEN = new BigInteger("11");
-	/** {@link BigInteger} skaičius 20. */
-	public static BigInteger TWENTY = new BigInteger("20");
-	/** {@link BigInteger} skaičius 100. */
-	public static BigInteger HUNDRED = new BigInteger("100");
-	/** {@link BigInteger} skaičius 1000. */
-	public static BigInteger THOUSAND = new BigInteger("1000");
-	/** {@link BigInteger} skaičius 1000 000 0000. */
-	public static BigInteger BILLION = new BigInteger("1000000000");
-	
-	/** Skaitinė reikšmė (sveikasis skaičius). */
 	private BigInteger reiksme;
 	
 	public SveikasisSkaicius(long reiksme) {
@@ -38,12 +26,12 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 	}
 	
 	public SveikasisSkaicius(String reiksme) {
-		CheckUtil.checkNotNull("reiksme", reiksme);
+		Checks.checkNotNull("reiksme", reiksme);
 		this.reiksme = new BigInteger(reiksme);
 	}  
 	
 	public SveikasisSkaicius(BigInteger reiksme) {
-		CheckUtil.checkNotNull("reiksme", reiksme);
+		Checks.checkNotNull("reiksme", reiksme);
 		this.reiksme = reiksme;
 	}
 	

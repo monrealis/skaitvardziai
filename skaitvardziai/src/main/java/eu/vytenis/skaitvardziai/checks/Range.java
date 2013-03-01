@@ -15,7 +15,7 @@ public class Range<T extends Number & Comparable<T>> {
 	}
 	
 	public boolean contains(T number) {
-		CheckUtil.checkNotNull("number", number);
+		Checks.checkNotNull("number", number);
 		
 		boolean satisfiesLeft = isSatisfiesMin(number);
 		boolean satisfiesRight = isSatisfiesMax(number);

@@ -2,7 +2,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.math.BigInteger;
 
-import eu.vytenis.skaitvardziai.checks.CheckUtil;
+import eu.vytenis.skaitvardziai.checks.Checks;
 
 
 /**
@@ -24,12 +24,12 @@ public class FormaIrSkaiciai implements Cloneable {
 	}
 	
 	public FormaIrSkaiciai(Forma forma) {
-		CheckUtil.checkNotNull("forma", forma);
+		Checks.checkNotNull("forma", forma);
 		this.forma = forma;
 	}
 	
 	public FormaIrSkaiciai(Forma forma, BigInteger sveikasisSkaicius, BigInteger pradinisSveikasisSkaicius) {
-		CheckUtil.checkNotNull("forma", forma);
+		Checks.checkNotNull("forma", forma);
 		this.forma = forma;
 		this.sveikasisSkaicius = sveikasisSkaicius;
 		this.pradinisSveikasisSkaicius = pradinisSveikasisSkaicius;

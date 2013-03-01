@@ -1,5 +1,5 @@
 
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.skaiciai;
 
 import java.math.BigInteger;
 import java.util.Collections;

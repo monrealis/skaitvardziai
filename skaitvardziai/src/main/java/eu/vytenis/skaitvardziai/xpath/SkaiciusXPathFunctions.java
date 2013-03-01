@@ -2,13 +2,13 @@ package eu.vytenis.skaitvardziai.xpath;
 
 import java.util.Arrays;
 
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
-import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 
 /**

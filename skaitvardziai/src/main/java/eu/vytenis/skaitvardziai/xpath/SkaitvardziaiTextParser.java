@@ -10,10 +10,7 @@ import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import eu.vytenis.skaitvardziai.SkaitineReiksme;
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
-import eu.vytenis.skaitvardziai.Trupmena;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
@@ -23,6 +20,9 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
+import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 import eu.vytenis.skaitvardziai.util.LetterUtils;
 
 public class SkaitvardziaiTextParser {

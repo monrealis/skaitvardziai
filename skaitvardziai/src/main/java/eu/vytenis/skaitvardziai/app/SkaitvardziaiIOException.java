@@ -2,7 +2,7 @@ package eu.vytenis.skaitvardziai.app;
 
 import java.io.IOException;
 
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 public class SkaitvardziaiIOException extends SkaitvardziaiRuntimeException {
 

@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.exc;
 
 /**
  * Skaitvardžių bibliotekos neprivaloma gaudyti klaida ({@link RuntimeException}). 

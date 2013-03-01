@@ -4,9 +4,9 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 
 public class BuilderCheckUtil {
 

@@ -1,6 +1,6 @@
 package eu.vytenis.skaitvardziai.app;
 
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 public class ShowUsageException extends SkaitvardziaiRuntimeException {
 

@@ -2,7 +2,7 @@ package eu.vytenis.skaitvardziai.checks;
 
 import java.math.BigInteger;
 
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 /**
  * Operacijoms reikšmėms validuoti.

@@ -5,9 +5,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.checks.CheckUtil;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;

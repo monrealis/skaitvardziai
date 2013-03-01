@@ -1,15 +1,15 @@
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.skaiciai;
 
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 
 public class TrupmenosTest {

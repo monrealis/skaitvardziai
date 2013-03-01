@@ -1,6 +1,6 @@
 package eu.vytenis.skaitvardziai.checks;
 
-import eu.vytenis.skaitvardziai.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 public class RangeEnd<T extends Number & Comparable<?>> {
 	private static final String MINUS = "-";

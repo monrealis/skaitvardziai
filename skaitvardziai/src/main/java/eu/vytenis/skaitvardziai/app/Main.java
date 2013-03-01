@@ -15,10 +15,10 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
-import eu.vytenis.skaitvardziai.SkaitineReiksme;
-import eu.vytenis.skaitvardziai.SveikasisSkaicius;
-import eu.vytenis.skaitvardziai.Trupmena;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
+import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
+import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
 
 /**

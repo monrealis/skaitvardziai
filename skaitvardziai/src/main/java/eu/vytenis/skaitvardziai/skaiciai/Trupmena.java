@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.skaiciai;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

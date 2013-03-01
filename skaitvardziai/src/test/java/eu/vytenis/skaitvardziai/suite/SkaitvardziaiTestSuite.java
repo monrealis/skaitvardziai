@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai;
+package eu.vytenis.skaitvardziai.suite;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -9,6 +9,15 @@ import eu.vytenis.skaitvardziai.checks.CheckUtilTest;
 import eu.vytenis.skaitvardziai.checks.RangeEndTest;
 import eu.vytenis.skaitvardziai.checks.RangeTest;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnisTest;
+import eu.vytenis.skaitvardziai.skaiciai.DauginiaiMotTest;
+import eu.vytenis.skaitvardziai.skaiciai.DauginiaiVyrTest;
+import eu.vytenis.skaitvardziai.skaiciai.KelintiniaiIvTest;
+import eu.vytenis.skaitvardziai.skaiciai.KelintiniaiTest;
+import eu.vytenis.skaitvardziai.skaiciai.KuopiniaiTest;
+import eu.vytenis.skaitvardziai.skaiciai.PagrindiniaiMotTest;
+import eu.vytenis.skaitvardziai.skaiciai.PagrindiniaiVyrTest;
+import eu.vytenis.skaitvardziai.skaiciai.PoskyrisTest;
+import eu.vytenis.skaitvardziai.skaiciai.TrupmenosTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsJreTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsSaxonTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsXalanTest;
@@ -37,6 +46,6 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 	SkaiciusIrLinksnisTest.class,
 	ZodisTest.class})
 @RunWith(Suite.class)
-public class SkaiciaiSuite {
+public class SkaitvardziaiTestSuite {
 
 }

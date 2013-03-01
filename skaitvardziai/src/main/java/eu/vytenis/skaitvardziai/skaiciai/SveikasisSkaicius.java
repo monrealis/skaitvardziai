@@ -17,7 +17,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
-public class SveikasisSkaicius implements SkaitineReiksme {
+public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisSkaicius> {
 	
 	private BigInteger reiksme;
 	
@@ -111,6 +111,24 @@ public class SveikasisSkaicius implements SkaitineReiksme {
 			skaiciusIrLinksnis.setLinksnis(r.getLinksnis());
 			skaiciusIrLinksnis.setSkaicius(r.getSkaicius());
 		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof SveikasisSkaicius) {
+			return reiksme.equals(((SveikasisSkaicius) obj).getReiksme());
+		} else {
+			return false;
+		}
+	}
+	
+	public int compareTo(SveikasisSkaicius o) {
+		return reiksme.compareTo(o.getReiksme());
+	}
+	
+	@Override
+	public int hashCode() {
+		return reiksme.hashCode();
 	}
 
 

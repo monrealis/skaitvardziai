@@ -101,10 +101,31 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		return new Double(toDouble()).compareTo(o.toDouble());
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Trupmena) {
+			Trupmena t = (Trupmena) obj;
+			return getSkaitiklis().equals(t.getSkaitiklis()) && getVardiklis().equals(t.getVardiklis());
+		} else {
+			return false;
+		}
+	}
+	
+	@Override
+	public int hashCode() {
+		return getSkaitiklis().hashCode() << 16 | getVardiklis().hashCode();
+	}
+	
 	public double toDouble() {
+		BigDecimal r = toBigDecimal();
+		return r.doubleValue();
+	}
+
+	private BigDecimal toBigDecimal() {
 		BigDecimal s = new BigDecimal(skaitiklis);
 		BigDecimal v = new BigDecimal(vardiklis);
-		return s.divide(v).doubleValue();
+		BigDecimal r = s.divide(v);
+		return r;
 	}
 
 }

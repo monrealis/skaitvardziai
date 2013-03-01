@@ -85,5 +85,10 @@
 			<version>4.4</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>eu.vytenis.skaitvardziai</groupId>
+			<artifactId>skaitvardziai</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

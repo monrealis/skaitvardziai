@@ -2,7 +2,6 @@ package eu.vytenis.skaitvardziai.parser;
 
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
@@ -17,28 +16,9 @@ import eu.vytenis.parser.SkaitvardziaiFunctionParserTreeConstants;
 // TODO sutvarkyti, iškelti į src/main
 public class SkaitvardziaiFunctionParserTest {
 	
-	private List<SimpleNode> getChildren(SimpleNode node, int id) {
-		if (node == null) {
-			return Collections.emptyList();
-		}
-		List<SimpleNode> r = new ArrayList<SimpleNode>();
-		for (int i = 0; i < node.jjtGetNumChildren(); ++i) {
-			SimpleNode n = (SimpleNode) node.jjtGetChild(i);
-			if (n.toString().equals(SkaitvardziaiFunctionParserTreeConstants.jjtNodeName[id])) {
-				r.add(n);
-			}
-		}
-		return r;		
-	}
-	
-	private SimpleNode getChild(SimpleNode node, int id) {
-		List<SimpleNode> r = getChildren(node, id);
-		return !r.isEmpty() ? r.iterator().next() : null;
-	}
-	
 	private Object[] getArgs(SimpleNode call) {
-		SimpleNode argsNode = getChild(call, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENTS);
-		List<SimpleNode> argNodes = getChildren(argsNode, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENT);
+		SimpleNode argsNode = Nodes.getOnlyChild(call, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENTS);
+		List<SimpleNode> argNodes = Nodes.getChildren(argsNode, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENT);
 		
 		List<Object> r = new ArrayList<Object>();
 		for (SimpleNode n : argNodes) {

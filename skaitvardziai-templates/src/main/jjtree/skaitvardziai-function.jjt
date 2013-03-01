@@ -41,11 +41,11 @@ TOKEN: {
 }
 
 TOKEN: {
-	<INTEGER_LITERAL: <DIGIT> (<DIGIT>)* >
+	<NONNEGATIVE_INTEGER_LITERAL: <DIGIT> (<DIGIT>)* >
 }
 
 SimpleNode FunctionCall() : {} {
-	Identifier() "(" Arguments() ")" { return jjtThis; }
+	Identifier() "(" [Arguments()] ")" { return jjtThis; }
 }
 
 void Identifier() : {Token value;} {
@@ -57,19 +57,27 @@ void Arguments() : {} {
 }
 
 void Argument() : {} {
-	LOOKAHEAD(2)
-	FractionLiteral() | IntegerLiteral() | StringLiteral() 
+	LOOKAHEAD(3)
+	Fraction() | Integer() | String() 
 }
 
-void IntegerLiteral() : {Token value;} {
-	value = <INTEGER_LITERAL> {jjtThis.value = value;}
+void Integer() : {} {
+	[Minus()] NonnegativeInteger()
 }
 
-void StringLiteral() : {Token value;} {
+void NonnegativeInteger() : {Token value;} {
+	value = <NONNEGATIVE_INTEGER_LITERAL> {jjtThis.value = value;}
+}
+
+void String() : {Token value;} {
 	value = <STRING_LITERAL> {jjtThis.value = value;}
 }
 
-void FractionLiteral() : {} {
-	IntegerLiteral() "/" IntegerLiteral()
+void Fraction() : {} {
+	Integer() "/" Integer()
+}
+
+void Minus() : {} {
+	"-"
 }
 

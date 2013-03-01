@@ -2,6 +2,7 @@ package eu.vytenis.skaitvardziai.parser;
 
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Assert;
@@ -17,6 +18,9 @@ import eu.vytenis.parser.SkaitvardziaiFunctionParserTreeConstants;
 public class SkaitvardziaiFunctionParserTest {
 	
 	private List<SimpleNode> getChildren(SimpleNode node, int id) {
+		if (node == null) {
+			return Collections.emptyList();
+		}
 		List<SimpleNode> r = new ArrayList<SimpleNode>();
 		for (int i = 0; i < node.jjtGetNumChildren(); ++i) {
 			SimpleNode n = (SimpleNode) node.jjtGetChild(i);
@@ -29,7 +33,7 @@ public class SkaitvardziaiFunctionParserTest {
 	
 	private SimpleNode getChild(SimpleNode node, int id) {
 		List<SimpleNode> r = getChildren(node, id);
-		return r != null ? r.iterator().next() : null;
+		return !r.isEmpty() ? r.iterator().next() : null;
 	}
 	
 	private Object[] getArgs(SimpleNode call) {
@@ -45,36 +49,64 @@ public class SkaitvardziaiFunctionParserTest {
 	}
 	
 	
+	@Test
+	public void testNoArgs() throws Exception {
+		testParseCall(" f ( ) ", 0);
+	}
 	
 	@Test
-	public void testFunctionCalls() throws ParseException {
-		SimpleNode n;
-		n = parse("ff(1)", 1);
-		n = parse(" ff(1)", 1);
-		n = parse("ff(1) ", 1);
-		n = parse(" ff(1) ", 1);;
-		n = parse("ff(1, 1)", 2);
+	public void testIntegerArgs() throws Exception {
+		testParseCall(" f ( 1 ) ", 1);
+		testParseCall(" f ( 1 , 2 ) ", 2);
+		testParseCall(" f ( 1 , 2, 3 ) ", 3);
 		
-		n = parse("ff( 'a')", 1);
-		n = parse("ff(\"b\" )", 1);
+		testParseCall(" f ( - 1 ) ", 1);
+		testParseCall(" f ( -1 , - 2 ) ", 2);
+		testParseCall(" f ( -1 , -2, - 3 ) ", 3);
+	}
+	
+	
+	@Test
+	public void testFractionArgs() throws Exception {
+		testParseCall(" f ( 1 / 2 ) ", 1);
+		testParseCall(" f ( 1 / 2 , 2 / 3 ) ", 2);
+		testParseCall(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", 3);
 		
-		n = parse("ff( 2 / 3 )", 1);
 		
-		n = n != null ? n : null;
+		testParseCall(" f ( - 1 / 2 ) ", 1);
+		testParseCall(" f ( -1 / - 2 ) ", 1);
+		testParseCall(" f ( 1 / -2 ) ", 1);
+	}
+	
+	@Test
+	public void testStringArgs() throws Exception {
+		testParseCall(" f ( 'a' ) ", 1);
+		testParseCall(" f ( 'b,\"b' , 'cccc' ) ", 2);
+		testParseCall(" f ( 'ddd' , 'eee', 'fff' ) ", 3);
 		
-		
+		testParseCall(" f ( \"a\" ) ", 1);
+		testParseCall(" f ( \"bb\" , \"cccc\" ) ", 2);
+		testParseCall(" f ( \"ddd\" , \"eee\", \"fff\" ) ", 3);
 		
 	}
+	
+	private SimpleNode testParseCall(String functionCallText, int expectedArgumentsCount) throws ParseException {
+		testParseCall(functionCallText, expectedArgumentsCount, true);
+		return testParseCall(functionCallText, expectedArgumentsCount, false);
+	}
 
-	private SimpleNode parse(String text, int argsCount) throws ParseException {
-		SimpleNode call = new SkaitvardziaiFunctionParser(new StringReader(text)).FunctionCall();
+	private SimpleNode testParseCall(String functionCallText, int expectedArgumentsCount, boolean removeWhitespace) throws ParseException {
+		if (removeWhitespace) {
+			functionCallText = functionCallText.replaceAll("\\s", "");			
+		}
+		SimpleNode call = new SkaitvardziaiFunctionParser(new StringReader(functionCallText)).FunctionCall();
 		System.out.println();
-		System.out.println(text);
+		System.out.println(functionCallText);
 		call.dump("");
 		Object[] args = getArgs(call);
-		Assert.assertEquals(argsCount, args.length);
-		Assert.assertNotNull(text);
-		return call;		
+		Assert.assertEquals(expectedArgumentsCount, args.length);
+		Assert.assertNotNull(functionCallText);
+		return call;
 	}
 
 

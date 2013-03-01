@@ -55,6 +55,18 @@ public class SkaitvardziaiFunctionParserTest {
 	}
 	
 	@Test
+	public void testNullArgs() throws Exception {
+		testParseCall(" f ( null ) ", 1);
+		testParseCall(" f ( null , null ) ", 2);
+		testParseCall(" f ( null , null , null ) ", 3);
+		
+		testParseCall(" f ( null ) ", 1);
+		testParseCall(" f ( null , null ) ", 2);
+		testParseCall(" f ( null , null, null ) ", 3);
+	}
+	
+	
+	@Test
 	public void testIntegerArgs() throws Exception {
 		testParseCall(" f ( 1 ) ", 1);
 		testParseCall(" f ( 1 , 2 ) ", 2);

@@ -1,10 +1,8 @@
 options {
 	UNICODE_INPUT = true;
 	STATIC = false;
-	
 	MULTI=false;
 	NODE_PREFIX="";
-	
 	NODE_SCOPE_HOOK = false;
 }
 
@@ -21,27 +19,17 @@ PARSER_END(SkaitvardziaiFunctionParser)
 SKIP : { " " | "\t" | "\n" | "\r" }
 
 TOKEN: {
-  < NULL: "null" >
-  |
-  < #LETTER: ["a" - "z", "A" - "Z", "_"] >
-  |
-  < #DIGIT : ["0" - "9"] >
-  |
-  < IDENTIFIER: <LETTER> (<LETTER> | <DIGIT>)* >
-}
-
-
-TOKEN: {
-	< #STRING_LITERAL_DOUBLE_QUOTED: "\"" (~["\""])* "\"" >
-	|
-	< #STRING_LITERAL_SINGLE_QUOTED: "'" (~["'"])* "'" >
-	|
-	< STRING_LITERAL: (<STRING_LITERAL_SINGLE_QUOTED> | <STRING_LITERAL_DOUBLE_QUOTED>) >
-  
+	< NULL: "null" >
+	| <UNSIGNED_INTEGER: <DIGIT> (<DIGIT>)* >
+	| < IDENTIFIER: <LETTER> (<LETTER> | <DIGIT>)* >
+	| < #LETTER: ["a" - "z", "A" - "Z", "_"] >
+	| < #DIGIT : ["0" - "9"] >
 }
 
 TOKEN: {
-	<NONNEGATIVE_INTEGER_LITERAL: <DIGIT> (<DIGIT>)* >
+	< STRING: (<SINGLE_QUOTED_STRING> | <DOUBLE_QUOTED_STRING>) >
+	| < #SINGLE_QUOTED_STRING: "'" (~["'"])* "'" >
+	| < #DOUBLE_QUOTED_STRING: "\"" (~["\""])* "\"" >
 }
 
 SimpleNode FunctionCall() : {} {
@@ -58,19 +46,23 @@ void Arguments() : {} {
 
 void Argument() : {} {
 	LOOKAHEAD(3)
-	Fraction() | Integer() | String() 
+	Fraction() | Integer() | String() | Null()
 }
 
 void Integer() : {} {
-	[Minus()] NonnegativeInteger()
+	[Minus()] UnsignedInteger()
 }
 
-void NonnegativeInteger() : {Token value;} {
-	value = <NONNEGATIVE_INTEGER_LITERAL> {jjtThis.value = value;}
+void UnsignedInteger() : {Token value;} {
+	value = <UNSIGNED_INTEGER> {jjtThis.value = value;}
 }
 
 void String() : {Token value;} {
-	value = <STRING_LITERAL> {jjtThis.value = value;}
+	value = <STRING> {jjtThis.value = value;}
+}
+
+void Null() : {Token value;} {
+	value = <NULL> {jjtThis.value = value;}
 }
 
 void Fraction() : {} {

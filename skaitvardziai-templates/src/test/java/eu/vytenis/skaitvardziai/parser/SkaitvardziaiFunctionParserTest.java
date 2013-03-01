@@ -1,8 +1,6 @@
 package eu.vytenis.skaitvardziai.parser;
 
 import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -10,84 +8,68 @@ import org.junit.Test;
 import eu.vytenis.parser.ParseException;
 import eu.vytenis.parser.SimpleNode;
 import eu.vytenis.parser.SkaitvardziaiFunctionParser;
-import eu.vytenis.parser.SkaitvardziaiFunctionParserTreeConstants;
+import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
+import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 
 // TODO sutvarkyti, iškelti į src/main
 public class SkaitvardziaiFunctionParserTest {
 	
-	private Object[] getArgs(SimpleNode call) {
-		SimpleNode argsNode = Nodes.getOnlyChild(call, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENTS);
-		List<SimpleNode> argNodes = Nodes.getChildren(argsNode, SkaitvardziaiFunctionParserTreeConstants.JJTARGUMENT);
-		
-		List<Object> r = new ArrayList<Object>();
-		for (SimpleNode n : argNodes) {
-			r.add(n);
-		}
-		
-		return r.toArray(new Object[] {});
-	}
-	
-	
 	@Test
 	public void testNoArgs() throws Exception {
-		testParseCall(" f ( ) ", 0);
+		testParseCall(" f ( ) ", new Object[] {});
 	}
 	
 	@Test
 	public void testNullArgs() throws Exception {
-		testParseCall(" f ( null ) ", 1);
-		testParseCall(" f ( null , null ) ", 2);
-		testParseCall(" f ( null , null , null ) ", 3);
-		
-		testParseCall(" f ( null ) ", 1);
-		testParseCall(" f ( null , null ) ", 2);
-		testParseCall(" f ( null , null, null ) ", 3);
+		testParseCall(" f ( null ) ", new Object[] {null});
+		testParseCall(" f ( null , null ) ", new Object[] {null, null});
+		testParseCall(" f ( null , null , null ) ", new Object[] {null, null, null});
 	}
 	
 	
 	@Test
 	public void testIntegerArgs() throws Exception {
-		testParseCall(" f ( 1 ) ", 1);
-		testParseCall(" f ( 1 , 2 ) ", 2);
-		testParseCall(" f ( 1 , 2, 3 ) ", 3);
+		testParseCall(" f ( 1 ) ", new Object[] {getSv(1)});
+		testParseCall(" f ( 1 , 2 ) ", new Object[] {getSv(1), getSv(2)});
+		testParseCall(" f ( 1 , 2, 3 ) ", new Object[] {getSv(1), getSv(2), getSv(3)});
 		
-		testParseCall(" f ( - 1 ) ", 1);
-		testParseCall(" f ( -1 , - 2 ) ", 2);
-		testParseCall(" f ( -1 , -2, - 3 ) ", 3);
+		testParseCall(" f ( - 1 ) ", new Object[] {getSv(-1)});
+		testParseCall(" f ( -1 , - 2 ) ", new Object[] {getSv(-1), getSv(-2)});
+		testParseCall(" f ( -1 , -2, - 3 ) ", new Object[] {getSv(-1), getSv(-2), getSv(-3)});
 	}
 	
 	
 	@Test
 	public void testFractionArgs() throws Exception {
-		testParseCall(" f ( 1 / 2 ) ", 1);
-		testParseCall(" f ( 1 / 2 , 2 / 3 ) ", 2);
-		testParseCall(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", 3);
+		testParseCall(" f ( 1 / 2 ) ", new Object[] {getTr(1, 2)});
+		testParseCall(" f ( 1 / 2 , 2 / 3 ) ", new Object[] {getTr(1, 2), getTr(2, 3)});
+		testParseCall(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", new Object[] {getTr(1, 4), getTr(2, 10), getTr(3, 2)});
 		
 		
-		testParseCall(" f ( - 1 / 2 ) ", 1);
-		testParseCall(" f ( -1 / - 2 ) ", 1);
-		testParseCall(" f ( 1 / -2 ) ", 1);
+		testParseCall(" f ( - 1 / 2 ) ", new Object[] {getTr(-1, 2)});
+		testParseCall(" f ( -1 / - 2 ) ", new Object[] {getTr(-1, -2)});
+		testParseCall(" f ( 1 / -2 ) ", new Object[] {getTr(1, -2)});
 	}
 	
 	@Test
 	public void testStringArgs() throws Exception {
-		testParseCall(" f ( 'a' ) ", 1);
-		testParseCall(" f ( 'b,\"b' , 'cccc' ) ", 2);
-		testParseCall(" f ( 'ddd' , 'eee', 'fff' ) ", 3);
+		testParseCall(" f ( 'a' ) ", new Object[] {"a"});
+		testParseCall(" f ( 'b,\"b' , 'cccc' ) ", new Object[] {"b,\"b", "cccc"});
+		testParseCall(" f ( 'ddd' , 'eee', 'fff' ) ", new Object[] {"ddd", "eee", "fff"});
 		
-		testParseCall(" f ( \"a\" ) ", 1);
-		testParseCall(" f ( \"bb\" , \"cccc\" ) ", 2);
-		testParseCall(" f ( \"ddd\" , \"eee\", \"fff\" ) ", 3);
+		testParseCall(" f ( \"a\" ) ", new Object[] {"a"});
+		testParseCall(" f ( \"bb\" , \"cccc\" ) ", new Object[] {"bb", "cccc"});
+		testParseCall(" f ( \"ddd\" , \"eee\", \"fff\" ) ", new Object[] {"ddd", "eee", "fff"});
 		
 	}
 	
-	private SimpleNode testParseCall(String functionCallText, int expectedArgumentsCount) throws ParseException {
-		testParseCall(functionCallText, expectedArgumentsCount, true);
-		return testParseCall(functionCallText, expectedArgumentsCount, false);
+	private SimpleNode testParseCall(String functionCallText, Object[] expectedArgumentValues) throws ParseException {
+		testParseCall(functionCallText, expectedArgumentValues, true);
+		return testParseCall(functionCallText, expectedArgumentValues, false);
 	}
 
-	private SimpleNode testParseCall(String functionCallText, int expectedArgumentsCount, boolean removeWhitespace) throws ParseException {
+	private SimpleNode testParseCall(String functionCallText, Object[] expectedArgumentValues, boolean removeWhitespace) throws ParseException {
 		if (removeWhitespace) {
 			functionCallText = functionCallText.replaceAll("\\s", "");			
 		}
@@ -95,10 +77,19 @@ public class SkaitvardziaiFunctionParserTest {
 		System.out.println();
 		System.out.println(functionCallText);
 		call.dump("");
-		Object[] args = getArgs(call);
-		Assert.assertEquals(expectedArgumentsCount, args.length);
+		Object[] args = Arguments.getArguments(call);
+		Assert.assertEquals(expectedArgumentValues.length, args.length);
+		Assert.assertArrayEquals(expectedArgumentValues, args);
 		Assert.assertNotNull(functionCallText);
 		return call;
+	}
+	
+	private SveikasisSkaicius getSv(Number number) {
+		return new SveikasisSkaicius(number.toString());		
+	}
+	
+	private Trupmena getTr(Number skaitiklis, Number vardiklis) {
+		return new Trupmena(skaitiklis.toString(), vardiklis.toString());
 	}
 
 

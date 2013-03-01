@@ -1,17 +1,21 @@
 package eu.vytenis.skaitvardziai.parser;
 
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.parser.tree.ParseException;
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 import eu.vytenis.skaitvardziai.parser.tree.Token;
+import eu.vytenis.skaitvardziai.parser.tree.TreeParser;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
-public class Arguments {
+public class Methods {
 
 	public static Object[] getArguments(SimpleNode functionCallNode) {
 		SimpleNode argsNode = Nodes.getOnlyChild(functionCallNode, TreeConstants.getArguments());
@@ -25,6 +29,11 @@ public class Arguments {
 		return r.toArray(new Object[] {});
 	}
 	
+	public static String getFunction(SimpleNode functionCallNode) {
+		SimpleNode identifier = Nodes.getOnlyChild(functionCallNode, TreeConstants.getIdentifier());
+		String name = ((Token) identifier.jjtGetValue()).image;
+		return name;
+	}
 	
 	private static Object getArgument(SimpleNode argumentNode) {
 		SimpleNode argumentChildNode = (SimpleNode) argumentNode.jjtGetChild(0);
@@ -34,7 +43,7 @@ public class Arguments {
 
 	private static final Map<String, ArgHandler> argHandlers;
 	static {
-		Map<String, ArgHandler> h = new HashMap<String, Arguments.ArgHandler>();
+		Map<String, ArgHandler> h = new HashMap<String, Methods.ArgHandler>();
 		h.put(TreeConstants.getNull(), new NullHandler());
 		h.put(TreeConstants.getString(), new StringHandler());
 		h.put(TreeConstants.getInteger(), new IntegerHandler());
@@ -98,6 +107,24 @@ public class Arguments {
 		
 	}
 	
+	public static SimpleNode parse(String functionCallText) {
+		SimpleNode call;
+		try {
+			call = new TreeParser(new StringReader(functionCallText)).FunctionCall();
+		} catch (ParseException e) {
+			throw new SkaitvardziaiParseException(e);
+		}
+		return call;
+	}
 	
+	public static class SkaitvardziaiParseException extends SkaitvardziaiRuntimeException {
+		
+		private static final long serialVersionUID = -2523506465513363826L;
+
+		public SkaitvardziaiParseException(Exception cause) {
+			super(cause);
+		}
+		
+	}
 
 }

@@ -16,68 +16,71 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 public class SkaitvardziaiFunctionParserTest {
 	
 	@Test
-	public void testNoArgs() throws Exception {
-		testParseCall(" f ( ) ", new Object[] {});
+	public void testNoArgs() {
+		testParseCall(" f ( ) ", "f", new Object[] {});
 	}
 	
 	@Test
-	public void testNullArgs() throws Exception {
-		testParseCall(" f ( null ) ", new Object[] {null});
-		testParseCall(" f ( null , null ) ", new Object[] {null, null});
-		testParseCall(" f ( null , null , null ) ", new Object[] {null, null, null});
-	}
-	
-	
-	@Test
-	public void testIntegerArgs() throws Exception {
-		testParseCall(" f ( 1 ) ", new Object[] {getSv(1)});
-		testParseCall(" f ( 1 , 2 ) ", new Object[] {getSv(1), getSv(2)});
-		testParseCall(" f ( 1 , 2, 3 ) ", new Object[] {getSv(1), getSv(2), getSv(3)});
-		
-		testParseCall(" f ( - 1 ) ", new Object[] {getSv(-1)});
-		testParseCall(" f ( -1 , - 2 ) ", new Object[] {getSv(-1), getSv(-2)});
-		testParseCall(" f ( -1 , -2, - 3 ) ", new Object[] {getSv(-1), getSv(-2), getSv(-3)});
+	public void testNullArgs() {
+		testParseCall(" f ( null ) ", "f",  new Object[] {null});
+		testParseCall(" f ( null , null ) ", "f",  new Object[] {null, null});
+		testParseCall(" f ( null , null , null ) ", "f",  new Object[] {null, null, null});
 	}
 	
 	
 	@Test
-	public void testFractionArgs() throws Exception {
-		testParseCall(" f ( 1 / 2 ) ", new Object[] {getTr(1, 2)});
-		testParseCall(" f ( 1 / 2 , 2 / 3 ) ", new Object[] {getTr(1, 2), getTr(2, 3)});
-		testParseCall(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", new Object[] {getTr(1, 4), getTr(2, 10), getTr(3, 2)});
+	public void testIntegerArgs() {
+		testParseCall(" f ( 1 ) ", "f", new Object[] {getSv(1)});
+		testParseCall(" f ( 1 , 2 ) ", "f", new Object[] {getSv(1), getSv(2)});
+		testParseCall(" f ( 1 , 2, 3 ) ", "f", new Object[] {getSv(1), getSv(2), getSv(3)});
+		
+		testParseCall(" f ( - 1 ) ", "f", new Object[] {getSv(-1)});
+		testParseCall(" f ( -1 , - 2 ) ", "f", new Object[] {getSv(-1), getSv(-2)});
+		testParseCall(" f ( -1 , -2, - 3 ) ", "f", new Object[] {getSv(-1), getSv(-2), getSv(-3)});
+	}
+	
+	
+	@Test
+	public void testFractionArgs() {
+		testParseCall(" f ( 1 / 2 ) ", "f", new Object[] {getTr(1, 2)});
+		testParseCall(" f ( 1 / 2 , 2 / 3 ) ", "f", new Object[] {getTr(1, 2), getTr(2, 3)});
+		testParseCall(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", "f", new Object[] {getTr(1, 4), getTr(2, 10), getTr(3, 2)});
 		
 		
-		testParseCall(" f ( - 1 / 2 ) ", new Object[] {getTr(-1, 2)});
-		testParseCall(" f ( -1 / - 2 ) ", new Object[] {getTr(-1, -2)});
-		testParseCall(" f ( 1 / -2 ) ", new Object[] {getTr(1, -2)});
+		testParseCall(" f ( - 1 / 2 ) ", "f", new Object[] {getTr(-1, 2)});
+		testParseCall(" f ( -1 / - 2 ) ", "f", new Object[] {getTr(-1, -2)});
+		testParseCall(" f ( 1 / -2 ) ", "f", new Object[] {getTr(1, -2)});
 	}
 	
 	@Test
-	public void testStringArgs() throws Exception {
-		testParseCall(" f ( 'a' ) ", new Object[] {"a"});
-		testParseCall(" f ( 'b,\"b' , 'cccc' ) ", new Object[] {"b,\"b", "cccc"});
-		testParseCall(" f ( 'ddd' , 'eee', 'fff' ) ", new Object[] {"ddd", "eee", "fff"});
+	public void testStringArgs() {
+		testParseCall(" f ( 'a' ) ", "f", new Object[] {"a"});
+		testParseCall(" f ( 'b,\"b' , 'cccc' ) ", "f", new Object[] {"b,\"b", "cccc"});
+		testParseCall(" f ( 'ddd' , 'eee', 'fff' ) ", "f", new Object[] {"ddd", "eee", "fff"});
 		
-		testParseCall(" f ( \"a\" ) ", new Object[] {"a"});
-		testParseCall(" f ( \"bb\" , \"cccc\" ) ", new Object[] {"bb", "cccc"});
-		testParseCall(" f ( \"ddd\" , \"eee\", \"fff\" ) ", new Object[] {"ddd", "eee", "fff"});
+		testParseCall(" f ( \"a\" ) ", "f", new Object[] {"a"});
+		testParseCall(" f ( \"bb\" , \"cccc\" ) ", "f", new Object[] {"bb", "cccc"});
+		testParseCall(" f ( \"ddd\" , \"eee\", \"fff\" ) ", "f", new Object[] {"ddd", "eee", "fff"});
 		
 	}
 	
-	private SimpleNode testParseCall(String functionCallText, Object[] expectedArgumentValues) throws ParseException {
-		testParseCall(functionCallText, expectedArgumentValues, true);
-		return testParseCall(functionCallText, expectedArgumentValues, false);
+	private SimpleNode testParseCall(String functionCallText, String expectedMethodName, Object[] expectedArgumentValues) {
+		testParseCall(functionCallText, expectedMethodName, expectedArgumentValues, true);
+		return testParseCall(functionCallText, expectedMethodName, expectedArgumentValues, false);
 	}
 
-	private SimpleNode testParseCall(String functionCallText, Object[] expectedArgumentValues, boolean removeWhitespace) throws ParseException {
+	private SimpleNode testParseCall(String functionCallText, String expectedMethodName, Object[] expectedArgumentValues, boolean removeWhitespace) {
 		if (removeWhitespace) {
 			functionCallText = functionCallText.replaceAll("\\s", "");			
 		}
-		SimpleNode call = new TreeParser(new StringReader(functionCallText)).FunctionCall();
+		SimpleNode call = Methods.parse(functionCallText);
 		System.out.println();
 		System.out.println(functionCallText);
 		call.dump("");
-		Object[] args = Arguments.getArguments(call);
+		
+		String name = Methods.getFunction(call);
+		Object[] args = Methods.getArguments(call);
+		Assert.assertEquals(expectedMethodName, name);
 		Assert.assertEquals(expectedArgumentValues.length, args.length);
 		Assert.assertArrayEquals(expectedArgumentValues, args);
 		Assert.assertNotNull(functionCallText);

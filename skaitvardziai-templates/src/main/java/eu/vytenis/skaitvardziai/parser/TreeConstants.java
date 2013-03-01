@@ -36,6 +36,10 @@ public class TreeConstants {
 		return getName(TreeParserTreeConstants.JJTNULL);
 	}
 	
+	public static String getIdentifier() {
+		return getName(TreeParserTreeConstants.JJTIDENTIFIER);
+	}
+	
 	public static String getName(int id) {
 		return TreeParserTreeConstants.jjtNodeName[id];
 	}

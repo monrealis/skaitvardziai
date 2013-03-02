@@ -40,6 +40,6 @@
 		<module>../skaitvardziai-core</module>
 		<module>../skaitvardziai-slf4j</module>
 		<module>../skaitvardziai-parser</module>
-    <module>skaitvardziai-app</module>
+    	<module>../skaitvardziai-app</module>
   </modules>
 </project>

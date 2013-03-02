@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.io;
 
 import java.io.IOException;
 import java.io.OutputStream;

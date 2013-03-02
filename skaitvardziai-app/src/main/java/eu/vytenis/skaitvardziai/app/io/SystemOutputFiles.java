@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.io;
 
 public class SystemOutputFiles {		
 	private String out;

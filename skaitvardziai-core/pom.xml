@@ -11,45 +11,11 @@
 		<relativePath>../skaitvardziai-parent</relativePath>
 	</parent>
 
-	<build>
-		<plugins>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-	            <configuration>
-	                <archive>
-	                    <manifest>
-	                        <mainClass>eu.vytenis.skaitvardziai.app.Main</mainClass>
-	                    </manifest>
-	                </archive>
-	                <descriptorRefs>
-	                    <descriptorRef>jar-with-dependencies</descriptorRef>
-	                </descriptorRefs>
-	            </configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>eu.vytenis.skaitvardziai.app.Main</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
 	<dependencies>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.4</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

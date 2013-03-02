@@ -1,9 +1,14 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.main;
 
 import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import eu.vytenis.skaitvardziai.app.io.DecoratingWriter;
+import eu.vytenis.skaitvardziai.app.io.SystemIo;
+import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
+import eu.vytenis.skaitvardziai.app.main.Main;
 
 
 // TODO parašyti testų

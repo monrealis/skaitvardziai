@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.main;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,6 +15,10 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
 
+import eu.vytenis.skaitvardziai.app.exc.ShowHelpException;
+import eu.vytenis.skaitvardziai.app.exc.ShowUsageException;
+import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
+import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;

@@ -1,7 +1,9 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.io;
 
 import java.io.IOException;
 import java.io.Writer;
+
+import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 
 public class SystemIo {
 	

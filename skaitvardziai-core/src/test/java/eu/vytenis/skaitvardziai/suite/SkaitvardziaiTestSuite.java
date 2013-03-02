@@ -4,7 +4,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import eu.vytenis.skaitvardziai.app.MainTest;
 import eu.vytenis.skaitvardziai.checks.ChecksTest;
 import eu.vytenis.skaitvardziai.checks.RangeEndTest;
 import eu.vytenis.skaitvardziai.checks.RangeTest;
@@ -37,8 +36,6 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 	SkaiciusXPathFunctionsJreTest.class,
 	SkaiciusXPathFunctionsSaxonTest.class,
 	SkaiciusXPathFunctionsXalanTest.class,
-	
-	MainTest.class,
 
 	RangeTest.class,
 	RangeEndTest.class,

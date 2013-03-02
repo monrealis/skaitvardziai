@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.exc;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 

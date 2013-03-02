@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app;
+package eu.vytenis.skaitvardziai.app.exc;
 
 import java.io.IOException;
 

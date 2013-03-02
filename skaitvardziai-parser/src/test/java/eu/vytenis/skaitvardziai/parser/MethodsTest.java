@@ -1,19 +1,14 @@
 package eu.vytenis.skaitvardziai.parser;
 
-import java.io.StringReader;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.parser.tree.ParseException;
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
-import eu.vytenis.skaitvardziai.parser.tree.TreeParser;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 
-// TODO sutvarkyti, iškelti į src/main
-public class SkaitvardziaiFunctionParserTest {
+public class MethodsTest {
 	
 	@Test
 	public void testNoArgs() {

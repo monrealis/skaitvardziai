@@ -28,7 +28,6 @@ import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
 /**
  * Komandinės eilutės interfeiso pagrindinė klasė.
  */
-// TODO parent pom.xml padaryti
 public class Main {
 	
 	/** Nuskaityti komandinės eilutės parametrai. */

@@ -16,6 +16,7 @@ import eu.vytenis.skaitvardziai.skaiciai.KuopiniaiTest;
 import eu.vytenis.skaitvardziai.skaiciai.PagrindiniaiMotTest;
 import eu.vytenis.skaitvardziai.skaiciai.PagrindiniaiVyrTest;
 import eu.vytenis.skaitvardziai.skaiciai.PoskyrisTest;
+import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaiciusTest;
 import eu.vytenis.skaitvardziai.skaiciai.TrupmenosTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsJreTest;
 import eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctionsSaxonTest;
@@ -37,6 +38,7 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 	SkaiciusXPathFunctionsSaxonTest.class,
 	SkaiciusXPathFunctionsXalanTest.class,
 
+	SveikasisSkaiciusTest.class,
 	RangeTest.class,
 	RangeEndTest.class,
 	ChecksTest.class,

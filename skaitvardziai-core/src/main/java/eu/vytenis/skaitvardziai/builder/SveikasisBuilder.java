@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -44,13 +45,8 @@ public class SveikasisBuilder {
 	private class Daugiazenkliai {
 		
 		private void buildDaugiazenklis(FormaIrSkaiciai forma) {
-			BigInteger sveikasSkaicius = forma.getSveikasisSkaicius();
-			BigInteger tikrasSkaicius = forma.getPradinisSveikasisSkaicius();
-			Poskyris poskyris = forma.getForma().getPoskyris();
-			if (!sveikasSkaicius.equals(tikrasSkaicius)) {
-				throw new IllegalArgumentException();
-			}
-			BuilderChecks.checkPoskyris("forma.poskyris", poskyris, SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI);
+			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", forma.getSveikasisSkaicius(), forma.getPradinisSveikasisSkaicius());
+			BuilderChecks.checkPoskyris("forma.poskyris", forma.getForma().getPoskyris(), SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI);
 			daugiazenkliai.buildDaugiazenklis(forma, Numbers.BILLION);
 		}
 
@@ -87,7 +83,7 @@ public class SveikasisBuilder {
 					trizenkliai.buildTrizenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 				}			
 			} else {
-				throw new UnsupportedOperationException(sveikasSkaicius + " is too big");
+				throw new NumberTooBigException(sveikasSkaicius, 0); // TODO
 			}
 		}
 		
@@ -183,10 +179,7 @@ public class SveikasisBuilder {
 					zodziai.add(getSuma(Zodis.getDauginis(sveikasSkaicius, gimine)));
 				} else if (poskyris == Poskyris.Kelintinis) {
 					zodziai.add(getSuma(Zodis.getKelintinis(sveikasSkaicius, gimine, (!sveikasSkaicius.equals(BigInteger.ZERO) ? rusis : Rusis.P))));
-				} else {
-					throw new IllegalArgumentException();
 				}
-				
 			}
 		}
 		
@@ -211,5 +204,15 @@ public class SveikasisBuilder {
 	
 	private ZodisJunginyje getDaugyba(Zodis zodis) {
 		return new ZodisJunginyje(zodis).daugyba();
+	}
+	
+	public static class NumberTooBigException extends SkaitvardziaiRuntimeException {
+
+		private static final long serialVersionUID = -2769861221983348571L;
+		
+		public NumberTooBigException(Number currentNumber, Number maxNumber) {
+			super("Number " + currentNumber + " is too big. Biggest supported number: " + maxNumber);
+		}
+		
 	}
 }

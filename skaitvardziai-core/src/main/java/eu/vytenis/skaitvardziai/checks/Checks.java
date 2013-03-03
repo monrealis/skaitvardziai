@@ -1,33 +1,20 @@
 package eu.vytenis.skaitvardziai.checks;
 
 import java.math.BigInteger;
+import java.util.Arrays;
+import java.util.List;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
-/**
- * Operacijoms reikšmėms validuoti.
- *
- */
 public class Checks {
 
-	/**
-	 * Patikrina, ar objektas nėra null. Jei null, meta {@link IllegalArgumentException}.
-	 * @param name lauko pavadinimas (naudojamas klaidos pranešime)
-	 * @param object objektas, tikrinamas ar ne null
-	 */
 	public static void checkNotNull(String name, Object object) {
 		if (object == null) {
 			throw new ObjectNullException(name);
 		}
 		
 	}
-	/**
-	 * Patikrina, ar skaičius priklauso intervalui [min, max].
-	 * @param name kintamojo pavadinimas (matomas klaidos pranešime)
-	 * @param value reikšmė (neprivalomas)
-	 * @param min minimali reikšmė (neprivalomas)
-	 * @param max maksimali reikšmė (neprivalomas)
-	 */
+
 	public static void checkInclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
 		if (value == null) {
 			return;
@@ -38,13 +25,6 @@ public class Checks {
 		}
 	}
 	
-	/**
-	 * Patikrina, ar skaičius priklauso intervalui (min, max).
-	 * @param name kintamojo pavadinimas (matomas klaidos pranešime)
-	 * @param value reikšmė (neprivalomas)
-	 * @param min minimali reikšmė (neprivalomas)
-	 * @param max maksimali reikšmė (neprivalomas)
-	 */
 	public static void checkExclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
 		if (value == null) {
 			return;
@@ -55,13 +35,6 @@ public class Checks {
 		}
 	}
 	
-	/**
-	 * Patikrina, ar skaičius priklauso intervalui [min, max).
-	 * @param name kintamojo pavadinimas (matomas klaidos pranešime)
-	 * @param value reikšmė (neprivalomas)
-	 * @param min minimali reikšmė (neprivalomas)
-	 * @param max maksimali reikšmė (neprivalomas)
-	 */
 	public static void checkMinInclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
 		if (value == null) {
 			return;
@@ -72,11 +45,6 @@ public class Checks {
 		}
 	}
 	
-	/**
-	 * Patikrina, ar objektą galima koreguoti.
-	 * @param name objekto pavadinimas (klaidos pranešimui)
-	 * @param unmodifiable objetas
-	 */
 	public static void checkCanModify(String name, UnmodifiableCapable unmodifiable) {
 		if (unmodifiable == null) {
 			return;
@@ -86,10 +54,14 @@ public class Checks {
 		}
 	}
 	
-	/**
-	 * Peržiūri perduotus objektus ir, jei objektai yra modifikuojami, padaro juos nemodifikuojamais.
-	 * @param unmodifiables objektų sąrašas
-	 */
+	public static void checkEqual(String firstName, String secondName, Object first, Object second) {
+		boolean equal = first == null && second == null || first != null && first.equals(second);
+		if (!equal) {
+			throw new NotEqualException(Arrays.asList(firstName, secondName));
+			
+		}
+	}
+
 	public static void ensureUnmodifiable(Iterable<? extends UnmodifiableCapable> unmodifiables) {
 		for (UnmodifiableCapable ic : unmodifiables) {
 			if (!ic.isUnmodifiable()) {
@@ -97,11 +69,20 @@ public class Checks {
 			}
 		}
 	}
+
 	
+	public static class NotEqualException extends SkaitvardziaiRuntimeException {
+
+		private static final long serialVersionUID = 8075649855292072831L;
+		
+		public NotEqualException(List<String> names) {
+			super(names + " are not equal");			
+		}
+		
+	}
 	
 	public static class ObjectNullException extends SkaitvardziaiRuntimeException {
 
-		/** Klasės versija. */
 		private static final long serialVersionUID = 363562983326179288L;
 		
 		public ObjectNullException(String objectName) {
@@ -112,7 +93,6 @@ public class Checks {
 	
 	public static class InvalidRangeException extends SkaitvardziaiRuntimeException {
 
-		/** Klasės versija. */
 		private static final long serialVersionUID = -8245329095498329074L;
 		
 		private String objectName;
@@ -146,7 +126,6 @@ public class Checks {
 	
 	public static class NotModifiableException extends SkaitvardziaiRuntimeException {
 
-		/** Klasės versija. */
 		private static final long serialVersionUID = 3258850566232546106L;
 		
 		private String objectName;

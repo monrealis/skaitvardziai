@@ -96,11 +96,18 @@ public class ChecksTest {
 		Assert.assertEquals(true, UNMODIFIABLE.isUnmodifiable());
 		Assert.assertEquals(true, MODIFIABLE.isUnmodifiable());
 	}
+	
+	@Test
+	public void testEqual_Succeeds() {
+		Checks.checkEqual(NAME, NAME, "a", "a");
+	}
+	
+	@Test(expected = Checks.NotEqualException.class)
+	public void testEqual_Fails() {
+		Checks.checkEqual(NAME, NAME, "a", "b");
+	}
 
 	private BigInteger toBi(Number number) {
-		if (number == null) {
-			return null;
-		}
 		return new BigInteger(number.toString());
 	}
 	

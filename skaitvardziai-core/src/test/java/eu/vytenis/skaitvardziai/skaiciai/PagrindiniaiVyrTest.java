@@ -10,6 +10,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.util.Numbers;
 
 
 
@@ -119,10 +120,17 @@ public class PagrindiniaiVyrTest extends BaseTest {
 		s.put(1000000000L, "milijardas" + vyrDgsK());
 		s.put(184116790224L, "šimtas aštuoniasdešimt keturi milijardai šimtas šešiolika milijonų septyni šimtai devyniasdešimt tūkstančių du šimtai dvidešimt keturi" + vyrDgsV());
 		s.put(584356792124L, "penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt keturi" + vyrDgsV());
-
+		
 		testSkaiciai(s, Linksnis.V);
 	}
+	
+	@Test
+	public void testVirst1000VBigIntegers() {
+		Map<Number, String> s = new TreeMap<Number, String>();
+		s.put(Numbers.BILLION.multiply(Numbers.BILLION), "milijardas milijardų");
 
+		testSkaiciai(s, Linksnis.V);		
+	}
 	
 	@Test
 	public void testNuo1Iki20K() {

@@ -22,7 +22,6 @@ public class SveikasisSkaiciusTest {
 	@Test
 	public void testBigNumber() {
 		new SveikasisSkaicius(Numbers.BILLION).toString();
-		new SveikasisSkaicius(Numbers.BILLION.multiply(new BigInteger("1000000"))).toString();
 		
 	}
 

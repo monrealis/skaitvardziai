@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -135,27 +136,32 @@ public abstract class BaseTest {
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Forma forma) {
 		Assert.assertNotNull(forma);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
-			SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
-			String expected = removeDaikt(e.getValue(), forma.getGimine(), sl);
-			long number = e.getKey().longValue();
-			SveikasisSkaicius sk = new SveikasisSkaicius(number);
-			
-			SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
-			String actual = sk.toString(forma, actualSl);
-			Assert.assertEquals(number + ": comparation failed", expected, actual);
-			if (sl != null && (sl.getSkaicius() != null || sl.getLinksnis() != null)) {
-				Assert.assertEquals(number + ": invalid form. Expected '" + e.getValue() + "'", sl, actualSl);
-			}
-			if (number > 0) {
-				String minusActual = new SveikasisSkaicius(-number).toString(forma);
-				Assert.assertEquals("minus " + expected, minusActual);
-			}
+			tryTestSkaicius(forma, e.getKey(), e.getValue());
+		}
+	}
+	
+	private void tryTestSkaicius(Forma forma, Number number, String expectedValue) {
+		try {
+			testSkaicius(forma, number, expectedValue);
+		} catch (Exception e) {
+			throw new RuntimeException("Number " + number, e);
+		}
+	}
+
+	private void testSkaicius(Forma forma, Number number, String expectedValue) {
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
+		String expected = removeDaikt(expectedValue, forma.getGimine(), sl);
+		SveikasisSkaicius sk = new SveikasisSkaicius(number.toString());
+		
+		SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
+		String actual = sk.toString(forma, actualSl);
+		Assert.assertEquals(number + ": comparation failed", expected, actual);
+		if (sl != null && (sl.getSkaicius() != null || sl.getLinksnis() != null)) {
+			Assert.assertEquals(number + ": invalid form. Expected '" + expectedValue + "'", sl, actualSl);
+		}
+		if (sk.getReiksme().compareTo(BigInteger.ZERO) > 0) {
+			String minusActual = new SveikasisSkaicius(sk.getReiksme().negate()).toString(forma);
+			Assert.assertEquals("minus " + expected, minusActual);
 		}
 	}
 }
-
-
-////
-///
-///
-//

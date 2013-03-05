@@ -21,9 +21,9 @@ import org.junit.Test;
  * gautas rezultatas yra toks, kokio tikimasi.
  *
  */
-public abstract class BaseSkaiciusXPathFunctionsTest {
+public abstract class SkaitvardziaiXPathFunctionsTest {
 	
-	/** XSLT bylos kelias (nuo {@link BaseSkaiciusXPathFunctionsTest}). */
+	/** XSLT bylos kelias (nuo {@link SkaitvardziaiXPathFunctionsTest}). */
 	private String defaultXsltResourceName = "saxon-transform.xsl";
 	
 	/**
@@ -31,7 +31,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	 * @param xsltResourceName XSLT resurso pavadinimas
 	 * @param transformerFactoryClass XSLT procesoriaus klasės pavadinimas
 	 */
-	public BaseSkaiciusXPathFunctionsTest() {
+	public SkaitvardziaiXPathFunctionsTest() {
 	}
 
 	
@@ -47,7 +47,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	
 	
 	protected String getXsltText() throws IOException {
-		InputStream is = BaseSkaiciusXPathFunctionsTest.class.getResourceAsStream(defaultXsltResourceName);
+		InputStream is = SkaitvardziaiXPathFunctionsTest.class.getResourceAsStream(defaultXsltResourceName);
 		byte[] bytes = new byte[is.available()];
 		is.read(bytes);
 		is.close();
@@ -70,7 +70,7 @@ public abstract class BaseSkaiciusXPathFunctionsTest {
 	 * Patikrina, ar įvykdyta XSL transformaciją suformuoja tokį XML'ą, kokį reikia.
 	 * Po transformacijos gautas tekstas turi būti toks: faktinis_tekstas_1 : reikalingas_tekstas_1 ; faktinis_tekstas_2 : reikalingas_tekstas_2 ; ... .
 	 * Jei faktinis_tekstas_n nesutampa su reikalingu_tekstu_n - klaida. 
-	 * {@link BaseSkaiciusXPathFunctionsTest} realizuojančios klasės metodas su {@link Test} anotacija turėtų pakviesti šį metodą.
+	 * {@link SkaitvardziaiXPathFunctionsTest} realizuojančios klasės metodas su {@link Test} anotacija turėtų pakviesti šį metodą.
 	 * @param transformerFactoryClassName {@link TransformerFactory} realizuojančios klasės pavadinimas 
 	 * @throws Exception klaida
 	 */

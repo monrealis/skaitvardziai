@@ -6,9 +6,9 @@ import org.junit.Test;
 
 
 /**
- * Standartinio OpenJDK/OracleJDK XSLT procesoriaus {@link BaseSkaiciusXPathFunctionsTest} testas.
+ * Standartinio OpenJDK/OracleJDK XSLT procesoriaus {@link SkaitvardziaiXPathFunctionsTest} testas.
  */
-public class SkaiciusXPathFunctionsJreTest extends BaseSkaiciusXPathFunctionsTest {
+public class SkaitvardziaiXPathFunctionsJreTest extends SkaitvardziaiXPathFunctionsTest {
 	
 	@Override
 	protected String getXsltText() throws IOException {

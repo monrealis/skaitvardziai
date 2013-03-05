@@ -521,7 +521,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		//System.out.println(new SveikasisSkaicius(2256));
 		//System.out.println(new SveikasisSkaicius(12256));
 		/*for (int i = 10000; i <= 100000; i+=1000) {
-			System.out.println(new SkaiciusXPathFunctions(i));
+			System.out.println(new SkaitvardziaiXPathFunctions(i));
 		}*/
 	}
 	

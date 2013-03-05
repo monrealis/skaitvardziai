@@ -14,7 +14,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.util.Numbers;
 
-public abstract class PagrindiniaiTest extends BaseTest {
+public abstract class PagrindiniaiTest extends SkaitvardziaiTest {
 
 	private Gimine gimine;
 	

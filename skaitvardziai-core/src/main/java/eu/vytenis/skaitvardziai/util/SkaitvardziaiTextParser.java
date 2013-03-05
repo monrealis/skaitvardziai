@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.xpath;
+package eu.vytenis.skaitvardziai.util;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,7 +23,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.util.Letters;
 
 public class SkaitvardziaiTextParser {
 	private static final Map<String, Object> symbols;

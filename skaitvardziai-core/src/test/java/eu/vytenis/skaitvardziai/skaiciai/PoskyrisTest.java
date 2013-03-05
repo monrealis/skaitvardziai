@@ -12,7 +12,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skyrius;
 
 
-public class PoskyrisTest extends BaseTest {
+public class PoskyrisTest extends SkaitvardziaiTest {
 	
 	@Test
 	public void testSkyriuPoskyriai() {

@@ -9,6 +9,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
+import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
 
 
 /**
@@ -16,7 +17,7 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
  * Kol kas palaikomas standartinis JRE procesorius (padarytas iš XALAN) ir Saxon procesorius.
  *
  */
-public class SkaiciusXPathFunctions {
+public class SkaitvardziaiXPathFunctions {
 	
 	/** Daugiskaitos kilmininkas. */
 	public static SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);

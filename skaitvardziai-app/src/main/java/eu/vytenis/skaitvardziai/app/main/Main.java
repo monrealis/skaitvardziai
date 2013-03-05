@@ -23,7 +23,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiTextParser;
+import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
 
 /**
  * Komandinės eilutės interfeiso pagrindinė klasė.

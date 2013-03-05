@@ -6,9 +6,9 @@ import org.junit.Test;
 
 
 /**
- * XALAN XSLT procesoriaus {@link BaseSkaiciusXPathFunctionsTest} testas.
+ * XALAN XSLT procesoriaus {@link SkaitvardziaiXPathFunctionsTest} testas.
  */
-public class SkaiciusXPathFunctionsXalanTest extends BaseSkaiciusXPathFunctionsTest {
+public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunctionsTest {
 	
 	@Override
 	protected String getXsltText() throws IOException {

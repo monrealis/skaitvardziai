@@ -11,7 +11,7 @@
 
  -->
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-	xmlns:sk="java:eu.vytenis.skaitvardziai.xpath.SkaiciusXPathFunctions">
+	xmlns:sk="java:eu.vytenis.skaitvardziai.xpath.SkaitvardziaiXPathFunctions">
 	<xsl:output method="text" />
 
 	<xsl:template match="/">

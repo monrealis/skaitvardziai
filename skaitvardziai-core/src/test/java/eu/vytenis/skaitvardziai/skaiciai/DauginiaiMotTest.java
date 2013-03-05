@@ -12,7 +12,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
-public class DauginiaiMotTest extends BaseTest {
+public class DauginiaiMotTest extends SkaitvardziaiTest {
 
 	public DauginiaiMotTest() {
 	}

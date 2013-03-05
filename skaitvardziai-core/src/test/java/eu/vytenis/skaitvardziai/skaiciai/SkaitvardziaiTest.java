@@ -22,7 +22,7 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
  * Bazinė klasė tekstiniams testams.
  *
  */
-public abstract class BaseTest {
+public abstract class SkaitvardziaiTest {
 
 	/** Vyriškosios giminės daiktavardis su visais linksniais. */
 	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis", "šunimis", "šunyse", "šunys!"); // šunes :)

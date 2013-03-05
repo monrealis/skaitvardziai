@@ -3,9 +3,9 @@ package eu.vytenis.skaitvardziai.xpath;
 import org.junit.Test;
 
 /**
- * Saxon XSLT procesoriaus {@link BaseSkaiciusXPathFunctionsTest} testas.
+ * Saxon XSLT procesoriaus {@link SkaitvardziaiXPathFunctionsTest} testas.
  */
-public class SkaiciusXPathFunctionsSaxonTest extends BaseSkaiciusXPathFunctionsTest {
+public class SkaitvardziaiXPathFunctionsSaxonTest extends SkaitvardziaiXPathFunctionsTest {
 	
 	@Test
 	public void testXslt() throws Exception {

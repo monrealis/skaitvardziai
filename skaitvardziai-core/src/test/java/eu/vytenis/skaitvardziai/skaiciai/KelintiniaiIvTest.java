@@ -11,7 +11,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
-public class KelintiniaiIvTest extends BaseKelintiniaiTest {
+public class KelintiniaiIvTest extends KelintiniaiTest {
 	
 	public KelintiniaiIvTest() {
 		setRusis(Rusis.Iv);

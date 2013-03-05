@@ -1,35 +1,20 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
-import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
-import eu.vytenis.skaitvardziai.util.Numbers;
 
 
 
-public class PagrindiniaiVyrTest extends BaseTest {
+public class PagrindiniaiVyrTest extends PagrindiniaiTest {
 
 	public PagrindiniaiVyrTest() {
+		setGimine(Gimine.V);
 	}
-	
-	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		Forma f = new Forma();
-		f.setSkaicius(Skaicius.V);
-		f.setPoskyris(Poskyris.Pagrindinis);
-		f.setGimine(Gimine.V);
-		f.setLinksnis(linksnis);
-		
-		super.testSkaiciai(skaiciai, f);
-	}
-
 	
 	@Test
 	public void testNuo1Iki20V() {
@@ -125,41 +110,6 @@ public class PagrindiniaiVyrTest extends BaseTest {
 		testSkaiciai(s, Linksnis.V);
 	}
 	
-	@Test
-	public void testVirst1000VBigIntegers() {
-		BigInteger e18 = Numbers.BILLION.multiply(Numbers.BILLION);
-		BigInteger e9 = Numbers.BILLION;
-		BigInteger e6 = Numbers.MILLION;
-		BigInteger e3 = Numbers.THOUSAND;
-		
-		Map<BigInteger, String> bigNumbers = new TreeMap<BigInteger, String>();
-		Map<BigInteger, String> smallNumbers = new TreeMap<BigInteger, String>();
-		
-		bigNumbers.put(e9, "milijardas");		
-		
-		bigNumbers.put(BigInteger.valueOf(  1).multiply(e3).multiply(e9), "tūkstantis milijardų");
-		bigNumbers.put(BigInteger.valueOf(  5).multiply(e3).multiply(e9), "penki tūkstančiai milijardų");
-		bigNumbers.put(BigInteger.valueOf( 50).multiply(e3).multiply(e9), "penkiasdešimt tūkstančių milijardų");
-		bigNumbers.put(BigInteger.valueOf(732).multiply(e3).multiply(e9), "septyni šimtai trisdešimt du tūkstančiai milijardų");
-		
-		bigNumbers.put(e18, "milijardas milijardų");		
-		bigNumbers.put(BigInteger.valueOf(  1).multiply(e6).multiply(e18), "milijonas milijardų milijardų");
-		bigNumbers.put(BigInteger.valueOf(  2).multiply(e6).multiply(e18), "du milijonai milijardų milijardų");
-		bigNumbers.put(BigInteger.valueOf( 12).multiply(e6).multiply(e18), "dvylika milijonų milijardų milijardų");
-		bigNumbers.put(BigInteger.valueOf(204).multiply(e3).multiply(e9), "du šimtai keturi tūkstančiai milijardų");
-		
-		smallNumbers.put(e6, "milijonas");
-		smallNumbers.put(new BigInteger("652874203"), "šeši šimtai penkiasdešimt du milijonai aštuoni šimtai septyniasdešimt keturi tūkstančiai du šimtai trys");
-		smallNumbers.put(new BigInteger("652874201"), "šeši šimtai penkiasdešimt du milijonai aštuoni šimtai septyniasdešimt keturi tūkstančiai du šimtai vienas");
-		smallNumbers.put(new BigInteger("652874250"), "šeši šimtai penkiasdešimt du milijonai aštuoni šimtai septyniasdešimt keturi tūkstančiai du šimtai penkiasdešimt");
-		
-		Map<BigInteger, String> combinedNumbers = createCombinedNumbers(bigNumbers, smallNumbers);
-		
-		testSkaiciai(bigNumbers, Linksnis.V);
-		testSkaiciai(smallNumbers, Linksnis.V);
-		testSkaiciai(combinedNumbers, Linksnis.V);
-	}
-
 	@Test
 	public void testNuo1Iki20K() {
 		Map<Number, String> s = new TreeMap<Number, String>();

@@ -3,6 +3,7 @@ package eu.vytenis.skaitvardziai.skaiciai;
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -163,5 +164,15 @@ public abstract class BaseTest {
 			String minusActual = new SveikasisSkaicius(sk.getReiksme().negate()).toString(forma);
 			Assert.assertEquals("minus " + expected, minusActual);
 		}
+	}
+
+	protected Map<BigInteger, String> createCombinedNumbers(Map<BigInteger, String> bigNumbers, Map<BigInteger, String> smallNumbers) {
+		Map<BigInteger, String> combinedNumbers = new HashMap<BigInteger, String>();
+		for (Entry<BigInteger, String> be : bigNumbers.entrySet()) {
+			for (Entry<BigInteger, String> se : smallNumbers.entrySet()) {
+				combinedNumbers.put(be.getKey().add(se.getKey()), be.getValue() + " " + se.getValue());
+			}
+		}
+		return combinedNumbers;
 	}
 }

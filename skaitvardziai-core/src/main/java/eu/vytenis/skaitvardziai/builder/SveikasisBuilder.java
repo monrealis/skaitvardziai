@@ -73,7 +73,7 @@ public class SveikasisBuilder {
 					zodziai.add(getSuma(Zodis.getKelintinis(tukstancioLaipsnis, gimine, Rusis.Iv)));
 				} else {
 					zodziai.add(getSuma(Zodis.getPagrindinis(tukstancioLaipsnis, Gimine.V)));
-				}			
+				}
 			} else if (tukstanciu.compareTo(BigInteger.ONE) > 0 && tukstanciu.compareTo(Numbers.THOUSAND) < 0) {
 				if (poskyris == Poskyris.Kelintinis && tukstanciuLiekana.equals(BigInteger.ZERO)) {
 					zodziai.add(getDaugyba(Zodis.getKelintinis(tukstancioLaipsnis, gimine, Rusis.Iv)));
@@ -83,7 +83,8 @@ public class SveikasisBuilder {
 					trizenkliai.buildTrizenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis).gimine(Gimine.V));
 				}			
 			} else {
-				throw new NumberTooBigException(sveikasSkaicius, 0); // TODO
+				zodziai.add(getDaugyba(Zodis.getPagrindinis(tukstancioLaipsnis, Gimine.V)));
+				buildDaugiazenklis(formaIrSkaiciai.clone().sveikasSkaicius(tukstanciu), tukstancioLaipsnis);
 			}
 		}
 		

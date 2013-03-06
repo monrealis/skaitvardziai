@@ -55,16 +55,36 @@ public abstract class KelintiniaiTest extends SkaitvardziaiTest {
 	
 	@Test
 	public void testVirst1000VVyrBigIntegers() {
-		testVirst1000VBigIntegers(Gimine.V);
+		testVirst1000BigIntegers(Gimine.V, Linksnis.V);
 	}
 	
 	@Test
 	public void testVirst1000VMotBigIntegers() {
-		testVirst1000VBigIntegers(Gimine.M);
+		testVirst1000BigIntegers(Gimine.M, Linksnis.V);
+	}
+	
+	@Test
+	public void testVirst1000KVyrBigIntegers() {
+		testVirst1000BigIntegers(Gimine.V, Linksnis.K);
+	}
+	
+	@Test
+	public void testVirst1000KMotBigIntegers() {
+		testVirst1000BigIntegers(Gimine.M, Linksnis.K);
+	}
+	
+	@Test
+	public void testVirst1000NVyrBigIntegers() {
+		testVirst1000BigIntegers(Gimine.V, Linksnis.N);
+	}
+	
+	@Test
+	public void testVirst1000NMotBigIntegers() {
+		testVirst1000BigIntegers(Gimine.M, Linksnis.N);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void testVirst1000VBigIntegers(Gimine gimine) {
+	public void testVirst1000BigIntegers(Gimine gimine, Linksnis linksnis) {
 		BigInteger e18 = Numbers.BILLION.multiply(Numbers.BILLION);
 		BigInteger e9 = Numbers.BILLION;
 		BigInteger e6 = Numbers.MILLION;
@@ -96,29 +116,45 @@ public abstract class KelintiniaiTest extends SkaitvardziaiTest {
 		combinedNumbers.put(BigInteger.valueOf(204).multiply(e3).multiply(e9).add(new BigInteger("652874250")), "du šimtai keturi tūkstančiai milijardų " + prefix + "penkiasdešimtasis");
 			
 		for (Map<BigInteger, String> map: Arrays.<Map<BigInteger, String>>asList(bigNumbers, smallNumbers, combinedNumbers)) {
-			if (gimine == Gimine.M) {
-				replaceInValues(map, "milijardasis", "milijardoji");
-				replaceInValues(map, "milijonasis", "milijonoji");
-				replaceInValues(map, "trečiasis", "trečioji");
-				replaceInValues(map, "pirmasis", "pirmoji");
-				replaceInValues(map, "penkiasdešimtasis", "penkiasdešimtoji");
-			}
-			if (rusis == Rusis.P) {
-				replaceInValues(map, "trečiasis", "trečias");
-				replaceInValues(map, "pirmasis", "pirmas");
-				replaceInValues(map, "penkiasdešimtasis", "penkiasdešimtas");
-				replaceInValues(map, "trečioji", "trečia");
-				replaceInValues(map, "pirmoji", "pirma");
-				replaceInValues(map, "penkiasdešimtoji", "penkiasdešimta");
-			}
+			replaceToMotGIfNeeded(gimine, map);
+			replaceToPaprIfNeeded(map);
+			replaceToLinksnis(linksnis, map);
 		}
 		
-		testSkaiciai(bigNumbers, Skaicius.V, Linksnis.V, gimine);
-		testSkaiciai(smallNumbers, Skaicius.V, Linksnis.V, gimine);
-		testSkaiciai(combinedNumbers, Skaicius.V, Linksnis.V, gimine);
+		testSkaiciai(bigNumbers, Skaicius.V, linksnis, gimine);
+		testSkaiciai(smallNumbers, Skaicius.V, linksnis, gimine);
+		testSkaiciai(combinedNumbers, Skaicius.V, linksnis, gimine);
+	}
+
+	private void replaceToMotGIfNeeded(Gimine gimine, Map<BigInteger, String> map) {
+		if (gimine == Gimine.M) {
+			replaceAllInValues(map, "asis$", "oji");
+		}
 	}
 	
-	private void replaceInValues(Map<?, String> map, String regex, String replacement) {
+	private void replaceToPaprIfNeeded(Map<BigInteger, String> map) {
+		if (rusis == Rusis.P) {
+			replaceAllInValues(map, "(?<!milijard|milijon)asis$", "as");
+			replaceAllInValues(map, "(?<!milijard|milijon)oji$", "a");
+		}
+	}
+	
+	private void replaceToLinksnis(Linksnis linksnis,
+			Map<BigInteger, String> map) {
+		if (linksnis == Linksnis.K) {
+			replaceAllInValues(map, "as$", "o");
+			replaceAllInValues(map, "asis$", "ojo");
+			replaceAllInValues(map, "a$", "os");
+			replaceAllInValues(map, "oji$", "osios");
+		} else if (linksnis == Linksnis.N) {
+			replaceAllInValues(map, "as$", "am");
+			replaceAllInValues(map, "asis$", "ajam");
+			replaceAllInValues(map, "a$", "ai");
+			replaceAllInValues(map, "oji$", "ajai");				
+		}
+	}
+
+	private void replaceAllInValues(Map<?, String> map, String regex, String replacement) {
 		for (Entry<?, String> e : map.entrySet()) {
 			String v = e.getValue();
 			v = v.replaceAll(regex, replacement);

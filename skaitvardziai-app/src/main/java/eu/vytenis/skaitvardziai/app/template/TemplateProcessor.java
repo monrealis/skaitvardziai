@@ -6,6 +6,7 @@ import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
@@ -13,13 +14,13 @@ import eu.vytenis.skaitvardziai.app.processors.Processor;
 
 public class TemplateProcessor implements Processor {
 
-	private String openTag = "${";
-	private String closeTag = "}";
-	private Pattern instructionsPattern;
+	String openTag = "${";
+	String closeTag = "}";
+	Pattern instructionsPattern;
 	
-	private Reader reader;	
-	private String inputText;	
-	private List<Object> fragments;
+	Reader reader;	
+	String inputText;	
+	List<TextSource> fragments;
 	
 	
 	public void process() {
@@ -30,11 +31,11 @@ public class TemplateProcessor implements Processor {
 		write();
 	}
 	
-	private void createReader() {
+	void createReader() {
 		reader = new InputStreamReader(System.in);
 	}
 	
-	private void tryRead() {
+	void tryRead() {
 		try {
 			read();
 		} catch (IOException e) {
@@ -42,7 +43,7 @@ public class TemplateProcessor implements Processor {
 		}
 	}
 	
-	private void read() throws IOException {
+	void read() throws IOException {
 		StringWriter w = new StringWriter();
 		char[] buffer = new char[1024];
 		int count;
@@ -53,19 +54,29 @@ public class TemplateProcessor implements Processor {
 		inputText = w.toString();
 	}
 
-	private void createPattern() {
-		String patternText = Pattern.quote(openTag) + "(.*)" + Pattern.quote(closeTag);
+	void createPattern() {
+		String patternText = Pattern.quote(openTag) + "(.*?)" + Pattern.quote(closeTag);
 		instructionsPattern = Pattern.compile(patternText, Pattern.MULTILINE | Pattern.DOTALL);
 	}
 	
-	private void collectFragments() {
-		fragments = new ArrayList<Object>();
-		fragments.add(inputText);		
+	void collectFragments() {
+		fragments = new ArrayList<TextSource>();
+		List<Integer> from = new ArrayList<Integer>();
+		List<Integer> to = new ArrayList<Integer>();
+		List<String> calls = new ArrayList<String>();
+		
+		Matcher m = instructionsPattern.matcher(inputText);
+		while (m.find()) {
+			from.add(m.start());
+			to.add(m.end());
+			calls.add(m.group(1));
+		}
+		fragments.add(new StringSource(inputText));		
 	}
 	
-	private void write() {
-		for (Object o : fragments) {
-			SystemIo.printOut(o.toString(), "");
+	void write() {
+		for (TextSource s : fragments) {
+			SystemIo.printOut(s.getText(), "");
 		}
 	}
 	

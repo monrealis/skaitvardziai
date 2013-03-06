@@ -6,9 +6,10 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import eu.vytenis.skaitvardziai.app.main.MainTest;
 import eu.vytenis.skaitvardziai.app.main.TemplateTest;
+import eu.vytenis.skaitvardziai.app.template.TemplateProcessorTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({MainTest.class, TemplateTest.class})
+@SuiteClasses({MainTest.class, TemplateTest.class, TemplateProcessorTest.class})
 public class AppTestSuite {
 
 

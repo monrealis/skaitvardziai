@@ -7,6 +7,7 @@ public class TemplateTest extends AppTest {
 	@Test
 	public void testTemplate() {
 		assertOutByIn("test", "test", "-t");
+		assertOutByIn("test${}", "test", "-t");
 	}
 
 }

@@ -50,5 +50,10 @@
 			<artifactId>skaitvardziai-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>eu.vytenis.skaitvardziai</groupId>
+			<artifactId>skaitvardziai-parser</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

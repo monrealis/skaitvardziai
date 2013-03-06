@@ -8,19 +8,59 @@ public class TemplateProcessorTest {
 
 	@Test
 	public void testCollectFragments() {
+		String input;
+		Object[] output;
+		
+		input = "a${}${'a'}b\nc";
+		output = new Object[] {ss("a"), fs(""), fs("'a'"), ss("b\nc")};
+		testParsedFragments(input, output);
+		
+		input = "${c}";
+		output = new Object[] {fs("c")};
+		testParsedFragments(input, output);
+		
+		input = "${}${b}${c}";
+		output = new Object[] {fs(""), fs("b"), fs("c")};
+		testParsedFragments(input, output);
+		
+		input = "";
+		output = new Object[] {};
+		testParsedFragments(input, output);
+		
+		input = "a\nb";
+		output = new Object[] {ss("a\nb")};
+		testParsedFragments(input, output);
+		
+		input = "a${b}";
+		output = new Object[] {ss("a"), fs("b")};
+		testParsedFragments(input, output);
+		
+		input = "a${b}c";
+		output = new Object[] {ss("a"), fs("b"), ss("c")};
+		testParsedFragments(input, output);
+		
+		input = "${a}b";
+		output = new Object[] {fs("a"), ss("b")};
+		testParsedFragments(input, output);
+	}
+	
+	private void testParsedFragments(String text, Object[] expected) {
 		TemplateProcessor p = new TemplateProcessor();
 		
-		p.inputText = "a${}${'a'}b\nc";
+		p.inputText = text;
 		p.createPattern();
-		p.collectFragments();
+		p.collectFragments();	
 		
-		Object[] expected = {
-				new StringSource("a"),
-				new FunctionInvocationSource(""),
-				new FunctionInvocationSource("'a'"),
-				new StringSource("b\nc")
-		};
 		assertArrayEquals(expected, p.fragments.toArray());
 		
+	}
+	
+	
+	private StringSource ss(String text) {
+		return new StringSource(text);
+	}
+	
+	private FunctionInvocationSource fs(String unparsedText) {
+		return new FunctionInvocationSource(unparsedText);
 	}
 }

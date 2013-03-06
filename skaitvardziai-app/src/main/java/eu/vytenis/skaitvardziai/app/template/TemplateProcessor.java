@@ -61,17 +61,20 @@ public class TemplateProcessor implements Processor {
 	
 	void collectFragments() {
 		fragments = new ArrayList<TextSource>();
-		List<Integer> from = new ArrayList<Integer>();
-		List<Integer> to = new ArrayList<Integer>();
-		List<String> calls = new ArrayList<String>();
 		
 		Matcher m = instructionsPattern.matcher(inputText);
+		int nextCharIndex = 0;
 		while (m.find()) {
-			from.add(m.start());
-			to.add(m.end());
-			calls.add(m.group(1));
+			if (m.start() > nextCharIndex) {
+				fragments.add(new StringSource(inputText.substring(nextCharIndex, m.start())));
+			}
+			fragments.add(new FunctionInvocationSource(m.group(1)));
+			nextCharIndex = m.end();
 		}
-		fragments.add(new StringSource(inputText));		
+		if (inputText.length() > nextCharIndex) {
+			fragments.add(new StringSource(inputText.substring(nextCharIndex, inputText.length())));
+		}
+		
 	}
 	
 	void write() {

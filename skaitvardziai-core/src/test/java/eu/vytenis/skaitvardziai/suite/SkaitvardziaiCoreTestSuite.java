@@ -45,6 +45,6 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 	SkaiciusIrLinksnisTest.class,
 	ZodisTest.class})
 @RunWith(Suite.class)
-public class SkaitvardziaiTestSuite {
+public class SkaitvardziaiCoreTestSuite {
 
 }

@@ -5,26 +5,14 @@ import java.util.TreeMap;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 
-public class DauginiaiMotTest extends SkaitvardziaiTest {
+public class DauginiaiMotTest extends DauginiaiTest {
 
 	public DauginiaiMotTest() {
-	}
-	
-	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		Forma f = new Forma();
-		f.setSkaicius(Skaicius.V);
-		f.setPoskyris(Poskyris.Dauginis);
-		f.setGimine(Gimine.M);
-		f.setLinksnis(linksnis);
-		
-		super.testSkaiciai(skaiciai, f);
+		gimine = Gimine.M;
 	}
 	
 	@Test

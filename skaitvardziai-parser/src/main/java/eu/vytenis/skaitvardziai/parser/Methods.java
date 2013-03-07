@@ -15,6 +15,8 @@ import eu.vytenis.skaitvardziai.parser.tree.TreeParser;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
+
+// TODO argumentus if funkcijos pavadinimą grąžinti vienoje struktūroje
 public class Methods {
 
 	public static Object[] getArguments(SimpleNode functionCallNode) {

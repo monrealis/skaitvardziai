@@ -1,120 +1,44 @@
 package eu.vytenis.skaitvardziai.xpath;
 
-import java.util.Arrays;
-
-import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
-import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
+import eu.vytenis.skaitvardziai.external.Facade;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
 
 
 /**
  * XPath funkcijų klasė XSLT procesoriams.
- * Kol kas palaikomas standartinis JRE procesorius (padarytas iš XALAN) ir Saxon procesorius.
- *
+ * Palaikomas standartinis Sun JRE procesorius (padarytas iš XALAN), XALAN ir Saxon procesoriai.
  */
 public class SkaitvardziaiXPathFunctions {
 	
-	/** Daugiskaitos kilmininkas. */
 	public static SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
 	
-	/**
-	 * Grąžina kiekinio sveikojo skaičiaus vardininką.
-	 * @param skaicius sveikasis skaičius
-	 * @return tekstinė skaitvardžio reikšmė
-	 */
 	public static String sveikasis(int skaicius) {
-		return sveikasis(skaicius, null);
+		return Facade.sveikasis(new SveikasisSkaicius(skaicius));
 	}
 	
-	/**
-	 * Grąžina kiekinio sveikojo skaičiaus vardininką.
-	 * @param skaicius sveikasis skaičius
-	 * @return tekstinė skaitvardžio reikšmė
-	 */
 	public static String sveikasis(int skaicius, String forma) {
-		if (forma == null) {
-			forma = "";
-		}
-		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, null);
-		return new SveikasisSkaicius(Integer.toString(skaicius)).toString(f);
+		return Facade.sveikasis(new SveikasisSkaicius(skaicius), forma);
 	}
 	
-	
-	/**
-	 * Grąžina trupmeninio skaičiaus (paprastosios trupmenos) vardininką.
-	 * @param skaitiklis skaitiklis
-	 * @param vardiklis vardiklis
-	 * @return tekstinė skaitvardžio reikšmė
-	 */
 	public static String trupmena(int skaitiklis, int vardiklis) {
-		return trupmena(skaitiklis, vardiklis, null);
+		return Facade.trupmena(new Trupmena(skaitiklis, vardiklis));
+
 	}
-	
-	/**
-	 * Grąžina trupmeninio skaičiaus (paprastosios trupmenos) vardininką.
-	 * @param skaitiklis skaitiklis
-	 * @param vardiklis vardiklis
-	 * @return tekstinė skaitvardžio reikšmė
-	 */
-	@SuppressWarnings("unchecked")
+
 	public static String trupmena(int skaitiklis, int vardiklis, String forma) {
-		if (forma == null) {
-			forma = "";
-		}
-		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, Arrays.<Class<? extends FormosElementas>>asList(Linksnis.class));
-		return new Trupmena(skaitiklis, vardiklis).toString(f.getLinksnis());
+		return Facade.trupmena(new Trupmena(skaitiklis, vardiklis), forma);
 	}
 	
-	
-	/**
-	 * Grąžina po skaitvardžio einančius tinkamos formos kitus žodžius.
-	 * @param skaicius skaičius
-	 * @param forma
-	 * @param vns vienaskaitos atitinkamas linksnis (pavyzdžiui, "geltonas šuo", "geltonam šuniui")
-	 * @param dgs daugiskaitos atitinkamas linksnis (pavyzdžiui, "geltoni šunys", "geltoniems šunims")
-	 * @param dgsKilm daugiskaitos kilmininkas (pavyzdžiui, "geltonų šunų")
-	 * @return reikiamos formos žodžiai
-	 */
 	public static String kiti(int skaicius, String vns, String dgs, String dgsKilm) {
-		return kiti(skaicius, null, vns, dgs, dgsKilm);				
+		return Facade.kiti(new SveikasisSkaicius(skaicius), vns, dgs, dgsKilm);
 	}
-	
-	/**
-	 * Grąžina po skaitvardžio einančius tinkamos formos kitus žodžius.
-	 * @param skaicius skaičius
-	 * @param forma
-	 * @param vns vienaskaitos atitinkamas linksnis (pavyzdžiui, "geltonas šuo", "geltonam šuniui")
-	 * @param dgs daugiskaitos atitinkamas linksnis (pavyzdžiui, "geltoni šunys", "geltoniems šunims")
-	 * @param dgsKilm daugiskaitos kilmininkas (pavyzdžiui, "geltonų šunų")
-	 * @return reikiamos formos žodžiai
-	 */
+
 	public static String kiti(int skaicius, String forma, String vns, String dgs, String dgsKilm) {
-		if (forma == null) {
-			forma = "";
-		}
-		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, null);
-		SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
-		new SveikasisSkaicius(Integer.toString(skaicius)).toString(f, kitas);
-		if (kitas.equals(DGS_K)) {
-			if (dgsKilm != null && dgsKilm.length() > 0) {
-				return dgsKilm;
-			} else if (/*f.getSkaicius() == Skaicius.D && */f.getLinksnis() == Linksnis.K && dgs != null) {
-				return dgs;
-			} else {
-				return null;
-			}
-		} else if (kitas.getSkaicius() == Skaicius.D) {
-			return dgs;
-		} else if (kitas.getSkaicius() == Skaicius.V) {
-			return vns;
-		} else {
-			return null;
-		}
+		return Facade.kiti(new SveikasisSkaicius(skaicius), forma, vns, dgs, dgsKilm);
 	}
 
 }

@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai.app.template;
 
+import eu.vytenis.skaitvardziai.external.ExternalFacade;
 import eu.vytenis.skaitvardziai.parser.Invoker;
 import eu.vytenis.skaitvardziai.parser.Methods;
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
@@ -17,7 +18,7 @@ public class FunctionInvocationSource implements TextSource {
 		Object[] args = Methods.getArguments(f);
 
 		Invoker i = new Invoker();
-		i.addPublicStaticMethods(Functions.class, Functions.class);
+		i.addPublicStaticMethods(ExternalFacade.class, ExternalFacade.class);
 		Object r = i.invoke(function, args);
 		return r != null ? r.toString() : null;
 	}

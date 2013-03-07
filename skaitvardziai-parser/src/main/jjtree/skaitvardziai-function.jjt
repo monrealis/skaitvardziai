@@ -33,7 +33,7 @@ TOKEN: {
 }
 
 SimpleNode FunctionCall() : {} {
-	Identifier() "(" [Arguments()] ")" { return jjtThis; }
+	Identifier() "(" [Arguments()] ")"  <EOF> { return jjtThis; }
 }
 
 void Identifier() : {Token value;} {

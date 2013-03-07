@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 public class TemplateProcessor implements Processor {
 
@@ -65,22 +66,38 @@ public class TemplateProcessor implements Processor {
 		Matcher m = instructionsPattern.matcher(inputText);
 		int nextCharIndex = 0;
 		while (m.find()) {
-			if (m.start() > nextCharIndex) {
-				fragments.add(new StringSource(inputText.substring(nextCharIndex, m.start())));
-			}
+			addStaticFragmentIfNotEmpty(nextCharIndex, m.start());
 			fragments.add(new FunctionInvocationSource(m.group(1)));
 			nextCharIndex = m.end();
 		}
-		if (inputText.length() > nextCharIndex) {
-			fragments.add(new StringSource(inputText.substring(nextCharIndex, inputText.length())));
-		}
-		
+		addStaticFragmentIfNotEmpty(nextCharIndex, inputText.length());
+	}
+	
+	private void addStaticFragmentIfNotEmpty(int firstIndex, int lastIndex) {
+		if (lastIndex > firstIndex) {
+			String text = inputText.substring(firstIndex, lastIndex);
+			int idx = text.indexOf(openTag);
+			if (idx >= 0) {				
+				throw new TemplateParseException(String.format("Invalid text starting at index %d: %s", idx, openTag));
+			}
+			fragments.add(new StringSource(text));
+		}		
 	}
 	
 	void write() {
 		for (TextSource s : fragments) {
 			SystemIo.printOut(s.getText(), "");
 		}
+	}
+	
+	public static class TemplateParseException extends SkaitvardziaiRuntimeException {
+		
+		private static final long serialVersionUID = -2523506465513363826L;
+
+		public TemplateParseException(String message) {
+			super(message);
+		}
+		
 	}
 	
 }

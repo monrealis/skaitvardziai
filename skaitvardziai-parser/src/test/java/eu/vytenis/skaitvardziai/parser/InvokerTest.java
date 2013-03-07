@@ -20,8 +20,8 @@ public class InvokerTest {
 	@Test
 	public void testAddPublicStaticMethods() {
 		Assert.assertEquals(0, new Invoker().getMethods().size());		
-		Assert.assertEquals(3, parentAndChildInvoker.getMethods().size());		
-		Assert.assertEquals(2, childInvoker.getMethods().size());
+		Assert.assertEquals(4, parentAndChildInvoker.getMethods().size());		
+		Assert.assertEquals(3, childInvoker.getMethods().size());
 	}
 	
 	@Test(expected = Invoker.DuplicateMethodException.class)
@@ -32,8 +32,14 @@ public class InvokerTest {
 	@Test
 	public void testInvoke_Success() {
 		Assert.assertEquals("child-f1", parentAndChildInvoker.invoke("f1", new Object[] {}));
-		Assert.assertEquals(null, parentAndChildInvoker.invoke("f11", new Object[] {}));
+		Assert.assertEquals("f11", parentAndChildInvoker.invoke("f11", new Object[] {}));
 		Assert.assertEquals(25, parentAndChildInvoker.invoke("f2", new Object[] {10, 15}));
+	}
+	
+	@Test
+	public void testInvoke_OverloadedMethodsSuccess() {
+		Assert.assertEquals("f11", parentAndChildInvoker.invoke("f11", new Object[] {}));
+		Assert.assertEquals("f11-1", parentAndChildInvoker.invoke("f11", new Object[] {"a"}));
 	}
 	
 	@Test(expected = Invoker.MethodNotFoundException.class)
@@ -77,12 +83,18 @@ public class InvokerTest {
 			return "child-f1";
 		}
 		
-		public static void f11() {			
+		public static String f11() {
+			return "f11";
 		}
 		
-		protected static void f12() {
-			
+		public static String f11(String arg) {
+			return "f11-1";
 		}
+		
+		protected static String f12() {
+			return "f12";
+		}
+
 	}
 
 }

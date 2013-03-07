@@ -1,7 +1,5 @@
 package eu.vytenis.skaitvardziai.app.main;
 
-import java.util.regex.Pattern;
-
 import org.junit.Test;
 
 
@@ -11,7 +9,7 @@ public class MainTest extends AppTest {
 
 	@Test	
 	public void testHelp() {
-		Pattern p = Pattern.compile("(?ms)^usage:.*Prints text that represents given number[\n\r]+$");
+		Out p = new Out("(?ms)^usage:.*Prints text that represents given number[\n\r]+$");
 		
 		assertOutMatches(p, "-h");
 		assertOutMatches(p, "--help");
@@ -20,19 +18,19 @@ public class MainTest extends AppTest {
 	
 	@Test
 	public void testUsage() {
-		Pattern p = Pattern.compile("(?ms)^usage:.*\n$");
+		Out p = new Out("(?ms)^usage:.*\n$");
 		assertOutMatches(p, "-X", 1);
 	}
 
 	@Test
 	public void testOneArg() {
-		assertOut("vienas\n", 1);
-		assertOut("šimtas dešimt\n", 110);
+		assertOut(new Out("vienas\n"), 1);
+		assertOut(new Out("šimtas dešimt\n"), 110);
 		
-		assertOut("vienas", "-n", 1);
-		assertOut("šimtas dešimt", "--no-newline", 110);
+		assertOut(new Out("vienas"), "-n", 1);
+		assertOut(new Out("šimtas dešimt"), "--no-newline", 110);
 		
-		assertOut("vieno", "-f", "K", "-n", 1);		
+		assertOut(new Out("vieno"), "-f", "K", "-n", 1);		
 	}
 
 }

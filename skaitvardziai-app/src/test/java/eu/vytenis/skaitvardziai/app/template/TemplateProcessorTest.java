@@ -46,13 +46,10 @@ public class TemplateProcessorTest {
 	
 	private void testParsedFragments(String text, Object[] expected) {
 		TemplateProcessor p = new TemplateProcessor();
-		
 		p.inputText = text;
 		p.createPattern();
-		p.collectFragments();	
-		
-		assertArrayEquals(expected, p.fragments.toArray());
-		
+		p.collectFragments();		
+		assertArrayEquals(expected, p.fragments.toArray());		
 	}
 	
 	

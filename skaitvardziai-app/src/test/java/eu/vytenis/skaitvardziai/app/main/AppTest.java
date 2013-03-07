@@ -42,33 +42,33 @@ public class AppTest {
 		return params;
 	}
 
-	protected void assertOut(String out, Object... args) {
-		assertOutErr(out, "", args);
+	protected void assertOut(Out out, Object... args) {
+		assertOutErr(out, Out.EMPTY, args);
 	}
 
-	protected void assertOutByIn(String out, String in, Object... args) {
+	protected void assertOutByIn(Out out, String in, Object... args) {
 		System.setIn(new ByteArrayInputStream(in.getBytes()));
-		assertOutErr(out, "", args);
+		assertOutErr(out, Out.EMPTY, args);
 	}
 	
 	@SuppressWarnings("unused")
-	private void assertErr(String err, Object... args) {
-		assertOutErr("", err, args);
+	private void assertErr(Out err, Object... args) {
+		assertOutErr(Out.EMPTY, err, args);
 	}
 
-	private void assertOutErr(String out, String err, Object... args) {
+	private void assertOutErr(Out out, Out err, Object... args) {
 		SystemOutputFiles oe = main(args);
-		Assert.assertEquals(out, oe.getOut());
-		Assert.assertEquals(err, oe.getErr());
+		Assert.assertEquals(out.getText(), oe.getOut());
+		Assert.assertEquals(err.getText(), oe.getErr());
 	}
 
-	protected void assertOutMatches(Pattern out, Object... args) {
-		assertOutErrMatches(out, EMPTY_PATTERN, args);
+	protected void assertOutMatches(Out out, Object... args) {
+		assertOutErrMatches(out.toPattern(), EMPTY_PATTERN, args);
 	}
 
 	@SuppressWarnings("unused")
-	private void assertErrMatches(Pattern err, Object... args) {
-		assertOutErrMatches(EMPTY_PATTERN, err, args);
+	private void assertErrMatches(Out err, Object... args) {
+		assertOutErrMatches(EMPTY_PATTERN, err.toPattern(), args);
 	}
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {

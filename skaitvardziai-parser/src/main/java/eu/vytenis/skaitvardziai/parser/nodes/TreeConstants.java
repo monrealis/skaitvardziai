@@ -4,12 +4,12 @@ import eu.vytenis.skaitvardziai.parser.tree.TreeParserTreeConstants;
 
 public class TreeConstants {
 	
-	public static String getArguments() {
-		return getName(TreeParserTreeConstants.JJTARGUMENTS);
+	public static String getParameters() {
+		return getName(TreeParserTreeConstants.JJTPARAMETERS);
 	}
 	
-	public static String getArgument() {
-		return getName(TreeParserTreeConstants.JJTARGUMENT);
+	public static String getParameter() {
+		return getName(TreeParserTreeConstants.JJTPARAMETER);
 	}
 	
 	public static String getMinus() {

@@ -12,12 +12,12 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 public class MethodsTest {
 	
 	@Test
-	public void testNoArgs() {
+	public void testNoParams() {
 		assertMethodInvocations(" f ( ) ", "f", new Object[] {});
 	}
 	
 	@Test
-	public void testNullArgs() {
+	public void testNullParams() {
 		assertMethodInvocations(" f ( null ) ", "f",  new Object[] {null});
 		assertMethodInvocations(" f ( null , null ) ", "f",  new Object[] {null, null});
 		assertMethodInvocations(" f ( null , null , null ) ", "f",  new Object[] {null, null, null});
@@ -25,7 +25,7 @@ public class MethodsTest {
 	
 	
 	@Test
-	public void testIntegerArgs() {
+	public void testIntegerParams() {
 		assertMethodInvocations(" f ( 1 ) ", "f", new Object[] {getSv(1)});
 		assertMethodInvocations(" f ( 1 , 2 ) ", "f", new Object[] {getSv(1), getSv(2)});
 		assertMethodInvocations(" f ( 1 , 2, 3 ) ", "f", new Object[] {getSv(1), getSv(2), getSv(3)});
@@ -37,7 +37,7 @@ public class MethodsTest {
 	
 	
 	@Test
-	public void testFractionArgs() {
+	public void testFractionParams() {
 		assertMethodInvocations(" f ( 1 / 2 ) ", "f", new Object[] {getTr(1, 2)});
 		assertMethodInvocations(" f ( 1 / 2 , 2 / 3 ) ", "f", new Object[] {getTr(1, 2), getTr(2, 3)});
 		assertMethodInvocations(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", "f", new Object[] {getTr(1, 4), getTr(2, 10), getTr(3, 2)});
@@ -49,7 +49,7 @@ public class MethodsTest {
 	}
 	
 	@Test
-	public void testStringArgs() {
+	public void testStringParams() {
 		assertMethodInvocations(" f ( 'a' ) ", "f", new Object[] {"a"});
 		assertMethodInvocations(" f ( 'b,\"b' , 'cccc' ) ", "f", new Object[] {"b,\"b", "cccc"});
 		assertMethodInvocations(" f ( 'ddd' , 'eee', 'fff' ) ", "f", new Object[] {"ddd", "eee", "fff"});
@@ -60,13 +60,13 @@ public class MethodsTest {
 		
 	}
 	
-	private SimpleNode assertMethodInvocations(String methodInvocationText, String expectedMethodName, Object[] expectedArgumentValues) {
-		assertMethodInvocation(methodInvocationText, expectedMethodName, expectedArgumentValues);
+	private SimpleNode assertMethodInvocations(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
+		assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
 		methodInvocationText = methodInvocationText.replaceAll("\\s", "");
-		return assertMethodInvocation(methodInvocationText, expectedMethodName, expectedArgumentValues);
+		return assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
 	}
 
-	private SimpleNode assertMethodInvocation(String methodInvocationText, String expectedMethodName, Object[] expectedArgumentValues) {
+	private SimpleNode assertMethodInvocation(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
 		SimpleNode node = Methods.parse(methodInvocationText);
 		System.out.println();
 		System.out.println(methodInvocationText);
@@ -74,8 +74,8 @@ public class MethodsTest {
 		
 		MethodInvocation i = Methods.getMethodInvocation(methodInvocationText);
 		Assert.assertEquals(expectedMethodName, i.getMethodName());
-		Assert.assertEquals(expectedArgumentValues.length, i.getParameters().length);
-		Assert.assertArrayEquals(expectedArgumentValues, i.getParameters());
+		Assert.assertEquals(expectedParameterValues.length, i.getParameters().length);
+		Assert.assertArrayEquals(expectedParameterValues, i.getParameters());
 		Assert.assertNotNull(methodInvocationText);
 		return node;
 	}

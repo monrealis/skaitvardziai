@@ -90,7 +90,7 @@ public class InvokerTest {
 			return "f11";
 		}
 		
-		public static String f11(String arg) {
+		public static String f11(String param) {
 			return "f11-1";
 		}
 		

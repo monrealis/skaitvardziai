@@ -33,18 +33,18 @@ TOKEN: {
 }
 
 SimpleNode MethodInvocation() : {} {
-	Identifier() "(" [Arguments()] ")"  <EOF> { return jjtThis; }
+	Identifier() "(" [Parameters()] ")"  <EOF> { return jjtThis; }
 }
 
 void Identifier() : {Token value;} {
 	value = <IDENTIFIER> {jjtThis.value = value;}
 }
 
-void Arguments() : {} {
-	Argument() ( "," Argument() )*
+void Parameters() : {} {
+	Parameter() ( "," Parameter() )*
 }
 
-void Argument() : {} {
+void Parameter() : {} {
 	LOOKAHEAD(3)
 	Fraction() | Integer() | String() | Null()
 }

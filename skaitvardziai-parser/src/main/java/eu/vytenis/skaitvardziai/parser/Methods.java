@@ -15,12 +15,21 @@ import eu.vytenis.skaitvardziai.parser.tree.TreeParser;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
-
-// TODO argumentus if funkcijos pavadinimą grąžinti vienoje struktūroje
 public class Methods {
 
-	public static Object[] getArguments(SimpleNode functionCallNode) {
-		SimpleNode argsNode = Nodes.getOnlyChild(functionCallNode, TreeConstants.getArguments());
+	public static MethodInvocation getMethodInvocation(String methodCallText) {
+		SimpleNode node = parse(methodCallText);
+		return new MethodInvocation(getMethodName(node), getArguments(node));
+	}
+	
+	static String getMethodName(SimpleNode methodCallNode) {
+		SimpleNode identifier = Nodes.getOnlyChild(methodCallNode, TreeConstants.getIdentifier());
+		String name = ((Token) identifier.jjtGetValue()).image;
+		return name;
+	}
+	
+	static Object[] getArguments(SimpleNode methodCallNode) {
+		SimpleNode argsNode = Nodes.getOnlyChild(methodCallNode, TreeConstants.getArguments());
 		List<SimpleNode> argNodes = Nodes.getChildren(argsNode, TreeConstants.getArgument());
 		
 		List<Object> r = new ArrayList<Object>();
@@ -29,12 +38,6 @@ public class Methods {
 		}
 		
 		return r.toArray(new Object[] {});
-	}
-	
-	public static String getFunction(SimpleNode functionCallNode) {
-		SimpleNode identifier = Nodes.getOnlyChild(functionCallNode, TreeConstants.getIdentifier());
-		String name = ((Token) identifier.jjtGetValue()).image;
-		return name;
 	}
 	
 	private static Object getArgument(SimpleNode argumentNode) {
@@ -109,10 +112,10 @@ public class Methods {
 		
 	}
 	
-	public static SimpleNode parse(String functionCallText) {
+	static SimpleNode parse(String methodCallText) {
 		SimpleNode call;
 		try {
-			call = new TreeParser(new StringReader(functionCallText)).FunctionCall();
+			call = new TreeParser(new StringReader(methodCallText)).FunctionCall();
 		} catch (ParseException e) {
 			throw new SkaitvardziaiParseException(e);
 		}

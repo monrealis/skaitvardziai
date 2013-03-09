@@ -59,26 +59,26 @@ public class MethodsTest {
 		
 	}
 	
-	private SimpleNode testParseCall(String functionCallText, String expectedMethodName, Object[] expectedArgumentValues) {
-		testParseCall(functionCallText, expectedMethodName, expectedArgumentValues, true);
-		return testParseCall(functionCallText, expectedMethodName, expectedArgumentValues, false);
+	private SimpleNode testParseCall(String methodCallText, String expectedMethodName, Object[] expectedArgumentValues) {
+		testParseCall(methodCallText, expectedMethodName, expectedArgumentValues, true);
+		return testParseCall(methodCallText, expectedMethodName, expectedArgumentValues, false);
 	}
 
-	private SimpleNode testParseCall(String functionCallText, String expectedMethodName, Object[] expectedArgumentValues, boolean removeWhitespace) {
+	private SimpleNode testParseCall(String methodCallText, String expectedMethodName, Object[] expectedArgumentValues, boolean removeWhitespace) {
 		if (removeWhitespace) {
-			functionCallText = functionCallText.replaceAll("\\s", "");			
+			methodCallText = methodCallText.replaceAll("\\s", "");			
 		}
-		SimpleNode call = Methods.parse(functionCallText);
+		SimpleNode call = Methods.parse(methodCallText);
 		System.out.println();
-		System.out.println(functionCallText);
+		System.out.println(methodCallText);
 		call.dump("");
 		
-		String name = Methods.getFunction(call);
+		String name = Methods.getMethodName(call);
 		Object[] args = Methods.getArguments(call);
 		Assert.assertEquals(expectedMethodName, name);
 		Assert.assertEquals(expectedArgumentValues.length, args.length);
 		Assert.assertArrayEquals(expectedArgumentValues, args);
-		Assert.assertNotNull(functionCallText);
+		Assert.assertNotNull(methodCallText);
 		return call;
 	}
 	

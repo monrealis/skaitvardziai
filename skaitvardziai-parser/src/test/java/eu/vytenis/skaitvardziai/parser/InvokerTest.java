@@ -31,30 +31,30 @@ public class InvokerTest {
 
 	@Test
 	public void testInvoke_Success() {
-		Assert.assertEquals("child-f1", parentAndChildInvoker.invoke("f1", new Object[] {}));
-		Assert.assertEquals("f11", parentAndChildInvoker.invoke("f11", new Object[] {}));
-		Assert.assertEquals(25, parentAndChildInvoker.invoke("f2", new Object[] {10, 15}));
+		Assert.assertEquals("child-f1", parentAndChildInvoker.invoke(new MethodInvocation("f1")));
+		Assert.assertEquals("f11", parentAndChildInvoker.invoke(new MethodInvocation("f11")));
+		Assert.assertEquals(25, parentAndChildInvoker.invoke(new MethodInvocation("f2", 10, 15)));
 	}
 	
 	@Test
 	public void testInvoke_OverloadedMethodsSuccess() {
-		Assert.assertEquals("f11", parentAndChildInvoker.invoke("f11", new Object[] {}));
-		Assert.assertEquals("f11-1", parentAndChildInvoker.invoke("f11", new Object[] {"a"}));
+		Assert.assertEquals("f11", parentAndChildInvoker.invoke(new MethodInvocation("f11")));
+		Assert.assertEquals("f11-1", parentAndChildInvoker.invoke(new MethodInvocation("f11", "a")));
 	}
 	
 	@Test(expected = Invoker.MethodNotFoundException.class)
 	public void testInvoke_FailedNoMethodName() {
-		parentAndChildInvoker.invoke("x", new Object[] {});
+		parentAndChildInvoker.invoke(new MethodInvocation("x"));
 	}
 	
 	@Test(expected = Invoker.MethodNotFoundException.class)
 	public void testInvoke_FailedNoMethodParams() {
-		parentAndChildInvoker.invoke("f2", new Object[] {15});
+		parentAndChildInvoker.invoke(new MethodInvocation("f2", 15));
 	}
 
 	@Test(expected = Invoker.MethodInvocationException.class)
 	public void testInvoke_FailedInvocationInvalidTypes() {
-		parentAndChildInvoker.invoke("f2", new Object[] {"a", "b"});
+		parentAndChildInvoker.invoke(new MethodInvocation("f2", "a", "b"));
 	}
 
 	public static class ParentClass {

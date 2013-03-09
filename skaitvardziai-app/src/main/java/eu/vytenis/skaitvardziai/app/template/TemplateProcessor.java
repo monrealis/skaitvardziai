@@ -67,7 +67,7 @@ public class TemplateProcessor implements Processor {
 		int nextCharIndex = 0;
 		while (m.find()) {
 			addStaticFragmentIfNotEmpty(nextCharIndex, m.start());
-			fragments.add(new FunctionInvocationSource(m.group(1)));
+			fragments.add(new MethodInvocationSource(m.group(1)));
 			nextCharIndex = m.end();
 		}
 		addStaticFragmentIfNotEmpty(nextCharIndex, inputText.length());

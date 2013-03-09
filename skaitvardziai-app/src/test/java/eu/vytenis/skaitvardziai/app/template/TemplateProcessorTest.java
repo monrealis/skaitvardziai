@@ -57,7 +57,7 @@ public class TemplateProcessorTest {
 		return new StringSource(text);
 	}
 	
-	private FunctionInvocationSource fs(String unparsedText) {
-		return new FunctionInvocationSource(unparsedText);
+	private MethodInvocationSource fs(String unparsedText) {
+		return new MethodInvocationSource(unparsedText);
 	}
 }

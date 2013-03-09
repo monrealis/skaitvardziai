@@ -53,9 +53,9 @@ public class Invoker {
 		return Collections.unmodifiableList(methods);
 	}
 	
-	public Object invoke(String methodName, Object[] parameters) {
+	public Object invoke(MethodInvocation invocation) {
 		try {
-			return getMethodOrFail(methodName, parameters).invoke(null, parameters);
+			return getMethodOrFail(invocation.getMethodName(), invocation.getParameters()).invoke(null, invocation.getParameters());
 		} catch (IllegalAccessException e) {
 			throw new MethodInvocationException(e);
 		} catch (IllegalArgumentException e) {

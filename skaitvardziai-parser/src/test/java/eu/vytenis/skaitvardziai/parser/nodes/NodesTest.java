@@ -1,9 +1,11 @@
-package eu.vytenis.skaitvardziai.parser;
+package eu.vytenis.skaitvardziai.parser.nodes;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import eu.vytenis.skaitvardziai.parser.nodes.Nodes;
+import eu.vytenis.skaitvardziai.parser.nodes.TreeConstants;
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 import eu.vytenis.skaitvardziai.parser.tree.TreeParserTreeConstants;
 

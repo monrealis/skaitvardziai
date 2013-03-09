@@ -1,8 +1,11 @@
-package eu.vytenis.skaitvardziai.parser;
+package eu.vytenis.skaitvardziai.parser.methods;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import eu.vytenis.skaitvardziai.parser.methods.Invoker;
+import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 
 public class InvokerTest {
 

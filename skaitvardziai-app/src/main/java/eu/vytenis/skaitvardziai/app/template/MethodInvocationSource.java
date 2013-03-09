@@ -1,9 +1,9 @@
 package eu.vytenis.skaitvardziai.app.template;
 
 import eu.vytenis.skaitvardziai.external.Facade;
-import eu.vytenis.skaitvardziai.parser.Invoker;
-import eu.vytenis.skaitvardziai.parser.MethodInvocation;
-import eu.vytenis.skaitvardziai.parser.Methods;
+import eu.vytenis.skaitvardziai.parser.methods.Invoker;
+import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
+import eu.vytenis.skaitvardziai.parser.methods.Methods;
 
 public class MethodInvocationSource implements TextSource {
 	private String unparsedText;

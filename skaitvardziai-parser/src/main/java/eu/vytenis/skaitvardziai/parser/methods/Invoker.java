@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.parser;
+package eu.vytenis.skaitvardziai.parser.methods;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

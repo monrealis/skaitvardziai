@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.parser;
+package eu.vytenis.skaitvardziai.parser.methods;
 
 import java.io.StringReader;
 import java.util.ArrayList;
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.parser.nodes.Nodes;
+import eu.vytenis.skaitvardziai.parser.nodes.TreeConstants;
 import eu.vytenis.skaitvardziai.parser.tree.ParseException;
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 import eu.vytenis.skaitvardziai.parser.tree.Token;
@@ -17,20 +19,20 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class Methods {
 
-	public static MethodInvocation getMethodInvocation(String methodCallText) {
-		SimpleNode node = parse(methodCallText);
-		return new MethodInvocation(getMethodName(node), getArguments(node));
+	public static MethodInvocation getMethodInvocation(String methodInvocationText) {
+		SimpleNode node = parse(methodInvocationText);
+		return new MethodInvocation(getMethodName(node), getParameters(node));
 	}
 	
-	static String getMethodName(SimpleNode methodCallNode) {
-		SimpleNode identifier = Nodes.getOnlyChild(methodCallNode, TreeConstants.getIdentifier());
+	private static String getMethodName(SimpleNode methodInvocationNode) {
+		SimpleNode identifier = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getIdentifier());
 		String name = ((Token) identifier.jjtGetValue()).image;
 		return name;
 	}
 	
-	static Object[] getArguments(SimpleNode methodCallNode) {
-		SimpleNode argsNode = Nodes.getOnlyChild(methodCallNode, TreeConstants.getArguments());
-		List<SimpleNode> argNodes = Nodes.getChildren(argsNode, TreeConstants.getArgument());
+	private static Object[] getParameters(SimpleNode methodInvocationNode) {
+		SimpleNode paramsNode = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getArguments());
+		List<SimpleNode> argNodes = Nodes.getChildren(paramsNode, TreeConstants.getArgument());
 		
 		List<Object> r = new ArrayList<Object>();
 		for (SimpleNode n : argNodes) {
@@ -112,14 +114,14 @@ public class Methods {
 		
 	}
 	
-	static SimpleNode parse(String methodCallText) {
-		SimpleNode call;
+	static SimpleNode parse(String methodInvocationText) {
+		SimpleNode n;
 		try {
-			call = new TreeParser(new StringReader(methodCallText)).FunctionCall();
+			n = new TreeParser(new StringReader(methodInvocationText)).MethodInvocation();
 		} catch (ParseException e) {
 			throw new SkaitvardziaiParseException(e);
 		}
-		return call;
+		return n;
 	}
 	
 	public static class SkaitvardziaiParseException extends SkaitvardziaiRuntimeException {

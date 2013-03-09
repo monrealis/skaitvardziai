@@ -3,8 +3,8 @@ package eu.vytenis.skaitvardziai.app.main;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.app.template.TemplateProcessor.TemplateParseException;
-import eu.vytenis.skaitvardziai.parser.Invoker.MethodInvocationException;
-import eu.vytenis.skaitvardziai.parser.Methods.SkaitvardziaiParseException;
+import eu.vytenis.skaitvardziai.parser.methods.Invoker.MethodInvocationException;
+import eu.vytenis.skaitvardziai.parser.methods.Methods.SkaitvardziaiParseException;
 
 public class TemplateTest extends AppTest {
 

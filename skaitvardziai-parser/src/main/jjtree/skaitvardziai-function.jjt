@@ -32,7 +32,7 @@ TOKEN: {
 	| < #DOUBLE_QUOTED_STRING: "\"" (~["\""])* "\"" >
 }
 
-SimpleNode FunctionCall() : {} {
+SimpleNode MethodInvocation() : {} {
 	Identifier() "(" [Arguments()] ")"  <EOF> { return jjtThis; }
 }
 

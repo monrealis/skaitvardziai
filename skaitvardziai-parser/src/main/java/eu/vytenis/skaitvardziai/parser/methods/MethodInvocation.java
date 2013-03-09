@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.parser;
+package eu.vytenis.skaitvardziai.parser.methods;
 
 
 public class MethodInvocation {

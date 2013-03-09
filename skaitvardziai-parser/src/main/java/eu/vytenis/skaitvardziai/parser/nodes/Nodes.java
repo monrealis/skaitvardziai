@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.parser;
+package eu.vytenis.skaitvardziai.parser.nodes;
 
 import java.util.ArrayList;
 import java.util.Collections;

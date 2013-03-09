@@ -4,7 +4,9 @@ public enum CliOption {
 	Help("h", "help", false, "show help"),
 	NoNewline("n", "no-newline", false, "do not output the trailing newline"),
 	Form("f", "form", true, "numeral form"),
-	Transform("t", "transform", false, "execute template transformation");
+	Transform("t", "transform", false, "execute template transformation"),
+	StartTag("s", "start-tag", true, "opening tag of template function (defaults to \"${\")"),
+	EndTag("e", "end-tag", true, "closing tag of template function (defaults to \"}\"");
 	
 	private String shortName;
 	private String name;
@@ -35,6 +37,6 @@ public enum CliOption {
 	}
 	
 	public static CliOption[] getOptionsForArgs() {
-		return new CliOption[] {Help, NoNewline, Form, Transform};
+		return CliOption.values();
 	}
 }

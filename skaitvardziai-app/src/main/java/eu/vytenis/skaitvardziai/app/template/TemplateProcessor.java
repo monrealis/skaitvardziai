@@ -9,20 +9,44 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.cli.CommandLine;
+
+import eu.vytenis.skaitvardziai.app.cli.CliOption;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 public class TemplateProcessor implements Processor {
+	static final String DEFAULT_START_TAG = "${";
+	static final String DEFAULT_END_TAG = "}";
 
-	String openTag = "${";
-	String closeTag = "}";
-	Pattern instructionsPattern;
+	@SuppressWarnings("unused")
+	private final CommandLine commandLine;
 	
-	Reader reader;	
-	String inputText;	
-	List<TextSource> fragments;
+	private String startTag = DEFAULT_START_TAG;
+	private String endTag = DEFAULT_END_TAG;
+	private Pattern instructionsPattern;
 	
+	private Reader reader;	
+	private String inputText;	
+	private List<TextSource> fragments;
+	
+	public TemplateProcessor(CommandLine commandLine) {
+		this.commandLine = commandLine;
+		if (commandLine.hasOption(CliOption.StartTag.getShortName())) {
+			startTag = commandLine.getOptionValue(CliOption.StartTag.getShortName());
+		}
+		if (commandLine.hasOption(CliOption.EndTag.getShortName())) {
+			endTag = commandLine.getOptionValue(CliOption.EndTag.getShortName());
+		}
+	}
+	
+	TemplateProcessor(String startTag, String endTag, String inputText) {
+		commandLine = null;
+		this.startTag = startTag;
+		this.endTag = endTag;
+		this.inputText = inputText;
+	}
 	
 	public void process() {
 		createReader();
@@ -56,7 +80,7 @@ public class TemplateProcessor implements Processor {
 	}
 
 	void createPattern() {
-		String patternText = Pattern.quote(openTag) + "(.*?)" + Pattern.quote(closeTag);
+		String patternText = Pattern.quote(startTag) + "(.*?)" + Pattern.quote(endTag);
 		instructionsPattern = Pattern.compile(patternText, Pattern.MULTILINE | Pattern.DOTALL);
 	}
 	
@@ -76,18 +100,22 @@ public class TemplateProcessor implements Processor {
 	private void addStaticFragmentIfNotEmpty(int firstIndex, int lastIndex) {
 		if (lastIndex > firstIndex) {
 			String text = inputText.substring(firstIndex, lastIndex);
-			int idx = text.indexOf(openTag);
+			int idx = text.indexOf(startTag);
 			if (idx >= 0) {				
-				throw new TemplateParseException(String.format("Invalid text starting at index %d: %s", idx, openTag));
+				throw new TemplateParseException(String.format("Invalid text starting at index %d: %s", idx, startTag));
 			}
 			fragments.add(new StringSource(text));
 		}		
 	}
 	
-	void write() {
+	private void write() {
 		for (TextSource s : fragments) {
 			SystemIo.printOut(s.getText(), "");
 		}
+	}
+	
+	public List<TextSource> getFragments() {
+		return fragments;
 	}
 	
 	public static class TemplateParseException extends SkaitvardziaiRuntimeException {

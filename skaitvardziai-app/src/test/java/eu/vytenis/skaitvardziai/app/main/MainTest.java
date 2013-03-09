@@ -4,7 +4,6 @@ import org.junit.Test;
 
 
 
-// TODO parašyti testų
 public class MainTest extends AppTest {
 
 	@Test	

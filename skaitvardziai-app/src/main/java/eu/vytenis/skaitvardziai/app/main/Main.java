@@ -51,7 +51,7 @@ public class Main {
 		
 		Processor p;
 		if (commandLine.hasOption(CliOption.Transform.getShortName())) {
-			p = new TemplateProcessor();
+			p = new TemplateProcessor(commandLine);
 		} else {
 			p = new EchoProcessor(commandLine);
 		}		

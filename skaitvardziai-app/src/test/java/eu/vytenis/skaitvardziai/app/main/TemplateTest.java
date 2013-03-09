@@ -52,4 +52,11 @@ public class TemplateTest extends AppTest {
 	public void failIfInvalidArgType() {
 		assertOutByIn(new Out("Skaičius: vienas"), "Skaičius: ${sveikasis(1 / 1)}", "-t");
 	}
+	
+	@Test
+	public void testTags() {
+		assertOutByIn(new Out("Skaičius: ${sveikasis(1)}"), "Skaičius: ${sveikasis(1)}", "-t", "-s", "#[", "-e", "]");
+		assertOutByIn(new Out("Skaičius: vienas"), "Skaičius: #[sveikasis(1)]", "-t", "-s", "#[", "-e", "]");
+		assertOutByIn(new Out("Skaičius: vienas"), "Skaičius: <? sveikasis(1) ?>", "-t", "-s", "<?", "-e", "?>");
+	}
 }

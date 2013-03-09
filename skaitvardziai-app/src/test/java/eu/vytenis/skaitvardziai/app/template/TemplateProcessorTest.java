@@ -2,9 +2,19 @@ package eu.vytenis.skaitvardziai.app.template;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class TemplateProcessorTest {
+	
+	private String startTag;
+	private String endTag;
+	
+	@Before
+	public void before() {
+		startTag = TemplateProcessor.DEFAULT_START_TAG;
+		endTag = TemplateProcessor.DEFAULT_END_TAG;
+	}
 
 	@Test
 	public void testCollectFragments() {
@@ -13,43 +23,54 @@ public class TemplateProcessorTest {
 		
 		input = "a${}${'a'}b\nc";
 		output = new Object[] {ss("a"), fs(""), fs("'a'"), ss("b\nc")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "${c}";
 		output = new Object[] {fs("c")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "${}${b}${c}";
 		output = new Object[] {fs(""), fs("b"), fs("c")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "";
 		output = new Object[] {};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "a\nb";
 		output = new Object[] {ss("a\nb")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "a${b}";
 		output = new Object[] {ss("a"), fs("b")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "a${b}c";
 		output = new Object[] {ss("a"), fs("b"), ss("c")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 		
 		input = "${a}b";
 		output = new Object[] {fs("a"), ss("b")};
-		testParsedFragments(input, output);
+		assertParsedFragments(input, output);
 	}
 	
-	private void testParsedFragments(String text, Object[] expected) {
-		TemplateProcessor p = new TemplateProcessor();
-		p.inputText = text;
+	@Test
+	public void testCollectFragmentsUsingOtherTags() {
+		String input;
+		Object[] output;
+		startTag = "<?";
+		endTag = "?>";
+		
+		input = "+<? c ?>-";
+		output = new Object[] {ss("+"), fs(" c "), ss("-")};
+		assertParsedFragments(input, output);
+	}
+	
+	private void assertParsedFragments(String text, Object[] expected) {
+		TemplateProcessor p = new TemplateProcessor(startTag, endTag, text);
 		p.createPattern();
 		p.collectFragments();		
-		assertArrayEquals(expected, p.fragments.toArray());		
+		assertArrayEquals(expected, p.getFragments().toArray());		
 	}
 	
 	

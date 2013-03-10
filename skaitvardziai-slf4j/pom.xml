@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>eu.vytenis.skaitvardziai</groupId>
-			<artifactId>skaitvardziai</artifactId>
+			<artifactId>skaitvardziai-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>

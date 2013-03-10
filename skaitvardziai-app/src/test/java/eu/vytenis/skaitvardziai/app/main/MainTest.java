@@ -24,15 +24,6 @@ public class MainTest extends AppTest {
 		assertOutMatches(p, "-X", 1);
 	}
 
-	@Test
-	public void testOneArg() {
-		assertOut(new ExpectedOut("vienas\n"), 1);
-		assertOut(new ExpectedOut("šimtas dešimt\n"), 110);
-		
-		assertOut(new ExpectedOut("vienas"), "-n", 1);
-		assertOut(new ExpectedOut("šimtas dešimt"), "--no-newline", 110);
-		
-		assertOut(new ExpectedOut("vieno"), "-f", "K", "-n", 1);		
-	}
+
 
 }

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.cli.CommandLine;
 
 import eu.vytenis.skaitvardziai.app.cli.CliOption;
+import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
@@ -66,7 +67,7 @@ public class TemplateProcessor implements Processor {
 		try {
 			read();
 		} catch (IOException e) {
-			throw new RuntimeException(e); // TODO
+			throw new SkaitvardziaiIOException(e);
 		}
 	}
 	

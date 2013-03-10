@@ -17,7 +17,7 @@ public class SystemIo {
 	private static ThreadLocal<OutputStream> systemOut = new ThreadLocal<OutputStream>();
 	private static ThreadLocal<OutputStream> systemErr = new ThreadLocal<OutputStream>();
 	
-	private Charset inputCharset = Charset.defaultCharset(); // TODO
+	private Charset inputCharset = Charset.defaultCharset();
 	private Charset outputCharset = Charset.defaultCharset();
 	
 	public void setOut(OutputStream out) {

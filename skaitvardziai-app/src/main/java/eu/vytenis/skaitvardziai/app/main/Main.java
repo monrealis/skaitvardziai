@@ -21,7 +21,6 @@ import eu.vytenis.skaitvardziai.app.template.TemplateProcessor;
 /**
  * Komandinės eilutės interfeiso pagrindinė klasė.
  */
-// TODO koduotes pridėti
 public class Main {
 	
 	/** Nuskaityti komandinės eilutės parametrai. */

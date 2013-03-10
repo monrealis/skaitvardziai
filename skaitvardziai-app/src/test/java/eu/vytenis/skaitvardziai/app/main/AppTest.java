@@ -77,7 +77,7 @@ public class AppTest {
 	}
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
-		SystemOutputFiles oe = main(null, args);
+		SystemOutputFiles oe = main(args);
 		assertMatches(oe.getOutText(), out);	
 		assertMatches(oe.getErrText(), err);
 	}

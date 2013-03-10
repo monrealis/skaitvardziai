@@ -1,7 +1,9 @@
 package eu.vytenis.skaitvardziai.app.io;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
@@ -26,13 +28,21 @@ public class SystemIo {
 	}
 	
 	public void printErr(String text, String newLine) {
-		OutputStream os = systemErr.get() != null ? systemErr.get() : System.err;
+		OutputStream os = getErr();
 		writeString(os, text + newLine);
+	}
+	private OutputStream getErr() {
+		OutputStream os = systemErr.get() != null ? systemErr.get() : System.err;
+		return os;
 	}
 
 	public void printOut(String text, String newLine) {
-		OutputStream os = systemOut.get() != null ? systemOut.get() : System.out;
+		OutputStream os = getOut();
 		writeString(os, text + newLine);
+	}
+	private OutputStream getOut() {
+		OutputStream os = systemOut.get() != null ? systemOut.get() : System.out;
+		return os;
 	}
 	
 	private void writeString(OutputStream output, String text) {
@@ -62,5 +72,10 @@ public class SystemIo {
 		outputCharset = Charset.forName(charsetName);
 	}
 
+	public Reader createSystemInReader() {
+		return new InputStreamReader(System.in, inputCharset);
+		
+		
+	}
 
 }

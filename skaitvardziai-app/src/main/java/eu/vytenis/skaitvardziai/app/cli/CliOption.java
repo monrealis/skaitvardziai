@@ -7,6 +7,7 @@ public enum CliOption {
 	Transform("t", "transform", false, "execute template transformation"),
 	StartTag("s", "start-tag", true, "opening tag of template function (defaults to \"${\")"),
 	EndTag("e", "end-tag", true, "closing tag of template function (defaults to \"}\""),
+	InputEncoding("ie", "input-encoding", true, "input encoding (defaults to system default)"),
 	OutputEncoding("oe", "output-encoding", true, "output encoding (defaults to system default)");
 	
 	private String shortName;

@@ -1,11 +1,13 @@
 package eu.vytenis.skaitvardziai.app;
 
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
 import org.junit.Assert;
 import org.junit.Before;
 
+import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.DecoratingStream;
 import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
@@ -57,8 +59,17 @@ public class AppTest {
 	}
 
 	protected void assertOutByIn(ExpectedOut out, String in, Object... args) {
-		System.setIn(new ByteArrayInputStream(in.getBytes()));
+		byte[] bytes = getInputAsBytes(in);
+		System.setIn(new ByteArrayInputStream(bytes));
 		assertOutErr(out, ExpectedOut.EMPTY, args);
+	}
+
+	private byte[] getInputAsBytes(String input) {
+		try {
+			return input.getBytes(systemIo.getInputCharset().name());
+		} catch (UnsupportedEncodingException e) {
+			throw new SkaitvardziaiIOException(e);
+		}
 	}
 	
 	@SuppressWarnings("unused")

@@ -51,7 +51,7 @@ public class EchoProcessor implements Processor {
 	private void calculateReader() {
 		inputFromSystemIn = commandLine.getArgs().length == 0;
 		if (inputFromSystemIn) {
-			reader = new InputStreamReader(System.in);
+			reader = systemIo.createSystemInReader();
 			inputFromSystemIn = true;
 		} else {
 			createArgValuesReader();

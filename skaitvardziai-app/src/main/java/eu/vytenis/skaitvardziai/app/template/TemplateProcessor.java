@@ -1,7 +1,6 @@
 package eu.vytenis.skaitvardziai.app.template;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -60,7 +59,7 @@ public class TemplateProcessor implements Processor {
 	}
 	
 	void createReader() {
-		reader = new InputStreamReader(System.in);
+		reader = systemIo.createSystemInReader();
 	}
 	
 	void tryRead() {

@@ -71,6 +71,9 @@ public class Main {
 		if (commandLine.hasOption(CliOption.OutputEncoding.getShortName())) {
 			io.setOutputCharsetName(commandLine.getOptionValue(CliOption.OutputEncoding.getShortName()));
 		}
+		if (commandLine.hasOption(CliOption.InputEncoding.getShortName())) {
+			io.setInputCharsetName(commandLine.getOptionValue(CliOption.InputEncoding.getShortName()));
+		}
 		systemIo = io;
 	}
 

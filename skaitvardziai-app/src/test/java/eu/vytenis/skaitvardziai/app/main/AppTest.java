@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 import org.junit.Assert;
 
-import eu.vytenis.skaitvardziai.app.io.DecoratingWriter;
+import eu.vytenis.skaitvardziai.app.io.DecoratingStream;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
 
@@ -14,8 +14,8 @@ public class AppTest {
 	protected static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
 
 	private SystemOutputFiles main(Object... args) {
-		DecoratingWriter out = new DecoratingWriter(System.out);
-		DecoratingWriter err = new DecoratingWriter(System.err);
+		DecoratingStream out = new DecoratingStream(System.out);
+		DecoratingStream err = new DecoratingStream(System.err);
 		
 		SystemIo.setOut(out);
 		SystemIo.setErr(err);
@@ -28,7 +28,7 @@ public class AppTest {
 		}
 	}
 
-	private SystemOutputFiles doMain(DecoratingWriter out, DecoratingWriter err, Object... args) {
+	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
 		String[] params = getMainArgs(args);
 		Main.main(params);
 		return new SystemOutputFiles(out.getText(), err.getText());

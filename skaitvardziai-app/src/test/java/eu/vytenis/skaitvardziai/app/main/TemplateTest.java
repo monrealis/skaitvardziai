@@ -54,9 +54,14 @@ public class TemplateTest extends AppTest {
 	}
 	
 	@Test
-	public void testTags() {
+	public void testStartEndTags() {
 		assertOutByIn(new Out("Skaičius: ${sveikasis(1)}"), "Skaičius: ${sveikasis(1)}", "-t", "-s", "#[", "-e", "]");
 		assertOutByIn(new Out("Skaičius: vienas"), "Skaičius: #[sveikasis(1)]", "-t", "-s", "#[", "-e", "]");
 		assertOutByIn(new Out("Skaičius: vienas"), "Skaičius: <? sveikasis(1) ?>", "-t", "-s", "<?", "-e", "?>");
+	}
+	
+	@Test
+	public void testOutputEncoding() {
+		assertOutByIn(new Out("dešimt"), "${sveikasis(10)}", "-t");
 	}
 }

@@ -18,6 +18,8 @@ import eu.vytenis.skaitvardziai.app.main.Main;
 public class AppTest {
 
 	protected static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
+	protected static final String UTF8 = "utf-8";
+	protected static final String WIN1257 = "windows-1257";
 	protected SystemIo systemIo;
 	
 	@Before

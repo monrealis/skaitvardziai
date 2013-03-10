@@ -64,18 +64,18 @@ public class TemplateTest extends AppTest {
 	
 	@Test
 	public void testOutputEncoding() {
-		systemIo.setOutputCharsetName("windows-1257");
-		assertOutByIn(new ExpectedOut("dešimt", "windows-1257"), "${sveikasis(10)}", "-t", "-oe", "windows-1257");
-		systemIo.setOutputCharsetName("utf-8");
-		assertOutByIn(new ExpectedOut("dešimt", "utf-8"), "${sveikasis(10)}", "-t", "-oe", "utf-8");
+		systemIo.setOutputCharsetName(WIN1257);
+		assertOutByIn(new ExpectedOut("dešimt", WIN1257), "${sveikasis(10)}", "-t", "-oe", WIN1257);
+		systemIo.setOutputCharsetName(UTF8);
+		assertOutByIn(new ExpectedOut("dešimt", UTF8), "${sveikasis(10)}", "-t", "-oe", UTF8);
 	}
 	
 	@Test
 	public void testInputEncoding() {
-		systemIo.setInputCharsetName("windows-1257");
-		assertOutByIn(new ExpectedOut("dešimt"), "dešimt", "-t", "-ie", "windows-1257");
-		systemIo.setInputCharsetName("utf-8");
-		assertOutByIn(new ExpectedOut("dešimt"), "dešimt", "-t", "-ie", "utf-8");
+		systemIo.setInputCharsetName(WIN1257);
+		assertOutByIn(new ExpectedOut("dešimt"), "dešimt", "-t", "-ie", WIN1257);
+		systemIo.setInputCharsetName(UTF8);
+		assertOutByIn(new ExpectedOut("dešimt"), "dešimt", "-t", "-ie", UTF8);
 	}
 	
 }

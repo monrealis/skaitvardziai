@@ -68,9 +68,9 @@ public class MethodsTest {
 
 	private SimpleNode assertMethodInvocation(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
 		SimpleNode node = Methods.parse(methodInvocationText);
-		System.out.println();
-		System.out.println(methodInvocationText);
-		node.dump("");
+		//System.out.println();
+		//System.out.println(methodInvocationText);
+		//node.dump("");
 		
 		MethodInvocation i = Methods.getMethodInvocation(methodInvocationText);
 		Assert.assertEquals(expectedMethodName, i.getMethodName());

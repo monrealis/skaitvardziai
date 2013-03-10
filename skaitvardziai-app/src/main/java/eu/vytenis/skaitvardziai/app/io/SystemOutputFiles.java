@@ -1,19 +1,27 @@
 package eu.vytenis.skaitvardziai.app.io;
 
 public class SystemOutputFiles {		
-	private String out;
-	private String err;
+	private DecoratingStream out;
+	private DecoratingStream err;
 
-	public SystemOutputFiles(String out, String err) {
+	public SystemOutputFiles(DecoratingStream out, DecoratingStream err) {
 		this.out = out;
 		this.err = err;			
 	}
 	
-	public String getOut() {
-		return out;
+	public String getOutText() {
+		return out.getText();
 	}
 	
-	public String getErr() {
-		return err;
+	public byte[] getOutEncoded() {
+		return out.getBytes();
+	}
+	
+	public String getErrText() {
+		return err.getText();
+	}
+	
+	public byte[] getErrEncoded() {
+		return err.getBytes();
 	}
 }

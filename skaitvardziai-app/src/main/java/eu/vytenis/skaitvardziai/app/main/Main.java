@@ -67,7 +67,11 @@ public class Main {
 	}
 	
 	private void buildSystemIo() {
-		systemIo = new SystemIo();		
+		SystemIo io = new SystemIo();
+		if (commandLine.hasOption(CliOption.OutputEncoding.getShortName())) {
+			io.setOutputCharsetName(commandLine.getOptionValue(CliOption.OutputEncoding.getShortName()));
+		}
+		systemIo = io;
 	}
 
 	private void parseCommandLine(String[] args) {

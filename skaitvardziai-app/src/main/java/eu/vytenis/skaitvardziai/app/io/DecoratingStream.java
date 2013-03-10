@@ -18,10 +18,6 @@ public class DecoratingStream extends FilterOutputStream {
 		super.write(b);
 	}
 
-	public String getText() {
-		return new String(output.toByteArray());
-	}
-	
 	public byte[] getBytes() {
 		return output.toByteArray();
 	}

@@ -49,45 +49,45 @@ public class AppTest {
 		return params;
 	}
 
-	protected void assertOut(Out out, Object... args) {
-		assertOutErr(out, Out.EMPTY, args);
+	protected void assertOut(ExpectedOut out, Object... args) {
+		assertOutErr(out, ExpectedOut.EMPTY, args);
 	}
 
-	protected void assertOutByIn(Out out, String in, Object... args) {
+	protected void assertOutByIn(ExpectedOut out, String in, Object... args) {
 		System.setIn(new ByteArrayInputStream(in.getBytes()));
-		assertOutErr(out, Out.EMPTY, args);
+		assertOutErr(out, ExpectedOut.EMPTY, args);
 	}
 	
 	@SuppressWarnings("unused")
-	private void assertErr(Out err, Object... args) {
-		assertOutErr(Out.EMPTY, err, args);
+	private void assertErr(ExpectedOut err, Object... args) {
+		assertOutErr(ExpectedOut.EMPTY, err, args);
 	}
 
-	private void assertOutErr(Out expectedOut, Out expectedErr, Object... args) {
+	private void assertOutErr(ExpectedOut expectedOut, ExpectedOut expectedErr, Object... args) {
 		SystemOutputFiles oe = main(args);
-		Assert.assertEquals(expectedOut.getText(), oe.getOutText());
+		Assert.assertEquals(expectedOut.getText(), oe.getOutText(systemIo.getOutputCharset()));
 		if (expectedOut.getEncoding() != null) {
 			Assert.assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
 		}
-		Assert.assertEquals(expectedErr.getText(), oe.getErrText());
+		Assert.assertEquals(expectedErr.getText(), oe.getErrText(systemIo.getOutputCharset()));
 		if (expectedErr.getEncoding() != null) {
 			Assert.assertArrayEquals(expectedErr.getTextEncoded(), oe.getErrEncoded());
 		}
 	}
 
-	protected void assertOutMatches(Out out, Object... args) {
+	protected void assertOutMatches(ExpectedOut out, Object... args) {
 		assertOutErrMatches(out.toPattern(), EMPTY_PATTERN, args);
 	}
 
 	@SuppressWarnings("unused")
-	private void assertErrMatches(Out err, Object... args) {
+	private void assertErrMatches(ExpectedOut err, Object... args) {
 		assertOutErrMatches(EMPTY_PATTERN, err.toPattern(), args);
 	}
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
 		SystemOutputFiles oe = main(args);
-		assertMatches(oe.getOutText(), out);	
-		assertMatches(oe.getErrText(), err);
+		assertMatches(oe.getOutText(systemIo.getOutputCharset()), out);	
+		assertMatches(oe.getErrText(systemIo.getOutputCharset()), err);
 	}
 
 	private void assertMatches(String text, Pattern pattern) {

@@ -5,17 +5,17 @@ import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 
-public class Out {
-	public static Out EMPTY = new Out("");
+public class ExpectedOut {
+	public static ExpectedOut EMPTY = new ExpectedOut("");
 
 	private String encoding;
 	private String text;
 	
-	public Out(String text) {
+	public ExpectedOut(String text) {
 		this.text = text;
 	}
 	
-	public Out(String text, String encoding) {
+	public ExpectedOut(String text, String encoding) {
 		this.text = text;
 		this.encoding = encoding;
 	}

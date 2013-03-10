@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app.main;
+package eu.vytenis.skaitvardziai.app.io;
 
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;

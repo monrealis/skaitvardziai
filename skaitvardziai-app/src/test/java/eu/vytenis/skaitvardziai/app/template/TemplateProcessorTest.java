@@ -5,7 +5,7 @@ import static org.junit.Assert.assertArrayEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.app.main.AppTest;
+import eu.vytenis.skaitvardziai.app.AppTest;
 
 public class TemplateProcessorTest extends AppTest {
 	

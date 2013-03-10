@@ -2,6 +2,9 @@ package eu.vytenis.skaitvardziai.app.main;
 
 import org.junit.Test;
 
+import eu.vytenis.skaitvardziai.app.AppTest;
+import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
+
 
 
 public class MainTest extends AppTest {

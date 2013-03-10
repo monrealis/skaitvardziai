@@ -1,7 +1,9 @@
-package eu.vytenis.skaitvardziai.app.main;
+package eu.vytenis.skaitvardziai.app.template;
 
 import org.junit.Test;
 
+import eu.vytenis.skaitvardziai.app.AppTest;
+import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
 import eu.vytenis.skaitvardziai.app.template.TemplateProcessor.TemplateParseException;
 import eu.vytenis.skaitvardziai.parser.methods.Invoker.MethodInvocationException;
 import eu.vytenis.skaitvardziai.parser.methods.Methods.SkaitvardziaiParseException;

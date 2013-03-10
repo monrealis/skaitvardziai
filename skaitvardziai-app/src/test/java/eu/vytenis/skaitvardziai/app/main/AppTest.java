@@ -9,6 +9,7 @@ import org.junit.Before;
 import eu.vytenis.skaitvardziai.app.io.DecoratingStream;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
+import eu.vytenis.skaitvardziai.app.io.DecoratingStream.Mode;
 
 public class AppTest {
 
@@ -21,8 +22,8 @@ public class AppTest {
 	}
 	
 	private SystemOutputFiles main(Object... args) {
-		DecoratingStream out = new DecoratingStream(System.out);
-		DecoratingStream err = new DecoratingStream(System.err);
+		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
+		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
 		
 		systemIo.setOut(out);
 		systemIo.setErr(err);

@@ -23,7 +23,7 @@ public class SystemOutputFiles {
 	}
 	
 	public byte[] getOutEncoded() {
-		return out.getBytes();
+		return out.getCollectedBytes();
 	}
 	
 	public String getErrText(Charset charset) {
@@ -35,6 +35,6 @@ public class SystemOutputFiles {
 	}
 	
 	public byte[] getErrEncoded() {
-		return err.getBytes();
+		return err.getCollectedBytes();
 	}
 }

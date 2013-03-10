@@ -28,7 +28,7 @@ public class Out {
 		return encoding;
 	}
 	
-	public byte[] getEncodedText() {
+	public byte[] getTextEncoded() {
 		try {
 			return getText().getBytes(encoding);
 		} catch (UnsupportedEncodingException e) {

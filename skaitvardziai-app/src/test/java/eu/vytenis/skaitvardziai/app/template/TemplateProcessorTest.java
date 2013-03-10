@@ -5,7 +5,9 @@ import static org.junit.Assert.assertArrayEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TemplateProcessorTest {
+import eu.vytenis.skaitvardziai.app.main.AppTest;
+
+public class TemplateProcessorTest extends AppTest {
 	
 	private String startTag;
 	private String endTag;
@@ -67,7 +69,7 @@ public class TemplateProcessorTest {
 	}
 	
 	private void assertParsedFragments(String text, Object[] expected) {
-		TemplateProcessor p = new TemplateProcessor(startTag, endTag, text);
+		TemplateProcessor p = new TemplateProcessor(startTag, endTag, text, systemIo);
 		p.createPattern();
 		p.collectFragments();		
 		assertArrayEquals(expected, p.getFragments().toArray());		

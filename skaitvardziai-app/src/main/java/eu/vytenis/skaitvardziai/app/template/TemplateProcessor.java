@@ -22,6 +22,7 @@ public class TemplateProcessor implements Processor {
 
 	@SuppressWarnings("unused")
 	private final CommandLine commandLine;
+	private final SystemIo systemIo;
 	
 	private String startTag = DEFAULT_START_TAG;
 	private String endTag = DEFAULT_END_TAG;
@@ -31,8 +32,9 @@ public class TemplateProcessor implements Processor {
 	private String inputText;	
 	private List<TextSource> fragments;
 	
-	public TemplateProcessor(CommandLine commandLine) {
+	public TemplateProcessor(CommandLine commandLine, SystemIo systemIo) {
 		this.commandLine = commandLine;
+		this.systemIo = systemIo;
 		if (commandLine.hasOption(CliOption.StartTag.getShortName())) {
 			startTag = commandLine.getOptionValue(CliOption.StartTag.getShortName());
 		}
@@ -41,11 +43,12 @@ public class TemplateProcessor implements Processor {
 		}
 	}
 	
-	TemplateProcessor(String startTag, String endTag, String inputText) {
+	TemplateProcessor(String startTag, String endTag, String inputText, SystemIo systemIo) {
 		commandLine = null;
 		this.startTag = startTag;
 		this.endTag = endTag;
 		this.inputText = inputText;
+		this.systemIo = systemIo;
 	}
 	
 	public void process() {
@@ -110,7 +113,7 @@ public class TemplateProcessor implements Processor {
 	
 	private void write() {
 		for (TextSource s : fragments) {
-			SystemIo.printOut(s.getText(), "");
+			systemIo.printOut(s.getText(), "");
 		}
 	}
 	

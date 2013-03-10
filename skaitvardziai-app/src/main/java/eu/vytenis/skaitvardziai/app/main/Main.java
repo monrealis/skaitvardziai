@@ -26,7 +26,8 @@ public class Main {
 	
 	/** Nuskaityti komandinės eilutės parametrai. */
 	private CommandLine commandLine;
-	private Options options;
+	private Options options;	
+	private SystemIo systemIo = new SystemIo();
 
 	public static void main(String[] args) {
 		Main main = new Main();
@@ -48,20 +49,25 @@ public class Main {
 		createOptions();		
 		parseCommandLine(args);
 		checkHelpOption();
+		buildSystemIo();
 		
 		Processor p;
 		if (commandLine.hasOption(CliOption.Transform.getShortName())) {
-			p = new TemplateProcessor(commandLine);
+			p = new TemplateProcessor(commandLine, systemIo);
 		} else {
-			p = new EchoProcessor(commandLine);
+			p = new EchoProcessor(commandLine, systemIo);
 		}		
 		p.process();
 	}
-	
+
 	private void checkHelpOption() {
 		if (commandLine.hasOption(CliOption.Help.getShortName())) {
 			throw new ShowHelpException();
 		}
+	}
+	
+	private void buildSystemIo() {
+		systemIo = new SystemIo();		
 	}
 
 	private void parseCommandLine(String[] args) {
@@ -85,14 +91,14 @@ public class Main {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printHelp(new PrintWriter(out), 80, "java -jar main.jar", "Parameters", options, 2, 2, "Prints text that represents given number", true);
-		SystemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
+		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
 	
 	public void usage() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printUsage(new PrintWriter(out), 80, "java -jar main.jar", options);
-		SystemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
+		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
 
 }

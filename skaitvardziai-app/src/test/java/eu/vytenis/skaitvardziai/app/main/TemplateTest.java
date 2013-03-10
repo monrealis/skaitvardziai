@@ -62,9 +62,9 @@ public class TemplateTest extends AppTest {
 	
 	@Test
 	public void testOutputEncoding() {
-		outputEncoding = "windows-1257";
+		systemIo.setOutputCharsetName("windows-1257");
 		assertOutByIn(new Out("dešimt", "windows-1257"), "${sveikasis(10)}", "-t", "-oe", "windows-1257");
-		outputEncoding = "utf-8";
+		systemIo.setOutputCharsetName("utf-8");
 		assertOutByIn(new Out("dešimt", "utf-8"), "${sveikasis(10)}", "-t", "-oe", "utf-8");
 	}
 }

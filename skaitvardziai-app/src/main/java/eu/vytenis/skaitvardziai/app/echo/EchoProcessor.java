@@ -20,14 +20,16 @@ import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
 
 public class EchoProcessor implements Processor {
 	private final CommandLine commandLine;
+	private final SystemIo systemIo;
 	
 	private boolean inputFromSystemIn;
 	private Reader reader;
 	private String outputNewLineSeparator;
 	private Forma forma;
 	
-	public EchoProcessor(CommandLine commandLine) {
-		this.commandLine = commandLine;			
+	public EchoProcessor(CommandLine commandLine, SystemIo systemIo) {
+		this.commandLine = commandLine;
+		this.systemIo = systemIo;
 	}
 	
 	public void process() {
@@ -89,9 +91,9 @@ public class EchoProcessor implements Processor {
 		SkaitineReiksme sr = SkaitvardziaiTextParser.get().parseSkaicius(line);
 		if (sr instanceof SveikasisSkaicius) {
 			SveikasisSkaicius ss = (SveikasisSkaicius) sr;
-			SystemIo.printOut(ss.toString(forma), newLine);
+			systemIo.printOut(ss.toString(forma), newLine);
 		} else if (sr instanceof Trupmena) {
-			SystemIo.printOut(((Trupmena) sr).toString(forma.getLinksnis()), newLine);
+			systemIo.printOut(((Trupmena) sr).toString(forma.getLinksnis()), newLine);
 		} else {
 			throw new IllegalArgumentException();
 		}

@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.util.regex.Pattern;
 
 import org.junit.Assert;
+import org.junit.Before;
 
 import eu.vytenis.skaitvardziai.app.io.DecoratingStream;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
@@ -12,21 +13,25 @@ import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
 public class AppTest {
 
 	protected static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
+	protected SystemIo systemIo;
 	
-	protected String outputEncoding;
-
+	@Before
+	public void before() {
+		systemIo = new SystemIo();
+	}
+	
 	private SystemOutputFiles main(Object... args) {
-		DecoratingStream out = new DecoratingStream(System.out, outputEncoding);
-		DecoratingStream err = new DecoratingStream(System.err, outputEncoding);
+		DecoratingStream out = new DecoratingStream(System.out);
+		DecoratingStream err = new DecoratingStream(System.err);
 		
-		SystemIo.setOut(out);
-		SystemIo.setErr(err);
+		systemIo.setOut(out);
+		systemIo.setErr(err);
 		
 		try {			
 			return doMain(out, err, args);
 		} finally {
-			SystemIo.setOut(null);
-			SystemIo.setErr(null);
+			systemIo.setOut(null);
+			systemIo.setErr(null);
 		}
 	}
 
@@ -58,13 +63,16 @@ public class AppTest {
 		assertOutErr(Out.EMPTY, err, args);
 	}
 
-	private void assertOutErr(Out out, Out err, Object... args) {
+	private void assertOutErr(Out expectedOut, Out expectedErr, Object... args) {
 		SystemOutputFiles oe = main(args);
-		Assert.assertEquals(out.getText(), oe.getOutText());
-		if (out.getEncoding() != null) {
-			Assert.assertArrayEquals(out.getEncodedText(), oe.getOutText().getBytes());
+		Assert.assertEquals(expectedOut.getText(), oe.getOutText());
+		if (expectedOut.getEncoding() != null) {
+			Assert.assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
 		}
-		Assert.assertEquals(err.getText(), oe.getErrText());
+		Assert.assertEquals(expectedErr.getText(), oe.getErrText());
+		if (expectedErr.getEncoding() != null) {
+			Assert.assertArrayEquals(expectedErr.getTextEncoded(), oe.getErrEncoded());
+		}
 	}
 
 	protected void assertOutMatches(Out out, Object... args) {

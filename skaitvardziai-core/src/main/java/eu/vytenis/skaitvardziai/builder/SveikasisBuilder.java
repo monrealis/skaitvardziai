@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
-import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;

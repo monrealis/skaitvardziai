@@ -65,7 +65,7 @@ public class SystemIo {
 	
 	private void writeString(OutputStream output, String text) {
 		try {
-			byte[] bytes = text.getBytes(outputCharset);
+			byte[] bytes = text.getBytes(outputCharset.name());
 			output.write(bytes);
 		} catch (IOException e) {
 			throw new SkaitvardziaiIOException(e);

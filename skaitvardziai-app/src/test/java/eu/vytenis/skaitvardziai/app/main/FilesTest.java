@@ -76,7 +76,7 @@ public class FilesTest extends AppTest {
 		byte[] bytes = new byte[is.available()];
 		is.read(bytes);
 		is.close();
-		return new String(bytes, charset);
+		return new String(bytes, charset.name());
 	}
 	
 	private void trySaveFile(String filename, Charset charset, String content) {

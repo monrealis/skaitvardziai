@@ -27,18 +27,18 @@ public class AppTest {
 		systemIo = new SystemIo();
 	}
 	
-	private SystemOutputFiles main(Object... args) {
+	protected SystemOutputFiles main(Object... args) {
 		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
 		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
 		
-		systemIo.setOut(out);
-		systemIo.setErr(err);
+		systemIo.setSystemOut(out);
+		systemIo.setSystemErr(err);
 		
 		try {			
 			return doMain(out, err, args);
 		} finally {
-			systemIo.setOut(null);
-			systemIo.setErr(null);
+			systemIo.setSystemOut(null);
+			systemIo.setSystemErr(null);
 		}
 	}
 

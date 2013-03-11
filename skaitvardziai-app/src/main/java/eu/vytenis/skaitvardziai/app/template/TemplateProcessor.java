@@ -60,7 +60,7 @@ public class TemplateProcessor implements Processor {
 	}
 	
 	void createReader() {
-		reader = systemIo.createSystemInReader();
+		reader = systemIo.createInReader();
 	}
 	
 	void tryRead() {

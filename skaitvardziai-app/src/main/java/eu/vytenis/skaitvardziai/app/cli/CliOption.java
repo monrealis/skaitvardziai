@@ -8,7 +8,9 @@ public enum CliOption {
 	StartTag("s", "start-tag", true, "opening tag of template function (defaults to \"${\")"),
 	EndTag("e", "end-tag", true, "closing tag of template function (defaults to \"}\""),
 	InputEncoding("ie", "input-encoding", true, "input encoding (defaults to system default)"),
-	OutputEncoding("oe", "output-encoding", true, "output encoding (defaults to system default)");
+	OutputEncoding("oe", "output-encoding", true, "output encoding (defaults to system default)"),
+	InputFile("i", "input", true, "input file (defaults to stdin)"),
+	OutputFile("o", "output", true, "output file (defaults to stdoud)");;
 	
 	private String shortName;
 	private String name;

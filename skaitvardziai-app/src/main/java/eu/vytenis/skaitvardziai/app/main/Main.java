@@ -1,5 +1,6 @@
 package eu.vytenis.skaitvardziai.app.main;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -72,6 +73,12 @@ public class Main {
 		}
 		if (commandLine.hasOption(CliOption.InputEncoding.getShortName())) {
 			io.setInputCharsetName(commandLine.getOptionValue(CliOption.InputEncoding.getShortName()));
+		}
+		if (commandLine.hasOption(CliOption.OutputFile.getShortName())) {
+			io.setOutput(new File(commandLine.getOptionValue(CliOption.OutputFile.getShortName())));
+		}
+		if (commandLine.hasOption(CliOption.InputFile.getShortName())) {
+			io.setInput(new File(commandLine.getOptionValue(CliOption.InputFile.getShortName())));
 		}
 		systemIo = io;
 	}

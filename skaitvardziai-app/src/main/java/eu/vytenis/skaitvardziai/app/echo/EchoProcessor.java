@@ -2,7 +2,6 @@ package eu.vytenis.skaitvardziai.app.echo;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
 
@@ -12,6 +11,7 @@ import eu.vytenis.skaitvardziai.app.cli.CliOption;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
+import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
@@ -51,7 +51,7 @@ public class EchoProcessor implements Processor {
 	private void calculateReader() {
 		inputFromSystemIn = commandLine.getArgs().length == 0;
 		if (inputFromSystemIn) {
-			reader = systemIo.createSystemInReader();
+			reader = systemIo.createInReader();
 			inputFromSystemIn = true;
 		} else {
 			createArgValuesReader();
@@ -93,9 +93,10 @@ public class EchoProcessor implements Processor {
 			SveikasisSkaicius ss = (SveikasisSkaicius) sr;
 			systemIo.printOut(ss.toString(forma), newLine);
 		} else if (sr instanceof Trupmena) {
-			systemIo.printOut(((Trupmena) sr).toString(forma.getLinksnis()), newLine);
+			Trupmena tr = (Trupmena) sr;
+			systemIo.printOut(tr.toString(forma.getLinksnis()), newLine);
 		} else {
-			throw new IllegalArgumentException();
+			throw new SkaitvardziaiRuntimeException();
 		}
 	}
 

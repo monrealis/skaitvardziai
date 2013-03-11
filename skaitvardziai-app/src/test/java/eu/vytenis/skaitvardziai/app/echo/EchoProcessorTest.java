@@ -10,6 +10,11 @@ public class EchoProcessorTest extends AppTest {
 	@Test
 	public void testEchoParameters() {
 		assertOut(new ExpectedOut("vienas\n"), 1);
+		assertOut(new ExpectedOut("minus vienas\n"), " -1");
+		
+		assertOut(new ExpectedOut("viena trečioji\n"), "1 / 3");
+		assertOut(new ExpectedOut("minus viena minus trečioji\n"), " -1 / - 3");
+		
 		assertOut(new ExpectedOut("šimtas dešimt\n"), 110);
 		
 		assertOut(new ExpectedOut("vienas"), "-n", 1);

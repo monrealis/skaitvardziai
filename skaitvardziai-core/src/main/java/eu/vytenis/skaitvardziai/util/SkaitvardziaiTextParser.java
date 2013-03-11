@@ -164,13 +164,22 @@ public class SkaitvardziaiTextParser {
 	}
 	
 	public SkaitineReiksme parseSkaicius(String skaicius) {
-		Pattern tr = Pattern.compile("(\\d+)\\s*/\\s*(\\d+)");
-		Matcher m = tr.matcher(skaicius);
-		if (skaicius.matches("\\d+")) {
-			return new SveikasisSkaicius(skaicius);
-		} else if (m.matches()) {
-			String sk = m.group(1);
-			String v = m.group(2);
+		String sv = "( [-]? \\d+) ";
+		String tr = sv + "/" + sv;		
+		sv = sv.replaceAll(" ", "\\s*");
+		tr = tr.replaceAll(" ", "\\s*");
+		
+		Pattern svp = Pattern.compile(" (- \\d+) ");
+		Pattern trp = Pattern.compile(tr);
+		Matcher trm = trp.matcher(skaicius);
+		Matcher svm = svp.matcher(skaicius);
+		
+		if (svm.matches()) {
+			String sk = svm.group(1).replaceAll("\\s*", "");
+			return new SveikasisSkaicius(sk);
+		} else if (trm.matches()) {
+			String sk = trm.group(1).replaceAll("\\s*", "");
+			String v = trm.group(2).replaceAll("\\s*", "");
 			return new Trupmena(sk, v);				
 		} else {
 			throw new IllegalArgumentException(skaicius + " is not a supported number");

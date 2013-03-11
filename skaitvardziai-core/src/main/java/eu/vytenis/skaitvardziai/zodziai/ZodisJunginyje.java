@@ -6,6 +6,7 @@ import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
 /**
@@ -67,6 +68,10 @@ public class ZodisJunginyje {
 					sl.setLinksnis(kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis());
 					// pvz. (kelintinis == true),  "du _šimtai_ dešimtojo"
 					// pvz. (kelintinis == false), "du _šimtai_", "keturi _šimtai_ keturiasdešimt vienas", "keturis _šimtus_ keturiasdešimt vieną"
+				}
+				if (sl.getSkaicius() == null) {
+					// pvz. 21000000, dvidešimt vienas milijonas - skaičiaus nėra (nes gali būti dvidešimt vieni), bet šiuo atveju - vienaskaita 
+					sl.setSkaicius(Skaicius.V);
 				}
 				s = zodis.toString(sl);
 			} else {

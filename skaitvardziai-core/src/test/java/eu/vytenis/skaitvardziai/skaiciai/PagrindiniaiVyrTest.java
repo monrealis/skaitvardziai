@@ -560,4 +560,12 @@ public class PagrindiniaiVyrTest extends PagrindiniaiTest {
 		testSkaiciai(s, Linksnis.S);
 	}
 
+	@Test
+	public void testRastosKlaidos() {		
+		Map<Long, String> skaiciai = new TreeMap<Long, String>();
+		skaiciai.put(4561234568L, "keturi milijardai penki šimtai šešiasdešimt vienas milijonas du šimtai trisdešimt keturi tūkstančiai penki šimtai šešiasdešimt aštuoni");
+		skaiciai.put(21000000L, "dvidešimt vienas milijonas");
+		testSkaiciai(skaiciai, Linksnis.V);
+	}
+
 }

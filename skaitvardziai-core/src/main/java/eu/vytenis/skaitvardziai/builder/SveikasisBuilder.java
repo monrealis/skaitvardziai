@@ -211,14 +211,5 @@ public class SveikasisBuilder {
 	private ZodisJunginyje getDaugyba(Zodis zodis) {
 		return new ZodisJunginyje(zodis).daugyba();
 	}
-	
-	public static class NumberTooBigException extends SkaitvardziaiRuntimeException {
 
-		private static final long serialVersionUID = -2769861221983348571L;
-		
-		public NumberTooBigException(Number currentNumber, Number maxNumber) {
-			super("Number " + currentNumber + " is too big. Biggest supported number: " + maxNumber);
-		}
-		
-	}
 }

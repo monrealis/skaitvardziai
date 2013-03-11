@@ -163,26 +163,54 @@ public class SkaitvardziaiTextParser {
 		
 	}
 	
-	public SkaitineReiksme parseSkaicius(String skaicius) {
+	private static final Pattern SVEIKASIS;
+	private static final Pattern TRUPMENA;
+	static {
 		String sv = "( [-]? \\d+) ";
 		String tr = sv + "/" + sv;		
-		sv = sv.replaceAll(" ", "\\s*");
-		tr = tr.replaceAll(" ", "\\s*");
+		sv = sv.replaceAll(" ", "\\\\s*");
+		tr = tr.replaceAll(" ", "\\\\s*");
+	
+		SVEIKASIS = Pattern.compile(sv);
+		TRUPMENA = Pattern.compile(tr);
+	}
+	
+	public SkaitineReiksme parseSkaicius(String skaicius) {
+		SkaitineReiksme r = parseSveikasisIfMatches(skaicius);
+		if (r == null) {
+			r = parseTrupmenaIfMatches(skaicius);
+		}
+		if (r == null) {
+			throw new InvalidNumberException(skaicius);
+		}
+		return r;
+	}
+	
+	private SveikasisSkaicius parseSveikasisIfMatches(String sveikasisSkaicius) {
+		Matcher svm = SVEIKASIS.matcher(sveikasisSkaicius);
+		if (!svm.matches()) {
+			return null;
+		}
+		String sk = svm.group(1).replaceAll("\\s*", "");
+		return new SveikasisSkaicius(sk);
 		
-		Pattern svp = Pattern.compile(" (- \\d+) ");
-		Pattern trp = Pattern.compile(tr);
-		Matcher trm = trp.matcher(skaicius);
-		Matcher svm = svp.matcher(skaicius);
-		
-		if (svm.matches()) {
-			String sk = svm.group(1).replaceAll("\\s*", "");
-			return new SveikasisSkaicius(sk);
-		} else if (trm.matches()) {
-			String sk = trm.group(1).replaceAll("\\s*", "");
-			String v = trm.group(2).replaceAll("\\s*", "");
-			return new Trupmena(sk, v);				
-		} else {
-			throw new IllegalArgumentException(skaicius + " is not a supported number");
+	}
+	
+	private Trupmena parseTrupmenaIfMatches(String trupmena) {
+		Matcher trm = TRUPMENA.matcher(trupmena);
+		if (!trm.matches()) {
+			return null;
+		}
+		String sk = trm.group(1).replaceAll("\\s*", "");
+		String v = trm.group(2).replaceAll("\\s*", "");
+		return new Trupmena(sk, v);
+	}
+	
+	public class InvalidNumberException extends SkaitvardziaiRuntimeException {
+		private static final long serialVersionUID = -1195581620844776553L;
+
+		public InvalidNumberException(String invalidNumber) {
+			super(invalidNumber + " is not a supported number");
 		}
 	}
 }

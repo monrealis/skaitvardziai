@@ -83,7 +83,7 @@ public class TemplateProcessor implements Processor {
 	}
 
 	void createPattern() {
-		String patternText = Pattern.quote(startTag) + "(.*?)" + Pattern.quote(endTag);
+		String patternText = Patterns.quote(startTag) + "(.*?)" + Patterns.quote(endTag);
 		instructionsPattern = Pattern.compile(patternText, Pattern.MULTILINE | Pattern.DOTALL);
 	}
 	

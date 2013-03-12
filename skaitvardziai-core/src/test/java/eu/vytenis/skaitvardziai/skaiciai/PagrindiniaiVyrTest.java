@@ -1,8 +1,12 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
+import java.math.BigInteger;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
@@ -566,6 +570,27 @@ public class PagrindiniaiVyrTest extends PagrindiniaiTest {
 		skaiciai.put(4561234568L, "keturi milijardai penki šimtai šešiasdešimt vienas milijonas du šimtai trisdešimt keturi tūkstančiai penki šimtai šešiasdešimt aštuoni");
 		skaiciai.put(21000000L, "dvidešimt vienas milijonas");
 		testSkaiciai(skaiciai, Linksnis.V);
+	}
+	
+	@Test
+	@Ignore
+	public void testDideliSkaiciai() {
+		Random r = new Random();
+		for (int i = 0; i < 100 * 1000 * 1000; i++) {
+			int m = r.nextInt();
+			int n = r.nextInt();
+			BigInteger bi = BigInteger.valueOf(n).multiply(BigInteger.valueOf(m).pow(2));
+			String s = "";
+			try {
+				s = new SveikasisSkaicius(bi).toString();
+			} catch (Exception e) {
+				Assert.fail(bi + ": " + e);
+			}
+			if (s.contains("null")) {
+				Assert.fail(bi + ": " + s);
+			}
+			
+		}
 	}
 
 }

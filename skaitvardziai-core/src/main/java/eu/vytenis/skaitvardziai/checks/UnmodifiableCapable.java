@@ -5,16 +5,8 @@ package eu.vytenis.skaitvardziai.checks;
  */
 public interface UnmodifiableCapable {
 	
-	/**
-	 * Ar objekto būsena neredaguojama.
-	 * @return ar neredaguojamas
-	 */
 	boolean isUnmodifiable();
 	
-	/**
-	 * Pažymi, ar objektas yra neredaguojamas.
-	 * @param unmodifiable ar neredaguojamas
-	 */
 	void setUnmodifiable(boolean unmodifiable);
 
 }

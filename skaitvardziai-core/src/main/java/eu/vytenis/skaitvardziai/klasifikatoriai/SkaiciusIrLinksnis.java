@@ -6,20 +6,13 @@ import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.util.Comparisons;
 
-/**
- * Skaičiaus (vienaskaita/daugiskaita) ir linksnio pora.
- *
- */
 public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis>, UnmodifiableCapable {
 	
 	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V).unmodifiable();
 	
-	/** Skaičius (vienaskaita/daugiskaita). */
 	private Skaicius skaicius;
-	/** Linksnis. */
 	private Linksnis linksnis;
 
-	/** Ar skaičius ir linksnis neredaguojami? */
 	private boolean unmodifiable;
 	
 	public SkaiciusIrLinksnis(Skaicius skaicius, Linksnis linksnis) {
@@ -46,12 +39,10 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	}
 
 	
-	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
 	public boolean isUnmodifiable() {
 		return unmodifiable;
 	}
 	
-	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
 		Checks.checkCanModify("SkaiciusLinksnis", this);
 		this.unmodifiable = unmodifiable;
@@ -60,8 +51,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	public SkaiciusIrLinksnis unmodifiable() {
 		setUnmodifiable(true);
 		return this;
-	}
-	
+	}	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -85,11 +75,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 			throw new RuntimeException(e);
 		}
 	}
-	
-	/**
-	 * Palygina pagal skaičių, paskui pagal linksnį.
-	 * Žiūrėti: {@link Comparable#compareTo(Object)}	
-	 */
+
 	public int compareTo(SkaiciusIrLinksnis o) {
 		return Comparisons.compareLists(Arrays.<Enum<?>>asList(skaicius, linksnis), Arrays.<Enum<?>>asList(o.skaicius, o.linksnis));
 	}

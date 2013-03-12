@@ -3,10 +3,6 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 
-/**
- * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius).
- *
- */
 public class Forma implements Cloneable, UnmodifiableCapable {
 
 	private Poskyris poskyris = Poskyris.Pagrindinis;
@@ -64,10 +60,6 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 		this.unmodifiable = unmodifiable;
 	}	
 	
-	/**
-	 * Klonuoja objektą su visais jo laukais.
-	 * @return klonas
-	 */
 	@Override
 	public Forma clone() {
 		Forma k;

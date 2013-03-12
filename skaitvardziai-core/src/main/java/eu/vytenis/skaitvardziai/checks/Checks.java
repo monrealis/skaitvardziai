@@ -11,8 +11,7 @@ public class Checks {
 	public static void checkNotNull(String name, Object object) {
 		if (object == null) {
 			throw new ObjectNullException(name);
-		}
-		
+		}		
 	}
 
 	public static void checkInclusive(String name, BigInteger value, BigInteger min, BigInteger max) {

@@ -8,7 +8,6 @@ import java.util.TreeMap;
 public class Letters {
 	
 	public static final Locale LT = new Locale("lt");
-	/** Lentelė lietuviškos raidės -> lotyniškos raidės. */
 	private static final Map<Character, Character> latinByLt;
 	static {
 		Map<Character, Character> m = new TreeMap<Character, Character>();
@@ -20,11 +19,6 @@ public class Letters {
 		latinByLt = Collections.unmodifiableMap(m);
 	}
 	
-	/**
-	 * Tekste esančias lietuviškas nelotyniškas raides pakeičia panašiausiomis lotyniškomis raidėmis.
-	 * @param text pradinis tekstas
-	 * @return pakoreguotas tekstas (be lietuviškų nelotyniškų raidžių)
-	 */
 	public static String translateLtToLatin(String text) {
 		if (text == null) {
 			return null;

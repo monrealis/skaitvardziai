@@ -1,13 +1,7 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-/**
- * Įvardžiuotinės formos požymis.
- *
- */
 public enum Rusis implements Aliased, FormosElementas {
-	/** Paprastoji (neįvardžiuotinė) forma. */
 	P("P", "Paprastasis"),
-	/** Įvardžiuotinė forma. */
 	Iv("Įv", "Įvardžiuotinis");	
 	
 	private String alias;

@@ -1,13 +1,7 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-
-/**
- * Giminė.
- */
 public enum Gimine implements Aliased, FormosElementas {
-	/** Vyriška giminė.*/
 	V("VG", "Vyriškas"),
-	/** Moteriška giminė.*/
 	M("MG", "Moteriškas");
 	
 	private String alias;

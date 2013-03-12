@@ -1,14 +1,9 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-/**
- * Skaičius: vienaskaita, daugiskaita.
- *
- */
 public enum Skaicius implements Aliased, FormosElementas {
-	/** Vienaskaita. */
 	V("SV", "Vienaskaita"),
-	/** Daugiskaita. */
 	D("SD", "Daugiskaita");
+	
 	private String alias;
 	private String longName;
 	

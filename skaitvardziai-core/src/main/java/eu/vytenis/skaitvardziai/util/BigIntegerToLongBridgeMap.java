@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.HashMap;
 
 /**
- * Laikina klasė, kurią reiks išmest laikui bėgant.
  * Perduotą {@link BigInteger} objektą {@link #get(Object)} ir {@link #containsKey(Object)} metoduose traktuoja
  * kaip {@link Long} objektą. Naudojama, kad nereiktų labai daug kodo keisti.
  *

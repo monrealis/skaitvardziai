@@ -16,11 +16,10 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
 public class SveikasisBuilder {
 
-	private List<ZodisJunginyje> zodziai = new ArrayList<ZodisJunginyje>();
-	/** Kokių poskyrių gali būti sveikųjų skaičių skaitvardžiai. */
 	public static final List<Poskyris> SVEIKUJU_SKAICIU_NEKUOPINIU_SKAITV_POSKYRIAI = Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis);
-	/** Kokių poskyrių gali būti sveikųjų skaičių skaitvardžiai. */
 	public static final List<Poskyris> SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI = Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis, Poskyris.Kuopinis);
+
+	private List<ZodisJunginyje> zodziai = new ArrayList<ZodisJunginyje>();
 	
 	private Vienzenkliai vienzenkliai = new Vienzenkliai();
 	private Dvizenkliai dvizenkliai = new Dvizenkliai();

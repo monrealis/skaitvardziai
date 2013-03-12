@@ -4,23 +4,13 @@ import java.math.BigInteger;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
 
-
-/**
- * Struktūra, apibūdinanti gramatinę skaitvardžio formą (poskyris, linksnis, giminė, skaičius) bei
- * patį pradinį ir einamąjį skaičius.
- *
- */
 public class FormaIrSkaiciai implements Cloneable {
 	
-	/** Gramatinė forma. */
 	private Forma forma = new Forma();
-	/** Skaičius, kurį bandoma parašyti, */
 	private BigInteger pradinisSveikasisSkaicius;
-	/** Einamasis skaičius. Pvz., užrašinėjant skaičių 1002 pradinis skaičius gali būti 1002, o einamasis - 2.*/
 	private BigInteger sveikasisSkaicius;
 	
 	public FormaIrSkaiciai() {
-		
 	}
 	
 	public FormaIrSkaiciai(Forma forma) {
@@ -52,50 +42,30 @@ public class FormaIrSkaiciai implements Cloneable {
 		this.sveikasisSkaicius = skaicius;
 	}
 
-	/**
-	 * Pakeičia poskyrį ir grąžina this objektą.
-	 * @param poskyris naujas poskyris
-	 * @return this
-	 */
 	public FormaIrSkaiciai poskyris(Poskyris poskyris) {
 		getForma().setPoskyris(poskyris);
 		return this;
 	}
-	
-	/**
-	 * Pakeičia giminę ir grąžina this objektą
-	 * @param gimine nauja giminė
-	 * @return this
-	 */
+
 	public FormaIrSkaiciai gimine(Gimine gimine) {
 		getForma().setGimine(gimine);
 		return this;
 	}
 	
-	/**
-	 * Pakeičia skaičių ir grąžina this objektą.
-	 * @param naujasSkaicius naujas sveikasis skaičius
-	 * @return this objektas
-	 */
 	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
 		setSveikasisSkaicius(naujasSkaicius);
 		return this;
 	}
 
-	/**
-	 * Klonuoja objektą su visais jo laukais.
-	 * @return klonas
-	 */
 	@Override
 	public FormaIrSkaiciai clone() {
-		FormaIrSkaiciai fs;
 		try {
-			fs = (FormaIrSkaiciai) super.clone();
+			FormaIrSkaiciai fs = (FormaIrSkaiciai) super.clone();
 			fs.forma = forma.clone();
+			return fs;
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
-		return fs;
 	}
 
 }

@@ -15,7 +15,7 @@ import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
 import eu.vytenis.skaitvardziai.app.io.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.main.Main;
 
-public class AppTest {
+public abstract class AppTest {
 
 	protected static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
 	protected static final String UTF8 = "utf-8";

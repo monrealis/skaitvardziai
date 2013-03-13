@@ -41,7 +41,7 @@ public class SkaitvardziaiTextParser {
 	}
 	
 	private static void addAll(Map<String, Object> symbols, Enum<? extends Aliased>[] values) {
-		for (Enum<? extends Aliased> e : values) {
+		for (Enum<?> e : values) {
 			if (!e.getClass().getSuperclass().equals(Enum.class)) {
 				throw new IllegalStateException("Not implemented");
 				// Nerealizuota logika parse() metode usedClasses kintamajam

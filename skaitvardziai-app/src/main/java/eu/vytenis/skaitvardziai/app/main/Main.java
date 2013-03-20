@@ -19,12 +19,8 @@ import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.app.template.TemplateProcessor;
 
-/**
- * Komandinės eilutės interfeiso pagrindinė klasė.
- */
 public class Main {
 	
-	/** Nuskaityti komandinės eilutės parametrai. */
 	private CommandLine commandLine;
 	private Options options;	
 	private SystemIo systemIo = new SystemIo();
@@ -50,14 +46,7 @@ public class Main {
 		parseCommandLine(args);
 		checkHelpOption();
 		buildSystemIo();
-		
-		Processor p;
-		if (commandLine.hasOption(CliOption.Transform.getShortName())) {
-			p = new TemplateProcessor(commandLine, systemIo);
-		} else {
-			p = new EchoProcessor(commandLine, systemIo);
-		}		
-		p.process();
+		createProcessor().process();
 	}
 
 	private void checkHelpOption() {
@@ -98,6 +87,16 @@ public class Main {
 		for (CliOption o : CliOption.getOptionsForArgs()) {
 			options.addOption(o.getShortName(), o.getName(), o.isHasArg(), o.getDescription());
 		}
+	}
+	
+	private Processor createProcessor() {
+		Processor p;
+		if (commandLine.hasOption(CliOption.Transform.getShortName())) {
+			p = new TemplateProcessor(commandLine, systemIo);
+		} else {
+			p = new EchoProcessor(commandLine, systemIo);
+		}
+		return p;
 	}
 	
 	private void help() {

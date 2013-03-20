@@ -52,7 +52,6 @@ public class RangeEnd<T extends Number & Comparable<?>> {
 	
 	public static class InvalidRangeException extends SkaitvardziaiRuntimeException {
 
-		/** Klasės versija. */
 		private static final long serialVersionUID = 2933652317892072250L;
 		
 	}

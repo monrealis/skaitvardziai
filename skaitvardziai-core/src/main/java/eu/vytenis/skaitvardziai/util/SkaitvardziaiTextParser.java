@@ -103,12 +103,9 @@ public class SkaitvardziaiTextParser {
 	}
 	
 	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {
-		/** Klasės versija. */
 		private static final long serialVersionUID = 7783672469749826083L;
 		
-		/** Tekstas, kurį parsinant iškrito klaida. */
 		private String parsedText;
-		/** Po parsinimo gautas objektas (gali būti null). */
 		private Object resultObject;		
 		
 		public UnsupportedPartException(String parsedText, Object resultObject) {
@@ -136,7 +133,6 @@ public class SkaitvardziaiTextParser {
 	
 	public static class DuplicatePartException extends SkaitvardziaiRuntimeException {
 
-		/** Klasės versija. */
 		private static final long serialVersionUID = 8618555191243325555L;
 		
 		private FormosElementas newElement;

@@ -499,7 +499,6 @@ public class Zodis implements UnmodifiableCapable {
 	
 	public static class WordNotFoundException extends SkaitvardziaiRuntimeException {
 
-		/** Klasės versija. */
 		private static final long serialVersionUID = -3871360931584928662L;
 		
 		public WordNotFoundException(Poskyris poskyris, BigInteger skaicius) {

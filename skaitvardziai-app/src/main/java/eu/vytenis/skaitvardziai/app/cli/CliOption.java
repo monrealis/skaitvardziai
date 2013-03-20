@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.app.cli;
 
+import org.apache.commons.cli.CommandLine;
+
 public enum CliOption {		
 	Help("h", "help", false, "show help"),
 	NoNewline("n", "no-newline", false, "do not output the trailing newline"),
@@ -38,6 +40,14 @@ public enum CliOption {
 	
 	public boolean isHasArg() {
 		return hasArg;
+	}
+	
+	public boolean isIn(CommandLine commandLine) {
+		return commandLine.hasOption(getShortName());		
+	}
+	
+	public String getValue(CommandLine commandLine) {
+		return commandLine.getOptionValue(getShortName());		
 	}
 	
 	public static CliOption[] getOptionsForArgs() {

@@ -50,24 +50,24 @@ public class Main {
 	}
 
 	private void checkHelpOption() {
-		if (commandLine.hasOption(CliOption.Help.getShortName())) {
+		if (CliOption.Help.isIn(commandLine)) {
 			throw new ShowHelpException();
 		}
 	}
 	
 	private void buildSystemIo() {
 		SystemIo io = new SystemIo();
-		if (commandLine.hasOption(CliOption.OutputEncoding.getShortName())) {
-			io.setOutputCharsetName(commandLine.getOptionValue(CliOption.OutputEncoding.getShortName()));
+		if (CliOption.OutputEncoding.isIn(commandLine)) {
+			io.setOutputCharsetName(CliOption.OutputEncoding.getValue(commandLine));
 		}
-		if (commandLine.hasOption(CliOption.InputEncoding.getShortName())) {
-			io.setInputCharsetName(commandLine.getOptionValue(CliOption.InputEncoding.getShortName()));
+		if (CliOption.InputEncoding.isIn(commandLine)) {
+			io.setInputCharsetName(CliOption.InputEncoding.getValue(commandLine));
 		}
-		if (commandLine.hasOption(CliOption.OutputFile.getShortName())) {
-			io.setOutput(new File(commandLine.getOptionValue(CliOption.OutputFile.getShortName())));
+		if (CliOption.OutputFile.isIn(commandLine)) {
+			io.setOutput(new File(CliOption.OutputFile.getValue(commandLine)));
 		}
-		if (commandLine.hasOption(CliOption.InputFile.getShortName())) {
-			io.setInput(new File(commandLine.getOptionValue(CliOption.InputFile.getShortName())));
+		if (CliOption.InputFile.isIn(commandLine)) {
+			io.setInput(new File(CliOption.InputFile.getValue(commandLine)));
 		}
 		systemIo = io;
 	}
@@ -91,7 +91,7 @@ public class Main {
 	
 	private Processor createProcessor() {
 		Processor p;
-		if (commandLine.hasOption(CliOption.Transform.getShortName())) {
+		if (CliOption.Transform.isIn(commandLine)) {
 			p = new TemplateProcessor(commandLine, systemIo);
 		} else {
 			p = new EchoProcessor(commandLine, systemIo);

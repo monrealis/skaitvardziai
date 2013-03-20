@@ -40,8 +40,8 @@ public class EchoProcessor implements Processor {
 	}
 	
 	private void parseForma() {
-		if (commandLine.hasOption(CliOption.Form.getShortName())) {
-			String formParam = commandLine.getOptionValue(CliOption.Form.getShortName());
+		if (CliOption.Form.isIn(commandLine)) {
+			String formParam = CliOption.Form.getValue(commandLine);
 			forma = SkaitvardziaiTextParser.get().parseForma(formParam, null);
 		} else {
 			forma = new Forma();
@@ -67,7 +67,7 @@ public class EchoProcessor implements Processor {
 	}		
 
 	private void calculateOutputNewLineSeparator() {
-		boolean noNewLine = commandLine.hasOption(CliOption.NoNewline.getShortName()) && !inputFromSystemIn;
+		boolean noNewLine = CliOption.NoNewline.isIn(commandLine) && !inputFromSystemIn;
 		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
 	}
 	

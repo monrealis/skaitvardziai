@@ -35,11 +35,11 @@ public class TemplateProcessor implements Processor {
 	public TemplateProcessor(CommandLine commandLine, SystemIo systemIo) {
 		this.commandLine = commandLine;
 		this.systemIo = systemIo;
-		if (commandLine.hasOption(CliOption.StartTag.getShortName())) {
-			startTag = commandLine.getOptionValue(CliOption.StartTag.getShortName());
+		if (CliOption.StartTag.isIn(commandLine)) {
+			startTag = CliOption.StartTag.getValue(commandLine);
 		}
-		if (commandLine.hasOption(CliOption.EndTag.getShortName())) {
-			endTag = commandLine.getOptionValue(CliOption.EndTag.getShortName());
+		if (CliOption.EndTag.isIn(commandLine)) {
+			endTag = CliOption.EndTag.getValue(commandLine);
 		}
 	}
 	

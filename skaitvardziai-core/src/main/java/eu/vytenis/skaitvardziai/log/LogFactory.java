@@ -39,22 +39,24 @@ public class LogFactory {
 				if (buildLogger(t, loggerName) != null) {
 					type = t;
 					return;
-				}
-				
+				}				
 			}
 		}
 	}
 	
 	private static Log buildLogger(LogType type, Class<?> loggerName) {
 		try {
-			String className = loggers.get(type);
-			Class<?> c = Class.forName(className);
-			Constructor<?> ctr = c.getConstructor(Class.class);
-			Log log = (Log) ctr.newInstance(loggerName);
-			return log;			
+			return tryBuildLogger(type, loggerName);			
 		} catch (Throwable t) {
 			return null;			
 		}
+	}
+
+	private static Log tryBuildLogger(LogType type, Class<?> loggerName) throws Exception {
+		String className = loggers.get(type);
+		Class<?> c = Class.forName(className);
+		Constructor<?> ctr = c.getConstructor(Class.class);
+		return (Log) ctr.newInstance(loggerName);
 	}
 	
 	public static Log getLog(Class<?> loggerName) {

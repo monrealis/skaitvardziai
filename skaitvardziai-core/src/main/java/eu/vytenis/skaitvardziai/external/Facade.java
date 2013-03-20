@@ -23,9 +23,7 @@ public class Facade {
 	}
 	
 	public static String sveikasis(SveikasisSkaicius skaicius, String forma) {
-		if (forma == null) {
-			forma = "";
-		}
+		forma = getStringOrEmptyIfNull(forma);
 		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, null);
 		return skaicius.toString(f);
 	}
@@ -36,9 +34,7 @@ public class Facade {
 
 	@SuppressWarnings("unchecked")
 	public static String trupmena(Trupmena trupmena, String forma) {
-		if (forma == null) {
-			forma = "";
-		}
+		forma = getStringOrEmptyIfNull(forma);
 		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, Arrays.<Class<? extends FormosElementas>>asList(Linksnis.class));
 		return trupmena.toString(f.getLinksnis());
 	}
@@ -48,20 +44,11 @@ public class Facade {
 	}
 
 	public static String kiti(SveikasisSkaicius skaicius, String forma, String vns, String dgs, String dgsKilm) {
-		if (forma == null) {
-			forma = "";
-		}
-		Forma f = SkaitvardziaiTextParser.get().parseForma(forma, null);
+		Forma f = SkaitvardziaiTextParser.get().parseForma(getStringOrEmptyIfNull(forma), null);
 		SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
 		skaicius.toString(f, kitas);
 		if (kitas.equals(DGS_K)) {
-			if (dgsKilm != null && dgsKilm.length() > 0) {
-				return dgsKilm;
-			} else if (/*f.getSkaicius() == Skaicius.D && */f.getLinksnis() == Linksnis.K && dgs != null) {
-				return dgs;
-			} else {
-				return null;
-			}
+			return getKitasIfNextDgsK(dgs, dgsKilm, f);
 		} else if (kitas.getSkaicius() == Skaicius.D) {
 			return dgs;
 		} else if (kitas.getSkaicius() == Skaicius.V) {
@@ -70,4 +57,22 @@ public class Facade {
 			return null;
 		}
 	}
+
+	private static String getStringOrEmptyIfNull(String forma) {
+		if (forma == null) {
+			forma = "";
+		}
+		return forma;
+	}
+	
+	private static String getKitasIfNextDgsK(String dgs, String dgsKilm, Forma forma) {
+		if (dgsKilm != null && dgsKilm.length() > 0) {
+			return dgsKilm;
+		} else if (/*f.getSkaicius() == Skaicius.D && */forma.getLinksnis() == Linksnis.K && dgs != null) {
+			return dgs;
+		} else {
+			return null;
+		}
+	}
+
 }

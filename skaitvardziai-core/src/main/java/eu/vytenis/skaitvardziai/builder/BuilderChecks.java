@@ -16,7 +16,6 @@ public class BuilderChecks {
 		}	
 	}
 
-
 	public static void checkPowerOfThousand(String objectName, BigInteger powerOfThousand) {
 		BigInteger thousand = Numbers.THOUSAND;
 		List<BigInteger> expected = new ArrayList<BigInteger>();

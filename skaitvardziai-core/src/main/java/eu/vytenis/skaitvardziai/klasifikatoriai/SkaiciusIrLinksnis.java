@@ -82,15 +82,22 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	
 	@Override
 	public String toString() {
-		if (skaicius != null && linksnis != null) {
-			return skaicius + " " + linksnis;
-		} else if (skaicius != null) {
-			return skaicius.toString();
-		} else if (linksnis != null) {
-			return linksnis.toString();
-		} else {
-			return "";
+		String r = "";
+		for (Object o : Arrays.<Object>asList(skaicius, linksnis)) {
+			r = appendIfNotNull(r, o);
 		}
+		return r;
+	}
+
+	private String appendIfNotNull(String text, Object object) {
+		if (object == null) {
+			return text;
+		}
+		if (text.length() > 0) {
+			text += " ";
+		}
+		text += object.toString();
+		return text;
 	}
 
 }

@@ -3,7 +3,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 /**
  * Sąsaja unikalioms klasifikatorių santrumpoms grąžinti
  * (kiekvienas klasifikatorius turi grąžinti unikalų savo pavadinimą).
- * Naudojama XPath funkcijose.
+ * Naudojama XPath funkcijose ir komandinėje eilutėje.
  * Realizuojančios klasės turi grąžinti skirtingiems objektams unikalias reikšmes.
  */
 public interface Aliased {

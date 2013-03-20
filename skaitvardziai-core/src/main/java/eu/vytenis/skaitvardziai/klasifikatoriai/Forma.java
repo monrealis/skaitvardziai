@@ -62,13 +62,11 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	
 	@Override
 	public Forma clone() {
-		Forma k;
 		try {
-			k = (Forma) super.clone();
+			return (Forma) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
-		return k;
 	}
 
 }

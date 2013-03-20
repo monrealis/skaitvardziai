@@ -30,19 +30,18 @@ public class Invoker {
 			}
 			checkCanAddMethod(existingMethods, m, biggestAncestorTypeOfDeclaringClass);
 			existingMethods.add(m);
-			newMethods.add(m);			
+			newMethods.add(m);		
 		}		
 		methods.addAll(newMethods);
 	}
 	
 	private void checkCanAddMethod(Iterable<Method> existingMethods, Method newMethod, Class<?> biggestAncestorTypeOfDeclaringClass) {
 		for (Method m : existingMethods) {
-
-			checkDuplicateMethod(m, newMethod);
+			checkDuplicateMethodDoesNotExist(m, newMethod);
 		}
 	}
 
-	private void checkDuplicateMethod(Method existingMethod, Method newMethod) {
+	private void checkDuplicateMethodDoesNotExist(Method existingMethod, Method newMethod) {
 		if (newMethod.getName().equals(existingMethod.getName())
 				&& newMethod.getParameterTypes().length == existingMethod.getParameterTypes().length) {
 			throw new DuplicateMethodException(existingMethod, newMethod);			

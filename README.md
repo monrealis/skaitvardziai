@@ -1,13 +1,13 @@
 # Lietuviškų skaičių konvertavimo į skaitvardžius biblioteka
 
-JAVA biblioteka, pagal perduotus skaičius įvairiomis gramatinėmis formomis lietuvių kalba
-grąžinanti skaitvardžius.
+JAVA biblioteka, kuri pagal perduotus skaičius įvairiomis gramatinėmis formomis lietuvių kalba
+suformuoja skaitvardžius.
 
-## Funkcijos
-Biblioteka gali būti naudojama per:
-* JAVA API
-* Egzistuojančių bibliotekų išplėtimus
-    * XSLT procesorių
+## Sąsaja
+Biblioteka gali būti naudojama:
+* Per JAVA API
+* Kaip programa, paleidžiama per komandinę eilutę (kaip vykdomasis JAR arba su GCJ sukompiliuota programa)
+* Kaip XSLT procesorių XPath funkcijų išplėtimas (Xalan, Saxon, OpenJDK JRE, Oracle JRE)
 
 ## Pavyzdžiai
 Pavyzdžių formatas: *įvestis: išvestis*
@@ -21,15 +21,10 @@ Pavyzdžių formatas: *įvestis: išvestis*
 
 ## Progresas
 
-Realizuotas šis skaičių konvertavimo į skaitvardžius funkcionalumas:
-* Kiekiniai skaitvardžiai
-   * Pagrindiniai (visi linksniai, vyr. g. ir mot. g., gerai ištestuota iki 1000)
-   * Dauginiai (visi linksniai, vyr. g. ir mot. g., gerai ištestuota iki 1000)
-   * Kuopiniai skaitvardžiai (visi linksniai, ištestuoti visi - nuo 1 iki 10)
-   * Trupmeniniai (visi linksniai, kol kas dar nepakankamai ištestuota)
-* Kelintiniai skaitvardžiai (visi linksniai, vyr. g. ir mot. g., įvardžiuotiniai ir neįvardžiuotiniai, gerai ištestuota iki 1000)
+Programa veikia stabiliai ir artimiausiu metu dirbti prie jos neplanuojama. Kaip programą galima panaudoti,
+galima rasti jUnit testuose. Apie rastas klaidas prašome informuoti. Taip pat informuokite,
+jei turite idėjų, kaip biblioteką galima vystyti.
 
-Realizuotos XPath funkcijos XSLT procesoriams:
-* Saxon
-* Xalan
-* Standartiniams OpenJDK ir Oracle JRE XLST procesoriams
+## Licencija
+
+Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)

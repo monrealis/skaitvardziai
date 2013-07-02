@@ -1,4 +1,4 @@
-# Lietuviškų skaičių konvertavimo į skaitvardžius biblioteka
+# Skaičių konvertavimo į liettuvių kalbos skaitvardžius biblioteka
 
 JAVA biblioteka, kuri pagal perduotus skaičius įvairiomis gramatinėmis formomis lietuvių kalba
 suformuoja skaitvardžius.

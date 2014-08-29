@@ -25,6 +25,16 @@ Programa veikia stabiliai ir artimiausiu metu dirbti prie jos neplanuojama. Kaip
 galima rasti jUnit testuose. Apie rastas klaidas prašome informuoti. Taip pat informuokite,
 jei turite idėjų, kaip biblioteką galima vystyti.
 
+
+## Vykdomosios programos (veikiančios per komandinę eilutę) instaliavimas
+
+sudo yum install git maven gcc-java  # Jei Fedora
+sudo apt-get install git maven gcj-jdk # Jei Ubuntu
+git clone https://github.com/monrealis/skaitvardziai
+cd skaitvardziai
+./install-to-linux.sh
+skaiciai 125
+
 ## Licencija
 
 Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)

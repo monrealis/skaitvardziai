@@ -1,5 +1,9 @@
-#! /bin/bash
-mvn clean package
+#!/bin/bash
+set -e
 
-echo Executing gcj
-time gcj --main=eu.vytenis.skaitvardziai.app.main.Main -o target/skaiciai target/skaitvardziai-*-jar-with-dependencies.jar
+mvn package
+
+if [ ! -x target/skaiciai ] ; then
+	echo Executing gcj
+	gcj --main=eu.vytenis.skaitvardziai.app.main.Main -o target/skaiciai target/skaitvardziai-*-jar-with-dependencies.jar
+fi

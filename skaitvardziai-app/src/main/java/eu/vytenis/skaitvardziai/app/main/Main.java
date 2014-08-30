@@ -20,17 +20,15 @@ import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.app.template.TemplateProcessor;
 
 public class Main {
-	
 	private CommandLine commandLine;
-	private Options options;	
+	private Options options;
 	private SystemIo systemIo = new SystemIo();
 
 	public static void main(String[] args) {
 		Main main = new Main();
 		main.doMain(args);
-		
 	}
-	
+
 	public void doMain(String[] args) {
 		try {
 			tryMain(args);
@@ -40,9 +38,9 @@ public class Main {
 			help();
 		}
 	}
-	
+
 	private void tryMain(String[] args) {
-		createOptions();		
+		createOptions();
 		parseCommandLine(args);
 		checkHelpOption();
 		buildSystemIo();
@@ -54,7 +52,7 @@ public class Main {
 			throw new ShowHelpException();
 		}
 	}
-	
+
 	private void buildSystemIo() {
 		SystemIo io = new SystemIo();
 		if (CliOption.OutputEncoding.isIn(commandLine)) {
@@ -81,14 +79,13 @@ public class Main {
 		}
 	}
 
-
 	private void createOptions() {
 		options = new Options();
 		for (CliOption o : CliOption.getOptionsForArgs()) {
 			options.addOption(o.getShortName(), o.getName(), o.isHasArg(), o.getDescription());
 		}
 	}
-	
+
 	private Processor createProcessor() {
 		Processor p;
 		if (CliOption.Transform.isIn(commandLine)) {
@@ -98,14 +95,14 @@ public class Main {
 		}
 		return p;
 	}
-	
+
 	private void help() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printHelp(new PrintWriter(out), 80, "java -jar main.jar", "Parameters", options, 2, 2, "Prints text that represents given number", true);
 		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
-	
+
 	public void usage() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();

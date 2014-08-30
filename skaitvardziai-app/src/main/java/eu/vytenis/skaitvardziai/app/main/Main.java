@@ -99,7 +99,7 @@ public class Main {
 	private void help() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
-		f.printHelp(new PrintWriter(out), 80, "java -jar main.jar", "Parameters", options, 2, 2, "Prints text that represents given number", true);
+		f.printHelp(new PrintWriter(out), 80, "skaiciai", "Parameters", options, 2, 2, "Prints text that represents given number", true);
 		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
 

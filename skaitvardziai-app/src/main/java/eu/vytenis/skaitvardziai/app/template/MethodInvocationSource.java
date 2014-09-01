@@ -14,7 +14,6 @@ public class MethodInvocationSource implements TextSource {
 
 	public String getText() {
 		MethodInvocation mi = Methods.getMethodInvocation(unparsedText);
-
 		Invoker i = new Invoker();
 		i.addPublicStaticMethods(Facade.class, Facade.class);
 		Object r = i.invoke(mi);

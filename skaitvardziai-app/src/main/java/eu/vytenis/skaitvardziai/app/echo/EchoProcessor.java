@@ -21,24 +21,23 @@ import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
 public class EchoProcessor implements Processor {
 	private final CommandLine commandLine;
 	private final SystemIo systemIo;
-	
 	private boolean inputFromSystemIn;
 	private Reader reader;
 	private String outputNewLineSeparator;
 	private Forma forma;
-	
+
 	public EchoProcessor(CommandLine commandLine, SystemIo systemIo) {
 		this.commandLine = commandLine;
 		this.systemIo = systemIo;
 	}
-	
+
 	public void process() {
 		parseForma();
 		calculateReader();
 		calculateOutputNewLineSeparator();
 		processInput();
 	}
-	
+
 	private void parseForma() {
 		if (CliOption.Form.isIn(commandLine)) {
 			String formParam = CliOption.Form.getValue(commandLine);
@@ -64,13 +63,13 @@ public class EchoProcessor implements Processor {
 			b.append(line).append(SystemIo.NEW_LINE);
 		}
 		reader = new StringReader(b.toString());
-	}		
+	}
 
 	private void calculateOutputNewLineSeparator() {
 		boolean noNewLine = CliOption.NoNewline.isIn(commandLine) && !inputFromSystemIn;
 		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
 	}
-	
+
 	private void processInput() {
 		try {
 			tryProcessInput(outputNewLineSeparator);
@@ -100,6 +99,4 @@ public class EchoProcessor implements Processor {
 		}
 	}
 
-
-	
 }

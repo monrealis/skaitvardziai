@@ -13,5 +13,4 @@ import eu.vytenis.skaitvardziai.app.template.TemplateTest;
 @SuiteClasses({MainTest.class, TemplateTest.class, TemplateProcessorTest.class, FilesTest.class})
 public class AppTestSuite {
 
-
 }

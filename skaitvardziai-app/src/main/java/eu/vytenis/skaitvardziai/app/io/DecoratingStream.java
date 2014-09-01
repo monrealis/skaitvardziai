@@ -8,15 +8,9 @@ import java.io.OutputStream;
 import eu.vytenis.skaitvardziai.checks.Checks;
 
 public class DecoratingStream extends FilterOutputStream {
-
-	public enum Mode {
-		CollectOnly,
-		CollectAndWriteToSink
-	}
-	
 	private Mode mode;
 	private ByteArrayOutputStream output = new ByteArrayOutputStream();
-	
+
 	public DecoratingStream(OutputStream outputStream, Mode mode) {
 		super(outputStream);
 		Checks.checkNotNull("mode", mode);
@@ -34,13 +28,17 @@ public class DecoratingStream extends FilterOutputStream {
 	public byte[] getCollectedBytes() {
 		return output.toByteArray();
 	}
-	
+
 	public void setMode(Mode mode) {
 		this.mode = mode;
 	}
-	
+
 	public Mode getMode() {
 		return mode;
 	}
-	
+
+	public enum Mode {
+		CollectOnly, CollectAndWriteToSink
+	}
+
 }

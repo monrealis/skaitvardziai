@@ -19,25 +19,22 @@ import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
 import eu.vytenis.skaitvardziai.app.main.Main;
 
 public abstract class AppTest {
-
 	protected static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
 	protected static final String UTF8 = "utf-8";
 	protected static final String WIN1257 = "windows-1257";
 	protected SystemIo systemIo;
-	
+
 	@Before
 	public void before() {
 		systemIo = new SystemIo();
 	}
-	
+
 	protected SystemOutputFiles main(Object... args) {
 		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
 		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
-		
 		systemIo.setSystemOut(out);
 		systemIo.setSystemErr(err);
-		
-		try {			
+		try {
 			return doMain(out, err, args);
 		} finally {
 			systemIo.setSystemOut(null);
@@ -76,7 +73,7 @@ public abstract class AppTest {
 			throw new SkaitvardziaiIOException(e);
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
 	private void assertErr(ExpectedOut err, Object... args) {
 		assertOutErr(ExpectedOut.EMPTY, err, args);
@@ -105,7 +102,7 @@ public abstract class AppTest {
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
 		SystemOutputFiles oe = main(args);
-		assertMatches(oe.getOutText(systemIo.getOutputCharset()), out);	
+		assertMatches(oe.getOutText(systemIo.getOutputCharset()), out);
 		assertMatches(oe.getErrText(systemIo.getOutputCharset()), err);
 	}
 

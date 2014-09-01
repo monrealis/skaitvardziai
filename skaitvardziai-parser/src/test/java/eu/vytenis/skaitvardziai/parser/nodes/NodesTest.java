@@ -10,9 +10,8 @@ import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 import eu.vytenis.skaitvardziai.parser.tree.TreeParserTreeConstants;
 
 public class NodesTest {
-	
-	private SimpleNode node;	
-	
+	private SimpleNode node;
+
 	@Before
 	public void before() {
 		SimpleNode n = createParametersNode();
@@ -48,7 +47,7 @@ public class NodesTest {
 		assertEquals(node.jjtGetChild(2), Nodes.getOnlyChild(node, TreeConstants.getInteger()));
 		assertFalse(node.jjtGetChild(1).equals(Nodes.getOnlyChild(node, TreeConstants.getInteger())));
 	}
-	
+
 	@Test(expected = Nodes.MoreThanOneChildException.class)
 	public void testGetOnlyChild_Fails() {
 		Nodes.getOnlyChild(node, TreeConstants.getParameter());

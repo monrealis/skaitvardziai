@@ -20,7 +20,7 @@ public class Nodes {
 				r.add(n);
 			}
 		}
-		return r;		
+		return r;
 	}
 
 	public static SimpleNode getOnlyChild(SimpleNode node, String name) {
@@ -32,10 +32,7 @@ public class Nodes {
 	}
 
 	public static class MoreThanOneChildException extends SkaitvardziaiRuntimeException {
-
 		private static final long serialVersionUID = -949095261183514187L;
-		
 	}
-	
-	
+
 }

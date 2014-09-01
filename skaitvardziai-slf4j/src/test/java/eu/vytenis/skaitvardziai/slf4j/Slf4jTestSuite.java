@@ -8,5 +8,4 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses({Slf4jLogTest.class})
 public class Slf4jTestSuite {
 
-
 }

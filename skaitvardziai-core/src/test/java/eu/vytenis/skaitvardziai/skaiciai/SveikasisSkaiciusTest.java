@@ -1,8 +1,8 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
-import java.math.BigInteger;
+import static org.junit.Assert.assertEquals;
 
-import junit.framework.Assert;
+import java.math.BigInteger;
 
 import org.junit.Test;
 
@@ -13,10 +13,10 @@ public class SveikasisSkaiciusTest {
 	@Test
 	public void testGetReiksme() {
 		BigInteger b = new BigInteger("-10");
-		Assert.assertEquals(b, new SveikasisSkaicius(b).getReiksme());
-		Assert.assertEquals(b, new SveikasisSkaicius(new BigInteger(b.toString())).getReiksme());
-		Assert.assertEquals(b, new SveikasisSkaicius(b.toString()).getReiksme());
-		Assert.assertEquals(b, new SveikasisSkaicius(b.longValue()).getReiksme());
+		assertEquals(b, new SveikasisSkaicius(b).getReiksme());
+		assertEquals(b, new SveikasisSkaicius(new BigInteger(b.toString())).getReiksme());
+		assertEquals(b, new SveikasisSkaicius(b.toString()).getReiksme());
+		assertEquals(b, new SveikasisSkaicius(b.longValue()).getReiksme());
 	}
 	
 	@Test

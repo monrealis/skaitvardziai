@@ -1,10 +1,10 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-
-import org.junit.Assert;
 
 import org.junit.Test;
 
@@ -27,9 +27,9 @@ public class PoskyrisTest extends SkaitvardziaiTest {
 				throw new IllegalStateException();
 			}
 		}
-		Assert.assertEquals(new HashSet<Skyrius>(Arrays.asList(Skyrius.Kiekinis, Skyrius.Kelintinis)), new HashSet<Skyrius>(Arrays.asList(Skyrius.values())));
-		Assert.assertEquals(new HashSet<Poskyris>(Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kuopinis, Poskyris.Trupmeninis)), kiekiniai);
-		Assert.assertEquals(new HashSet<Poskyris>(Arrays.asList(Poskyris.Kelintinis)), kelintiniai);
+		assertEquals(new HashSet<Skyrius>(Arrays.asList(Skyrius.Kiekinis, Skyrius.Kelintinis)), new HashSet<Skyrius>(Arrays.asList(Skyrius.values())));
+		assertEquals(new HashSet<Poskyris>(Arrays.asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kuopinis, Poskyris.Trupmeninis)), kiekiniai);
+		assertEquals(new HashSet<Poskyris>(Arrays.asList(Poskyris.Kelintinis)), kelintiniai);
 	}
 
 }

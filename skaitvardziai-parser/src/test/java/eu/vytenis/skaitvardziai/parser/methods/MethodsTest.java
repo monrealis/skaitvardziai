@@ -1,9 +1,11 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.parser.methods.Methods;
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
@@ -73,10 +75,10 @@ public class MethodsTest {
 		//node.dump("");
 		
 		MethodInvocation i = Methods.getMethodInvocation(methodInvocationText);
-		Assert.assertEquals(expectedMethodName, i.getMethodName());
-		Assert.assertEquals(expectedParameterValues.length, i.getParameters().length);
-		Assert.assertArrayEquals(expectedParameterValues, i.getParameters());
-		Assert.assertNotNull(methodInvocationText);
+		assertEquals(expectedMethodName, i.getMethodName());
+		assertEquals(expectedParameterValues.length, i.getParameters().length);
+		assertArrayEquals(expectedParameterValues, i.getParameters());
+		assertNotNull(methodInvocationText);
 		return node;
 	}
 	

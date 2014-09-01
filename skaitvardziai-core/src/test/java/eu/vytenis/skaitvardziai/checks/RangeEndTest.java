@@ -1,6 +1,6 @@
 package eu.vytenis.skaitvardziai.checks;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
@@ -13,11 +13,11 @@ public class RangeEndTest {
 	
 	@Test
 	public void testGetLeftString() {
-		Assert.assertEquals("(-infinity", new RangeEnd<Integer>(null, false).getLeftString());
-		Assert.assertEquals("(-10", new RangeEnd<Integer>(-10, false).getLeftString());
-		Assert.assertEquals("(10", new RangeEnd<Integer>(10, false).getLeftString());
-		Assert.assertEquals("[-20", new RangeEnd<Integer>(-20, true).getLeftString());
-		Assert.assertEquals("[20", new RangeEnd<Integer>(20, true).getLeftString());
+		assertEquals("(-infinity", new RangeEnd<Integer>(null, false).getLeftString());
+		assertEquals("(-10", new RangeEnd<Integer>(-10, false).getLeftString());
+		assertEquals("(10", new RangeEnd<Integer>(10, false).getLeftString());
+		assertEquals("[-20", new RangeEnd<Integer>(-20, true).getLeftString());
+		assertEquals("[20", new RangeEnd<Integer>(20, true).getLeftString());
 	}
 	
 	
@@ -25,11 +25,11 @@ public class RangeEndTest {
 
 	@Test
 	public void testGetRightString() {
-		Assert.assertEquals("infinity)", new RangeEnd<Integer>(null, false).getRightString());
-		Assert.assertEquals("-10)", new RangeEnd<Integer>(-10, false).getRightString());
-		Assert.assertEquals("10)", new RangeEnd<Integer>(10, false).getRightString());
-		Assert.assertEquals("-20]", new RangeEnd<Integer>(-20, true).getRightString());
-		Assert.assertEquals("20]", new RangeEnd<Integer>(20, true).getRightString());
+		assertEquals("infinity)", new RangeEnd<Integer>(null, false).getRightString());
+		assertEquals("-10)", new RangeEnd<Integer>(-10, false).getRightString());
+		assertEquals("10)", new RangeEnd<Integer>(10, false).getRightString());
+		assertEquals("-20]", new RangeEnd<Integer>(-20, true).getRightString());
+		assertEquals("20]", new RangeEnd<Integer>(20, true).getRightString());
 	}
 
 }

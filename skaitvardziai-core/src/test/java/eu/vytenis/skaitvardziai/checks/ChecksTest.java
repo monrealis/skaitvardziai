@@ -1,9 +1,9 @@
 package eu.vytenis.skaitvardziai.checks;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigInteger;
 import java.util.Arrays;
-
-import org.junit.Assert;
 
 import org.junit.Test;
 
@@ -93,8 +93,8 @@ public class ChecksTest {
 	public void testEnsureUnmodifiable() {
 		Checks.ensureUnmodifiable(Arrays.asList(UNMODIFIABLE, MODIFIABLE));
 		
-		Assert.assertEquals(true, UNMODIFIABLE.isUnmodifiable());
-		Assert.assertEquals(true, MODIFIABLE.isUnmodifiable());
+		assertEquals(true, UNMODIFIABLE.isUnmodifiable());
+		assertEquals(true, MODIFIABLE.isUnmodifiable());
 	}
 	
 	@Test

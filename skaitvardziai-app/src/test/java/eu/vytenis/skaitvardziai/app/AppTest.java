@@ -1,5 +1,8 @@
 package eu.vytenis.skaitvardziai.app;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
@@ -9,10 +12,10 @@ import org.junit.Before;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.DecoratingStream;
+import eu.vytenis.skaitvardziai.app.io.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
-import eu.vytenis.skaitvardziai.app.io.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.main.Main;
 
 public abstract class AppTest {
@@ -81,13 +84,13 @@ public abstract class AppTest {
 
 	private void assertOutErr(ExpectedOut expectedOut, ExpectedOut expectedErr, Object... args) {
 		SystemOutputFiles oe = main(args);
-		Assert.assertEquals(expectedOut.getText(), oe.getOutText(systemIo.getOutputCharset()));
+		assertEquals(expectedOut.getText(), oe.getOutText(systemIo.getOutputCharset()));
 		if (expectedOut.getEncoding() != null) {
-			Assert.assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
+			assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
 		}
-		Assert.assertEquals(expectedErr.getText(), oe.getErrText(systemIo.getOutputCharset()));
+		assertEquals(expectedErr.getText(), oe.getErrText(systemIo.getOutputCharset()));
 		if (expectedErr.getEncoding() != null) {
-			Assert.assertArrayEquals(expectedErr.getTextEncoded(), oe.getErrEncoded());
+			assertArrayEquals(expectedErr.getTextEncoded(), oe.getErrEncoded());
 		}
 	}
 

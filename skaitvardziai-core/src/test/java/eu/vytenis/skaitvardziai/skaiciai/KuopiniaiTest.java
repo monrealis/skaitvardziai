@@ -1,7 +1,8 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
@@ -10,7 +11,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
-import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
 
@@ -26,8 +26,8 @@ public class KuopiniaiTest {
 		
 		SveikasisSkaicius ss = new SveikasisSkaicius(skaicius);
 		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
-		Assert.assertEquals(tekstas, ss.toString(f, sl));
-		Assert.assertEquals(DGS_K, sl);
+		assertEquals(tekstas, ss.toString(f, sl));
+		assertEquals(DGS_K, sl);
 	}
 	@Test
 	public void testKuopiniai() {

@@ -1,15 +1,14 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
+import static org.junit.Assert.assertEquals;
+
 import java.math.BigInteger;
 import java.util.Map;
 import java.util.TreeMap;
 
-import org.junit.Assert;
-
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 
 public class TrupmenosTest {
@@ -17,10 +16,10 @@ public class TrupmenosTest {
 		for (Map.Entry<Trupmena, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
 			Trupmena t = e.getKey();
-			Assert.assertEquals("Invalid text", expected, t.toString(linksnis));
+			assertEquals("Invalid text", expected, t.toString(linksnis));
 			if (t.getSkaitiklis().compareTo(BigInteger.ZERO) > 0) {
 				Trupmena n = new Trupmena(t.getSkaitiklis().negate(), t.getVardiklis());
-				Assert.assertEquals("Invalid text", "minus " + expected, n.toString(linksnis));
+				assertEquals("Invalid text", "minus " + expected, n.toString(linksnis));
 				
 			}
 		}

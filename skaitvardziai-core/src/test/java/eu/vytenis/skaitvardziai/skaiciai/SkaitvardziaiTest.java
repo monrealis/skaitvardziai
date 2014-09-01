@@ -1,5 +1,9 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
 import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.Collection;
@@ -9,13 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.junit.Assert;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
-import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
 /**
@@ -38,7 +40,7 @@ public abstract class SkaitvardziaiTest {
 			Collection<String> v = z.getVisosFormos().values();
 			int size = v.size();
 			int uniqueSize = new HashSet<String>(v).size();
-			Assert.assertEquals("Not all words unique for '" + z + "'", size, uniqueSize);			
+			assertEquals("Not all words unique for '" + z + "'", size, uniqueSize);			
 		}
 	}
 
@@ -115,10 +117,10 @@ public abstract class SkaitvardziaiTest {
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
 	protected String removeDaikt(String text, Gimine gimine, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		Assert.assertNotNull(gimine);
-		Assert.assertNotNull(skaiciusIrLinksnis);
-		Assert.assertNull(skaiciusIrLinksnis.getSkaicius());
-		Assert.assertNull(skaiciusIrLinksnis.getLinksnis());
+		assertNotNull(gimine);
+		assertNotNull(skaiciusIrLinksnis);
+		assertNull(skaiciusIrLinksnis.getSkaicius());
+		assertNull(skaiciusIrLinksnis.getLinksnis());
 		
 		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
 		
@@ -135,7 +137,7 @@ public abstract class SkaitvardziaiTest {
 	}
 	
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Forma forma) {
-		Assert.assertNotNull(forma);
+		assertNotNull(forma);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			tryTestSkaicius(forma, e.getKey(), e.getValue());
 		}
@@ -156,13 +158,13 @@ public abstract class SkaitvardziaiTest {
 		
 		SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
 		String actual = sk.toString(forma, actualSl);
-		Assert.assertEquals(number + ": comparation failed", expected, actual);
+		assertEquals(number + ": comparation failed", expected, actual);
 		if (sl != null && (sl.getSkaicius() != null || sl.getLinksnis() != null)) {
-			Assert.assertEquals(number + ": invalid form. Expected '" + expectedValue + "'", sl, actualSl);
+			assertEquals(number + ": invalid form. Expected '" + expectedValue + "'", sl, actualSl);
 		}
 		if (sk.getReiksme().compareTo(BigInteger.ZERO) > 0) {
 			String minusActual = new SveikasisSkaicius(sk.getReiksme().negate()).toString(forma);
-			Assert.assertEquals("minus " + expected, minusActual);
+			assertEquals("minus " + expected, minusActual);
 		}
 	}
 

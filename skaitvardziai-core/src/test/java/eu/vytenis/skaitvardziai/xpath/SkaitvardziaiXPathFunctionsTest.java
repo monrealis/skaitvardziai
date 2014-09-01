@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.xpath;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -12,7 +14,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -95,6 +96,6 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 				}
 			}
 		}
-		Assert.assertEquals(new ArrayList<String>(), invalidLines);
+		assertEquals(new ArrayList<String>(), invalidLines);
 	}
 }

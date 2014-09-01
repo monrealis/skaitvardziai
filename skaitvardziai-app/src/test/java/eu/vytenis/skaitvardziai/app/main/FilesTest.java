@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.app.main;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,8 +10,6 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.util.UUID;
-
-import junit.framework.Assert;
 
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ public class FilesTest extends AppTest {
 		String out = generateFilename(Direction.Output, "echoToFileSucceeds");
 		main(10, 20, "-o", out);
 		String output = tryLoadFile(out, Charset.defaultCharset());
-		Assert.assertEquals("dešimt\ndvidešimt\n", output);
+		assertEquals("dešimt\ndvidešimt\n", output);
 	}
 	
 	@Test
@@ -43,7 +43,7 @@ public class FilesTest extends AppTest {
 		main(10, 20, "-i", in, "-o", out);
 		String output = tryLoadFile(out, Charset.defaultCharset());
 		
-		Assert.assertEquals("dešimt\ndvidešimt\n", output);
+		assertEquals("dešimt\ndvidešimt\n", output);
 	}
 	
 	@Test
@@ -55,7 +55,7 @@ public class FilesTest extends AppTest {
 		main(10, 20, "-t", "-i", in, "-o", out);
 		String output = tryLoadFile(out, Charset.defaultCharset());
 		
-		Assert.assertEquals("Šiandien yra sausio pirmoji.", output);		
+		assertEquals("Šiandien yra sausio pirmoji.", output);		
 	}
 	
 	

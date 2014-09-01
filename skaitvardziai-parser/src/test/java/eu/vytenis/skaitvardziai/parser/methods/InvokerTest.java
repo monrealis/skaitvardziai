@@ -1,11 +1,9 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
-
-import eu.vytenis.skaitvardziai.parser.methods.Invoker;
-import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 
 public class InvokerTest {
 
@@ -22,9 +20,9 @@ public class InvokerTest {
 	}
 	@Test
 	public void testAddPublicStaticMethods() {
-		Assert.assertEquals(0, new Invoker().getMethods().size());		
-		Assert.assertEquals(4, parentAndChildInvoker.getMethods().size());		
-		Assert.assertEquals(3, childInvoker.getMethods().size());
+		assertEquals(0, new Invoker().getMethods().size());		
+		assertEquals(4, parentAndChildInvoker.getMethods().size());		
+		assertEquals(3, childInvoker.getMethods().size());
 	}
 	
 	@Test(expected = Invoker.DuplicateMethodException.class)
@@ -34,15 +32,15 @@ public class InvokerTest {
 
 	@Test
 	public void testInvoke_Success() {
-		Assert.assertEquals("child-f1", parentAndChildInvoker.invoke(new MethodInvocation("f1")));
-		Assert.assertEquals("f11", parentAndChildInvoker.invoke(new MethodInvocation("f11")));
-		Assert.assertEquals(25, parentAndChildInvoker.invoke(new MethodInvocation("f2", 10, 15)));
+		assertEquals("child-f1", parentAndChildInvoker.invoke(new MethodInvocation("f1")));
+		assertEquals("f11", parentAndChildInvoker.invoke(new MethodInvocation("f11")));
+		assertEquals(25, parentAndChildInvoker.invoke(new MethodInvocation("f2", 10, 15)));
 	}
 	
 	@Test
 	public void testInvoke_OverloadedMethodsSuccess() {
-		Assert.assertEquals("f11", parentAndChildInvoker.invoke(new MethodInvocation("f11")));
-		Assert.assertEquals("f11-1", parentAndChildInvoker.invoke(new MethodInvocation("f11", "a")));
+		assertEquals("f11", parentAndChildInvoker.invoke(new MethodInvocation("f11")));
+		assertEquals("f11-1", parentAndChildInvoker.invoke(new MethodInvocation("f11", "a")));
 	}
 	
 	@Test(expected = Invoker.MethodNotFoundException.class)

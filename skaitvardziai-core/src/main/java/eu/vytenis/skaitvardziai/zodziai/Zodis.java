@@ -18,11 +18,12 @@ import eu.vytenis.skaitvardziai.log.Log;
 import eu.vytenis.skaitvardziai.log.LogFactory;
 import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
-
 /**
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
+// TODO
+// @formatter:off
 public class Zodis implements UnmodifiableCapable {
 	/** Žurnalas. */
 	private static final Log log = LogFactory.getLog(Zodis.class);
@@ -498,13 +499,12 @@ public class Zodis implements UnmodifiableCapable {
 	}	
 	
 	public static class WordNotFoundException extends SkaitvardziaiRuntimeException {
-
 		private static final long serialVersionUID = -3871360931584928662L;
 		
 		public WordNotFoundException(Poskyris poskyris, BigInteger skaicius) {
-			super(poskyris + " word not found for number " + skaicius);
-			
+			super(poskyris + " word not found for number " + skaicius);			
 		}
 		
 	}
+	
 }

@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Letters {
-	
 	public static final Locale LT = new Locale("lt");
 	private static final Map<Character, Character> latinByLt;
+
 	static {
 		Map<Character, Character> m = new TreeMap<Character, Character>();
 		char[] lt = "ąčęėįšųūžĄČĘĖĮŠŲŪŽ".toCharArray();
@@ -18,7 +18,7 @@ public class Letters {
 		}
 		latinByLt = Collections.unmodifiableMap(m);
 	}
-	
+
 	public static String translateLtToLatin(String text) {
 		if (text == null) {
 			return null;
@@ -29,9 +29,9 @@ public class Letters {
 			if (c != null) {
 				chars[i] = c;
 			}
-			
+
 		}
-		return new String(chars);		
+		return new String(chars);
 	}
 
 }

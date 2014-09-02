@@ -1,4 +1,3 @@
-
 package eu.vytenis.skaitvardziai.skaiciai;
 
 import java.math.BigInteger;
@@ -18,27 +17,26 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
 public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisSkaicius> {
-	
 	private BigInteger reiksme;
-	
+
 	public SveikasisSkaicius(long reiksme) {
 		this.reiksme = new BigInteger(Long.toString(reiksme));
 	}
-	
+
 	public SveikasisSkaicius(String reiksme) {
 		Checks.checkNotNull("reiksme", reiksme);
 		this.reiksme = new BigInteger(reiksme);
-	}  
-	
+	}
+
 	public SveikasisSkaicius(BigInteger reiksme) {
 		Checks.checkNotNull("reiksme", reiksme);
 		this.reiksme = reiksme;
 	}
-	
+
 	public BigInteger getReiksme() {
 		return reiksme;
 	}
-	
+
 	@Override
 	public String toString() {
 		return toString(Linksnis.V, Gimine.V);
@@ -47,11 +45,11 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	public String toString(Linksnis linksnis, Gimine gimine) {
 		return toString(Poskyris.Pagrindinis, linksnis, gimine);
 	}
-	
+
 	public String toString(Poskyris poskyris, Linksnis linksnis, Gimine gimine) {
 		return toString(poskyris, Skaicius.V, linksnis, gimine);
 	}
-	
+
 	public String toString(Poskyris poskyris, Skaicius skaicius, Linksnis linksnis, Gimine gimine) {
 		Forma f = new Forma();
 		f.setSkaicius(skaicius);
@@ -60,22 +58,20 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		f.setGimine(gimine);
 		return toString(f);
 	}
-	
+
 	public String toString(Forma forma) {
 		return toString(forma, null);
 	}
-	
-	/**
-	 * Grąžina skaitvardžio tekstą.
-	 * @param forma gramatinė skaitvardžio forma 
-	 * @param skaiciusIrLinksnis jei ne null, metodas užpildo (grąžina rezultatą), kokia bus kito žodžio gramatinė forma (pvz, jei grąžina "dvi", tai kitas žodis bus daugiskaitos vardininkas) 
-	 * @return skaitvardis (tekstas)
+
+	/*
+	 * @param skaiciusIrLinksnis jei ne null, metodas užpildo (grąžina
+	 * rezultatą), kokia bus kito žodžio gramatinė forma (pvz, jei grąžina
+	 * "dvi", tai kitas žodis bus daugiskaitos vardininkas)
 	 */
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
 		BigInteger abs = abs(reiksme);
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs, abs);
 		List<ZodisJunginyje> zodziai = getZodziai(fs);
-		
 		String text = ZodisJunginyje.toString(zodziai, fs);
 		if (!isNonNegative()) {
 			text = "minus " + text;
@@ -83,11 +79,11 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		updateSkaiciusIrLinksnis(forma, skaiciusIrLinksnis, zodziai);
 		return text;
 	}
-	
+
 	public static BigInteger abs(BigInteger number) {
-		return number.compareTo(BigInteger.ZERO) >= 0 ? number : number.negate();		
+		return number.compareTo(BigInteger.ZERO) >= 0 ? number : number.negate();
 	}
-	
+
 	private boolean isNonNegative() {
 		return reiksme.compareTo(BigInteger.ZERO) >= 0;
 	}
@@ -102,7 +98,6 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 
 	private void updateSkaiciusIrLinksnis(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodisJunginyje> zodziai) {
 		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
-		
 		Zodis paskutinis = zodziai.get(zodziai.size() - 1).getZodis();
 		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
 		r.setSkaicius(kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius());
@@ -112,7 +107,7 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 			skaiciusIrLinksnis.setSkaicius(r.getSkaicius());
 		}
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof SveikasisSkaicius) {
@@ -121,15 +116,14 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 			return false;
 		}
 	}
-	
+
 	public int compareTo(SveikasisSkaicius o) {
 		return reiksme.compareTo(o.getReiksme());
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return reiksme.hashCode();
 	}
-
 
 }

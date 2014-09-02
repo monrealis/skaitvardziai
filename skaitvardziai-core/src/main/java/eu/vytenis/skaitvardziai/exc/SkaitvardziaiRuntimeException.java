@@ -10,12 +10,13 @@ public class SkaitvardziaiRuntimeException extends RuntimeException {
 	public SkaitvardziaiRuntimeException(String message) {
 		super(message);
 	}
-	
+
 	public SkaitvardziaiRuntimeException(String message, Throwable cause) {
 		super(message, cause);
 	}
-   
+
 	public SkaitvardziaiRuntimeException(Throwable cause) {
 		super(cause);
 	}
+
 }

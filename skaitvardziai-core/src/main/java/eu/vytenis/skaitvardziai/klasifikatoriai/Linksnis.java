@@ -1,6 +1,7 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 public enum Linksnis implements Aliased, FormosElementas {
+	// @formatter:off
 	V("V", "Vardininkas"),
 	K("K", "Kilmininkas"),
 	N("N", "Naudininkas"),
@@ -8,20 +9,21 @@ public enum Linksnis implements Aliased, FormosElementas {
 	I("Į", "Įnagininkas"),
 	Vt("Vt", "Vietininkas"),
 	S("Š", "Šauksmininkas");
-	
+	// @formatter:on
 	private String alias;
 	private String longName;
-	
+
 	private Linksnis(String alias, String longName) {
 		this.alias = alias;
-		this.longName = longName;		
+		this.longName = longName;
 	}
-	
+
 	public String alias() {
 		return alias;
-	};
-	
+	}
+
 	public String longName() {
 		return longName;
 	}
+
 }

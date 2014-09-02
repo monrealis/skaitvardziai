@@ -18,11 +18,10 @@ public class SveikasisSkaiciusTest {
 		assertEquals(b, new SveikasisSkaicius(b.toString()).getReiksme());
 		assertEquals(b, new SveikasisSkaicius(b.longValue()).getReiksme());
 	}
-	
+
 	@Test
 	public void testBigNumber() {
 		new SveikasisSkaicius(Numbers.BILLION).toString();
-		
 	}
 
 }

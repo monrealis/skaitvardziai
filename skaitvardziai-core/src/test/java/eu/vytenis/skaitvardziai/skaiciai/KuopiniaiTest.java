@@ -13,22 +13,21 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
-
 public class KuopiniaiTest {
-	
+
 	private static final SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
-	
+
 	private void assertKuopinis(long skaicius, Linksnis linksnis, String tekstas) {
 		Forma f = new Forma();
 		f.setPoskyris(Poskyris.Kuopinis);
 		f.setLinksnis(linksnis);
 		f.setGimine(Gimine.V);
-		
 		SveikasisSkaicius ss = new SveikasisSkaicius(skaicius);
 		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
 		assertEquals(tekstas, ss.toString(f, sl));
 		assertEquals(DGS_K, sl);
 	}
+
 	@Test
 	public void testKuopiniai() {
 		Linksnis l = Linksnis.V;
@@ -41,7 +40,6 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septynetas");
 		assertKuopinis(8, l, "aštuonetas");
 		assertKuopinis(9, l, "devynetas");
-		
 		l = Linksnis.K;
 		assertKuopinis(1, l, "vieneto");
 		assertKuopinis(2, l, "dvejeto");
@@ -52,7 +50,6 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septyneto");
 		assertKuopinis(8, l, "aštuoneto");
 		assertKuopinis(9, l, "devyneto");
-		
 		l = Linksnis.N;
 		assertKuopinis(1, l, "vienetui");
 		assertKuopinis(2, l, "dvejetui");
@@ -63,7 +60,6 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septynetui");
 		assertKuopinis(8, l, "aštuonetui");
 		assertKuopinis(9, l, "devynetui");
-		
 		l = Linksnis.G;
 		assertKuopinis(1, l, "vienetą");
 		assertKuopinis(2, l, "dvejetą");
@@ -74,7 +70,6 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septynetą");
 		assertKuopinis(8, l, "aštuonetą");
 		assertKuopinis(9, l, "devynetą");
-		
 		l = Linksnis.I;
 		assertKuopinis(1, l, "vienetu");
 		assertKuopinis(2, l, "dvejetu");
@@ -85,7 +80,6 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septynetu");
 		assertKuopinis(8, l, "aštuonetu");
 		assertKuopinis(9, l, "devynetu");
-		
 		l = Linksnis.Vt;
 		assertKuopinis(1, l, "vienete");
 		assertKuopinis(2, l, "dvejete");
@@ -96,7 +90,6 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septynete");
 		assertKuopinis(8, l, "aštuonete");
 		assertKuopinis(9, l, "devynete");
-		
 		l = Linksnis.S;
 		assertKuopinis(1, l, "vienete");
 		assertKuopinis(2, l, "dvejete");
@@ -107,9 +100,9 @@ public class KuopiniaiTest {
 		assertKuopinis(7, l, "septynete");
 		assertKuopinis(8, l, "aštuonete");
 		assertKuopinis(9, l, "devynete");
-		
+
 	}
-	
+
 	@Test
 	public void testNegalimiSkaiciai() {
 		for (long l = -1000L; l <= 1000; ++l) {
@@ -127,7 +120,7 @@ public class KuopiniaiTest {
 					// OK
 				}
 			}
-			
 		}
 	}
+
 }

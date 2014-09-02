@@ -23,6 +23,7 @@ import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiXPathFunctionsSaxonTest;
 import eu.vytenis.skaitvardziai.xpath.SkaitvardziaiXPathFunctionsXalanTest;
 import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 
+// @formatter:off
 @SuiteClasses({
 	PagrindiniaiVyrTest.class,
 	PagrindiniaiMotTest.class,
@@ -32,18 +33,17 @@ import eu.vytenis.skaitvardziai.zodziai.ZodisTest;
 	KelintiniaiPaprTest.class,
 	KelintiniaiIvTest.class,
 	PoskyrisTest.class,
-	TrupmenosTest.class,
-	
+	TrupmenosTest.class,	
 	SkaitvardziaiXPathFunctionsJreTest.class,
 	SkaitvardziaiXPathFunctionsSaxonTest.class,
 	SkaitvardziaiXPathFunctionsXalanTest.class,
-
 	SveikasisSkaiciusTest.class,
 	RangeTest.class,
 	RangeEndTest.class,
 	ChecksTest.class,
 	SkaiciusIrLinksnisTest.class,
 	ZodisTest.class})
+// @formatter:on
 @RunWith(Suite.class)
 public class SkaitvardziaiCoreTestSuite {
 

@@ -8,10 +8,8 @@ import org.junit.Test;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 
-
-
 public class PagrindiniaiMotTest extends PagrindiniaiTest {
-	
+
 	public PagrindiniaiMotTest() {
 		setGimine(Gimine.M);
 	}
@@ -42,7 +40,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(20, "dvidešimt" + motDgsK());
 		testSkaiciai(s, Linksnis.V);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -61,7 +59,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimtas" + motDgsK());
 		testSkaiciai(s, Linksnis.V);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000V() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -83,12 +81,9 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devyni šimtai" + motDgsK());
 		s.put(963, "devyni šimtai šešiasdešimt trys" + motDgsV());
 		s.put(1000, "tūkstantis" + motDgsK());
-
 		testSkaiciai(s, Linksnis.V);
 	}
-	
 
-	
 	@Test
 	public void testNuo1Iki20K() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -112,10 +107,10 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolikos" + motDgsK());
 		s.put(18, "aštuoniolikos" + motDgsK());
 		s.put(19, "devyniolikos" + motDgsK());
-		s.put(20, "dvidešimties" + motDgsK());		
+		s.put(20, "dvidešimties" + motDgsK());
 		testSkaiciai(s, Linksnis.K);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100K() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -134,7 +129,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimto");
 		testSkaiciai(s, Linksnis.K);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000K() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -156,11 +151,9 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devynių šimtų" + motDgsK());
 		s.put(963, "devynių šimtų šešiasdešimt trijų" + motDgsK());
 		s.put(1000, "tūkstančio" + motDgsK());
-
 		testSkaiciai(s, Linksnis.K);
 	}
-	
-	
+
 	@Test
 	public void testNuo1Iki20N() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -184,10 +177,10 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolikai");
 		s.put(18, "aštuoniolikai");
 		s.put(19, "devyniolikai");
-		s.put(20, "dvidešimčiai");		
+		s.put(20, "dvidešimčiai");
 		testSkaiciai(s, Linksnis.N);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100N() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -206,7 +199,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimtui");
 		testSkaiciai(s, Linksnis.N);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000N() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -228,10 +221,9 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devyniems šimtams");
 		s.put(963, "devyniems šimtams šešiasdešimt trims");
 		s.put(1000, "tūkstančiui");
-
 		testSkaiciai(s, Linksnis.N);
 	}
-	
+
 	@Test
 	public void testNuo1Iki20G() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -255,10 +247,10 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolika");
 		s.put(18, "aštuoniolika");
 		s.put(19, "devyniolika");
-		s.put(20, "dvidešimt");		
+		s.put(20, "dvidešimt");
 		testSkaiciai(s, Linksnis.G);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100G() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -277,7 +269,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimtą");
 		testSkaiciai(s, Linksnis.G);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000G() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -299,10 +291,9 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devynis šimtus");
 		s.put(963, "devynis šimtus šešiasdešimt tris");
 		s.put(1000, "tūkstantį");
-
 		testSkaiciai(s, Linksnis.G);
 	}
-	
+
 	@Test
 	public void testNuo1Iki20I() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -326,10 +317,10 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolika");
 		s.put(18, "aštuoniolika");
 		s.put(19, "devyniolika");
-		s.put(20, "dvidešimčia");		
+		s.put(20, "dvidešimčia");
 		testSkaiciai(s, Linksnis.I);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100I() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -348,7 +339,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimtu");
 		testSkaiciai(s, Linksnis.I);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000I() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -370,10 +361,9 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devyniais šimtais");
 		s.put(963, "devyniais šimtais šešiasdešimt trimis");
 		s.put(1000, "tūkstančiu");
-
 		testSkaiciai(s, Linksnis.I);
 	}
-	
+
 	@Test
 	public void testNuo1Iki20Vt() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -397,10 +387,10 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolikoje");
 		s.put(18, "aštuoniolikoje");
 		s.put(19, "devyniolikoje");
-		s.put(20, "dvidešimtyje");		
+		s.put(20, "dvidešimtyje");
 		testSkaiciai(s, Linksnis.Vt);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100Vt() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -419,7 +409,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimte");
 		testSkaiciai(s, Linksnis.Vt);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000Vt() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -441,10 +431,9 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devyniuose šimtuose");
 		s.put(963, "devyniuose šimtuose šešiasdešimt trijose");
 		s.put(1000, "tūkstantyje");
-
 		testSkaiciai(s, Linksnis.Vt);
 	}
-	
+
 	@Test
 	public void testNuo1Iki20S() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -468,10 +457,10 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolika");
 		s.put(18, "aštuoniolika");
 		s.put(19, "devyniolika");
-		s.put(20, "dvidešimt");		
+		s.put(20, "dvidešimt");
 		testSkaiciai(s, Linksnis.S);
 	}
-	
+
 	@Test
 	public void testNuo20Iki100S() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -490,7 +479,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(100, "šimte");
 		testSkaiciai(s, Linksnis.S);
 	}
-	
+
 	@Test
 	public void testNuo100Iki1000S() {
 		Map<Number, String> s = new TreeMap<Number, String>();
@@ -512,14 +501,14 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(900, "devyni šimtai");
 		s.put(963, "devyni šimtai šešiasdešimt trys");
 		s.put(1000, "tūkstanti");
-
 		testSkaiciai(s, Linksnis.S);
 	}
 
 	@Test
-	public void testRastosKlaidos() {		
+	public void testRastosKlaidos() {
 		Map<Long, String> skaiciai = new TreeMap<Long, String>();
-		skaiciai.put(4561234568L, "keturi milijardai penki šimtai šešiasdešimt vienas milijonas du šimtai trisdešimt keturi tūkstančiai penki šimtai šešiasdešimt aštuonios");
+		skaiciai.put(4561234568L,
+				"keturi milijardai penki šimtai šešiasdešimt vienas milijonas du šimtai trisdešimt keturi tūkstančiai penki šimtai šešiasdešimt aštuonios");
 		skaiciai.put(21000000L, "dvidešimt vienas milijonas");
 		testSkaiciai(skaiciai, Linksnis.V);
 	}

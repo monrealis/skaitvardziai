@@ -10,7 +10,7 @@ public class RangeEndTest {
 	public void testRangeEndInvalid() {
 		new RangeEnd<Integer>(null, true);
 	}
-	
+
 	@Test
 	public void testGetLeftString() {
 		assertEquals("(-infinity", new RangeEnd<Integer>(null, false).getLeftString());
@@ -19,9 +19,6 @@ public class RangeEndTest {
 		assertEquals("[-20", new RangeEnd<Integer>(-20, true).getLeftString());
 		assertEquals("[20", new RangeEnd<Integer>(20, true).getLeftString());
 	}
-	
-	
-
 
 	@Test
 	public void testGetRightString() {

@@ -25,26 +25,27 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
  *
  */
 public abstract class SkaitvardziaiTest {
-
 	/** Vyriškosios giminės daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis", "šunimis", "šunyse", "šunys!"); // šunes :)
+	public static final Zodis DAIKT_VYR_G = new Zodis("šuo", "šuns", "šuniui", "šunį", "šuniu", "šunyje", "šunie", "šunes", "šunų", "šunims", "šunis",
+			"šunimis", "šunyse", "šunys!"); // šunes :)
 	/** Moteriškosios giminės daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_MOT_G = new Zodis("žema pilis", "žemos pilies", "žemai piliai", "žemą pilį", "žema pilimi", "žemoje pilyje", "žema pilie", "žemos pilys", "žemų pilių", "žemoms pilims", "žemas pilis", "žemomis pilimis", "žemose pilyse", "žemos pilys!"); // du žodžiai - kad būtų unikalios reikšmės
+	public static final Zodis DAIKT_MOT_G = new Zodis("žema pilis", "žemos pilies", "žemai piliai", "žemą pilį", "žema pilimi", "žemoje pilyje", "žema pilie",
+			"žemos pilys", "žemų pilių", "žemoms pilims", "žemas pilis", "žemomis pilimis", "žemose pilyse", "žemos pilys!");
+	// du žodžiai - kad būtų unikalios reikšmės
 	/** Vyriškosios giminės daugiskaitinis daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_DGS_VYR_G = new Zodis(Skaicius.D, "metai", "metų", "metams", "metus", "metais","metuose", "metai!");
+	public static final Zodis DAIKT_DGS_VYR_G = new Zodis(Skaicius.D, "metai", "metų", "metams", "metus", "metais", "metuose", "metai!");
 	/** Moteriškosios giminės daugiskaitinis daiktavardis su visais linksniais. */
-	public static final Zodis DAIKT_DGS_MOT_G = new Zodis(Skaicius.D, "metai", "metų", "metams", "metus", "metais","metuose", "metai!");
-	
+	public static final Zodis DAIKT_DGS_MOT_G = new Zodis(Skaicius.D, "metai", "metų", "metams", "metus", "metais", "metuose", "metai!");
+
 	static {
 		for (Zodis z : Arrays.asList(DAIKT_VYR_G, DAIKT_MOT_G, DAIKT_DGS_VYR_G, DAIKT_DGS_MOT_G)) {
 			Collection<String> v = z.getVisosFormos().values();
 			int size = v.size();
 			int uniqueSize = new HashSet<String>(v).size();
-			assertEquals("Not all words unique for '" + z + "'", size, uniqueSize);			
+			assertEquals("Not all words unique for '" + z + "'", size, uniqueSize);
 		}
 	}
 
-	
 	protected String vyrVnsV() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V));
 	}
@@ -52,15 +53,15 @@ public abstract class SkaitvardziaiTest {
 	protected String vyrVnsK() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K));
 	}
-	
+
 	protected String vyrDgsV() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));
 	}
-	
+
 	protected String vyrDgsK() {
 		return " " + DAIKT_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
-	
+
 	protected String motVnsV() {
 		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V));
 	}
@@ -68,31 +69,31 @@ public abstract class SkaitvardziaiTest {
 	protected String motVnsK() {
 		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K));
 	}
-	
+
 	protected String motDgsV() {
 		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));
 	}
-	
+
 	protected String motDgsK() {
 		return " " + DAIKT_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
-	
+
 	protected String dVyrDgsV() {
-		return " " + DAIKT_DGS_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));		
+		return " " + DAIKT_DGS_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));
 	}
-	
+
 	protected String dVyrDgsK() {
-		return " " + DAIKT_DGS_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));		
+		return " " + DAIKT_DGS_VYR_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
-	
+
 	protected String dMotDgsV() {
-		return " " + DAIKT_DGS_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));		
+		return " " + DAIKT_DGS_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V));
 	}
-	
+
 	protected String dMotDgsK() {
-		return " " + DAIKT_DGS_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));		
+		return " " + DAIKT_DGS_MOT_G.toString(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K));
 	}
-	
+
 	protected String gimineSkaiciusLinksnis(Gimine gimine, SkaiciusIrLinksnis skaiciusLinksnis) {
 		Zodis z;
 		if (gimine == Gimine.V) {
@@ -104,16 +105,18 @@ public abstract class SkaitvardziaiTest {
 		}
 		String r = z.getVisosFormos().get(skaiciusLinksnis);
 		if (r == null) {
-			throw new IllegalArgumentException();			
+			throw new IllegalArgumentException();
 		}
 		return " " + r;
 	}
 
-	
 	/**
-	 * Iš teksto pabaigos, jei yra, pašalina paskutinį daiktvardį. Jei nėra, nieko nepakeičia.
-	 * Pvz., pagal "dvidešimt vienas" grąžina "dvidešimt vienas", o pagal "dvidešimt vienas šuo" - "dvidešimt vienas".
-	 * @param text pradinis tekstas
+	 * Iš teksto pabaigos, jei yra, pašalina paskutinį daiktvardį. Jei nėra,
+	 * nieko nepakeičia. Pvz., pagal "dvidešimt vienas" grąžina
+	 * "dvidešimt vienas", o pagal "dvidešimt vienas šuo" - "dvidešimt vienas".
+	 * 
+	 * @param text
+	 *            pradinis tekstas
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
 	protected String removeDaikt(String text, Gimine gimine, SkaiciusIrLinksnis skaiciusIrLinksnis) {
@@ -121,9 +124,7 @@ public abstract class SkaitvardziaiTest {
 		assertNotNull(skaiciusIrLinksnis);
 		assertNull(skaiciusIrLinksnis.getSkaicius());
 		assertNull(skaiciusIrLinksnis.getLinksnis());
-		
 		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
-		
 		for (Zodis z : zodziai) {
 			for (Entry<SkaiciusIrLinksnis, String> e : z.getVisosFormos().entrySet()) {
 				if (text.endsWith(e.getValue())) {
@@ -135,14 +136,14 @@ public abstract class SkaitvardziaiTest {
 		}
 		return text;
 	}
-	
+
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Forma forma) {
 		assertNotNull(forma);
 		for (Map.Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			tryTestSkaicius(forma, e.getKey(), e.getValue());
 		}
 	}
-	
+
 	private void tryTestSkaicius(Forma forma, Number number, String expectedValue) {
 		try {
 			testSkaicius(forma, number, expectedValue);
@@ -155,7 +156,6 @@ public abstract class SkaitvardziaiTest {
 		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
 		String expected = removeDaikt(expectedValue, forma.getGimine(), sl);
 		SveikasisSkaicius sk = new SveikasisSkaicius(number.toString());
-		
 		SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
 		String actual = sk.toString(forma, actualSl);
 		assertEquals(number + ": comparation failed", expected, actual);
@@ -177,4 +177,5 @@ public abstract class SkaitvardziaiTest {
 		}
 		return combinedNumbers;
 	}
+
 }

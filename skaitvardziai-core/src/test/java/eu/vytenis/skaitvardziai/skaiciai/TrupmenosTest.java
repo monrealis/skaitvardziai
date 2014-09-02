@@ -10,8 +10,8 @@ import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 
-
 public class TrupmenosTest {
+
 	private void testTrupmenos(Map<Trupmena, String> skaiciai, Linksnis linksnis) {
 		for (Map.Entry<Trupmena, String> e : skaiciai.entrySet()) {
 			String expected = e.getValue();
@@ -20,14 +20,14 @@ public class TrupmenosTest {
 			if (t.getSkaitiklis().compareTo(BigInteger.ZERO) > 0) {
 				Trupmena n = new Trupmena(t.getSkaitiklis().negate(), t.getVardiklis());
 				assertEquals("Invalid text", "minus " + expected, n.toString(linksnis));
-				
 			}
 		}
 	}
-	
+
 	private Trupmena t(long skaitiklis, long vardiklis) {
 		return new Trupmena(skaitiklis, vardiklis);
 	}
+
 	@Test
 	public void testV() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -51,10 +51,10 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolika pirmųjų");
 		s.put(t(18, 1), "aštuoniolika pirmųjų");
 		s.put(t(19, 1), "devyniolika pirmųjų");
-		s.put(t(20, 1), "dvidešimt pirmųjų");		
+		s.put(t(20, 1), "dvidešimt pirmųjų");
 		testTrupmenos(s, Linksnis.V);
 	}
-	
+
 	@Test
 	public void testK() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -78,10 +78,10 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolikos pirmųjų");
 		s.put(t(18, 1), "aštuoniolikos pirmųjų");
 		s.put(t(19, 1), "devyniolikos pirmųjų");
-		s.put(t(20, 1), "dvidešimties pirmųjų");		
+		s.put(t(20, 1), "dvidešimties pirmųjų");
 		testTrupmenos(s, Linksnis.K);
 	}
-	
+
 	@Test
 	public void testN() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -105,10 +105,10 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolikai pirmųjų");
 		s.put(t(18, 1), "aštuoniolikai pirmųjų");
 		s.put(t(19, 1), "devyniolikai pirmųjų");
-		s.put(t(20, 1), "dvidešimčiai pirmųjų");		
+		s.put(t(20, 1), "dvidešimčiai pirmųjų");
 		testTrupmenos(s, Linksnis.N);
 	}
-	
+
 	@Test
 	public void testG() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -132,10 +132,10 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolika pirmųjų");
 		s.put(t(18, 1), "aštuoniolika pirmųjų");
 		s.put(t(19, 1), "devyniolika pirmųjų");
-		s.put(t(20, 1), "dvidešimt pirmųjų");		
+		s.put(t(20, 1), "dvidešimt pirmųjų");
 		testTrupmenos(s, Linksnis.G);
 	}
-	
+
 	@Test
 	public void testI() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -159,10 +159,10 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolika pirmųjų");
 		s.put(t(18, 1), "aštuoniolika pirmųjų");
 		s.put(t(19, 1), "devyniolika pirmųjų");
-		s.put(t(20, 1), "dvidešimčia pirmųjų");		
+		s.put(t(20, 1), "dvidešimčia pirmųjų");
 		testTrupmenos(s, Linksnis.I);
 	}
-	
+
 	@Test
 	public void testVt() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -186,10 +186,10 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolikoje pirmųjų");
 		s.put(t(18, 1), "aštuoniolikoje pirmųjų");
 		s.put(t(19, 1), "devyniolikoje pirmųjų");
-		s.put(t(20, 1), "dvidešimtyje pirmųjų");		
+		s.put(t(20, 1), "dvidešimtyje pirmųjų");
 		testTrupmenos(s, Linksnis.Vt);
 	}
-	
+
 	@Test
 	public void testS() {
 		Map<Trupmena, String> s = new TreeMap<Trupmena, String>();
@@ -213,9 +213,8 @@ public class TrupmenosTest {
 		s.put(t(17, 1), "septyniolika pirmųjų");
 		s.put(t(18, 1), "aštuoniolika pirmųjų");
 		s.put(t(19, 1), "devyniolika pirmųjų");
-		s.put(t(20, 1), "dvidešimt pirmųjų");		
+		s.put(t(20, 1), "dvidešimt pirmųjų");
 		testTrupmenos(s, Linksnis.S);
 	}
-	
 
 }

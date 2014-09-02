@@ -11,9 +11,8 @@ import org.junit.Test;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skyrius;
 
-
 public class PoskyrisTest extends SkaitvardziaiTest {
-	
+
 	@Test
 	public void testSkyriuPoskyriai() {
 		Set<Poskyris> kiekiniai = new HashSet<Poskyris>();

@@ -6,28 +6,27 @@ import eu.vytenis.skaitvardziai.checks.Checks.NotModifiableException;
 
 public class ZodisTest {
 
-
 	@Test(expected = NotModifiableException.class)
 	public void testUnmodifiablePagrindiniaiMotGimMap() {
 		Zodis.pagrindiniaiMotGimMap.values().iterator().next().setUnmodifiable(false);
 	}
-	
+
 	@Test(expected = NotModifiableException.class)
 	public void testPagrindiniaiVyrGimMap() {
 		Zodis.pagrindiniaiVyrGimMap.values().iterator().next().setUnmodifiable(false);
-		
+
 	}
-	
+
 	@Test(expected = NotModifiableException.class)
 	public void testKuopiniaiMap() {
 		Zodis.kuopiniaiMap.values().iterator().next().setUnmodifiable(false);
 	}
-	
+
 	@Test(expected = NotModifiableException.class)
 	public void testDauginiaiMotGimMap() {
 		Zodis.dauginiaiMotGimMap.values().iterator().next().setUnmodifiable(false);
 	}
-	
+
 	@Test(expected = NotModifiableException.class)
 	public void testDauginiaiVyrGimMap() {
 		Zodis.dauginiaiVyrGimMap.values().iterator().next().setUnmodifiable(false);
@@ -35,21 +34,22 @@ public class ZodisTest {
 
 	@Test(expected = NotModifiableException.class)
 	public void testKelintiniaiVyrGimMap() {
-		Zodis.kelintiniaiVyrGimMap.values().iterator().next().setUnmodifiable(false);	
+		Zodis.kelintiniaiVyrGimMap.values().iterator().next().setUnmodifiable(false);
 	}
 
 	@Test(expected = NotModifiableException.class)
 	public void testKelintiniaiIvVyrGimMap() {
-		Zodis.kelintiniaiIvVyrGimMap.values().iterator().next().setUnmodifiable(false);	
+		Zodis.kelintiniaiIvVyrGimMap.values().iterator().next().setUnmodifiable(false);
 	}
 
 	@Test(expected = NotModifiableException.class)
 	public void testKelintiniaiMotGimMap() {
-		Zodis.kelintiniaiMotGimMap.values().iterator().next().setUnmodifiable(false);	
+		Zodis.kelintiniaiMotGimMap.values().iterator().next().setUnmodifiable(false);
 	}
 
 	@Test(expected = NotModifiableException.class)
 	public void testKelintiniaiIvMotGimMap() {
-		Zodis.kelintiniaiIvMotGimMap.values().iterator().next().setUnmodifiable(false);	
+		Zodis.kelintiniaiIvMotGimMap.values().iterator().next().setUnmodifiable(false);
 	}
+
 }

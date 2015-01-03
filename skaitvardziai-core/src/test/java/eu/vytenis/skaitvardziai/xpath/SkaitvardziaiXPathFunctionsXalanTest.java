@@ -4,11 +4,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-/**
- * XALAN XSLT procesoriaus {@link SkaitvardziaiXPathFunctionsTest} testas.
- */
 public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunctionsTest {
-
 	@Override
 	protected String getXsltText() throws IOException {
 		String r = super.getXsltText();
@@ -30,5 +26,4 @@ public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunc
 	public void testXsltTraxSmartProcessor() throws Exception {
 		super.testXslt("org.apache.xalan.xsltc.trax.SmartTransformerFactoryImpl");
 	}
-
 }

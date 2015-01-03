@@ -4,12 +4,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-/**
- * Standartinio OpenJDK/OracleJDK XSLT procesoriaus
- * {@link SkaitvardziaiXPathFunctionsTest} testas.
- */
 public class SkaitvardziaiXPathFunctionsJreTest extends SkaitvardziaiXPathFunctionsTest {
-
 	@Override
 	protected String getXsltText() throws IOException {
 		String r = super.getXsltText();
@@ -21,5 +16,4 @@ public class SkaitvardziaiXPathFunctionsJreTest extends SkaitvardziaiXPathFuncti
 	public void testXslt() throws Exception {
 		super.testXslt("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl");
 	}
-
 }

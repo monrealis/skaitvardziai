@@ -19,8 +19,20 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 	protected TransformerFactory getTransformerFactory(String transformerFactoryClassName) throws Exception {
 		return (TransformerFactory) Class.forName(transformerFactoryClassName).newInstance();
 	}
+
+	protected Source getXsltSource() {
+		return new StreamSource(new StringReader(getXsltText()));
+	}
 	
-	protected String getXsltText() throws IOException {
+	protected String getXsltText() {
+		try {
+			return getXsltTextThrowsExc();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private String getXsltTextThrowsExc() throws IOException {
 		InputStream is = SkaitvardziaiXPathFunctionsTest.class.getResourceAsStream(defaultXsltResourceName);
 		byte[] bytes = new byte[is.available()];
 		assertEquals(bytes.length, is.read(bytes));
@@ -28,11 +40,7 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 		return new String(bytes, "UTF-8");
 	}
 
-	protected Source getXsltSource() throws Exception {
-		String text = getXsltText();
-		return new StreamSource(new StringReader(text));
-	}
-	
+
 	// Patikrina, ar įvykdyta XSL transformaciją suformuoja tokį XML'ą, kokį reikia.
 	// Po transformacijos gautas tekstas turi būti toks: faktinis_tekstas_1 : reikalingas_tekstas_1 ; faktinis_tekstas_2 : reikalingas_tekstas_2 ; ...
 	protected void testXslt(String transformerFactoryClassName) throws Exception {

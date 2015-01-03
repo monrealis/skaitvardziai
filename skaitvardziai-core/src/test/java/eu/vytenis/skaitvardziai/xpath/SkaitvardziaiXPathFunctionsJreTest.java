@@ -1,12 +1,10 @@
 package eu.vytenis.skaitvardziai.xpath;
 
-import java.io.IOException;
-
 import org.junit.Test;
 
 public class SkaitvardziaiXPathFunctionsJreTest extends SkaitvardziaiXPathFunctionsTest {
 	@Override
-	protected String getXsltText() throws IOException {
+	protected String getXsltText() {
 		String r = super.getXsltText();
 		r = r.replaceAll("java:", "xalan://");
 		return r;

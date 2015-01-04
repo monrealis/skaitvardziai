@@ -13,7 +13,7 @@ public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunc
 		super(transformerFactoryClassName);
 	}
 
-	@Parameterized.Parameters
+	@Parameterized.Parameters(name = "{index}: {0}")
 	public static List<Object[]> x() {
 		List<Object[]> r = new ArrayList<Object[]>();
 		r.add(createParams("org.apache.xalan.processor.TransformerFactoryImpl"));

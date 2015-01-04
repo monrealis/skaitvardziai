@@ -15,8 +15,13 @@ import static org.junit.Assert.assertEquals;
 
 public abstract class SkaitvardziaiXPathFunctionsTest {
 	private String defaultXsltResourceName = "saxon-transform.xsl";
+	private String transformerFactoryClassName;
 
-	protected TransformerFactory getTransformerFactory(String transformerFactoryClassName) throws Exception {
+	public SkaitvardziaiXPathFunctionsTest(String transformerFactoryClassName) {
+		this.transformerFactoryClassName = transformerFactoryClassName;
+	}
+
+	protected TransformerFactory createFactory() throws Exception {
 		return (TransformerFactory) Class.forName(transformerFactoryClassName).newInstance();
 	}
 
@@ -43,10 +48,10 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 
 	// Patikrina, ar įvykdyta XSL transformaciją suformuoja tokį XML'ą, kokį reikia.
 	// Po transformacijos gautas tekstas turi būti toks: faktinis_tekstas_1 : reikalingas_tekstas_1 ; faktinis_tekstas_2 : reikalingas_tekstas_2 ; ...
-	protected void testXslt(String transformerFactoryClassName) throws Exception {
+	protected void testXslt() throws Exception {
 		StreamSource input = new StreamSource(new StringReader("<root />"));
 		StringWriter w = new StringWriter();
-		getTransformerFactory(transformerFactoryClassName).newTransformer(getXsltSource()).transform(input, new StreamResult(w));
+		createFactory().newTransformer(getXsltSource()).transform(input, new StreamResult(w));
 		String output = w.toString().trim();
 		String[] lines = output.split("\\s*;\\s*");
 		List<String> invalidLines = new ArrayList<String>();

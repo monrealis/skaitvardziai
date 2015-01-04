@@ -1,8 +1,31 @@
 package eu.vytenis.skaitvardziai.xpath;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@RunWith(Parameterized.class)
 public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunctionsTest {
+	public SkaitvardziaiXPathFunctionsXalanTest(String transformerFactoryClassName) {
+		super(transformerFactoryClassName);
+	}
+
+	@Parameterized.Parameters
+	public static List<Object[]> x() {
+		List<Object[]> r = new ArrayList<Object[]>();
+		r.add(createParams("org.apache.xalan.processor.TransformerFactoryImpl"));
+		r.add(createParams("org.apache.xalan.xsltc.trax.TransformerFactoryImpl"));
+		r.add(createParams("org.apache.xalan.xsltc.trax.SmartTransformerFactoryImpl"));
+		return r;
+	}
+
+	private static Object[] createParams(String transformerFactoryClassName) {
+		return new Object[] {transformerFactoryClassName};
+	}
+
 	@Override
 	protected String getXsltText() {
 		String r = super.getXsltText();
@@ -11,17 +34,7 @@ public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunc
 	}
 
 	@Test
-	public void testXsltProcessor() throws Exception {
-		super.testXslt("org.apache.xalan.processor.TransformerFactoryImpl");
-	}
-
-	@Test
-	public void testXsltTraxProcessor() throws Exception {
-		super.testXslt("org.apache.xalan.xsltc.trax.TransformerFactoryImpl");
-	}
-
-	@Test
-	public void testXsltTraxSmartProcessor() throws Exception {
-		super.testXslt("org.apache.xalan.xsltc.trax.SmartTransformerFactoryImpl");
+	public void testXslt() throws Exception {
+		super.testXslt();
 	}
 }

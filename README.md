@@ -1,5 +1,7 @@
 # Skaičių konvertavimo į lietuvių kalbos skaitvardžius biblioteka
 
+[![Build Status](https://travis-ci.org/monrealis/skaitvardziai.svg?branch=master)](https://travis-ci.org/monrealis/skaitvardziai)
+
 JAVA biblioteka, kuri pagal perduotus skaičius įvairiomis gramatinėmis formomis lietuvių kalba
 suformuoja skaitvardžius.
 

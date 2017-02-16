@@ -3,7 +3,7 @@ CP=cp -av target/skaiciai $(ULB)
 RM=rm -f $(ULB)skaiciai
 
 compile:
-	mvn -f ../skaitvardziai-parent install
+	mvn -f .. install
 	gcj --main=eu.vytenis.skaitvardziai.app.main.Main -o target/skaiciai target/skaitvardziai-*-jar-with-dependencies.jar
 
 install: compile install-cp test-install

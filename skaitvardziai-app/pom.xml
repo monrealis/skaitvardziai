@@ -8,7 +8,7 @@
 		<groupId>eu.vytenis.skaitvardziai</groupId>
 		<artifactId>skaitvardziai-parent</artifactId>
 		<version>1.1-SNAPSHOT</version>
-		<relativePath>../skaitvardziai-parent</relativePath>
+		<relativePath>..</relativePath>
 	</parent>
 	<build>
 		<plugins>

@@ -30,8 +30,6 @@ jei turite idėjų, kaip biblioteką galima vystyti.
 
 ## Vykdomosios programos (veikiančios per komandinę eilutę) instaliavimas
 
-sudo yum install git maven gcc-java  # Jei Fedora
-sudo apt-get install git maven gcj-jdk # Jei Ubuntu
 git clone https://github.com/monrealis/skaitvardziai
 cd skaitvardziai
 ./install-to-linux.sh

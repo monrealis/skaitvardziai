@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
-cd skaitvardziai-app
+cd install
 make install

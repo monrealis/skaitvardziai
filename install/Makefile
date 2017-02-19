@@ -1,12 +1,12 @@
 ULB=/usr/local/bin/
 ULL=/usr/local/lib/
 CPBIN=cp -av skaiciai.sh $(ULB)skaiciai
-CPLIB=cp -av target/skaiciai.jar $(ULL)
+CPLIB=cp -av ../skaitvardziai-app/target/skaiciai.jar $(ULL)
 RM=rm -f $(ULB)skaiciai
 
 compile:
 	mvn -f .. install
-	cp target/skaitvardziai-*-jar-with-dependencies.jar target/skaiciai.jar
+	cp ../skaitvardziai-app/target/skaitvardziai-*-jar-with-dependencies.jar ../skaitvardziai-app/target/skaiciai.jar
 
 install: compile install-cp test-install
 

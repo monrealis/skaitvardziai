@@ -1,19 +1,23 @@
 ULB=/usr/local/bin/
-CP=cp -av target/skaiciai $(ULB)
+ULL=/usr/local/lib/
+CPBIN=cp -av skaiciai.sh $(ULB)skaiciai
+CPLIB=cp -av target/skaiciai.jar $(ULL)
 RM=rm -f $(ULB)skaiciai
 
 compile:
 	mvn -f .. install
-	gcj --main=eu.vytenis.skaitvardziai.app.main.Main -o target/skaiciai target/skaitvardziai-*-jar-with-dependencies.jar
+	cp target/skaitvardziai-*-jar-with-dependencies.jar target/skaiciai.jar
 
 install: compile install-cp test-install
 
 install-cp:
 	@if [ -w $(ULB) ] ; then \
-		$(CP) ; \
+		$(CPBIN) ; \
+		$(CPLIB) ; \
 	else \
 		echo $(ULB) not writable, installing with sudo ; \
-		sudo $(CP) ; \
+		sudo $(CPBIN) ; \
+		sudo $(CPLIB) ; \
 	fi
 
 test-install:	

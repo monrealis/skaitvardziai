@@ -60,7 +60,9 @@ new Trupmena(123456789, 987654321).toString();
 
 ## Naudojimas per komandinę eilutę
 
-    skaiciai --help
-    seq 10 | skaiciai
-    seq 10 | xargs -i echo {}/{} | skaiciai -f I
+```shell
+skaiciai --help
+seq 10 | skaiciai
+seq 10 | xargs -i echo {}/{} | skaiciai -f I
+```
     

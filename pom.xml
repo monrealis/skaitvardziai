@@ -6,11 +6,31 @@
 	<artifactId>skaitvardziai-parent</artifactId>
 	<version>1.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Skaitvardžiai</name>
+	<name>Lithuanian Numerals</name>
+	<description>Skaičių konvertavimo į lietuvių kalbos skaitvardžius biblioteka.</description>
 	<url>https://github.com/monrealis/skaitvardziai</url>
+
+	<scm>
+		<connection>scm:git:git@github.com:monrealis/skaitvardziai.git</connection>
+		<url>https://github.com/monrealis/skaitvardziai/</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -22,8 +42,42 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -32,10 +86,52 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 	<modules>
 		<module>skaitvardziai-core</module>
 		<module>skaitvardziai-slf4j</module>
 		<module>skaitvardziai-parser</module>
 		<module>skaitvardziai-app</module>
 	</modules>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>vytenis</id>
+			<name>Vytenis Bivainis</name>
+			<email>monrealis at gmail com</email>
+		</developer>
+	</developers>
+
+	<profiles>
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.6</version>
+						<configuration>
+							<keyname>9C18B557</keyname>
+							<passphraseServerId>gpg.passphrase</passphraseServerId>
+						</configuration>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

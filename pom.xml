@@ -72,7 +72,7 @@
 				<version>2.5.3</version>
 				<configuration>
 					<tagNameFormat>v@{project.version}</tagNameFormat>
-					<allowTimestampedSnapshots>true</allowTimestampedSnapshots>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
 				</configuration>
 			</plugin>
 		</plugins>

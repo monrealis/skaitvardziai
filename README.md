@@ -44,7 +44,7 @@ Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Naudojimas su Maven
 
-Programą galima atsisiųsti iš centrinės Apache Maven repozitorijos.
+Programą galima atsisiųsti iš centrinės Apache Maven saugyklos.
 ```xml
 <dependency>
 	<groupId>eu.vytenis.skaitvardziai</groupId>

@@ -26,7 +26,7 @@ Pavyzdžių formatas: *įvestis: išvestis*
 
 ## Progresas
 
-Programa veikia stabiliai ir artimiausiu metu dirbti prie jos neplanuojama. Kaip programą galima panaudoti,
+Programa veikia stabiliai. Kaip programą galima panaudoti,
 galima rasti jUnit testuose. Apie rastas klaidas prašome informuoti. Taip pat informuokite,
 jei turite idėjų, kaip biblioteką galima vystyti.
 
@@ -41,3 +41,23 @@ skaiciai 125
 ## Licencija
 
 Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
+## Naudojimas su Maven
+
+Programą galima atsisiųsti iš centrinės Apache Maven repozitorijos.
+
+	<dependency>
+		<groupId>eu.vytenis.skaitvardziai</groupId>
+		<artifactId>skaitvardziai-core</artifactId>
+		<version>1.1</version>
+	</dependency>
+
+	new SveikasisSkaicius(10).toString();
+	new Trupmena(123456789, 987654321).toString();
+
+## Naudojimas per komandinę eilutę
+
+    skaiciai --help
+    seq 10 | skaiciai
+    seq 10 | xargs -i echo {}/{} | skaiciai -f I
+    

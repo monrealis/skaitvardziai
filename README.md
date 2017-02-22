@@ -1,6 +1,9 @@
 # Skaičių konvertavimo į lietuvių kalbos skaitvardžius biblioteka
 
 [![Build Status](https://travis-ci.org/monrealis/skaitvardziai.svg?branch=master)](https://travis-ci.org/monrealis/skaitvardziai)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/eu.vytenis.skaitvardziai/skaitvardziai-core/badge.svg)](http://search.maven.org/#artifactdetails|eu.vytenis.skaitvardziai|skaitvardziai-core|1.1|jar)
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 
 JAVA biblioteka, kuri pagal perduotus skaičius įvairiomis gramatinėmis formomis lietuvių kalba
 suformuoja skaitvardžius.

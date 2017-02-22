@@ -45,15 +45,18 @@ Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 ## Naudojimas su Maven
 
 Programą galima atsisiųsti iš centrinės Apache Maven repozitorijos.
+```xml
+<dependency>
+	<groupId>eu.vytenis.skaitvardziai</groupId>
+	<artifactId>skaitvardziai-core</artifactId>
+	<version>1.1</version>
+</dependency>
+```
 
-	<dependency>
-		<groupId>eu.vytenis.skaitvardziai</groupId>
-		<artifactId>skaitvardziai-core</artifactId>
-		<version>1.1</version>
-	</dependency>
-
-	new SveikasisSkaicius(10).toString();
-	new Trupmena(123456789, 987654321).toString();
+```java
+new SveikasisSkaicius(10).toString();
+new Trupmena(123456789, 987654321).toString();
+```
 
 ## Naudojimas per komandinę eilutę
 

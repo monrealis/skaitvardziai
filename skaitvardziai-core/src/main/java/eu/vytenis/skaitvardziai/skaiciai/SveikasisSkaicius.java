@@ -61,7 +61,7 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	}
 
 	public String toString(Forma forma) {
-		return toString(forma, null);
+		return toZodisJunginyje(forma).getTekstas();
 	}
 
 	/*
@@ -71,15 +71,15 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	 */
 	@Deprecated
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		SkaiciusJunginyje skaiciusJunginyje = getZodisJunginyje(forma);
+		SkaiciusJunginyje skaiciusJunginyje = toZodisJunginyje(forma);
 		if (skaiciusIrLinksnis != null) {
 			skaiciusIrLinksnis.setLinksnis(skaiciusJunginyje.getKitoZodzioSkaiciusIrLinksnis().getLinksnis());
 			skaiciusIrLinksnis.setSkaicius(skaiciusJunginyje.getKitoZodzioSkaiciusIrLinksnis().getSkaicius());
 		}
-		return skaiciusJunginyje.getSkaicius();
+		return skaiciusJunginyje.getTekstas();
 	}
 
-	private SkaiciusJunginyje getZodisJunginyje(Forma forma) {
+	public SkaiciusJunginyje toZodisJunginyje(Forma forma) {
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs(), abs());
 		List<ZodisJunginyje> zodziai = getZodziai(fs);
 		String unsigned = ZodisJunginyje.toString(zodziai, fs);

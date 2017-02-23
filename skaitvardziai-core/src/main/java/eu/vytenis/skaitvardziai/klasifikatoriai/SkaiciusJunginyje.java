@@ -1,16 +1,16 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 public class SkaiciusJunginyje {
-	private final String skaicius;
+	private final String tekstas;
 	private final SkaiciusIrLinksnis kitoZodzioSkaiciusIrLinksnis;
 
-	public SkaiciusJunginyje(String skaicius, SkaiciusIrLinksnis kitoZodzioSkaiciusIrLinksnis) {
-		this.skaicius = skaicius;
+	public SkaiciusJunginyje(String tekstas, SkaiciusIrLinksnis kitoZodzioSkaiciusIrLinksnis) {
+		this.tekstas = tekstas;
 		this.kitoZodzioSkaiciusIrLinksnis = kitoZodzioSkaiciusIrLinksnis;
 	}
 
-	public String getSkaicius() {
-		return skaicius;
+	public String getTekstas() {
+		return tekstas;
 	}
 
 	public SkaiciusIrLinksnis getKitoZodzioSkaiciusIrLinksnis() {

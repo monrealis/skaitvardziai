@@ -16,6 +16,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusJunginyje;
 
 @RunWith(Parameterized.class)
 public class KuopiniaiTest {
@@ -106,9 +107,9 @@ public class KuopiniaiTest {
 
 	@Test
 	public void matchesExpected() {
-		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
-		assertEquals(tekstas, sveikasisSkaicius().toString(forma(), sl));
-		assertEquals(DGS_K, sl);
+		SkaiciusJunginyje zj = sveikasisSkaicius().toZodisJunginyje(forma());
+		assertEquals(tekstas, zj.getTekstas());
+		assertEquals(DGS_K, zj.getKitoZodzioSkaiciusIrLinksnis());
 	}
 
 	private SveikasisSkaicius sveikasisSkaicius() {

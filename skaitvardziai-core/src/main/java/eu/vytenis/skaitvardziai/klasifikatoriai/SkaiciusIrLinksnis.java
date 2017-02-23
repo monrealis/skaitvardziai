@@ -2,15 +2,12 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import java.util.Arrays;
 
-import eu.vytenis.skaitvardziai.checks.Checks;
-import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.util.Comparisons;
 
-public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis>, UnmodifiableCapable {
-	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V).unmodifiable();
+public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis> {
+	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V);
 	private final Skaicius skaicius;
 	private final Linksnis linksnis;
-	private boolean unmodifiable;
 
 	public SkaiciusIrLinksnis(Skaicius skaicius, Linksnis linksnis) {
 		this.skaicius = skaicius;
@@ -23,20 +20,6 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 
 	public Linksnis getLinksnis() {
 		return linksnis;
-	}
-
-	public boolean isUnmodifiable() {
-		return unmodifiable;
-	}
-
-	public void setUnmodifiable(boolean unmodifiable) {
-		Checks.checkCanModify("SkaiciusLinksnis", this);
-		this.unmodifiable = unmodifiable;
-	}
-
-	public SkaiciusIrLinksnis unmodifiable() {
-		setUnmodifiable(true);
-		return this;
 	}
 
 	@Override

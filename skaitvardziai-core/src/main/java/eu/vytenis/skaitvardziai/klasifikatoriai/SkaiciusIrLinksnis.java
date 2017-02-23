@@ -8,8 +8,8 @@ import eu.vytenis.skaitvardziai.util.Comparisons;
 
 public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis>, UnmodifiableCapable {
 	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V).unmodifiable();
-	private Skaicius skaicius;
-	private Linksnis linksnis;
+	private final Skaicius skaicius;
+	private final Linksnis linksnis;
 	private boolean unmodifiable;
 
 	public SkaiciusIrLinksnis(Skaicius skaicius, Linksnis linksnis) {
@@ -21,20 +21,8 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 		return skaicius;
 	}
 
-	@Deprecated
-	public void setSkaicius(Skaicius skaicius) {
-		Checks.checkCanModify("SkaiciusLinksnis", this);
-		this.skaicius = skaicius;
-	}
-
 	public Linksnis getLinksnis() {
 		return linksnis;
-	}
-
-	@Deprecated
-	public void setLinksnis(Linksnis linksnis) {
-		Checks.checkCanModify("SkaiciusLinksnis", this);
-		this.linksnis = linksnis;
 	}
 
 	public boolean isUnmodifiable() {

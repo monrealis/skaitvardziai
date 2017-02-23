@@ -64,6 +64,10 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		return toZodisJunginyje(forma).getTekstas();
 	}
 
+	public SkaiciusIrLinksnis getKitoZodzioSkaiciusIrLinksnis(Forma forma) {
+		return toZodisJunginyje(forma).getKitoZodzioSkaiciusIrLinksnis();
+	}
+
 	/*
 	 * @param skaiciusIrLinksnis jei ne null, metodas užpildo (grąžina
 	 * rezultatą), kokia bus kito žodžio gramatinė forma (pvz, jei grąžina
@@ -71,12 +75,12 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	 */
 	@Deprecated
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		SkaiciusJunginyje skaiciusJunginyje = toZodisJunginyje(forma);
+		SkaiciusJunginyje zodisJunginyje = toZodisJunginyje(forma);
 		if (skaiciusIrLinksnis != null) {
-			skaiciusIrLinksnis.setLinksnis(skaiciusJunginyje.getKitoZodzioSkaiciusIrLinksnis().getLinksnis());
-			skaiciusIrLinksnis.setSkaicius(skaiciusJunginyje.getKitoZodzioSkaiciusIrLinksnis().getSkaicius());
+			skaiciusIrLinksnis.setLinksnis(zodisJunginyje.getKitoZodzioSkaiciusIrLinksnis().getLinksnis());
+			skaiciusIrLinksnis.setSkaicius(zodisJunginyje.getKitoZodzioSkaiciusIrLinksnis().getSkaicius());
 		}
-		return skaiciusJunginyje.getTekstas();
+		return zodisJunginyje.getTekstas();
 	}
 
 	public SkaiciusJunginyje toZodisJunginyje(Forma forma) {

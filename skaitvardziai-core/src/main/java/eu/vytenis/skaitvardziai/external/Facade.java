@@ -44,8 +44,7 @@ public class Facade {
 
 	public static String kiti(SveikasisSkaicius skaicius, String forma, String vns, String dgs, String dgsKilm) {
 		Forma f = SkaitvardziaiTextParser.get().parseForma(getStringOrEmptyIfNull(forma), null);
-		SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
-		skaicius.toString(f, kitas);
+		SkaiciusIrLinksnis kitas = skaicius.getKitoZodzioSkaiciusIrLinksnis(f);
 		if (kitas.equals(DGS_K)) {
 			return getKitasIfNextDgsK(dgs, dgsKilm, f);
 		} else if (kitas.getSkaicius() == Skaicius.D) {

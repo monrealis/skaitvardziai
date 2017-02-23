@@ -13,7 +13,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusJunginyje;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
@@ -68,13 +67,13 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		return toZodisJunginyje(forma).getKitoZodzioSkaiciusIrLinksnis();
 	}
 
-	public SkaiciusJunginyje toZodisJunginyje(Forma forma) {
+	public TekstasJunginyje toZodisJunginyje(Forma forma) {
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs(), abs());
 		List<ZodisJunginyje> zodziai = getZodziai(fs);
 		String unsigned = ZodisJunginyje.toString(zodziai, fs);
 		String text = isNonNegative() ? unsigned : "minus " + unsigned;
 		SkaiciusIrLinksnis kitas = getKitoZodzioSkaiciusIrLinksnis(forma, zodziai);
-		SkaiciusJunginyje skaiciusJunginyje = new SkaiciusJunginyje(text, kitas);
+		TekstasJunginyje skaiciusJunginyje = new TekstasJunginyje(text, kitas);
 		return skaiciusJunginyje;
 	}
 

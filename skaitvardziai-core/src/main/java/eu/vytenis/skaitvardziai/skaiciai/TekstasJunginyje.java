@@ -1,10 +1,12 @@
-package eu.vytenis.skaitvardziai.klasifikatoriai;
+package eu.vytenis.skaitvardziai.skaiciai;
 
-public class SkaiciusJunginyje {
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+
+public class TekstasJunginyje {
 	private final String tekstas;
 	private final SkaiciusIrLinksnis kitoZodzioSkaiciusIrLinksnis;
 
-	public SkaiciusJunginyje(String tekstas, SkaiciusIrLinksnis kitoZodzioSkaiciusIrLinksnis) {
+	public TekstasJunginyje(String tekstas, SkaiciusIrLinksnis kitoZodzioSkaiciusIrLinksnis) {
 		this.tekstas = tekstas;
 		this.kitoZodzioSkaiciusIrLinksnis = kitoZodzioSkaiciusIrLinksnis;
 	}

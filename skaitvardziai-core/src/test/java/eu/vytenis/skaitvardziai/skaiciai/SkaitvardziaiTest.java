@@ -2,7 +2,6 @@ package eu.vytenis.skaitvardziai.skaiciai;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -18,7 +17,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusJunginyje;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
 /**
@@ -120,22 +118,17 @@ public abstract class SkaitvardziaiTest {
 	 *            pradinis tekstas
 	 * @return tekstas be daiktvardžio (bet kokios formos), jei yra
 	 */
-	protected String removeDaikt(String text, Gimine gimine, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		assertNotNull(gimine);
-		assertNotNull(skaiciusIrLinksnis);
-		assertNull(skaiciusIrLinksnis.getSkaicius());
-		assertNull(skaiciusIrLinksnis.getLinksnis());
+	protected TekstasJunginyje removeDaikt(String text, Gimine gimine) {
 		List<Zodis> zodziai = (gimine == Gimine.V) ? Arrays.asList(DAIKT_VYR_G, DAIKT_DGS_VYR_G) : Arrays.asList(DAIKT_MOT_G, DAIKT_DGS_MOT_G);
 		for (Zodis z : zodziai) {
 			for (Entry<SkaiciusIrLinksnis, String> e : z.getVisosFormos().entrySet()) {
 				if (text.endsWith(e.getValue())) {
-					skaiciusIrLinksnis.setSkaicius(e.getKey().getSkaicius());
-					skaiciusIrLinksnis.setLinksnis(e.getKey().getLinksnis());
-					return text.substring(0, text.length() - e.getValue().length()).trim();
+					String substring = text.substring(0, text.length() - e.getValue().length()).trim();
+					return new TekstasJunginyje(substring, e.getKey().clone());
 				}
 			}
 		}
-		return text;
+		return new TekstasJunginyje(text, null);
 	}
 
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Forma forma) {
@@ -154,10 +147,11 @@ public abstract class SkaitvardziaiTest {
 	}
 
 	private void testSkaicius(Forma forma, Number number, String expectedValue) {
-		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
-		String expected = removeDaikt(expectedValue, forma.getGimine(), sl);
+		TekstasJunginyje zj = removeDaikt(expectedValue, forma.getGimine());
+		SkaiciusIrLinksnis sl = zj.getKitoZodzioSkaiciusIrLinksnis();
+		String expected = zj.getTekstas();
 		SveikasisSkaicius sk = new SveikasisSkaicius(number.toString());
-		SkaiciusJunginyje zodisJunginyje = sk.toZodisJunginyje(forma);
+		TekstasJunginyje zodisJunginyje = sk.toZodisJunginyje(forma);
 		String actual = zodisJunginyje.getTekstas();
 		assertEquals(number + ": comparation failed", expected, actual);
 		if (sl != null && (sl.getSkaicius() != null || sl.getLinksnis() != null)) {

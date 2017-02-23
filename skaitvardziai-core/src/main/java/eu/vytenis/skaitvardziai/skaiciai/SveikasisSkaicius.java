@@ -18,7 +18,7 @@ import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
 public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisSkaicius> {
-	private BigInteger reiksme;
+	private final BigInteger reiksme;
 
 	public SveikasisSkaicius(long reiksme) {
 		this.reiksme = new BigInteger(Long.toString(reiksme));

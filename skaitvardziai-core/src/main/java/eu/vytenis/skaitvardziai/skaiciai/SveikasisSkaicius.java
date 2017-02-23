@@ -13,6 +13,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusJunginyje;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
 
@@ -68,16 +69,28 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	 * rezultatą), kokia bus kito žodžio gramatinė forma (pvz, jei grąžina
 	 * "dvi", tai kitas žodis bus daugiskaitos vardininkas)
 	 */
+	@Deprecated
 	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		BigInteger abs = abs(reiksme);
-		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs, abs);
-		List<ZodisJunginyje> zodziai = getZodziai(fs);
-		String text = ZodisJunginyje.toString(zodziai, fs);
-		if (!isNonNegative()) {
-			text = "minus " + text;
+		SkaiciusJunginyje skaiciusJunginyje = getZodisJunginyje(forma);
+		if (skaiciusIrLinksnis != null) {
+			skaiciusIrLinksnis.setLinksnis(skaiciusJunginyje.getKitoZodzioSkaiciusIrLinksnis().getLinksnis());
+			skaiciusIrLinksnis.setSkaicius(skaiciusJunginyje.getKitoZodzioSkaiciusIrLinksnis().getSkaicius());
 		}
-		updateSkaiciusIrLinksnis(forma, skaiciusIrLinksnis, zodziai);
-		return text;
+		return skaiciusJunginyje.getSkaicius();
+	}
+
+	private SkaiciusJunginyje getZodisJunginyje(Forma forma) {
+		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs(), abs());
+		List<ZodisJunginyje> zodziai = getZodziai(fs);
+		String unsigned = ZodisJunginyje.toString(zodziai, fs);
+		String text = isNonNegative() ? unsigned : "minus " + unsigned;
+		SkaiciusIrLinksnis kitas = getKitoZodzioSkaiciusIrLinksnis(forma, zodziai);
+		SkaiciusJunginyje skaiciusJunginyje = new SkaiciusJunginyje(text, kitas);
+		return skaiciusJunginyje;
+	}
+
+	private BigInteger abs() {
+		return abs(reiksme);
 	}
 
 	public static BigInteger abs(BigInteger number) {
@@ -96,16 +109,12 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		return zodziai;
 	}
 
-	private void updateSkaiciusIrLinksnis(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodisJunginyje> zodziai) {
-		SkaiciusIrLinksnis r = new SkaiciusIrLinksnis(null, null);
+	private SkaiciusIrLinksnis getKitoZodzioSkaiciusIrLinksnis(Forma forma, List<ZodisJunginyje> zodziai) {
 		Zodis paskutinis = zodziai.get(zodziai.size() - 1).getZodis();
 		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
-		r.setSkaicius(kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius());
-		r.setLinksnis(kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis());
-		if (skaiciusIrLinksnis != null) {
-			skaiciusIrLinksnis.setLinksnis(r.getLinksnis());
-			skaiciusIrLinksnis.setSkaicius(r.getSkaicius());
-		}
+		Skaicius skaicius = kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius();
+		Linksnis linksnis = kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis();
+		return new SkaiciusIrLinksnis(skaicius, linksnis);
 	}
 
 	@Override

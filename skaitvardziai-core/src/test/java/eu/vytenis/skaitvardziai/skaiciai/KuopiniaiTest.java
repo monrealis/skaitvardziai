@@ -2,8 +2,13 @@ package eu.vytenis.skaitvardziai.skaiciai;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Assert;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
@@ -11,116 +16,110 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
-import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
+@RunWith(Parameterized.class)
 public class KuopiniaiTest {
-
+	private static final List<Object[]> TEST_CASES = new ArrayList<Object[]>();
 	private static final SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
+	private final long skaicius;
+	private final Linksnis linksnis;
+	private final String tekstas;
 
-	private void assertKuopinis(long skaicius, Linksnis linksnis, String tekstas) {
+	public KuopiniaiTest(long skaicius, Linksnis linksnis, String tekstas) {
+		this.skaicius = skaicius;
+		this.linksnis = linksnis;
+		this.tekstas = tekstas;
+	}
+
+	@Parameters
+	public static List<Object[]> cases() {
+		addTestCase(1, Linksnis.V, "vienetas");
+		addTestCase(2, Linksnis.V, "dvejetas");
+		addTestCase(3, Linksnis.V, "trejetas");
+		addTestCase(4, Linksnis.V, "ketvertas");
+		addTestCase(5, Linksnis.V, "penketas");
+		addTestCase(6, Linksnis.V, "šešetas");
+		addTestCase(7, Linksnis.V, "septynetas");
+		addTestCase(8, Linksnis.V, "aštuonetas");
+		addTestCase(9, Linksnis.V, "devynetas");
+		addTestCase(1, Linksnis.K, "vieneto");
+		addTestCase(2, Linksnis.K, "dvejeto");
+		addTestCase(3, Linksnis.K, "trejeto");
+		addTestCase(4, Linksnis.K, "ketverto");
+		addTestCase(5, Linksnis.K, "penketo");
+		addTestCase(6, Linksnis.K, "šešeto");
+		addTestCase(7, Linksnis.K, "septyneto");
+		addTestCase(8, Linksnis.K, "aštuoneto");
+		addTestCase(9, Linksnis.K, "devyneto");
+		addTestCase(1, Linksnis.N, "vienetui");
+		addTestCase(2, Linksnis.N, "dvejetui");
+		addTestCase(3, Linksnis.N, "trejetui");
+		addTestCase(4, Linksnis.N, "ketvertui");
+		addTestCase(5, Linksnis.N, "penketui");
+		addTestCase(6, Linksnis.N, "šešetui");
+		addTestCase(7, Linksnis.N, "septynetui");
+		addTestCase(8, Linksnis.N, "aštuonetui");
+		addTestCase(9, Linksnis.N, "devynetui");
+		addTestCase(1, Linksnis.G, "vienetą");
+		addTestCase(2, Linksnis.G, "dvejetą");
+		addTestCase(3, Linksnis.G, "trejetą");
+		addTestCase(4, Linksnis.G, "ketvertą");
+		addTestCase(5, Linksnis.G, "penketą");
+		addTestCase(6, Linksnis.G, "šešetą");
+		addTestCase(7, Linksnis.G, "septynetą");
+		addTestCase(8, Linksnis.G, "aštuonetą");
+		addTestCase(9, Linksnis.G, "devynetą");
+		addTestCase(1, Linksnis.I, "vienetu");
+		addTestCase(2, Linksnis.I, "dvejetu");
+		addTestCase(3, Linksnis.I, "trejetu");
+		addTestCase(4, Linksnis.I, "ketvertu");
+		addTestCase(5, Linksnis.I, "penketu");
+		addTestCase(6, Linksnis.I, "šešetu");
+		addTestCase(7, Linksnis.I, "septynetu");
+		addTestCase(8, Linksnis.I, "aštuonetu");
+		addTestCase(9, Linksnis.I, "devynetu");
+		addTestCase(1, Linksnis.Vt, "vienete");
+		addTestCase(2, Linksnis.Vt, "dvejete");
+		addTestCase(3, Linksnis.Vt, "trejete");
+		addTestCase(4, Linksnis.Vt, "ketverte");
+		addTestCase(5, Linksnis.Vt, "penkete");
+		addTestCase(6, Linksnis.Vt, "šešete");
+		addTestCase(7, Linksnis.Vt, "septynete");
+		addTestCase(8, Linksnis.Vt, "aštuonete");
+		addTestCase(9, Linksnis.Vt, "devynete");
+		addTestCase(1, Linksnis.S, "vienete");
+		addTestCase(2, Linksnis.S, "dvejete");
+		addTestCase(3, Linksnis.S, "trejete");
+		addTestCase(4, Linksnis.S, "ketverte");
+		addTestCase(5, Linksnis.S, "penkete");
+		addTestCase(6, Linksnis.S, "šešete");
+		addTestCase(7, Linksnis.S, "septynete");
+		addTestCase(8, Linksnis.S, "aštuonete");
+		addTestCase(9, Linksnis.S, "devynete");
+		return TEST_CASES;
+	}
+
+	private static void addTestCase(long skaicius, Linksnis linksnis, String tekstas) {
+		Object[] parameters = {skaicius, linksnis, tekstas};
+		TEST_CASES.add(parameters);
+	}
+
+	@Test
+	public void matchesExpected() {
+		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
+		assertEquals(tekstas, sveikasisSkaicius().toString(forma(), sl));
+		assertEquals(DGS_K, sl);
+	}
+
+	private SveikasisSkaicius sveikasisSkaicius() {
+		return new SveikasisSkaicius(skaicius);
+	}
+
+	private Forma forma() {
 		Forma f = new Forma();
 		f.setPoskyris(Poskyris.Kuopinis);
 		f.setLinksnis(linksnis);
 		f.setGimine(Gimine.V);
-		SveikasisSkaicius ss = new SveikasisSkaicius(skaicius);
-		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
-		assertEquals(tekstas, ss.toString(f, sl));
-		assertEquals(DGS_K, sl);
+		return f;
 	}
-
-	@Test
-	public void testKuopiniai() {
-		Linksnis l = Linksnis.V;
-		assertKuopinis(1, l, "vienetas");
-		assertKuopinis(2, l, "dvejetas");
-		assertKuopinis(3, l, "trejetas");
-		assertKuopinis(4, l, "ketvertas");
-		assertKuopinis(5, l, "penketas");
-		assertKuopinis(6, l, "šešetas");
-		assertKuopinis(7, l, "septynetas");
-		assertKuopinis(8, l, "aštuonetas");
-		assertKuopinis(9, l, "devynetas");
-		l = Linksnis.K;
-		assertKuopinis(1, l, "vieneto");
-		assertKuopinis(2, l, "dvejeto");
-		assertKuopinis(3, l, "trejeto");
-		assertKuopinis(4, l, "ketverto");
-		assertKuopinis(5, l, "penketo");
-		assertKuopinis(6, l, "šešeto");
-		assertKuopinis(7, l, "septyneto");
-		assertKuopinis(8, l, "aštuoneto");
-		assertKuopinis(9, l, "devyneto");
-		l = Linksnis.N;
-		assertKuopinis(1, l, "vienetui");
-		assertKuopinis(2, l, "dvejetui");
-		assertKuopinis(3, l, "trejetui");
-		assertKuopinis(4, l, "ketvertui");
-		assertKuopinis(5, l, "penketui");
-		assertKuopinis(6, l, "šešetui");
-		assertKuopinis(7, l, "septynetui");
-		assertKuopinis(8, l, "aštuonetui");
-		assertKuopinis(9, l, "devynetui");
-		l = Linksnis.G;
-		assertKuopinis(1, l, "vienetą");
-		assertKuopinis(2, l, "dvejetą");
-		assertKuopinis(3, l, "trejetą");
-		assertKuopinis(4, l, "ketvertą");
-		assertKuopinis(5, l, "penketą");
-		assertKuopinis(6, l, "šešetą");
-		assertKuopinis(7, l, "septynetą");
-		assertKuopinis(8, l, "aštuonetą");
-		assertKuopinis(9, l, "devynetą");
-		l = Linksnis.I;
-		assertKuopinis(1, l, "vienetu");
-		assertKuopinis(2, l, "dvejetu");
-		assertKuopinis(3, l, "trejetu");
-		assertKuopinis(4, l, "ketvertu");
-		assertKuopinis(5, l, "penketu");
-		assertKuopinis(6, l, "šešetu");
-		assertKuopinis(7, l, "septynetu");
-		assertKuopinis(8, l, "aštuonetu");
-		assertKuopinis(9, l, "devynetu");
-		l = Linksnis.Vt;
-		assertKuopinis(1, l, "vienete");
-		assertKuopinis(2, l, "dvejete");
-		assertKuopinis(3, l, "trejete");
-		assertKuopinis(4, l, "ketverte");
-		assertKuopinis(5, l, "penkete");
-		assertKuopinis(6, l, "šešete");
-		assertKuopinis(7, l, "septynete");
-		assertKuopinis(8, l, "aštuonete");
-		assertKuopinis(9, l, "devynete");
-		l = Linksnis.S;
-		assertKuopinis(1, l, "vienete");
-		assertKuopinis(2, l, "dvejete");
-		assertKuopinis(3, l, "trejete");
-		assertKuopinis(4, l, "ketverte");
-		assertKuopinis(5, l, "penkete");
-		assertKuopinis(6, l, "šešete");
-		assertKuopinis(7, l, "septynete");
-		assertKuopinis(8, l, "aštuonete");
-		assertKuopinis(9, l, "devynete");
-
-	}
-
-	@Test
-	public void testNegalimiSkaiciai() {
-		for (long l = -1000L; l <= 1000; ++l) {
-			SveikasisSkaicius s = new SveikasisSkaicius(l);
-			long abs = Math.abs(l);
-			if (abs >= 1 && abs <= 9) {
-				for (Linksnis linksnis : Linksnis.values()) {
-					s.toString(Poskyris.Kuopinis, linksnis, Gimine.V);
-				}
-			} else {
-				try {
-					String text = s.toString(Poskyris.Kuopinis, Linksnis.V, Gimine.V);
-					Assert.fail(text);
-				} catch (Zodis.WordNotFoundException e) {
-					// OK
-				}
-			}
-		}
-	}
-
 }

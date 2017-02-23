@@ -21,6 +21,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 		return skaicius;
 	}
 
+	@Deprecated
 	public void setSkaicius(Skaicius skaicius) {
 		Checks.checkCanModify("SkaiciusLinksnis", this);
 		this.skaicius = skaicius;

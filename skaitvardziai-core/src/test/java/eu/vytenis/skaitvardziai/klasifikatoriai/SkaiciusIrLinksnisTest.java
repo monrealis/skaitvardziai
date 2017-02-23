@@ -13,11 +13,13 @@ public class SkaiciusIrLinksnisTest {
 		assertTrue(SkaiciusIrLinksnis.VNS_VARD.isUnmodifiable());
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test(expected = NotModifiableException.class)
 	public void testVnsVardUnmodifiableSkaicius() {
 		SkaiciusIrLinksnis.VNS_VARD.setSkaicius(Skaicius.V);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test(expected = NotModifiableException.class)
 	public void testVnsVardUnmodifiableLinksnis() {
 		SkaiciusIrLinksnis.VNS_VARD.setLinksnis(Linksnis.V);		

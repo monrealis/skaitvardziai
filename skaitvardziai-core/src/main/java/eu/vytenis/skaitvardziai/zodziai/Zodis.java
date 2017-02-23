@@ -466,10 +466,8 @@ public class Zodis implements UnmodifiableCapable {
 			throw new WordNotFoundException(Poskyris.Kuopinis, skaicius);
 		}
 		if (skaicius.equals(BigInteger.ONE)) {
-			if (log.isWarnEnabled()) {
-				log.warn(z + " naudojamas kaip kuopinis skaitvardis");
-				// 	žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
-			}
+			log.warn(z + " naudojamas kaip kuopinis skaitvardis");
+			// 	žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
 		}
 		return z;
 	}

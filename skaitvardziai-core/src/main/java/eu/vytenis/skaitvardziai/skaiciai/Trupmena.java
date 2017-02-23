@@ -13,8 +13,8 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.util.Numbers;
 
 public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
-	private BigInteger skaitiklis;
-	private BigInteger vardiklis;
+	private final BigInteger skaitiklis;
+	private final BigInteger vardiklis;
 
 	public Trupmena(BigInteger skaitiklis, BigInteger vardiklis) {
 		Checks.checkNotNull("skaitiklis", skaitiklis);

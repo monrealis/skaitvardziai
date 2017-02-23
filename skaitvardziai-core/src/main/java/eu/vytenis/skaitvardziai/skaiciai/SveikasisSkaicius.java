@@ -68,21 +68,6 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		return toZodisJunginyje(forma).getKitoZodzioSkaiciusIrLinksnis();
 	}
 
-	/*
-	 * @param skaiciusIrLinksnis jei ne null, metodas užpildo (grąžina
-	 * rezultatą), kokia bus kito žodžio gramatinė forma (pvz, jei grąžina
-	 * "dvi", tai kitas žodis bus daugiskaitos vardininkas)
-	 */
-	@Deprecated
-	public String toString(Forma forma, SkaiciusIrLinksnis skaiciusIrLinksnis) {
-		SkaiciusJunginyje zodisJunginyje = toZodisJunginyje(forma);
-		if (skaiciusIrLinksnis != null) {
-			skaiciusIrLinksnis.setLinksnis(zodisJunginyje.getKitoZodzioSkaiciusIrLinksnis().getLinksnis());
-			skaiciusIrLinksnis.setSkaicius(zodisJunginyje.getKitoZodzioSkaiciusIrLinksnis().getSkaicius());
-		}
-		return zodisJunginyje.getTekstas();
-	}
-
 	public SkaiciusJunginyje toZodisJunginyje(Forma forma) {
 		FormaIrSkaiciai fs = new FormaIrSkaiciai(forma, abs(), abs());
 		List<ZodisJunginyje> zodziai = getZodziai(fs);

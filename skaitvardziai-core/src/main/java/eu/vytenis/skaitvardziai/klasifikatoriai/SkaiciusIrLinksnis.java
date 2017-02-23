@@ -30,6 +30,7 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 		return linksnis;
 	}
 
+	@Deprecated
 	public void setLinksnis(Linksnis linksnis) {
 		Checks.checkCanModify("SkaiciusLinksnis", this);
 		this.linksnis = linksnis;
@@ -61,6 +62,14 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 	@Override
 	public int hashCode() {
 		return (skaicius != null ? skaicius.hashCode() : 0) << 16 | (linksnis != null ? linksnis.hashCode() : 0);
+	}
+
+	public SkaiciusIrLinksnis withLinksnis(Linksnis linksnis) {
+		return new SkaiciusIrLinksnis(skaicius, linksnis);
+	}
+
+	public SkaiciusIrLinksnis withSkaicius(Skaicius skaicius) {
+		return new SkaiciusIrLinksnis(skaicius, linksnis);
 	}
 
 	@Override

@@ -58,20 +58,24 @@ public class ZodisJunginyje {
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
 				SkaiciusIrLinksnis sl = ankstesnis.getZodis().getKitas().clone();
+				SkaiciusIrLinksnis withLinksnisNotNull;
 				if (sl.getLinksnis() == null) {
-					sl.setLinksnis(kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis());
+					withLinksnisNotNull = sl.withLinksnis(kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis());
 					// pvz. (kelintinis == true), "du _šimtai_ dešimtojo"
 					// pvz. (kelintinis == false), "du _šimtai_",
 					// "keturi _šimtai_ keturiasdešimt vienas",
 					// "keturis _šimtus_ keturiasdešimt vieną"
-				}
-				if (sl.getSkaicius() == null) {
+				} else
+					withLinksnisNotNull = sl;
+				SkaiciusIrLinksnis withSkaiciusAndLinksnisNotNull;
+				if (withLinksnisNotNull.getSkaicius() == null) {
 					// pvz. 21000000, dvidešimt vienas milijonas - skaičiaus
 					// nėra (nes gali būti dvidešimt vieni), bet šiuo atveju -
 					// vienaskaita
-					sl.setSkaicius(Skaicius.V);
-				}
-				s = zodis.toString(sl);
+					withSkaiciusAndLinksnisNotNull = withLinksnisNotNull.withSkaicius(Skaicius.V);
+				} else
+					withSkaiciusAndLinksnisNotNull = withLinksnisNotNull;
+				s = zodis.toString(withSkaiciusAndLinksnisNotNull);
 			} else {
 				boolean vv;
 				if (kelintinis) {

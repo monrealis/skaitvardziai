@@ -18,6 +18,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusJunginyje;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 
 /**
@@ -156,11 +157,11 @@ public abstract class SkaitvardziaiTest {
 		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(null, null);
 		String expected = removeDaikt(expectedValue, forma.getGimine(), sl);
 		SveikasisSkaicius sk = new SveikasisSkaicius(number.toString());
-		SkaiciusIrLinksnis actualSl = new SkaiciusIrLinksnis(null, null);
-		String actual = sk.toString(forma, actualSl);
+		SkaiciusJunginyje zodisJunginyje = sk.toZodisJunginyje(forma);
+		String actual = zodisJunginyje.getTekstas();
 		assertEquals(number + ": comparation failed", expected, actual);
 		if (sl != null && (sl.getSkaicius() != null || sl.getLinksnis() != null)) {
-			assertEquals(number + ": invalid form. Expected '" + expectedValue + "'", sl, actualSl);
+			assertEquals(number + ": invalid form. Expected '" + expectedValue + "'", sl, zodisJunginyje.getKitoZodzioSkaiciusIrLinksnis());
 		}
 		if (sk.getReiksme().compareTo(BigInteger.ZERO) > 0) {
 			String minusActual = new SveikasisSkaicius(sk.getReiksme().negate()).toString(forma);

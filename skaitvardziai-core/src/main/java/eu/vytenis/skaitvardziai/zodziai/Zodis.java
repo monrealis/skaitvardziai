@@ -213,8 +213,7 @@ public class Zodis implements UnmodifiableCapable {
 		String r = toString(sl);
 		if (r == null) {
 			// Jei žodis neturi vienaskaitos vardininko, grąžiname daugiskaitos vardininką (pvz., marškiniai)
-			sl.setSkaicius(Skaicius.D);
-			r = toString(sl);
+			return toString(sl.withSkaicius(Skaicius.D));
 		}
 		return r;
 	}

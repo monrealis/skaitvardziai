@@ -17,14 +17,10 @@ public class ZodisJunginyje {
 	/** Žodis. */
 	private Zodis zodis;
 	/**
-	 * Ar žodžio indėlis indėlis į skaičių, lyginant su ankstesniu žodžiu, yra
-	 * gautas daugybos būdu (true), ar sumos (true)? Daugybos pvz.: tūkstantis
-	 * šimtų. Sumos pvz.: tūkstantis šimtas. Konkretus pvz.: 584356792124L -
-	 * penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt
-	 * šeši milijonai septyni šimtai devyniasdešimt du tūkstančiai šimtas
-	 * dvidešimt keturi. Kandangi nėra skaičiaus "vienas", "šimtas" yra
-	 * pridedamas prie 584356792000L, jei būtų žodis "vienas", šimtas būtų
-	 * padauginamas iš prieš tai einančio žodžio - "vienas x šimtas".
+	 * Ar žodžio indėlis indėlis į skaičių, lyginant su ankstesniu žodžiu, yra gautas daugybos būdu (true), ar sumos (true)? Daugybos pvz.: tūkstantis šimtų.
+	 * Sumos pvz.: tūkstantis šimtas. Konkretus pvz.: 584356792124L - penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai
+	 * septyni šimtai devyniasdešimt du tūkstančiai šimtas dvidešimt keturi. Kandangi nėra skaičiaus "vienas", "šimtas" yra pridedamas prie 584356792000L, jei
+	 * būtų žodis "vienas", šimtas būtų padauginamas iš prieš tai einančio žodžio - "vienas x šimtas".
 	 * 
 	 */
 	private boolean daugyba = false;
@@ -39,10 +35,8 @@ public class ZodisJunginyje {
 	}
 
 	/*
-	 * Pagal perduotus parametrus ir atrinktų žodžių sąrašą suformuoja
-	 * skaitvardį iš vieno ar daugiau tinkamų formų nedalomų skaitvardžių. (pvz,
-	 * "dvidešimt pirmą" iš žodžių "dvidešimt", "pirmas" ir parametrų
-	 * "kelintinis, galininkas".
+	 * Pagal perduotus parametrus ir atrinktų žodžių sąrašą suformuoja skaitvardį iš vieno ar daugiau tinkamų formų nedalomų skaitvardžių. (pvz,
+	 * "dvidešimt pirmą" iš žodžių "dvidešimt", "pirmas" ir parametrų "kelintinis, galininkas".
 	 */
 	public static String toString(List<? extends ZodisJunginyje> zodziai, FormaIrSkaiciai formaSkaiciai) {
 		StringBuilder r = new StringBuilder();

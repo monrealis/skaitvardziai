@@ -63,7 +63,7 @@
 		</dependency>
 		<dependency>
 			<groupId>eu.vytenis.skaitvardziai</groupId>
-			<artifactId>skaitvardziai-xslt</artifactId>
+			<artifactId>skaitvardziai-xpath</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

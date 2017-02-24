@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
-import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
@@ -21,14 +20,11 @@ import eu.vytenis.skaitvardziai.log.LogFactory;
  *
  */
 // TODO make value object
-public class Zodis implements UnmodifiableCapable {
+public class Zodis {
 	static final Log log = LogFactory.getLog(Zodis.class);
 
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
-
-	/** Ar žodis neredaguojamas? */
-	private boolean unmodifiable;
 
 	/**
 	 * Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis. (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis
@@ -120,7 +116,6 @@ public class Zodis implements UnmodifiableCapable {
 	}
 
 	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
-		Checks.checkCanModify("Zodis", this);
 		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
 		return this;
 	}
@@ -130,7 +125,6 @@ public class Zodis implements UnmodifiableCapable {
 	}
 
 	public Zodis valdomas() {
-		Checks.checkCanModify("Zodis", this);
 		valdomas = true;
 		return this;
 	}
@@ -140,22 +134,12 @@ public class Zodis implements UnmodifiableCapable {
 	}
 
 	public void setNekaitomasLinksniuojant(boolean nekaitomasLinksniuojant) {
-		Checks.checkCanModify("Zodis", this);
 		this.nekaitomasLinksniuojant = nekaitomasLinksniuojant;
 	}
 
 	public Zodis nekaitomasLinksniuojant() {
 		setNekaitomasLinksniuojant(true);
 		return this;
-	}
-
-	public boolean isUnmodifiable() {
-		return unmodifiable;
-	}
-
-	public void setUnmodifiable(boolean unmodifiable) {
-		Checks.checkCanModify("Zodis", this);
-		this.unmodifiable = unmodifiable;
 	}
 
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {

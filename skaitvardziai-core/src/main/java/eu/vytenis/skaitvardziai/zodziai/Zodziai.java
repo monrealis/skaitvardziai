@@ -5,7 +5,6 @@ import static java.util.Collections.unmodifiableMap;
 import java.math.BigInteger;
 import java.util.Map;
 
-import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
@@ -251,25 +250,12 @@ public class Zodziai {
 		// @formatter:on
 	}
 
-	static {
-		// Žodžius padaro neredaguojamus
-		Checks.ensureUnmodifiable(Zodziai.pagrindiniaiMotGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.pagrindiniaiVyrGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.kuopiniaiMap.values());
-		Checks.ensureUnmodifiable(Zodziai.dauginiaiMotGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.dauginiaiVyrGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.kelintiniaiVyrGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvVyrGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.kelintiniaiMotGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvMotGimMap.values());
-	}
-
 	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {
 		if (gimine == Gimine.V) {
 			return pagrindiniaiVyrGimMap.get(skaicius);
 		} else {
 			return pagrindiniaiMotGimMap.get(skaicius);
-		}		
+		}
 	}
 
 	public static Zodis getKuopinis(BigInteger skaicius) {
@@ -279,7 +265,7 @@ public class Zodziai {
 		}
 		if (skaicius.equals(BigInteger.ONE)) {
 			Zodis.log.warn(z + " naudojamas kaip kuopinis skaitvardis");
-			// 	žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
+			// žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
 		}
 		return z;
 	}

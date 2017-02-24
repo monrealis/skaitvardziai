@@ -27,6 +27,7 @@ public class Zodis {
 	 * antras žodis daugiskaita, bet linksnis gali būti bet koks).
 	 */
 	private final SkaiciusIrLinksnis kitas;
+	private final KitasSkaiciusIrLinksnis kitasSkaiciusIrLinksnis;
 
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private final Valdomas valdomas;
@@ -59,6 +60,7 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.S), vnsS);
 
 		kitas = new SkaiciusIrLinksnis(null, null);
+		kitasSkaiciusIrLinksnis = KitasSkaiciusIrLinksnis.Null;
 		valdomas = Valdomas.Nevaldomas;
 		kaitomasLinksniuojant = Kaitomas.Kaitomas;
 	}
@@ -102,6 +104,7 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
 
 		kitas = new SkaiciusIrLinksnis(null, null);
+		kitasSkaiciusIrLinksnis = KitasSkaiciusIrLinksnis.Null;
 		valdomas = Valdomas.Nevaldomas;
 		kaitomasLinksniuojant = Kaitomas.Kaitomas;
 	}
@@ -109,13 +112,15 @@ public class Zodis {
 	private Zodis(Zodis zodis, Kaitomas kaitomasLinksniuojant) {
 		this.formos.putAll(zodis.formos);
 		this.kitas = zodis.kitas;
+		this.kitasSkaiciusIrLinksnis = zodis.kitasSkaiciusIrLinksnis;
 		this.valdomas = zodis.valdomas;
 		this.kaitomasLinksniuojant = kaitomasLinksniuojant;
 	}
 
-	private Zodis(Zodis zodis, SkaiciusIrLinksnis kitas) {
+	private Zodis(Zodis zodis, SkaiciusIrLinksnis kitas, KitasSkaiciusIrLinksnis kitasSkaiciusIrLinksnis) {
 		this.formos.putAll(zodis.formos);
 		this.kitas = kitas;
+		this.kitasSkaiciusIrLinksnis = kitasSkaiciusIrLinksnis;
 		this.valdomas = zodis.valdomas;
 		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
 	}
@@ -123,6 +128,7 @@ public class Zodis {
 	private Zodis(Zodis zodis, Valdomas valdomas) {
 		this.formos.putAll(zodis.formos);
 		this.kitas = zodis.kitas;
+		this.kitasSkaiciusIrLinksnis = zodis.kitasSkaiciusIrLinksnis;
 		this.valdomas = valdomas;
 		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
 	}
@@ -130,18 +136,22 @@ public class Zodis {
 	public SkaiciusIrLinksnis getKitas() {
 		return kitas;
 	}
+	
+	public KitasSkaiciusIrLinksnis getKitasSkaiciusIrLinksnis() {
+		return kitasSkaiciusIrLinksnis;
+	}
 
 	public Zodis kitasDgs() {
-		return kitas(Skaicius.D, null);
+		return kitas(Skaicius.D, null, KitasSkaiciusIrLinksnis.Dgs);
 	}
 
 	public Zodis kitasDgsKilm() {
-		return kitas(Skaicius.D, Linksnis.K);
+		return kitas(Skaicius.D, Linksnis.K, KitasSkaiciusIrLinksnis.DgsKilm);
 	}
 
-	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
+	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis, KitasSkaiciusIrLinksnis kitasSkaiciusIrLinksnis) {
 		SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
-		return new Zodis(this, kitas);
+		return new Zodis(this, kitas, kitasSkaiciusIrLinksnis);
 	}
 
 	public boolean isValdomas() {
@@ -193,5 +203,11 @@ public class Zodis {
 
 	public enum Kaitomas {
 		Nekaitomas, Kaitomas
+	}
+
+	// TODO panaudoti vietoj SkaiciusIrLinksnis
+	public enum KitasSkaiciusIrLinksnis {
+		Null, Dgs, DgsKilm;
+
 	}
 }

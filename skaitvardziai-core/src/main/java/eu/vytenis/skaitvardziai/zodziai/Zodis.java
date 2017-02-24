@@ -113,6 +113,13 @@ public class Zodis {
 		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
 	}
 
+	private Zodis(Zodis zodis, Valdomas valdomas) {
+		this.formos.putAll(zodis.formos);
+		this.kitas = zodis.kitas;
+		this.valdomas = valdomas;
+		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
+	}
+
 	public SkaiciusIrLinksnis getKitas() {
 		return kitas;
 	}
@@ -135,8 +142,7 @@ public class Zodis {
 	}
 
 	public Zodis valdomas() {
-		valdomas = Valdomas.Valdomas;
-		return this;
+		return new Zodis(this, Valdomas.Valdomas);
 	}
 
 	public boolean isNekaitomasLinksniuojant() {

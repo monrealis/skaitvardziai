@@ -11,6 +11,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
+// TODO encapsulate field
 public class Zodziai {
 	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
 	static Map<Long, Zodis> pagrindiniaiMotGimMap;

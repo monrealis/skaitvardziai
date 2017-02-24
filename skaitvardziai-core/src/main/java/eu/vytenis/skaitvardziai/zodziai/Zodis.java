@@ -20,6 +20,7 @@ import eu.vytenis.skaitvardziai.log.LogFactory;
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
+// TODO make value object
 public class Zodis implements UnmodifiableCapable {
 	static final Log log = LogFactory.getLog(Zodis.class);
 

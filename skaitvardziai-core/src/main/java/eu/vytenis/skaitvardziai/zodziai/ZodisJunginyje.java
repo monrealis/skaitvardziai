@@ -57,25 +57,18 @@ public class ZodisJunginyje {
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
-				SkaiciusIrLinksnis sl = ankstesnis.getZodis().getKitas();
-				SkaiciusIrLinksnis withLinksnisNotNull;
-				if (sl.getLinksnis() == null) {
-					withLinksnisNotNull = sl.withLinksnis(kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis());
-					// pvz. (kelintinis == true), "du _šimtai_ dešimtojo"
-					// pvz. (kelintinis == false), "du _šimtai_",
-					// "keturi _šimtai_ keturiasdešimt vienas",
-					// "keturis _šimtus_ keturiasdešimt vieną"
-				} else
-					withLinksnisNotNull = sl;
-				SkaiciusIrLinksnis withSkaiciusAndLinksnisNotNull;
-				if (withLinksnisNotNull.getSkaicius() == null) {
-					// pvz. 21000000, dvidešimt vienas milijonas - skaičiaus
-					// nėra (nes gali būti dvidešimt vieni), bet šiuo atveju -
-					// vienaskaita
-					withSkaiciusAndLinksnisNotNull = withLinksnisNotNull.withSkaicius(Skaicius.V);
-				} else
-					withSkaiciusAndLinksnisNotNull = withLinksnisNotNull;
-				s = zodis.toString(withSkaiciusAndLinksnisNotNull);
+				// pvz. 21000000, dvidešimt vienas milijonas - skaičiaus
+				// nėra (nes gali būti dvidešimt vieni), bet šiuo atveju -
+				// vienaskaita
+				Skaicius skaicius = Skaicius.V;
+				// pvz. (kelintinis == true), "du _šimtai_ dešimtojo"
+				// pvz. (kelintinis == false), "du _šimtai_",
+				// "keturi _šimtai_ keturiasdešimt vienas",
+				// "keturis _šimtus_ keturiasdešimt vieną"
+				Linksnis linksnis = kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis();
+				SkaiciusIrLinksnis skaiciusIrLinksnis = new SkaiciusIrLinksnis(skaicius, linksnis);
+				SkaiciusIrLinksnis tikras = ankstesnis.getZodis().getKitasSkaiciusIrLinksnis().nvl(skaiciusIrLinksnis);
+				s = zodis.toString(tikras);
 			} else {
 				boolean vv;
 				if (kelintinis) {

@@ -1,7 +1,8 @@
 package eu.vytenis.skaitvardziai.zodziai;
 
+import static java.util.Collections.unmodifiableMap;
+
 import java.math.BigInteger;
-import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -198,7 +199,7 @@ public class Zodis implements UnmodifiableCapable {
 	 * @return lentelė
 	 */
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {
-		return Collections.unmodifiableMap(formos);
+		return unmodifiableMap(formos);
 	}
 
 	
@@ -231,15 +232,15 @@ public class Zodis implements UnmodifiableCapable {
 		Map<Long, Zodis> kelintiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 		Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();		
 		
-		pagrindiniaiMotGimMap = Collections.unmodifiableMap(pagrindiniaiMotGim);
-		pagrindiniaiVyrGimMap = Collections.unmodifiableMap(pagrindiniaiVyrGim);
-		kuopiniaiMap = Collections.unmodifiableMap(kuopiniai);
-		dauginiaiMotGimMap = Collections.unmodifiableMap(dauginiaiMotGim);
-		dauginiaiVyrGimMap = Collections.unmodifiableMap(dauginiaiVyrGim);
-		kelintiniaiVyrGimMap = Collections.unmodifiableMap(kelintiniaiVyrGim);
-		kelintiniaiIvVyrGimMap = Collections.unmodifiableMap(kelintiniaiIvVyrGim);
-		kelintiniaiMotGimMap = Collections.unmodifiableMap(kelintiniaiMotGim);
-		kelintiniaiIvMotGimMap = Collections.unmodifiableMap(kelintiniaiIvMotGim);
+		pagrindiniaiMotGimMap = unmodifiableMap(pagrindiniaiMotGim);
+		pagrindiniaiVyrGimMap = unmodifiableMap(pagrindiniaiVyrGim);
+		kuopiniaiMap = unmodifiableMap(kuopiniai);
+		dauginiaiMotGimMap = unmodifiableMap(dauginiaiMotGim);
+		dauginiaiVyrGimMap = unmodifiableMap(dauginiaiVyrGim);
+		kelintiniaiVyrGimMap = unmodifiableMap(kelintiniaiVyrGim);
+		kelintiniaiIvVyrGimMap = unmodifiableMap(kelintiniaiIvVyrGim);
+		kelintiniaiMotGimMap = unmodifiableMap(kelintiniaiMotGim);
+		kelintiniaiIvMotGimMap = unmodifiableMap(kelintiniaiIvMotGim);
 		
 		pagrindiniaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
 		pagrindiniaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgs());

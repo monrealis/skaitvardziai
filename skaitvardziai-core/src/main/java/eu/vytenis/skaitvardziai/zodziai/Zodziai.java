@@ -27,7 +27,6 @@ public class Zodziai {
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
 	static Map<Long, Zodis> kelintiniaiIvMotGimMap;
 
-
 	static {
 		Map<Long, Zodis> pagrindiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 		Map<Long, Zodis> pagrindiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
@@ -37,8 +36,8 @@ public class Zodziai {
 		Map<Long, Zodis> kelintiniaiVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 		Map<Long, Zodis> kelintiniaiIvVyrGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 		Map<Long, Zodis> kelintiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
-		Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();		
-		
+		Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
+
 		Zodziai.pagrindiniaiMotGimMap = unmodifiableMap(pagrindiniaiMotGim);
 		Zodziai.pagrindiniaiVyrGimMap = unmodifiableMap(pagrindiniaiVyrGim);
 		Zodziai.kuopiniaiMap = unmodifiableMap(kuopiniai);
@@ -48,7 +47,8 @@ public class Zodziai {
 		Zodziai.kelintiniaiIvVyrGimMap = unmodifiableMap(kelintiniaiIvVyrGim);
 		Zodziai.kelintiniaiMotGimMap = unmodifiableMap(kelintiniaiMotGim);
 		Zodziai.kelintiniaiIvMotGimMap = unmodifiableMap(kelintiniaiIvMotGim);
-		
+
+		// @formatter:off
 		pagrindiniaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html
 		pagrindiniaiMotGim.put(2L, new Zodis("dvi", "dviejų", "dviem" /* geriau nei "dviems" */, "dvi", "dviem", "dviejose", "dvi").kitasDgs());
 		pagrindiniaiMotGim.put(3L, new Zodis("trys", "trijų", "trims", "tris", "trimis", "trijose", "trys").kitasDgs());
@@ -243,6 +243,7 @@ public class Zodziai {
 		kelintiniaiIvMotGim.put(1000L, new Zodis("tūkstantoji", "tūkstantosios", "tūkstantajai", "tūkstantąją", "tūkstantąja", "tūkstantojoje", "tūkstantoji", "tūkstantosios", "tūkstantųjų", "tūkstantosioms", "tūkstantąsias", "tūkstantosiomis", "tūkstantosiose", "tūkstantosios"));
 		kelintiniaiIvMotGim.put(1000000L, new Zodis("milijonoji", "milijonosios", "milijonajai", "milijonąją", "milijonąja", "milijonojoje", "milijonoji", "milijonosios", "milijonųjų", "milijonosioms", "milijonąsias", "milijonosiomis", "milijonosiose", "milijonosios"));
 		kelintiniaiIvMotGim.put(1000000000L, new Zodis("milijardoji", "milijardosios", "milijardajai", "milijardąją", "milijardąja", "milijardojoje", "milijardoji", "milijardosios", "milijardųjų", "milijardosioms", "milijardąsias", "milijardosiomis", "milijardosiose", "milijardosios"));
+		// @formatter:on
 	}
 
 	static {
@@ -255,6 +256,6 @@ public class Zodziai {
 		Checks.ensureUnmodifiable(Zodziai.kelintiniaiVyrGimMap.values());
 		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvVyrGimMap.values());
 		Checks.ensureUnmodifiable(Zodziai.kelintiniaiMotGimMap.values());
-		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvMotGimMap.values());		
+		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvMotGimMap.values());
 	}
 }

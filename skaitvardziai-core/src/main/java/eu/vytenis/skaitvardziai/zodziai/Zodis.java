@@ -21,9 +21,7 @@ import eu.vytenis.skaitvardziai.log.LogFactory;
  *
  */
 // TODO
-// @formatter:off
 public class Zodis implements UnmodifiableCapable {
-	/** Žurnalas. */
 	static final Log log = LogFactory.getLog(Zodis.class);
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
@@ -54,9 +52,8 @@ public class Zodis implements UnmodifiableCapable {
 	private boolean nekaitomasLinksniuojant;
 	
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
-	
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
-		Checks.checkNotNull("skaicius", skaicius);		
+		Checks.checkNotNull("skaicius", skaicius);
 		Checks.checkNotNull("vnsV", vnsV);
 		Checks.checkNotNull("vnsK", vnsK);
 		Checks.checkNotNull("vnsN", vnsN);
@@ -64,7 +61,7 @@ public class Zodis implements UnmodifiableCapable {
 		Checks.checkNotNull("vnsI", vnsI);
 		Checks.checkNotNull("vnsVt", vnsVt);
 		Checks.checkNotNull("vnsS", vnsS);
-		
+
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.V), vnsV);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.K), vnsK);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.N), vnsN);
@@ -73,13 +70,13 @@ public class Zodis implements UnmodifiableCapable {
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.Vt), vnsVt);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.S), vnsS);
 	}
-	
+
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
 		this(Skaicius.V, vnsV, vnsK, vnsN, vnsG, vnsI, vnsVt, vnsS);
 	}
-	
-	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS,
-			String dgsV, String dgsK, String dgsN, String dgsG, String dgsI, String dgsVt, String dgsS) {
+
+	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, //
+			String vnsS, String dgsV, String dgsK, String dgsN, String dgsG, String dgsI, String dgsVt, String dgsS) {
 		Checks.checkNotNull("vnsV", vnsV);
 		Checks.checkNotNull("vnsK", vnsK);
 		Checks.checkNotNull("vnsN", vnsN);
@@ -87,7 +84,7 @@ public class Zodis implements UnmodifiableCapable {
 		Checks.checkNotNull("vnsI", vnsI);
 		Checks.checkNotNull("vnsVt", vnsVt);
 		Checks.checkNotNull("vnsS", vnsS);
-		
+
 		Checks.checkNotNull("dgsV", dgsV);
 		Checks.checkNotNull("dgsK", dgsK);
 		Checks.checkNotNull("dgsN", dgsN);
@@ -95,7 +92,7 @@ public class Zodis implements UnmodifiableCapable {
 		Checks.checkNotNull("dgsI", dgsI);
 		Checks.checkNotNull("dgsVt", dgsVt);
 		Checks.checkNotNull("dgsS", dgsS);
-		
+
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V), vnsV);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.K), vnsK);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.N), vnsN);
@@ -103,7 +100,7 @@ public class Zodis implements UnmodifiableCapable {
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.I), vnsI);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.Vt), vnsVt);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.V, Linksnis.S), vnsS);
-		
+
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.V), dgsV);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K), dgsK);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.N), dgsN);
@@ -112,75 +109,67 @@ public class Zodis implements UnmodifiableCapable {
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.Vt), dgsVt);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
 	}
-	
-	
+
 	public SkaiciusIrLinksnis getKitas() {
 		return kitas;
 	}
-	
+
 	public Zodis kitasDgs() {
 		return kitas(Skaicius.D, null);
 	}
-	
+
 	public Zodis kitasDgsKilm() {
 		return kitas(Skaicius.D, Linksnis.K);
 	}
-	
+
 	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
 		Checks.checkCanModify("Zodis", this);
 		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
 		return this;
 	}
-	
+
 	public boolean isValdomas() {
 		return valdomas;
 	}
 
-	
 	public Zodis valdomas() {
 		Checks.checkCanModify("Zodis", this);
 		valdomas = true;
 		return this;
 	}
-	
+
 	public boolean isNekaitomasLinksniuojant() {
 		return nekaitomasLinksniuojant;
 	}
-	
+
 	public void setNekaitomasLinksniuojant(boolean nekaitomasLinksniuojant) {
 		Checks.checkCanModify("Zodis", this);
 		this.nekaitomasLinksniuojant = nekaitomasLinksniuojant;
 	}
-	
+
 	public Zodis nekaitomasLinksniuojant() {
 		setNekaitomasLinksniuojant(true);
 		return this;
 	}
-	
+
 	public boolean isUnmodifiable() {
 		return unmodifiable;
 	}
-	
+
 	public void setUnmodifiable(boolean unmodifiable) {
 		Checks.checkCanModify("Zodis", this);
 		this.unmodifiable = unmodifiable;
 	}
-	
-	/**
-	 * Grąžina lentelę [skaičius ir linksnis (pvz., vns vard.) -> skaitvardis].
-	 * @return lentelė
-	 */
+
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {
 		return unmodifiableMap(formos);
 	}
 
-	
 	public String toString(SkaiciusIrLinksnis skaiciusIrLinksnis) {
 		return formos.get(skaiciusIrLinksnis);
 	}
-	
-	
-	@Override	
+
+	@Override
 	public String toString() {
 		SkaiciusIrLinksnis sl = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V);
 		String r = toString(sl);
@@ -191,15 +180,11 @@ public class Zodis implements UnmodifiableCapable {
 		return r;
 	}
 
-
-
 	public static class WordNotFoundException extends SkaitvardziaiRuntimeException {
 		private static final long serialVersionUID = -3871360931584928662L;
-		
+
 		public WordNotFoundException(Poskyris poskyris, BigInteger skaicius) {
-			super(poskyris + " word not found for number " + skaicius);			
+			super(poskyris + " word not found for number " + skaicius);
 		}
-		
 	}
-	
 }

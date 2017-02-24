@@ -8,10 +8,13 @@ import java.util.Map;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
+import eu.vytenis.skaitvardziai.log.Log;
+import eu.vytenis.skaitvardziai.log.LogFactory;
 import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
 // TODO encapsulate field
 public class Zodziai {
+	private static final Log log = LogFactory.getLog(Zodziai.class);
 	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
 	static Map<Long, Zodis> pagrindiniaiMotGimMap;
 	/** Pagrindiniai skaitvardžiai (vyriškos giminės). */
@@ -264,7 +267,7 @@ public class Zodziai {
 			throw new Zodis.WordNotFoundException(Poskyris.Kuopinis, skaicius);
 		}
 		if (skaicius.equals(BigInteger.ONE)) {
-			Zodis.log.warn(z + " naudojamas kaip kuopinis skaitvardis");
+			Zodziai.log.warn(z + " naudojamas kaip kuopinis skaitvardis");
 			// žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
 		}
 		return z;

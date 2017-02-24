@@ -12,8 +12,6 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
-import eu.vytenis.skaitvardziai.log.Log;
-import eu.vytenis.skaitvardziai.log.LogFactory;
 
 /**
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
@@ -21,8 +19,6 @@ import eu.vytenis.skaitvardziai.log.LogFactory;
  */
 // TODO make value object
 public class Zodis {
-	static final Log log = LogFactory.getLog(Zodis.class);
-
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
 

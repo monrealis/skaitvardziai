@@ -157,12 +157,10 @@ public class Zodis implements UnmodifiableCapable {
 		return this;
 	}
 	
-	/** Žiūrėti: {@link UnmodifiableCapable#isUnmodifiable()}. */
 	public boolean isUnmodifiable() {
 		return unmodifiable;
 	}
 	
-	/** Žiūrėti: {@link UnmodifiableCapable#setUnmodifiable(boolean)}. */
 	public void setUnmodifiable(boolean unmodifiable) {
 		Checks.checkCanModify("Zodis", this);
 		this.unmodifiable = unmodifiable;

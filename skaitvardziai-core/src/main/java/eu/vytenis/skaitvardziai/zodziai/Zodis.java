@@ -9,10 +9,8 @@ import java.util.TreeMap;
 import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.log.Log;
@@ -26,7 +24,7 @@ import eu.vytenis.skaitvardziai.log.LogFactory;
 // @formatter:off
 public class Zodis implements UnmodifiableCapable {
 	/** Žurnalas. */
-	private static final Log log = LogFactory.getLog(Zodis.class);
+	static final Log log = LogFactory.getLog(Zodis.class);
 	
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
@@ -197,51 +195,6 @@ public class Zodis implements UnmodifiableCapable {
 
 
 
-	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {
-		if (gimine == Gimine.V) {
-			return Zodziai.pagrindiniaiVyrGimMap.get(skaicius);
-		} else {
-			return Zodziai.pagrindiniaiMotGimMap.get(skaicius);
-		}
-		
-	}	
-	
-	public static Zodis getKuopinis(BigInteger skaicius) {
-		Zodis z = Zodziai.kuopiniaiMap.get(skaicius);
-		if (z == null) {
-			throw new WordNotFoundException(Poskyris.Kuopinis, skaicius);
-		}
-		if (skaicius.equals(BigInteger.ONE)) {
-			log.warn(z + " naudojamas kaip kuopinis skaitvardis");
-			// 	žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
-		}
-		return z;
-	}
-	
-	public static Zodis getDauginis(BigInteger skaicius, Gimine gimine) {
-		if (gimine == Gimine.V) {
-			return Zodziai.dauginiaiVyrGimMap.get(skaicius);
-		} else {
-			return Zodziai.dauginiaiMotGimMap.get(skaicius);
-		}
-	}	
-	
-	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, Rusis rusis) {
-		if (gimine == Gimine.M) {
-			if (rusis == Rusis.Iv) {
-				return Zodziai.kelintiniaiIvMotGimMap.get(skaicius);
-			} else {
-				return Zodziai.kelintiniaiMotGimMap.get(skaicius);
-			}
-		} else {
-			if (rusis == Rusis.Iv) {
-				return Zodziai.kelintiniaiIvVyrGimMap.get(skaicius);
-			} else {
-				return Zodziai.kelintiniaiVyrGimMap.get(skaicius);
-			}
-		}
-	}	
-	
 	public static class WordNotFoundException extends SkaitvardziaiRuntimeException {
 		private static final long serialVersionUID = -3871360931584928662L;
 		

@@ -2,9 +2,13 @@ package eu.vytenis.skaitvardziai.zodziai;
 
 import static java.util.Collections.unmodifiableMap;
 
+import java.math.BigInteger;
 import java.util.Map;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
 public class Zodziai {
@@ -257,5 +261,49 @@ public class Zodziai {
 		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvVyrGimMap.values());
 		Checks.ensureUnmodifiable(Zodziai.kelintiniaiMotGimMap.values());
 		Checks.ensureUnmodifiable(Zodziai.kelintiniaiIvMotGimMap.values());
+	}
+
+	public static Zodis getPagrindinis(BigInteger skaicius, Gimine gimine) {
+		if (gimine == Gimine.V) {
+			return pagrindiniaiVyrGimMap.get(skaicius);
+		} else {
+			return pagrindiniaiMotGimMap.get(skaicius);
+		}		
+	}
+
+	public static Zodis getKuopinis(BigInteger skaicius) {
+		Zodis z = kuopiniaiMap.get(skaicius);
+		if (z == null) {
+			throw new Zodis.WordNotFoundException(Poskyris.Kuopinis, skaicius);
+		}
+		if (skaicius.equals(BigInteger.ONE)) {
+			Zodis.log.warn(z + " naudojamas kaip kuopinis skaitvardis");
+			// 	žr. http://ualgiman.dtiltas.lt/skaitvardis.html, kodėl nelabai tinka
+		}
+		return z;
+	}
+
+	public static Zodis getDauginis(BigInteger skaicius, Gimine gimine) {
+		if (gimine == Gimine.V) {
+			return dauginiaiVyrGimMap.get(skaicius);
+		} else {
+			return dauginiaiMotGimMap.get(skaicius);
+		}
+	}
+
+	public static Zodis getKelintinis(BigInteger skaicius, Gimine gimine, Rusis rusis) {
+		if (gimine == Gimine.M) {
+			if (rusis == Rusis.Iv) {
+				return kelintiniaiIvMotGimMap.get(skaicius);
+			} else {
+				return kelintiniaiMotGimMap.get(skaicius);
+			}
+		} else {
+			if (rusis == Rusis.Iv) {
+				return kelintiniaiIvVyrGimMap.get(skaicius);
+			} else {
+				return kelintiniaiVyrGimMap.get(skaicius);
+			}
+		}
 	}
 }

@@ -136,7 +136,7 @@ public class Zodis {
 	public SkaiciusIrLinksnis getKitas() {
 		return kitas;
 	}
-	
+
 	public KitasSkaiciusIrLinksnis getKitasSkaiciusIrLinksnis() {
 		return kitasSkaiciusIrLinksnis;
 	}
@@ -207,7 +207,27 @@ public class Zodis {
 
 	// TODO panaudoti vietoj SkaiciusIrLinksnis
 	public enum KitasSkaiciusIrLinksnis {
-		Null, Dgs, DgsKilm;
+		Null {
+			@Override
+			public SkaiciusIrLinksnis nvl(SkaiciusIrLinksnis zodzioSkaiciusIrLinksnis) {
+				return zodzioSkaiciusIrLinksnis;
+			}
+		},
+		Dgs {
+			@Override
+			public SkaiciusIrLinksnis nvl(SkaiciusIrLinksnis zodzioSkaiciusIrLinksnis) {
+				return new SkaiciusIrLinksnis(Skaicius.D, zodzioSkaiciusIrLinksnis.getLinksnis());
+			}
+		},
+		DgsKilm {
+			@Override
+			public SkaiciusIrLinksnis nvl(SkaiciusIrLinksnis zodzioSkaiciusIrLinksnis) {
+				return new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
+			}
+		};
+
+		// Pavadinti kaip nors
+		public abstract SkaiciusIrLinksnis nvl(SkaiciusIrLinksnis zodzioSkaiciusIrLinksnis);
 
 	}
 }

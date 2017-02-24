@@ -26,8 +26,7 @@ public class Zodis {
 	 * (vns. vard.)). Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad
 	 * antras žodis daugiskaita, bet linksnis gali būti bet koks).
 	 */
-	private final SkaiciusIrLinksnis kitas;
-	private final KitasSkaiciusIrLinksnis kitasSkaiciusIrLinksnis;
+	private final KitoSkaiciusIrLinksnis kitasSkaiciusIrLinksnis;
 
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private final Valdomas valdomas;
@@ -59,8 +58,7 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.Vt), vnsVt);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.S), vnsS);
 
-		kitas = new SkaiciusIrLinksnis(null, null);
-		kitasSkaiciusIrLinksnis = KitasSkaiciusIrLinksnis.Null;
+		kitasSkaiciusIrLinksnis = KitoSkaiciusIrLinksnis.PagalZodi;
 		valdomas = Valdomas.Nevaldomas;
 		kaitomasLinksniuojant = Kaitomas.Kaitomas;
 	}
@@ -103,23 +101,20 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.Vt), dgsVt);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
 
-		kitas = new SkaiciusIrLinksnis(null, null);
-		kitasSkaiciusIrLinksnis = KitasSkaiciusIrLinksnis.Null;
+		kitasSkaiciusIrLinksnis = KitoSkaiciusIrLinksnis.PagalZodi;
 		valdomas = Valdomas.Nevaldomas;
 		kaitomasLinksniuojant = Kaitomas.Kaitomas;
 	}
 
 	private Zodis(Zodis zodis, Kaitomas kaitomasLinksniuojant) {
 		this.formos.putAll(zodis.formos);
-		this.kitas = zodis.kitas;
 		this.kitasSkaiciusIrLinksnis = zodis.kitasSkaiciusIrLinksnis;
 		this.valdomas = zodis.valdomas;
 		this.kaitomasLinksniuojant = kaitomasLinksniuojant;
 	}
 
-	private Zodis(Zodis zodis, SkaiciusIrLinksnis kitas, KitasSkaiciusIrLinksnis kitasSkaiciusIrLinksnis) {
+	private Zodis(Zodis zodis, KitoSkaiciusIrLinksnis kitasSkaiciusIrLinksnis) {
 		this.formos.putAll(zodis.formos);
-		this.kitas = kitas;
 		this.kitasSkaiciusIrLinksnis = kitasSkaiciusIrLinksnis;
 		this.valdomas = zodis.valdomas;
 		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
@@ -127,31 +122,21 @@ public class Zodis {
 
 	private Zodis(Zodis zodis, Valdomas valdomas) {
 		this.formos.putAll(zodis.formos);
-		this.kitas = zodis.kitas;
 		this.kitasSkaiciusIrLinksnis = zodis.kitasSkaiciusIrLinksnis;
 		this.valdomas = valdomas;
 		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
 	}
 
-	public SkaiciusIrLinksnis getKitas() {
-		return kitas;
-	}
-
-	public KitasSkaiciusIrLinksnis getKitasSkaiciusIrLinksnis() {
+	public KitoSkaiciusIrLinksnis getKitasSkaiciusIrLinksnis() {
 		return kitasSkaiciusIrLinksnis;
 	}
 
 	public Zodis kitasDgs() {
-		return kitas(Skaicius.D, null, KitasSkaiciusIrLinksnis.Dgs);
+		return new Zodis(this, KitoSkaiciusIrLinksnis.Dgs);
 	}
 
 	public Zodis kitasDgsKilm() {
-		return kitas(Skaicius.D, Linksnis.K, KitasSkaiciusIrLinksnis.DgsKilm);
-	}
-
-	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis, KitasSkaiciusIrLinksnis kitasSkaiciusIrLinksnis) {
-		SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
-		return new Zodis(this, kitas, kitasSkaiciusIrLinksnis);
+		return new Zodis(this, KitoSkaiciusIrLinksnis.DgsKilm);
 	}
 
 	public boolean isValdomas() {
@@ -205,9 +190,8 @@ public class Zodis {
 		Nekaitomas, Kaitomas
 	}
 
-	// TODO panaudoti vietoj SkaiciusIrLinksnis
-	public enum KitasSkaiciusIrLinksnis {
-		Null {
+	public enum KitoSkaiciusIrLinksnis {
+		PagalZodi {
 			@Override
 			public SkaiciusIrLinksnis nvl(SkaiciusIrLinksnis zodzioSkaiciusIrLinksnis) {
 				return zodzioSkaiciusIrLinksnis;

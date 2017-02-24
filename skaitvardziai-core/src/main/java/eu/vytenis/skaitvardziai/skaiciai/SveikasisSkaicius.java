@@ -72,7 +72,8 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		List<ZodisJunginyje> zodziai = getZodziai(fs);
 		String unsigned = ZodisJunginyje.toString(zodziai, fs);
 		String text = isNonNegative() ? unsigned : "minus " + unsigned;
-		SkaiciusIrLinksnis kitas = getKitoZodzioSkaiciusIrLinksnis(forma, zodziai);
+		SkaiciusIrLinksnis formosSkaiciusIrLinksnis = new SkaiciusIrLinksnis(forma.getSkaicius(), forma.getLinksnis());
+		SkaiciusIrLinksnis kitas = getKitoZodzioSkaiciusIrLinksnis(formosSkaiciusIrLinksnis, zodziai);
 		TekstasJunginyje skaiciusJunginyje = new TekstasJunginyje(text, kitas);
 		return skaiciusJunginyje;
 	}
@@ -97,11 +98,11 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		return zodziai;
 	}
 
-	private SkaiciusIrLinksnis getKitoZodzioSkaiciusIrLinksnis(Forma forma, List<ZodisJunginyje> zodziai) {
+	private SkaiciusIrLinksnis getKitoZodzioSkaiciusIrLinksnis(SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodisJunginyje> zodziai) {
 		Zodis paskutinis = zodziai.get(zodziai.size() - 1).getZodis();
 		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
-		Skaicius skaicius = kitas.getSkaicius() != null ? kitas.getSkaicius() : forma.getSkaicius();
-		Linksnis linksnis = kitas.getLinksnis() != null ? kitas.getLinksnis() : forma.getLinksnis();
+		Skaicius skaicius = kitas.getSkaicius() != null ? kitas.getSkaicius() : skaiciusIrLinksnis.getSkaicius();
+		Linksnis linksnis = kitas.getLinksnis() != null ? kitas.getLinksnis() : skaiciusIrLinksnis.getLinksnis();
 		return new SkaiciusIrLinksnis(skaicius, linksnis);
 	}
 

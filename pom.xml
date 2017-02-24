@@ -88,6 +88,7 @@
 
 	<modules>
 		<module>skaitvardziai-core</module>
+		<module>skaitvardziai-xslt</module>
 		<module>skaitvardziai-slf4j</module>
 		<module>skaitvardziai-parser</module>
 		<module>skaitvardziai-app</module>

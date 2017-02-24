@@ -20,37 +20,33 @@ import eu.vytenis.skaitvardziai.log.LogFactory;
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
-// TODO
 public class Zodis implements UnmodifiableCapable {
 	static final Log log = LogFactory.getLog(Zodis.class);
-	
+
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
 	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
-	
+
 	/** Ar žodis neredaguojamas? */
 	private boolean unmodifiable;
-	
-	
+
 	/**
-	 * Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis. (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis (vns. vard.)).
-	 * Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null
-	 * (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad antras žodis daugiskaita, bet linksnis gali būti bet koks).
+	 * Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis. (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis
+	 * (vns. vard.)). Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad
+	 * antras žodis daugiskaita, bet linksnis gali būti bet koks).
 	 */
 	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
-	
+
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
 	private boolean valdomas = false;
-	
+
 	/**
-	 * Požymis, ar žodis nekaitomas linksniuojant, išskyrus tą atvejį,
-	 * kai jis yra skaičiaus iš kelių žodžių paskutinė dalis.
+	 * Požymis, ar žodis nekaitomas linksniuojant, išskyrus tą atvejį, kai jis yra skaičiaus iš kelių žodžių paskutinė dalis.
 	 * 
-	 * Pvz.: du šimtai dvidešimt du, dviejų šimtų dvidešimt dviejų.
-	 * Bet.: du šimta dvidešimt, dviejų šimtų dvidešimties.
+	 * Pvz.: du šimtai dvidešimt du, dviejų šimtų dvidešimt dviejų. Bet.: du šimta dvidešimt, dviejų šimtų dvidešimties.
 	 * 
 	 */
 	private boolean nekaitomasLinksniuojant;
-	
+
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
 		Checks.checkNotNull("skaicius", skaicius);

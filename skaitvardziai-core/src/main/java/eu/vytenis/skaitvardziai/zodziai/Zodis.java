@@ -38,7 +38,7 @@ public class Zodis {
 	 * Pvz.: du šimtai dvidešimt du, dviejų šimtų dvidešimt dviejų. Bet.: du šimta dvidešimt, dviejų šimtų dvidešimties.
 	 * 
 	 */
-	private Nekaitomas nekaitomasLinksniuojant = Nekaitomas.Kaitomas;
+	private Kaitomas kaitomasLinksniuojant = Kaitomas.Kaitomas;
 
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -126,11 +126,11 @@ public class Zodis {
 	}
 
 	public boolean isNekaitomasLinksniuojant() {
-		return nekaitomasLinksniuojant == Nekaitomas.Nekaitomas;
+		return kaitomasLinksniuojant == Kaitomas.Nekaitomas;
 	}
 
 	public Zodis nekaitomasLinksniuojant() {
-		nekaitomasLinksniuojant = Nekaitomas.Nekaitomas;
+		kaitomasLinksniuojant = Kaitomas.Nekaitomas;
 		return this;
 	}
 
@@ -165,7 +165,7 @@ public class Zodis {
 		Nevaldomas, Valdomas
 	}
 
-	public enum Nekaitomas {
+	public enum Kaitomas {
 		Nekaitomas, Kaitomas
 	}
 }

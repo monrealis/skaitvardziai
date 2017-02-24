@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import eu.vytenis.skaitvardziai.util.Comparisons;
 
-public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinksnis> {
+public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
 	public static final SkaiciusIrLinksnis VNS_VARD = new SkaiciusIrLinksnis(Skaicius.V, Linksnis.V);
 	private final Skaicius skaicius;
 	private final Linksnis linksnis;
@@ -42,15 +42,6 @@ public class SkaiciusIrLinksnis implements Cloneable, Comparable<SkaiciusIrLinks
 
 	public SkaiciusIrLinksnis withSkaicius(Skaicius skaicius) {
 		return new SkaiciusIrLinksnis(skaicius, linksnis);
-	}
-
-	@Override
-	public SkaiciusIrLinksnis clone() {
-		try {
-			return (SkaiciusIrLinksnis) super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	public int compareTo(SkaiciusIrLinksnis o) {

@@ -57,7 +57,7 @@ public class ZodisJunginyje {
 			Zodis zodis = dabartinis.getZodis();
 			String s;
 			if (zodis.isValdomas() && ankstesnis != null && dabartinis.isDaugyba()) {
-				SkaiciusIrLinksnis sl = ankstesnis.getZodis().getKitas().clone();
+				SkaiciusIrLinksnis sl = ankstesnis.getZodis().getKitas();
 				SkaiciusIrLinksnis withLinksnisNotNull;
 				if (sl.getLinksnis() == null) {
 					withLinksnisNotNull = sl.withLinksnis(kelintinis ? Linksnis.V : skaiciusLinksnis.getLinksnis());

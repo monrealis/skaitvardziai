@@ -124,7 +124,7 @@ public abstract class SkaitvardziaiTest {
 			for (Entry<SkaiciusIrLinksnis, String> e : z.getVisosFormos().entrySet()) {
 				if (text.endsWith(e.getValue())) {
 					String substring = text.substring(0, text.length() - e.getValue().length()).trim();
-					return new TekstasJunginyje(substring, e.getKey().clone());
+					return new TekstasJunginyje(substring, e.getKey());
 				}
 			}
 		}

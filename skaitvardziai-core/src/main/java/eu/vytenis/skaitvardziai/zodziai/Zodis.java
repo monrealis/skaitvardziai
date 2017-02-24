@@ -17,20 +17,19 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
  * Žodžio formų visais linksniais (vienaskaitoje ir/ar daugiskaitoje) rinkinys.
  *
  */
-// TODO make value object
 public class Zodis {
 	/** Vienaskaitos ir daugiskaitos žodžiai pagal linksnius. */
-	private Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
+	private final Map<SkaiciusIrLinksnis, String> formos = new TreeMap<SkaiciusIrLinksnis, String>();
 
 	/**
 	 * Skaitvardyje iš kelių žodžių - koks po šio žodžio einančio kito žodžio skaičius ir linksnis. (pvz., dešimt _tūkstančių_ (dgs. kilm.), vienas tūkstantis
 	 * (vns. vard.)). Jei linksnis nėra visada vienodas, o priklauso nuo konteksto, linksnis yra null (pvz., keturi _šimtai_, keturis _šimtus_ - aišku, kad
 	 * antras žodis daugiskaita, bet linksnis gali būti bet koks).
 	 */
-	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
+	private final SkaiciusIrLinksnis kitas;
 
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
-	private Valdomas valdomas = Valdomas.Nevaldomas;
+	private final Valdomas valdomas;
 
 	/**
 	 * Požymis, ar žodis nekaitomas linksniuojant, išskyrus tą atvejį, kai jis yra skaičiaus iš kelių žodžių paskutinė dalis.
@@ -38,7 +37,7 @@ public class Zodis {
 	 * Pvz.: du šimtai dvidešimt du, dviejų šimtų dvidešimt dviejų. Bet.: du šimta dvidešimt, dviejų šimtų dvidešimties.
 	 * 
 	 */
-	private Kaitomas kaitomasLinksniuojant = Kaitomas.Kaitomas;
+	private final Kaitomas kaitomasLinksniuojant;
 
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -58,6 +57,10 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.I), vnsI);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.Vt), vnsVt);
 		formos.put(new SkaiciusIrLinksnis(skaicius, Linksnis.S), vnsS);
+
+		kitas = new SkaiciusIrLinksnis(null, null);
+		valdomas = Valdomas.Nevaldomas;
+		kaitomasLinksniuojant = Kaitomas.Kaitomas;
 	}
 
 	public Zodis(String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -97,6 +100,10 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.I), dgsI);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.Vt), dgsVt);
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
+
+		kitas = new SkaiciusIrLinksnis(null, null);
+		valdomas = Valdomas.Nevaldomas;
+		kaitomasLinksniuojant = Kaitomas.Kaitomas;
 	}
 
 	private Zodis(Zodis zodis, Kaitomas kaitomasLinksniuojant) {

@@ -49,7 +49,7 @@ Programą galima atsisiųsti iš centrinės Apache Maven saugyklos.
 <dependency>
 	<groupId>eu.vytenis.skaitvardziai</groupId>
 	<artifactId>skaitvardziai-core</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 </dependency>
 ```
 

@@ -30,7 +30,7 @@ public class Zodis {
 	private SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(null, null);
 
 	/** Skaitvardyje iš kelių žodžių - ar šio žodžio forma priklauso nuo ankstesnio žodžio (pvz., vienas _šimtas_, du _šimtai_, dešimt _tūkstančių_). */
-	private boolean valdomas = false;
+	private Valdomas valdomas = Valdomas.Nevaldomas;
 
 	/**
 	 * Požymis, ar žodis nekaitomas linksniuojant, išskyrus tą atvejį, kai jis yra skaičiaus iš kelių žodžių paskutinė dalis.
@@ -38,7 +38,7 @@ public class Zodis {
 	 * Pvz.: du šimtai dvidešimt du, dviejų šimtų dvidešimt dviejų. Bet.: du šimta dvidešimt, dviejų šimtų dvidešimties.
 	 * 
 	 */
-	private boolean nekaitomasLinksniuojant;
+	private Nekaitomas nekaitomasLinksniuojant = Nekaitomas.Kaitomas;
 
 	// Lentelės [skaičius -> nedalomas skaitvardis (iš vieno žodžio)].
 	public Zodis(Skaicius skaicius, String vnsV, String vnsK, String vnsN, String vnsG, String vnsI, String vnsVt, String vnsS) {
@@ -117,24 +117,20 @@ public class Zodis {
 	}
 
 	public boolean isValdomas() {
-		return valdomas;
+		return valdomas == Valdomas.Valdomas;
 	}
 
 	public Zodis valdomas() {
-		valdomas = true;
+		valdomas = Valdomas.Valdomas;
 		return this;
 	}
 
 	public boolean isNekaitomasLinksniuojant() {
-		return nekaitomasLinksniuojant;
-	}
-
-	public void setNekaitomasLinksniuojant(boolean nekaitomasLinksniuojant) {
-		this.nekaitomasLinksniuojant = nekaitomasLinksniuojant;
+		return nekaitomasLinksniuojant == Nekaitomas.Nekaitomas;
 	}
 
 	public Zodis nekaitomasLinksniuojant() {
-		setNekaitomasLinksniuojant(true);
+		nekaitomasLinksniuojant = Nekaitomas.Nekaitomas;
 		return this;
 	}
 
@@ -163,5 +159,13 @@ public class Zodis {
 		public WordNotFoundException(Poskyris poskyris, BigInteger skaicius) {
 			super(poskyris + " word not found for number " + skaicius);
 		}
+	}
+
+	public enum Valdomas {
+		Nevaldomas, Valdomas
+	}
+
+	public enum Nekaitomas {
+		Nekaitomas, Kaitomas
 	}
 }

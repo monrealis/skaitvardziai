@@ -99,6 +99,20 @@ public class Zodis {
 		formos.put(new SkaiciusIrLinksnis(Skaicius.D, Linksnis.S), dgsS);
 	}
 
+	private Zodis(Zodis zodis, Kaitomas kaitomasLinksniuojant) {
+		this.formos.putAll(zodis.formos);
+		this.kitas = zodis.kitas;
+		this.valdomas = zodis.valdomas;
+		this.kaitomasLinksniuojant = kaitomasLinksniuojant;
+	}
+
+	private Zodis(Zodis zodis, SkaiciusIrLinksnis kitas) {
+		this.formos.putAll(zodis.formos);
+		this.kitas = kitas;
+		this.valdomas = zodis.valdomas;
+		this.kaitomasLinksniuojant = zodis.kaitomasLinksniuojant;
+	}
+
 	public SkaiciusIrLinksnis getKitas() {
 		return kitas;
 	}
@@ -112,8 +126,8 @@ public class Zodis {
 	}
 
 	private Zodis kitas(Skaicius kitasSkaicius, Linksnis kitasLinksnis) {
-		kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
-		return this;
+		SkaiciusIrLinksnis kitas = new SkaiciusIrLinksnis(kitasSkaicius, kitasLinksnis);
+		return new Zodis(this, kitas);
 	}
 
 	public boolean isValdomas() {
@@ -130,8 +144,7 @@ public class Zodis {
 	}
 
 	public Zodis nekaitomasLinksniuojant() {
-		kaitomasLinksniuojant = Kaitomas.Nekaitomas;
-		return this;
+		return new Zodis(this, Kaitomas.Nekaitomas);
 	}
 
 	public Map<SkaiciusIrLinksnis, String> getVisosFormos() {

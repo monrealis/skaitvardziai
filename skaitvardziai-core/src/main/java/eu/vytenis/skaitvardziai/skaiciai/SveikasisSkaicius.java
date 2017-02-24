@@ -100,10 +100,8 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 
 	private SkaiciusIrLinksnis getKitoZodzioSkaiciusIrLinksnis(SkaiciusIrLinksnis skaiciusIrLinksnis, List<ZodisJunginyje> zodziai) {
 		Zodis paskutinis = zodziai.get(zodziai.size() - 1).getZodis();
-		SkaiciusIrLinksnis kitas = paskutinis.getKitas();
-		Skaicius skaicius = kitas.getSkaicius() != null ? kitas.getSkaicius() : skaiciusIrLinksnis.getSkaicius();
-		Linksnis linksnis = kitas.getLinksnis() != null ? kitas.getLinksnis() : skaiciusIrLinksnis.getLinksnis();
-		return new SkaiciusIrLinksnis(skaicius, linksnis);
+		SkaiciusIrLinksnis kito = paskutinis.getKitasSkaiciusIrLinksnis().nvl(skaiciusIrLinksnis);
+		return kito;
 	}
 
 	@Override

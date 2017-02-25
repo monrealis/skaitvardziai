@@ -92,7 +92,7 @@ public class SkaitvardziaiTextParser {
 				throw new UnsupportedPartException(param, null);
 			}
 			FormosElementas fe = (FormosElementas) o;
-			FormosElementasFieldHandler.setElementas(r, fe);
+			r = FormosElementasFieldHandler.setElementas(r, fe);
 			if (usedClasses.containsKey(fe.getClass())) {
 				FormosElementas oldFe = usedClasses.get(fe.getClass());
 				throw new DuplicatePartException(fe, oldFe);

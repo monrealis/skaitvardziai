@@ -1,22 +1,21 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import eu.vytenis.skaitvardziai.checks.Checks;
-import eu.vytenis.skaitvardziai.checks.UnmodifiableCapable;
-
-public class Forma implements Cloneable, UnmodifiableCapable {
+public class Forma implements Cloneable {
 	private Poskyris poskyris = Poskyris.Pagrindinis;
 	private Gimine gimine = Gimine.V;
 	private Skaicius skaicius = Skaicius.V;
 	private Linksnis linksnis = Linksnis.V;
 	private Rusis rusis = Rusis.P;
-	private boolean unmodifiable;
+
+	public Forma() {
+
+	}
 
 	public Poskyris getPoskyris() {
 		return poskyris;
 	}
 
 	public void setPoskyris(Poskyris poskyris) {
-		Checks.checkCanModify("Forma", this);
 		this.poskyris = poskyris;
 	}
 
@@ -25,7 +24,6 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	}
 
 	public void setGimine(Gimine gimine) {
-		Checks.checkCanModify("Forma", this);
 		this.gimine = gimine;
 	}
 
@@ -34,7 +32,6 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	}
 
 	public void setSkaicius(Skaicius skaicius) {
-		Checks.checkCanModify("Forma", this);
 		this.skaicius = skaicius;
 	}
 
@@ -43,7 +40,6 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	}
 
 	public void setLinksnis(Linksnis linksnis) {
-		Checks.checkCanModify("Forma", this);
 		this.linksnis = linksnis;
 	}
 
@@ -56,17 +52,7 @@ public class Forma implements Cloneable, UnmodifiableCapable {
 	}
 
 	public void setRusis(Rusis rusis) {
-		Checks.checkCanModify("Forma", this);
 		this.rusis = rusis;
-	}
-
-	public boolean isUnmodifiable() {
-		return unmodifiable;
-	}
-
-	public void setUnmodifiable(boolean unmodifiable) {
-		Checks.checkCanModify("Forma", this);
-		this.unmodifiable = unmodifiable;
 	}
 
 	@Override

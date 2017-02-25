@@ -9,22 +9,23 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 	private static final Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> fieldHandlers;
 
 	static {
-		Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> h = new HashMap<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>>();
-		h.put(Linksnis.class, new FormosElementasFieldHandler.LinksnisHandler());
-		h.put(Skaicius.class, new FormosElementasFieldHandler.SkaiciusHandler());
-		h.put(Gimine.class, new FormosElementasFieldHandler.GimineHandler());
-		h.put(Poskyris.class, new FormosElementasFieldHandler.PoskyrisHandler());
-		h.put(Rusis.class, new FormosElementasFieldHandler.RusisHandler());
-		fieldHandlers = unmodifiableMap(h);
+		Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> handlers;
+		handlers = new HashMap<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>>();
+		handlers.put(Linksnis.class, new LinksnisHandler());
+		handlers.put(Skaicius.class, new SkaiciusHandler());
+		handlers.put(Gimine.class, new GimineHandler());
+		handlers.put(Poskyris.class, new PoskyrisHandler());
+		handlers.put(Rusis.class, new RusisHandler());
+		fieldHandlers = unmodifiableMap(handlers);
 	}
-
-	public abstract Forma setField(Forma forma, T formosElementas);
 
 	@SuppressWarnings("unchecked")
 	public static <T extends FormosElementas> Forma setElementas(Forma forma, T elementas) {
-		FormosElementasFieldHandler<T> h = (FormosElementasFieldHandler<T>) FormosElementasFieldHandler.fieldHandlers.get(elementas.getClass());
+		FormosElementasFieldHandler<T> h = (FormosElementasFieldHandler<T>) fieldHandlers.get(elementas.getClass());
 		return h.setField(forma, elementas);
 	}
+
+	public abstract Forma setField(Forma forma, T formosElementas);
 
 	public static class LinksnisHandler extends FormosElementasFieldHandler<Linksnis> {
 		@Override

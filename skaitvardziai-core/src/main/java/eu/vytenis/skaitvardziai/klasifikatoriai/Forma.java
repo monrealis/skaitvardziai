@@ -1,6 +1,6 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-public class Forma implements Cloneable {
+public class Forma {
 	private final Poskyris poskyris;
 	private final Gimine gimine;
 	private final Skaicius skaicius;
@@ -109,16 +109,5 @@ public class Forma implements Cloneable {
 
 	public Forma rusis(Rusis rusis) {
 		return new Forma(this, rusis);
-
 	}
-
-	@Override
-	public Forma clone() {
-		try {
-			return (Forma) super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 }

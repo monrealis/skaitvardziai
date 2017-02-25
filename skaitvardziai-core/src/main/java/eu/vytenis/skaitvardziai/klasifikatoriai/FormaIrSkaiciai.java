@@ -63,7 +63,6 @@ public class FormaIrSkaiciai implements Cloneable {
 	public FormaIrSkaiciai clone() {
 		try {
 			FormaIrSkaiciai fs = (FormaIrSkaiciai) super.clone();
-			fs.forma = forma.clone();
 			return fs;
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);

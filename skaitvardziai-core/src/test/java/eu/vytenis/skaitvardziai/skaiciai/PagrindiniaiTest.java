@@ -11,6 +11,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.util.Numbers;
 
@@ -23,12 +24,7 @@ public abstract class PagrindiniaiTest extends SkaitvardziaiTest {
 	}
 
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
-		Forma f = new Forma();
-		f.skaicius(Skaicius.V);
-		f.poskyris(Poskyris.Pagrindinis);
-		f.gimine(gimine);
-		f.linksnis(linksnis);
-		
+		Forma f = new Forma(Poskyris.Pagrindinis, gimine, Skaicius.V, linksnis, Rusis.P);
 		super.testSkaiciai(skaiciai, f);
 	}
 	

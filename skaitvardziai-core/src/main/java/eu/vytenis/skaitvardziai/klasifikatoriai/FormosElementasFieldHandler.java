@@ -1,6 +1,7 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import java.util.Collections;
+import static java.util.Collections.unmodifiableMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,60 +15,49 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		h.put(Gimine.class, new FormosElementasFieldHandler.GimineHandler());
 		h.put(Poskyris.class, new FormosElementasFieldHandler.PoskyrisHandler());
 		h.put(Rusis.class, new FormosElementasFieldHandler.RusisHandler());
-		fieldHandlers = Collections.unmodifiableMap(h);
+		fieldHandlers = unmodifiableMap(h);
 	}
 
-	public abstract void setField(Forma forma, T formosElementas);
+	public abstract Forma setField(Forma forma, T formosElementas);
 
 	@SuppressWarnings("unchecked")
-	public static <T extends FormosElementas> void setElementas(Forma forma, T elementas) {
+	public static <T extends FormosElementas> Forma setElementas(Forma forma, T elementas) {
 		FormosElementasFieldHandler<T> h = (FormosElementasFieldHandler<T>) FormosElementasFieldHandler.fieldHandlers.get(elementas.getClass());
-		h.setField(forma, elementas);
+		return h.setField(forma, elementas);
 	}
 
 	public static class LinksnisHandler extends FormosElementasFieldHandler<Linksnis> {
-
 		@Override
-		public void setField(Forma forma, Linksnis linksnis) {
-			forma.linksnis(linksnis);
+		public Forma setField(Forma forma, Linksnis linksnis) {
+			return forma.linksnis(linksnis);
 		}
-
 	}
 
 	public static class SkaiciusHandler extends FormosElementasFieldHandler<Skaicius> {
-
 		@Override
-		public void setField(Forma forma, Skaicius skaicius) {
-			forma.skaicius(skaicius);
+		public Forma setField(Forma forma, Skaicius skaicius) {
+			return forma.skaicius(skaicius);
 		}
-
 	}
 
 	public static class GimineHandler extends FormosElementasFieldHandler<Gimine> {
-
 		@Override
-		public void setField(Forma forma, Gimine gimine) {
-			forma.gimine(gimine);
+		public Forma setField(Forma forma, Gimine gimine) {
+			return forma.gimine(gimine);
 		}
-
 	}
 
 	public static class PoskyrisHandler extends FormosElementasFieldHandler<Poskyris> {
-
 		@Override
-		public void setField(Forma forma, Poskyris poskyris) {
-			forma.poskyris(poskyris);
+		public Forma setField(Forma forma, Poskyris poskyris) {
+			return forma.poskyris(poskyris);
 		}
-
 	}
 
 	public static class RusisHandler extends FormosElementasFieldHandler<Rusis> {
-
 		@Override
-		public void setField(Forma forma, Rusis rusis) {
-			forma.rusis(rusis);
+		public Forma setField(Forma forma, Rusis rusis) {
+			return forma.rusis(rusis);
 		}
-
 	}
-
 }

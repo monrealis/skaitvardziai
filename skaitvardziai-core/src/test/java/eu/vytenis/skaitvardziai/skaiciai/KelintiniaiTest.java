@@ -33,12 +33,7 @@ public abstract class KelintiniaiTest extends SkaitvardziaiTest {
 	}
 
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Skaicius skaicius, Linksnis linksnis, Gimine gimine) {
-		Forma f = new Forma();
-		f.poskyris(Poskyris.Kelintinis);
-		f.gimine(gimine);
-		f.skaicius(skaicius);
-		f.linksnis(linksnis);
-		f.rusis(rusis);
+		Forma f = new Forma(Poskyris.Kelintinis, gimine, skaicius, linksnis, rusis);
 		Map<Number, String> temp = new HashMap<Number, String>();
 		for (Entry<? extends Number, String> e : skaiciai.entrySet()) {
 			String value = e.getValue() + gimineSkaiciusLinksnis(gimine, new SkaiciusIrLinksnis(skaicius, linksnis));

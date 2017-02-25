@@ -14,6 +14,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 
@@ -116,10 +117,7 @@ public class KuopiniaiTest {
 	}
 
 	private Forma forma() {
-		Forma f = new Forma();
-		f.poskyris(Poskyris.Kuopinis);
-		f.linksnis(linksnis);
-		f.gimine(Gimine.V);
+		Forma f = new Forma(Poskyris.Kuopinis, Gimine.V, Skaicius.V, linksnis, Rusis.P);
 		return f;
 	}
 }

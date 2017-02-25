@@ -12,27 +12,26 @@ import eu.vytenis.skaitvardziai.log.Log;
 import eu.vytenis.skaitvardziai.log.LogFactory;
 import eu.vytenis.skaitvardziai.util.BigIntegerToLongBridgeMap;
 
-// TODO encapsulate field
 public class Zodziai {
 	private static final Log log = LogFactory.getLog(Zodziai.class);
 	/** Pagrindiniai skaitvardžiai (moteriškos giminės). */
-	static Map<Long, Zodis> pagrindiniaiMotGimMap;
+	private static final Map<Long, Zodis> pagrindiniaiMotGimMap;
 	/** Pagrindiniai skaitvardžiai (vyriškos giminės). */
-	static Map<Long, Zodis> pagrindiniaiVyrGimMap;
+	private static final Map<Long, Zodis> pagrindiniaiVyrGimMap;
 	/** Kuopiniai skaitvardžiai. */
-	static Map<Long, Zodis> kuopiniaiMap;
+	private static final Map<Long, Zodis> kuopiniaiMap;
 	/** Dauginiai skaitvardžiai (moteriškos giminės). */
-	static Map<Long, Zodis> dauginiaiMotGimMap;
+	private static final Map<Long, Zodis> dauginiaiMotGimMap;
 	/** Dauginiai skaitvardžiai (vyriškos giminės). */
-	static Map<Long, Zodis> dauginiaiVyrGimMap;
+	private static final Map<Long, Zodis> dauginiaiVyrGimMap;
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	static Map<Long, Zodis> kelintiniaiVyrGimMap;
+	private static final Map<Long, Zodis> kelintiniaiVyrGimMap;
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (vyršikos giminės). */
-	static Map<Long, Zodis> kelintiniaiIvVyrGimMap;
+	private static final Map<Long, Zodis> kelintiniaiIvVyrGimMap;
 	/** Neįvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	static Map<Long, Zodis> kelintiniaiMotGimMap;
+	private static final Map<Long, Zodis> kelintiniaiMotGimMap;
 	/** Įvardžiuotiniai kelintiniai skaitvardžiai (moteriškos giminės). */
-	static Map<Long, Zodis> kelintiniaiIvMotGimMap;
+	private static final Map<Long, Zodis> kelintiniaiIvMotGimMap;
 
 	static {
 		Map<Long, Zodis> pagrindiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
@@ -45,15 +44,15 @@ public class Zodziai {
 		Map<Long, Zodis> kelintiniaiMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 		Map<Long, Zodis> kelintiniaiIvMotGim = new BigIntegerToLongBridgeMap<Long, Zodis>();
 
-		Zodziai.pagrindiniaiMotGimMap = unmodifiableMap(pagrindiniaiMotGim);
-		Zodziai.pagrindiniaiVyrGimMap = unmodifiableMap(pagrindiniaiVyrGim);
-		Zodziai.kuopiniaiMap = unmodifiableMap(kuopiniai);
-		Zodziai.dauginiaiMotGimMap = unmodifiableMap(dauginiaiMotGim);
-		Zodziai.dauginiaiVyrGimMap = unmodifiableMap(dauginiaiVyrGim);
-		Zodziai.kelintiniaiVyrGimMap = unmodifiableMap(kelintiniaiVyrGim);
-		Zodziai.kelintiniaiIvVyrGimMap = unmodifiableMap(kelintiniaiIvVyrGim);
-		Zodziai.kelintiniaiMotGimMap = unmodifiableMap(kelintiniaiMotGim);
-		Zodziai.kelintiniaiIvMotGimMap = unmodifiableMap(kelintiniaiIvMotGim);
+		pagrindiniaiMotGimMap = unmodifiableMap(pagrindiniaiMotGim);
+		pagrindiniaiVyrGimMap = unmodifiableMap(pagrindiniaiVyrGim);
+		kuopiniaiMap = unmodifiableMap(kuopiniai);
+		dauginiaiMotGimMap = unmodifiableMap(dauginiaiMotGim);
+		dauginiaiVyrGimMap = unmodifiableMap(dauginiaiVyrGim);
+		kelintiniaiVyrGimMap = unmodifiableMap(kelintiniaiVyrGim);
+		kelintiniaiIvVyrGimMap = unmodifiableMap(kelintiniaiIvVyrGim);
+		kelintiniaiMotGimMap = unmodifiableMap(kelintiniaiMotGim);
+		kelintiniaiIvMotGimMap = unmodifiableMap(kelintiniaiIvMotGim);
 
 		// @formatter:off
 		pagrindiniaiMotGim.put(1L, new Zodis("viena", "vienos", "vienai", "vieną", "viena", "vienoje", "viena", "vienos", "vienų", "vienoms", "vienas", "vienomis", "vienose", "vienos")); // "vieni" - daugiau būdvardis, žr. http://ualgiman.dtiltas.lt/skaitvardis.html

@@ -50,42 +50,42 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 
 	public String toString(Linksnis linksnis) {
 		Forma vf = getVardiklioFormaIsskyriusSkaiciuIrLinksni();
-		updateVardiklioLinksnis(vf, linksnis);
-		updateVardiklioSkaicius(vf);
-		return toString(linksnis, vf);
+		Forma vfl = withUpdatedVardiklioLinksnis(vf, linksnis);
+		Forma vfs = withUpdateVardiklioSkaicius(vfl);
+		return toString(linksnis, vfs);
 	}
 
 	private Forma getVardiklioFormaIsskyriusSkaiciuIrLinksni() {
-		Forma vf = new Forma().poskyris(Poskyris.Kelintinis).rusis(Rusis.Iv).gimine(Gimine.M);
+		Forma vf = new Forma(Poskyris.Kelintinis, Gimine.M, Skaicius.V, Linksnis.V, Rusis.Iv);
 		return vf;
 	}
 
-	private void updateVardiklioLinksnis(Forma vardiklioForma, Linksnis skaitiklioLinksnis) {
+	private Forma withUpdatedVardiklioLinksnis(Forma vardiklioForma, Linksnis skaitiklioLinksnis) {
 		BigInteger skaitiklisAbs = SveikasisSkaicius.abs(skaitiklis);
 		BigInteger liekana100 = skaitiklisAbs.mod(Numbers.HUNDRED);
 		BigInteger liekana10 = skaitiklisAbs.mod(BigInteger.TEN);
 		if (liekana10.equals(BigInteger.ZERO)) {
-			vardiklioForma.linksnis(Linksnis.K);
+			return vardiklioForma.linksnis(Linksnis.K);
 			// pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
 		} else if (liekana100.compareTo(BigInteger.TEN) > 0 && liekana100.compareTo(Numbers.TWENTY) < 0) {
-			vardiklioForma.linksnis(Linksnis.K);
+			return vardiklioForma.linksnis(Linksnis.K);
 			// pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
 		} else {
-			vardiklioForma.linksnis(skaitiklioLinksnis);
+			return vardiklioForma.linksnis(skaitiklioLinksnis);
 			// pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
 		}
 	}
 
-	private void updateVardiklioSkaicius(Forma vardiklioForma) {
+	private Forma withUpdateVardiklioSkaicius(Forma vardiklioForma) {
 		BigInteger skaitiklisAbs = SveikasisSkaicius.abs(skaitiklis);
 		BigInteger liekana100 = skaitiklisAbs.mod(Numbers.HUNDRED);
 		BigInteger liekana10 = skaitiklisAbs.mod(BigInteger.TEN);
 		if (liekana10.equals(BigInteger.ONE) && !liekana100.equals(Numbers.ELEVEN)) {
-			vardiklioForma.skaicius(Skaicius.V);
+			return vardiklioForma.skaicius(Skaicius.V);
 			// pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet
 			// vienuolika _dešimtųjų_ (dgs)
 		} else {
-			vardiklioForma.skaicius(Skaicius.D);
+			return vardiklioForma.skaicius(Skaicius.D);
 		}
 	}
 

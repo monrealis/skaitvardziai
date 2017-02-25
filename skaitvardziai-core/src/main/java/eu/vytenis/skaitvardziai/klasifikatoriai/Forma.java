@@ -1,14 +1,18 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 public class Forma implements Cloneable {
-	private Poskyris poskyris = Poskyris.Pagrindinis;
-	private Gimine gimine = Gimine.V;
-	private Skaicius skaicius = Skaicius.V;
-	private Linksnis linksnis = Linksnis.V;
-	private Rusis rusis = Rusis.P;
+	private final Poskyris poskyris;
+	private final Gimine gimine;
+	private final Skaicius skaicius;
+	private final Linksnis linksnis;
+	private final Rusis rusis;
 
 	public Forma() {
-
+		poskyris = Poskyris.Pagrindinis;
+		gimine = Gimine.V;
+		skaicius = Skaicius.V;
+		linksnis = Linksnis.V;
+		rusis = Rusis.P;
 	}
 
 	public Forma(Poskyris poskyris, Gimine gimine, Skaicius skaicius, Linksnis linksnis, Rusis rusis) {
@@ -67,8 +71,7 @@ public class Forma implements Cloneable {
 	}
 
 	public Forma poskyris(Poskyris poskyris) {
-		this.poskyris = poskyris;
-		return this;
+		return new Forma(this, poskyris);
 	}
 
 	public Gimine getGimine() {
@@ -76,8 +79,8 @@ public class Forma implements Cloneable {
 	}
 
 	public Forma gimine(Gimine gimine) {
-		this.gimine = gimine;
-		return this;
+		return new Forma(this, gimine);
+
 	}
 
 	public Skaicius getSkaicius() {
@@ -85,8 +88,7 @@ public class Forma implements Cloneable {
 	}
 
 	public Forma skaicius(Skaicius skaicius) {
-		this.skaicius = skaicius;
-		return this;
+		return new Forma(this, skaicius);
 	}
 
 	public Linksnis getLinksnis() {
@@ -94,8 +96,7 @@ public class Forma implements Cloneable {
 	}
 
 	public Forma linksnis(Linksnis linksnis) {
-		this.linksnis = linksnis;
-		return this;
+		return new Forma(this, linksnis);
 	}
 
 	public SkaiciusIrLinksnis toSkaiciusLinksnis() {
@@ -107,8 +108,8 @@ public class Forma implements Cloneable {
 	}
 
 	public Forma rusis(Rusis rusis) {
-		this.rusis = rusis;
-		return this;
+		return new Forma(this, rusis);
+
 	}
 
 	@Override

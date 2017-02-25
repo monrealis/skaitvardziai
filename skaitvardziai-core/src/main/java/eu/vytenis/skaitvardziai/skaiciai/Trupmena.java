@@ -57,9 +57,9 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 
 	private Forma getVardiklioFormaIsskyriusSkaiciuIrLinksni() {
 		Forma vf = new Forma();
-		vf.setPoskyris(Poskyris.Kelintinis);
-		vf.setRusis(Rusis.Iv);
-		vf.setGimine(Gimine.M);
+		vf.poskyris(Poskyris.Kelintinis);
+		vf.rusis(Rusis.Iv);
+		vf.gimine(Gimine.M);
 		return vf;
 	}
 
@@ -68,13 +68,13 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		BigInteger liekana100 = skaitiklisAbs.mod(Numbers.HUNDRED);
 		BigInteger liekana10 = skaitiklisAbs.mod(BigInteger.TEN);
 		if (liekana10.equals(BigInteger.ZERO)) {
-			vardiklioForma.setLinksnis(Linksnis.K);
+			vardiklioForma.linksnis(Linksnis.K);
 			// pvz., nulis _dešimtųjų_ (ko?), dvidešimt _dešimštųjų_
 		} else if (liekana100.compareTo(BigInteger.TEN) > 0 && liekana100.compareTo(Numbers.TWENTY) < 0) {
-			vardiklioForma.setLinksnis(Linksnis.K);
+			vardiklioForma.linksnis(Linksnis.K);
 			// pvz., vienuolika _dešimtųjų_ (ko?), dvylika _dešimtųjų_
 		} else {
-			vardiklioForma.setLinksnis(skaitiklioLinksnis);
+			vardiklioForma.linksnis(skaitiklioLinksnis);
 			// pvz., viena _dešimtoji_ (kas?), dvidešimt viena _trečioji_
 		}
 	}
@@ -84,11 +84,11 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		BigInteger liekana100 = skaitiklisAbs.mod(Numbers.HUNDRED);
 		BigInteger liekana10 = skaitiklisAbs.mod(BigInteger.TEN);
 		if (liekana10.equals(BigInteger.ONE) && !liekana100.equals(Numbers.ELEVEN)) {
-			vardiklioForma.setSkaicius(Skaicius.V);
+			vardiklioForma.skaicius(Skaicius.V);
 			// pvz., viena _dešimtoji_ (vns), dvidešimt viena _dešimtoji_, bet
 			// vienuolika _dešimtųjų_ (dgs)
 		} else {
-			vardiklioForma.setSkaicius(Skaicius.D);
+			vardiklioForma.skaicius(Skaicius.D);
 		}
 	}
 

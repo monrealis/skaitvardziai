@@ -52,10 +52,10 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 
 	public String toString(Poskyris poskyris, Skaicius skaicius, Linksnis linksnis, Gimine gimine) {
 		Forma f = new Forma();
-		f.setSkaicius(skaicius);
-		f.setLinksnis(linksnis);
-		f.setPoskyris(poskyris);
-		f.setGimine(gimine);
+		f.skaicius(skaicius);
+		f.linksnis(linksnis);
+		f.poskyris(poskyris);
+		f.gimine(gimine);
 		return toString(f);
 	}
 

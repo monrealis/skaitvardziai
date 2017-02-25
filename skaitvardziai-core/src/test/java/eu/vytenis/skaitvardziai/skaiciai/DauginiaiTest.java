@@ -20,10 +20,10 @@ public abstract class DauginiaiTest extends SkaitvardziaiTest {
 
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		Forma f = new Forma();
-		f.setSkaicius(Skaicius.V);
-		f.setPoskyris(Poskyris.Dauginis);
-		f.setGimine(gimine);
-		f.setLinksnis(linksnis);
+		f.skaicius(Skaicius.V);
+		f.poskyris(Poskyris.Dauginis);
+		f.gimine(gimine);
+		f.linksnis(linksnis);
 		super.testSkaiciai(skaiciai, f);
 	}
 

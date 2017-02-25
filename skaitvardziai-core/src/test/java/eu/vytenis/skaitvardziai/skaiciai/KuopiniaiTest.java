@@ -117,9 +117,9 @@ public class KuopiniaiTest {
 
 	private Forma forma() {
 		Forma f = new Forma();
-		f.setPoskyris(Poskyris.Kuopinis);
-		f.setLinksnis(linksnis);
-		f.setGimine(Gimine.V);
+		f.poskyris(Poskyris.Kuopinis);
+		f.linksnis(linksnis);
+		f.gimine(Gimine.V);
 		return f;
 	}
 }

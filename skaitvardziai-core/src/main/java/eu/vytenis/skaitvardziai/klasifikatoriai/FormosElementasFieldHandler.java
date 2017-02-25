@@ -29,7 +29,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 
 		@Override
 		public void setField(Forma forma, Linksnis linksnis) {
-			forma.setLinksnis(linksnis);
+			forma.linksnis(linksnis);
 		}
 
 	}
@@ -38,7 +38,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 
 		@Override
 		public void setField(Forma forma, Skaicius skaicius) {
-			forma.setSkaicius(skaicius);
+			forma.skaicius(skaicius);
 		}
 
 	}
@@ -47,7 +47,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 
 		@Override
 		public void setField(Forma forma, Gimine gimine) {
-			forma.setGimine(gimine);
+			forma.gimine(gimine);
 		}
 
 	}
@@ -56,7 +56,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 
 		@Override
 		public void setField(Forma forma, Poskyris poskyris) {
-			forma.setPoskyris(poskyris);
+			forma.poskyris(poskyris);
 		}
 
 	}
@@ -65,7 +65,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 
 		@Override
 		public void setField(Forma forma, Rusis rusis) {
-			forma.setRusis(rusis);
+			forma.rusis(rusis);
 		}
 
 	}

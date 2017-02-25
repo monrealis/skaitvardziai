@@ -24,10 +24,10 @@ public abstract class PagrindiniaiTest extends SkaitvardziaiTest {
 
 	protected void testSkaiciai(Map<? extends Number, String> skaiciai, Linksnis linksnis) {
 		Forma f = new Forma();
-		f.setSkaicius(Skaicius.V);
-		f.setPoskyris(Poskyris.Pagrindinis);
-		f.setGimine(gimine);
-		f.setLinksnis(linksnis);
+		f.skaicius(Skaicius.V);
+		f.poskyris(Poskyris.Pagrindinis);
+		f.gimine(gimine);
+		f.linksnis(linksnis);
 		
 		super.testSkaiciai(skaiciai, f);
 	}

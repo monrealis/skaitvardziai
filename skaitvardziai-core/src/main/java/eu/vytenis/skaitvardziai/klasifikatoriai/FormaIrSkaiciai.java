@@ -45,12 +45,12 @@ public class FormaIrSkaiciai implements Cloneable {
 	}
 
 	public FormaIrSkaiciai poskyris(Poskyris poskyris) {
-		getForma().setPoskyris(poskyris);
+		getForma().poskyris(poskyris);
 		return this;
 	}
 
 	public FormaIrSkaiciai gimine(Gimine gimine) {
-		getForma().setGimine(gimine);
+		getForma().gimine(gimine);
 		return this;
 	}
 

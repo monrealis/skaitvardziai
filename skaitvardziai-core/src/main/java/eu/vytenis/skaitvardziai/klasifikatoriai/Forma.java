@@ -58,7 +58,7 @@ public class Forma implements Cloneable {
 		return poskyris;
 	}
 
-	public Forma setPoskyris(Poskyris poskyris) {
+	public Forma poskyris(Poskyris poskyris) {
 		this.poskyris = poskyris;
 		return this;
 	}
@@ -67,7 +67,7 @@ public class Forma implements Cloneable {
 		return gimine;
 	}
 
-	public Forma setGimine(Gimine gimine) {
+	public Forma gimine(Gimine gimine) {
 		this.gimine = gimine;
 		return this;
 	}
@@ -76,7 +76,7 @@ public class Forma implements Cloneable {
 		return skaicius;
 	}
 
-	public Forma setSkaicius(Skaicius skaicius) {
+	public Forma skaicius(Skaicius skaicius) {
 		this.skaicius = skaicius;
 		return this;
 	}
@@ -85,7 +85,7 @@ public class Forma implements Cloneable {
 		return linksnis;
 	}
 
-	public Forma setLinksnis(Linksnis linksnis) {
+	public Forma linksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
 		return this;
 	}
@@ -98,7 +98,7 @@ public class Forma implements Cloneable {
 		return rusis;
 	}
 
-	public Forma setRusis(Rusis rusis) {
+	public Forma rusis(Rusis rusis) {
 		this.rusis = rusis;
 		return this;
 	}

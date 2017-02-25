@@ -191,11 +191,11 @@ public class SveikasisBuilder {
 	}
 
 	private ZodisJunginyje getSuma(Zodis zodis) {
-		return new ZodisJunginyje(zodis);
+		return new ZodisJunginyje(zodis, false);
 	}
 
 	private ZodisJunginyje getDaugyba(Zodis zodis) {
-		return new ZodisJunginyje(zodis).daugyba();
+		return new ZodisJunginyje(zodis, true);
 	}
 
 }

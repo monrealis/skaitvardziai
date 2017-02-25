@@ -14,8 +14,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
  *
  */
 public class ZodisJunginyje {
-	/** Žodis. */
-	private Zodis zodis;
+	private final Zodis zodis;
 	/**
 	 * Ar žodžio indėlis indėlis į skaičių, lyginant su ankstesniu žodžiu, yra gautas daugybos būdu (true), ar sumos (true)? Daugybos pvz.: tūkstantis šimtų.
 	 * Sumos pvz.: tūkstantis šimtas. Konkretus pvz.: 584356792124L - penki šimtai aštuoniasdešimt keturi milijardai trys šimtai penkiasdešimt šeši milijonai
@@ -23,11 +22,12 @@ public class ZodisJunginyje {
 	 * būtų žodis "vienas", šimtas būtų padauginamas iš prieš tai einančio žodžio - "vienas x šimtas".
 	 * 
 	 */
-	private boolean daugyba = false;
+	private final boolean daugyba;
 
-	public ZodisJunginyje(Zodis zodis) {
+	public ZodisJunginyje(Zodis zodis, boolean daugyba) {
 		Checks.checkNotNull("zodis", zodis);
 		this.zodis = zodis;
+		this.daugyba = daugyba;
 	}
 
 	public Zodis getZodis() {
@@ -82,15 +82,6 @@ public class ZodisJunginyje {
 
 	public boolean isDaugyba() {
 		return daugyba;
-	}
-
-	public void setDaugyba(boolean daugyba) {
-		this.daugyba = daugyba;
-	}
-
-	public ZodisJunginyje daugyba() {
-		setDaugyba(true);
-		return this;
 	}
 
 	@Override

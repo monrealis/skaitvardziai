@@ -4,7 +4,7 @@ import java.math.BigInteger;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
 
-public class FormaIrSkaiciai implements Cloneable {
+public class FormaIrSkaiciai {
 	private final Forma forma;
 	private final BigInteger pradinisSveikasisSkaicius;
 	private final BigInteger sveikasisSkaicius;
@@ -51,15 +51,4 @@ public class FormaIrSkaiciai implements Cloneable {
 	public FormaIrSkaiciai sveikasSkaicius(BigInteger naujasSkaicius) {
 		return new FormaIrSkaiciai(this, naujasSkaicius);
 	}
-
-	@Override
-	public FormaIrSkaiciai clone() {
-		try {
-			FormaIrSkaiciai fs = (FormaIrSkaiciai) super.clone();
-			return fs;
-		} catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 }

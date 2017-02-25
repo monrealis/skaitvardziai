@@ -1,16 +1,11 @@
 package eu.vytenis.skaitvardziai.checks;
 
-import static org.junit.Assert.assertEquals;
-
 import java.math.BigInteger;
-import java.util.Arrays;
 
 import org.junit.Test;
 
 public class ChecksTest {
 	private static final String NAME = "name";
-	private Unmodifiable UNMODIFIABLE = new Unmodifiable(true);
-	private Unmodifiable MODIFIABLE = new Unmodifiable(false);
 
 	@Test
 	public void testCheckNotNull_Succeeds() {
@@ -78,24 +73,6 @@ public class ChecksTest {
 	}
 
 	@Test
-	public void testCheckCanModify_Success() {
-		Checks.checkCanModify(NAME, MODIFIABLE);
-	}
-
-	@Test(expected = Checks.NotModifiableException.class)
-	public void testCheckCanModify_Fails() {
-		Checks.checkCanModify(NAME, UNMODIFIABLE);
-	}
-
-	@Test
-	public void testEnsureUnmodifiable() {
-		Checks.ensureUnmodifiable(Arrays.asList(UNMODIFIABLE, MODIFIABLE));
-
-		assertEquals(true, UNMODIFIABLE.isUnmodifiable());
-		assertEquals(true, MODIFIABLE.isUnmodifiable());
-	}
-
-	@Test
 	public void testEqual_Succeeds() {
 		Checks.checkEqual(NAME, NAME, "a", "a");
 	}
@@ -108,23 +85,4 @@ public class ChecksTest {
 	private BigInteger toBi(Number number) {
 		return new BigInteger(number.toString());
 	}
-
-	private static class Unmodifiable implements UnmodifiableCapable {
-		private boolean unmodifiable;
-
-		public Unmodifiable(boolean unmodifiable) {
-			this.unmodifiable = unmodifiable;
-		}
-
-		public boolean isUnmodifiable() {
-			return unmodifiable;
-		}
-
-		public void setUnmodifiable(boolean unmodifiable) {
-			Checks.checkCanModify("SkaiciusLinksnis", this);
-			this.unmodifiable = unmodifiable;
-		}
-
-	}
-
 }

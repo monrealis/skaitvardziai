@@ -44,27 +44,10 @@ public class Checks {
 		}
 	}
 
-	public static void checkCanModify(String name, UnmodifiableCapable unmodifiable) {
-		if (unmodifiable == null) {
-			return;
-		}
-		if (unmodifiable.isUnmodifiable()) {
-			throw new NotModifiableException(name);
-		}
-	}
-
 	public static void checkEqual(String firstName, String secondName, Object first, Object second) {
 		boolean equal = first == null && second == null || first != null && first.equals(second);
 		if (!equal) {
 			throw new NotEqualException(Arrays.asList(firstName, secondName));
-		}
-	}
-
-	public static void ensureUnmodifiable(Iterable<? extends UnmodifiableCapable> unmodifiables) {
-		for (UnmodifiableCapable ic : unmodifiables) {
-			if (!ic.isUnmodifiable()) {
-				ic.setUnmodifiable(true);
-			}
 		}
 	}
 

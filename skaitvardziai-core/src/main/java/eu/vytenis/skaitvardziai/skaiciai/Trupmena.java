@@ -56,10 +56,7 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 	}
 
 	private Forma getVardiklioFormaIsskyriusSkaiciuIrLinksni() {
-		Forma vf = new Forma();
-		vf.poskyris(Poskyris.Kelintinis);
-		vf.rusis(Rusis.Iv);
-		vf.gimine(Gimine.M);
+		Forma vf = new Forma().poskyris(Poskyris.Kelintinis).rusis(Rusis.Iv).gimine(Gimine.M);
 		return vf;
 	}
 

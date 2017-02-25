@@ -11,6 +11,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
@@ -51,11 +52,7 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	}
 
 	public String toString(Poskyris poskyris, Skaicius skaicius, Linksnis linksnis, Gimine gimine) {
-		Forma f = new Forma();
-		f.skaicius(skaicius);
-		f.linksnis(linksnis);
-		f.poskyris(poskyris);
-		f.gimine(gimine);
+		Forma f = new Forma(poskyris, gimine, skaicius, linksnis, Rusis.P);
 		return toString(f);
 	}
 

@@ -11,7 +11,15 @@ public class Forma implements Cloneable {
 
 	}
 
-	public Forma(Forma forma, Poskyris poskyris) {
+	public Forma(Poskyris poskyris, Gimine gimine, Skaicius skaicius, Linksnis linksnis, Rusis rusis) {
+		this.poskyris = poskyris;
+		this.gimine = gimine;
+		this.skaicius = skaicius;
+		this.linksnis = linksnis;
+		this.rusis = rusis;
+	}
+
+	private Forma(Forma forma, Poskyris poskyris) {
 		this.poskyris = poskyris;
 		this.gimine = forma.gimine;
 		this.skaicius = forma.skaicius;
@@ -19,7 +27,7 @@ public class Forma implements Cloneable {
 		this.rusis = forma.rusis;
 	}
 
-	public Forma(Forma forma, Gimine gimine) {
+	private Forma(Forma forma, Gimine gimine) {
 		this.poskyris = forma.poskyris;
 		this.gimine = gimine;
 		this.skaicius = forma.skaicius;
@@ -27,7 +35,7 @@ public class Forma implements Cloneable {
 		this.rusis = forma.rusis;
 	}
 
-	public Forma(Forma forma, Skaicius skaicius) {
+	private Forma(Forma forma, Skaicius skaicius) {
 		this.poskyris = forma.poskyris;
 		this.gimine = forma.gimine;
 		this.skaicius = skaicius;
@@ -36,7 +44,7 @@ public class Forma implements Cloneable {
 
 	}
 
-	public Forma(Forma forma, Linksnis linksnis) {
+	private Forma(Forma forma, Linksnis linksnis) {
 		this.poskyris = forma.poskyris;
 		this.gimine = forma.gimine;
 		this.skaicius = forma.skaicius;
@@ -45,7 +53,7 @@ public class Forma implements Cloneable {
 
 	}
 
-	public Forma(Forma forma, Rusis rusis) {
+	private Forma(Forma forma, Rusis rusis) {
 		this.poskyris = forma.poskyris;
 		this.gimine = forma.gimine;
 		this.skaicius = forma.skaicius;

@@ -11,36 +11,83 @@ public class Forma implements Cloneable {
 
 	}
 
+	public Forma(Forma forma, Poskyris poskyris) {
+		this.poskyris = poskyris;
+		this.gimine = forma.gimine;
+		this.skaicius = forma.skaicius;
+		this.linksnis = forma.linksnis;
+		this.rusis = forma.rusis;
+	}
+
+	public Forma(Forma forma, Gimine gimine) {
+		this.poskyris = forma.poskyris;
+		this.gimine = gimine;
+		this.skaicius = forma.skaicius;
+		this.linksnis = forma.linksnis;
+		this.rusis = forma.rusis;
+	}
+
+	public Forma(Forma forma, Skaicius skaicius) {
+		this.poskyris = forma.poskyris;
+		this.gimine = forma.gimine;
+		this.skaicius = skaicius;
+		this.linksnis = forma.linksnis;
+		this.rusis = forma.rusis;
+
+	}
+
+	public Forma(Forma forma, Linksnis linksnis) {
+		this.poskyris = forma.poskyris;
+		this.gimine = forma.gimine;
+		this.skaicius = forma.skaicius;
+		this.linksnis = linksnis;
+		this.rusis = forma.rusis;
+
+	}
+
+	public Forma(Forma forma, Rusis rusis) {
+		this.poskyris = forma.poskyris;
+		this.gimine = forma.gimine;
+		this.skaicius = forma.skaicius;
+		this.linksnis = forma.linksnis;
+		this.rusis = rusis;
+
+	}
+
 	public Poskyris getPoskyris() {
 		return poskyris;
 	}
 
-	public void setPoskyris(Poskyris poskyris) {
+	public Forma setPoskyris(Poskyris poskyris) {
 		this.poskyris = poskyris;
+		return this;
 	}
 
 	public Gimine getGimine() {
 		return gimine;
 	}
 
-	public void setGimine(Gimine gimine) {
+	public Forma setGimine(Gimine gimine) {
 		this.gimine = gimine;
+		return this;
 	}
 
 	public Skaicius getSkaicius() {
 		return skaicius;
 	}
 
-	public void setSkaicius(Skaicius skaicius) {
+	public Forma setSkaicius(Skaicius skaicius) {
 		this.skaicius = skaicius;
+		return this;
 	}
 
 	public Linksnis getLinksnis() {
 		return linksnis;
 	}
 
-	public void setLinksnis(Linksnis linksnis) {
+	public Forma setLinksnis(Linksnis linksnis) {
 		this.linksnis = linksnis;
+		return this;
 	}
 
 	public SkaiciusIrLinksnis toSkaiciusLinksnis() {
@@ -51,8 +98,9 @@ public class Forma implements Cloneable {
 		return rusis;
 	}
 
-	public void setRusis(Rusis rusis) {
+	public Forma setRusis(Rusis rusis) {
 		this.rusis = rusis;
+		return this;
 	}
 
 	@Override

@@ -21,11 +21,11 @@ public class SveikasisBuilder {
 	public static final List<Poskyris> SVEIKUJU_NEKUOPINIU_POSKYRIAI = asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis);
 	public static final List<Poskyris> SVEIKUJU_POSKYRIAI = asList(Poskyris.Pagrindinis, Poskyris.Dauginis, Poskyris.Kelintinis, Poskyris.Kuopinis);
 	private List<ZodisJunginyje> zodziai = new ArrayList<ZodisJunginyje>();
-	private Vienzenkliai vienzenkliai = new Vienzenkliai();
-	private Dvizenkliai dvizenkliai = new Dvizenkliai();
-	private Trizenkliai trizenkliai = new Trizenkliai();
-	private Daugiazenkliai daugiazenkliai = new Daugiazenkliai();
-	private Kuopiniai kuopiniai = new Kuopiniai();
+	private Vienzenkliai vienzenkliai = new Vienzenkliai(zodziai);
+	private Dvizenkliai dvizenkliai = new Dvizenkliai(zodziai);
+	private Trizenkliai trizenkliai = new Trizenkliai(zodziai);
+	private Daugiazenkliai daugiazenkliai = new Daugiazenkliai(zodziai);
+	private Kuopiniai kuopiniai = new Kuopiniai(zodziai);
 
 	public void build(FormaIrSkaiciai forma) {
 		Poskyris poskyris = forma.getForma().getPoskyris();
@@ -39,19 +39,31 @@ public class SveikasisBuilder {
 		return zodziai;
 	}
 
-	private void add(ZodisJunginyje zodisJunginyje) {
-		zodziai.add(zodisJunginyje);
+	private static class Builder {
+		private final List<ZodisJunginyje> zodziai;
+
+		protected Builder(List<ZodisJunginyje> zodziai) {
+			this.zodziai = zodziai;
+		}
+
+		protected void add(ZodisJunginyje zodisJunginyje) {
+			zodziai.add(zodisJunginyje);
+		}
+
+		protected ZodisJunginyje suma(Zodis zodis) {
+			return new ZodisJunginyje(zodis, Indelis.Suma);
+		}
+
+		protected ZodisJunginyje daugyba(Zodis zodis) {
+			return new ZodisJunginyje(zodis, Indelis.Daugyba);
+		}
 	}
 
-	private ZodisJunginyje suma(Zodis zodis) {
-		return new ZodisJunginyje(zodis, Indelis.Suma);
-	}
+	private class Daugiazenkliai extends Builder {
+		public Daugiazenkliai(List<ZodisJunginyje> zodziai) {
+			super(zodziai);
+		}
 
-	private ZodisJunginyje daugyba(Zodis zodis) {
-		return new ZodisJunginyje(zodis, Indelis.Daugyba);
-	}
-
-	private class Daugiazenkliai {
 		private void buildDaugiazenklis(FormaIrSkaiciai forma) {
 			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", forma.getSveikasisSkaicius(),
 					forma.getPradinisSveikasisSkaicius());
@@ -98,7 +110,11 @@ public class SveikasisBuilder {
 		}
 	}
 
-	private class Trizenkliai {
+	private class Trizenkliai extends Builder {
+		public Trizenkliai(List<ZodisJunginyje> zodziai) {
+			super(zodziai);
+		}
+
 		private void buildTrizenklis(FormaIrSkaiciai formaIrSkaiciai) {
 			BigInteger sveikasSkaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
@@ -125,7 +141,11 @@ public class SveikasisBuilder {
 		}
 	}
 
-	private class Dvizenkliai {
+	private class Dvizenkliai extends Builder {
+		public Dvizenkliai(List<ZodisJunginyje> zodziai) {
+			super(zodziai);
+		}
+
 		private void buildDvizenklis(FormaIrSkaiciai formaIrSkaiciai) {
 			BigInteger sveikasSkaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
@@ -154,7 +174,11 @@ public class SveikasisBuilder {
 
 	}
 
-	private class Vienzenkliai {
+	private class Vienzenkliai extends Builder {
+		public Vienzenkliai(List<ZodisJunginyje> zodziai) {
+			super(zodziai);
+		}
+
 		private void buildVienzenklis(FormaIrSkaiciai formaIrSkaiciai) {
 			BigInteger sveikasSkaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			BigInteger tikrasSkaicius = formaIrSkaiciai.getPradinisSveikasisSkaicius();
@@ -178,7 +202,11 @@ public class SveikasisBuilder {
 		}
 	}
 
-	private class Kuopiniai {
+	private class Kuopiniai extends Builder {
+		public Kuopiniai(List<ZodisJunginyje> zodziai) {
+			super(zodziai);
+		}
+
 		private String buildKuopinis(FormaIrSkaiciai formaIrSkaiciai) {
 			BuilderChecks.checkPoskyris("formaIrSkaiciai.poskyris", formaIrSkaiciai.getForma().getPoskyris(), asList(Poskyris.Kuopinis));
 			BigInteger skaicius = formaIrSkaiciai.getSveikasisSkaicius();

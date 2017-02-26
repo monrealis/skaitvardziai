@@ -4,11 +4,7 @@ import org.junit.Test;
 
 public class SkaitvardziaiXPathFunctionsJreTest extends SkaitvardziaiXPathFunctionsTest {
 	public SkaitvardziaiXPathFunctionsJreTest() {
-		super("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", new SourceTransformer() {
-			public String transform(String input) {
-				return input.replaceAll("java:", "xalan://");
-			}
-		});
+		super("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", new XalanSourceTransformer());
 	}
 
 	@Override

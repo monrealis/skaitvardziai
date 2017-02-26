@@ -10,11 +10,7 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunctionsTest {
 	public SkaitvardziaiXPathFunctionsXalanTest(String transformerFactoryClassName) {
-		super(transformerFactoryClassName, new SourceTransformer() {
-			public String transform(String input) {
-				return input.replaceAll("java:", "xalan://");
-			}
-		});
+		super(transformerFactoryClassName, new XalanSourceTransformer());
 	}
 
 	@Parameterized.Parameters(name = "{index}: {0}")

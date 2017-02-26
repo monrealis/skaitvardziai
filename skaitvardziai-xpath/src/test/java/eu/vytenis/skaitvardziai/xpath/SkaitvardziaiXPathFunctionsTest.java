@@ -76,6 +76,12 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 		assertEquals(new ArrayList<String>(), invalidLines);
 	}
 
+	public static final class XalanSourceTransformer implements SourceTransformer {
+		public String transform(String input) {
+			return input.replaceAll("java:", "xalan://");
+		}
+	}
+
 	public static class DoNothingTransfer implements SourceTransformer {
 		public String transform(String input) {
 			return input;

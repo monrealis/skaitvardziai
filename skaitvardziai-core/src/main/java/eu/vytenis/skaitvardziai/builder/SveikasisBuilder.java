@@ -65,21 +65,23 @@ public class SveikasisBuilder {
 			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", formaIrSkaiciai.getSveikasisSkaicius(),
 					formaIrSkaiciai.getPradinisSveikasisSkaicius());
 			BuilderChecks.checkPoskyris("forma.poskyris", formaIrSkaiciai.getForma().getPoskyris(), SVEIKUJU_NEKUOPINIU_POSKYRIAI);
-			daugiazenklis().buildDaugiazenklis(formaIrSkaiciai, Numbers.BILLION);
+			daugiazenklis().buildDaugiazenklis();
 		}
 
 		private Daugiazenklis daugiazenklis() {
-			return new Daugiazenklis(zodziai, formaIrSkaiciai);
+			return new Daugiazenklis(zodziai, formaIrSkaiciai, Numbers.BILLION);
 		}
-
 	}
 
 	private class Daugiazenklis extends Builder {
-		public Daugiazenklis(List<ZodisJunginyje> zodziai, FormaIrSkaiciai formaIrSkaiciai) {
+		private BigInteger tukstancioLaipsnis;
+
+		public Daugiazenklis(List<ZodisJunginyje> zodziai, FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {
 			super(zodziai, formaIrSkaiciai);
+			this.tukstancioLaipsnis = tukstancioLaipsnis;
 		}
 
-		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {
+		private void buildDaugiazenklis() {
 			BigInteger sveikasSkaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			Poskyris poskyris = formaIrSkaiciai.getForma().getPoskyris();
 			Gimine gimine = formaIrSkaiciai.getForma().getGimine();
@@ -115,6 +117,14 @@ public class SveikasisBuilder {
 					buildDaugiazenklis(formaIrSkaiciai.sveikasSkaicius(tukstanciu).poskyris(Poskyris.Pagrindinis), tukstancioLaipsnis);
 				}
 			}
+		}
+
+		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {
+			daugiazenklis(formaIrSkaiciai, tukstancioLaipsnis).buildDaugiazenklis();
+		}
+
+		private Daugiazenklis daugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {
+			return new Daugiazenklis(zodziai, formaIrSkaiciai, tukstancioLaipsnis);
 		}
 
 		private Trizenklis trizenklis(FormaIrSkaiciai formaIrSkaiciai) {

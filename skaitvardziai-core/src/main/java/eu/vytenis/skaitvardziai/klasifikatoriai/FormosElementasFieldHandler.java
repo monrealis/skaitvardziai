@@ -29,11 +29,11 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		this.type = type;
 	}
 
-	private Forma setUncastedField(Forma forma, Object formosElementas) {
+	protected Forma setUncastedField(Forma forma, Object formosElementas) {
 		return setField(forma, type.cast(formosElementas));
 	}
 
-	public abstract Forma setField(Forma forma, T formosElementas);
+	protected abstract Forma setField(Forma forma, T formosElementas);
 
 	public static class LinksnisHandler extends FormosElementasFieldHandler<Linksnis> {
 		public LinksnisHandler() {
@@ -41,7 +41,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 
 		@Override
-		public Forma setField(Forma forma, Linksnis linksnis) {
+		protected Forma setField(Forma forma, Linksnis linksnis) {
 			return forma.linksnis(linksnis);
 		}
 	}
@@ -52,7 +52,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 
 		@Override
-		public Forma setField(Forma forma, Skaicius skaicius) {
+		protected Forma setField(Forma forma, Skaicius skaicius) {
 			return forma.skaicius(skaicius);
 		}
 	}
@@ -63,7 +63,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 
 		@Override
-		public Forma setField(Forma forma, Gimine gimine) {
+		protected Forma setField(Forma forma, Gimine gimine) {
 			return forma.gimine(gimine);
 		}
 	}
@@ -74,7 +74,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 
 		@Override
-		public Forma setField(Forma forma, Poskyris poskyris) {
+		protected Forma setField(Forma forma, Poskyris poskyris) {
 			return forma.poskyris(poskyris);
 		}
 	}
@@ -85,7 +85,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 
 		@Override
-		public Forma setField(Forma forma, Rusis rusis) {
+		protected Forma setField(Forma forma, Rusis rusis) {
 			return forma.rusis(rusis);
 		}
 	}

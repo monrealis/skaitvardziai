@@ -14,6 +14,7 @@ public class SkaitvardziaiXPathFunctionsJreTest extends SkaitvardziaiXPathFuncti
 		return r;
 	}
 
+	@Override
 	@Test
 	public void testXslt() throws Exception {
 		super.testXslt();

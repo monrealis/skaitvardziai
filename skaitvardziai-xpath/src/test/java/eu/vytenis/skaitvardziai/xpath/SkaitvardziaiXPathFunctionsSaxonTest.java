@@ -7,6 +7,7 @@ public class SkaitvardziaiXPathFunctionsSaxonTest extends SkaitvardziaiXPathFunc
 		super("net.sf.saxon.TransformerFactoryImpl");
 	}
 
+	@Override
 	@Test
 	public void testXslt() throws Exception {
 		super.testXslt();

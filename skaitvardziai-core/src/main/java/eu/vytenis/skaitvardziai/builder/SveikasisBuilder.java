@@ -24,15 +24,13 @@ public class SveikasisBuilder {
 	private Vienzenkliai vienzenkliai = new Vienzenkliai(zodziai);
 	private Dvizenkliai dvizenkliai = new Dvizenkliai(zodziai);
 	private Trizenkliai trizenkliai = new Trizenkliai(zodziai);
-	private Daugiazenkliai daugiazenkliai = new Daugiazenkliai(zodziai);
-	private Kuopiniai kuopiniai = new Kuopiniai(zodziai);
 
 	public void build(FormaIrSkaiciai forma) {
 		Poskyris poskyris = forma.getForma().getPoskyris();
 		if (poskyris == Poskyris.Kuopinis)
-			kuopiniai.buildKuopinis(forma);
+			new Kuopiniai(zodziai).buildKuopinis(forma);
 		else
-			daugiazenkliai.buildDaugiazenklis(forma);
+			new Daugiazenkliai(zodziai).buildDaugiazenklis(forma);
 	}
 
 	public List<ZodisJunginyje> getZodziai() {
@@ -68,7 +66,7 @@ public class SveikasisBuilder {
 			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", forma.getSveikasisSkaicius(),
 					forma.getPradinisSveikasisSkaicius());
 			BuilderChecks.checkPoskyris("forma.poskyris", forma.getForma().getPoskyris(), SVEIKUJU_NEKUOPINIU_POSKYRIAI);
-			daugiazenkliai.buildDaugiazenklis(forma, Numbers.BILLION);
+			buildDaugiazenklis(forma, Numbers.BILLION);
 		}
 
 		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {
@@ -202,16 +200,15 @@ public class SveikasisBuilder {
 		}
 	}
 
-	private class Kuopiniai extends Builder {
+	private static class Kuopiniai extends Builder {
 		public Kuopiniai(List<ZodisJunginyje> zodziai) {
 			super(zodziai);
 		}
 
-		private String buildKuopinis(FormaIrSkaiciai formaIrSkaiciai) {
+		public void buildKuopinis(FormaIrSkaiciai formaIrSkaiciai) {
 			BuilderChecks.checkPoskyris("formaIrSkaiciai.poskyris", formaIrSkaiciai.getForma().getPoskyris(), asList(Poskyris.Kuopinis));
 			BigInteger skaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			add(suma(Zodziai.getKuopinis(skaicius)));
-			return ZodisJunginyje.toString(zodziai, formaIrSkaiciai);
 		}
 	}
 }

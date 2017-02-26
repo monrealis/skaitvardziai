@@ -14,7 +14,12 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-public abstract class SkaitvardziaiXPathFunctionsTest {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+
+@RunWith(Parameterized.class)
+public class SkaitvardziaiXPathFunctionsTest {
 	private final String defaultXsltResourceName = "saxon-transform.xsl";
 	private final String transformerFactoryClassName;
 	private final SourceTransformer sourceTransformer;
@@ -54,7 +59,8 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 
 	// Patikrina, ar įvykdyta XSL transformaciją suformuoja tokį XML'ą, kokį reikia.
 	// Po transformacijos gautas tekstas turi būti toks: faktinis_tekstas_1 : reikalingas_tekstas_1 ; faktinis_tekstas_2 : reikalingas_tekstas_2 ; ...
-	protected void testXslt() throws Exception {
+	@Test
+	public void testXslt() throws Exception {
 		StreamSource input = new StreamSource(new StringReader("<root />"));
 		StringWriter w = new StringWriter();
 		createFactory().newTransformer(getXsltSource()).transform(input, new StreamResult(w));
@@ -74,6 +80,21 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 			}
 		}
 		assertEquals(new ArrayList<String>(), invalidLines);
+	}
+
+	@Parameterized.Parameters(name = "{index}: {0}")
+	public static List<Object[]> testCases() {
+		List<Object[]> r = new ArrayList<Object[]>();
+		r.add(createTestCase("net.sf.saxon.TransformerFactoryImpl", new DoNothingTransfer()));
+		r.add(createTestCase("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", new XalanSourceTransformer()));
+		r.add(createTestCase("org.apache.xalan.processor.TransformerFactoryImpl", new XalanSourceTransformer()));
+		r.add(createTestCase("org.apache.xalan.xsltc.trax.TransformerFactoryImpl", new XalanSourceTransformer()));
+		r.add(createTestCase("org.apache.xalan.xsltc.trax.SmartTransformerFactoryImpl", new XalanSourceTransformer()));
+		return r;
+	}
+
+	private static Object[] createTestCase(String transformerFactoryClassName, SourceTransformer sourceTransformer) {
+		return new Object[] {transformerFactoryClassName, sourceTransformer};
 	}
 
 	public static final class XalanSourceTransformer implements SourceTransformer {

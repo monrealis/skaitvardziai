@@ -27,7 +27,7 @@ public class SveikasisBuilder {
 		if (poskyris == Poskyris.Kuopinis)
 			new Kuopinis(zodziai, formaIrSkaicius).buildKuopinis();
 		else
-			new Daugiazenklis(zodziai, formaIrSkaicius).buildDaugiazenklis();
+			new BetKoksDaugiazenklis(zodziai, formaIrSkaicius).buildDaugiazenklis();
 	}
 
 	public List<ZodisJunginyje> getZodziai() {
@@ -56,8 +56,8 @@ public class SveikasisBuilder {
 		}
 	}
 
-	private class Daugiazenklis extends Builder {
-		public Daugiazenklis(List<ZodisJunginyje> zodziai, FormaIrSkaiciai formaIrSkaiciai) {
+	private class BetKoksDaugiazenklis extends Builder {
+		public BetKoksDaugiazenklis(List<ZodisJunginyje> zodziai, FormaIrSkaiciai formaIrSkaiciai) {
 			super(zodziai, formaIrSkaiciai);
 		}
 
@@ -65,7 +65,18 @@ public class SveikasisBuilder {
 			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", formaIrSkaiciai.getSveikasisSkaicius(),
 					formaIrSkaiciai.getPradinisSveikasisSkaicius());
 			BuilderChecks.checkPoskyris("forma.poskyris", formaIrSkaiciai.getForma().getPoskyris(), SVEIKUJU_NEKUOPINIU_POSKYRIAI);
-			buildDaugiazenklis(formaIrSkaiciai, Numbers.BILLION);
+			daugiazenklis().buildDaugiazenklis(formaIrSkaiciai, Numbers.BILLION);
+		}
+
+		private Daugiazenklis daugiazenklis() {
+			return new Daugiazenklis(zodziai, formaIrSkaiciai);
+		}
+
+	}
+
+	private class Daugiazenklis extends Builder {
+		public Daugiazenklis(List<ZodisJunginyje> zodziai, FormaIrSkaiciai formaIrSkaiciai) {
+			super(zodziai, formaIrSkaiciai);
 		}
 
 		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {

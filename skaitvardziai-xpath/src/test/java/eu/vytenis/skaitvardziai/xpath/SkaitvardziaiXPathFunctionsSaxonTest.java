@@ -4,7 +4,7 @@ import org.junit.Test;
 
 public class SkaitvardziaiXPathFunctionsSaxonTest extends SkaitvardziaiXPathFunctionsTest {
 	public SkaitvardziaiXPathFunctionsSaxonTest() {
-		super("net.sf.saxon.TransformerFactoryImpl");
+		super("net.sf.saxon.TransformerFactoryImpl", new DoNothingTransfer());
 	}
 
 	@Override

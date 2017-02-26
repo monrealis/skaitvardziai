@@ -1,9 +1,7 @@
 package eu.vytenis.skaitvardziai.xpath;
 
-import javax.xml.transform.Source;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -11,14 +9,19 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import javax.xml.transform.Source;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 public abstract class SkaitvardziaiXPathFunctionsTest {
-	private String defaultXsltResourceName = "saxon-transform.xsl";
-	private String transformerFactoryClassName;
+	private final String defaultXsltResourceName = "saxon-transform.xsl";
+	private final String transformerFactoryClassName;
+	private final SourceTransformer sourceTransformer;
 
-	public SkaitvardziaiXPathFunctionsTest(String transformerFactoryClassName) {
+	public SkaitvardziaiXPathFunctionsTest(String transformerFactoryClassName, SourceTransformer sourceTransformer) {
 		this.transformerFactoryClassName = transformerFactoryClassName;
+		this.sourceTransformer = sourceTransformer;
 	}
 
 	protected TransformerFactory createFactory() throws Exception {
@@ -28,8 +31,12 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 	protected Source getXsltSource() {
 		return new StreamSource(new StringReader(getXsltText()));
 	}
-	
-	protected String getXsltText() {
+
+	protected final String getXsltText() {
+		return sourceTransformer.transform(tryGetXsltText());
+	}
+
+	private String tryGetXsltText() {
 		try {
 			return getXsltTextThrowsExc();
 		} catch (IOException e) {
@@ -44,7 +51,6 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 		is.close();
 		return new String(bytes, "UTF-8");
 	}
-
 
 	// Patikrina, ar įvykdyta XSL transformaciją suformuoja tokį XML'ą, kokį reikia.
 	// Po transformacijos gautas tekstas turi būti toks: faktinis_tekstas_1 : reikalingas_tekstas_1 ; faktinis_tekstas_2 : reikalingas_tekstas_2 ; ...
@@ -68,5 +74,15 @@ public abstract class SkaitvardziaiXPathFunctionsTest {
 			}
 		}
 		assertEquals(new ArrayList<String>(), invalidLines);
+	}
+
+	public static class DoNothingTransfer implements SourceTransformer {
+		public String transform(String input) {
+			return input;
+		}
+	}
+
+	public static interface SourceTransformer {
+		String transform(String input);
 	}
 }

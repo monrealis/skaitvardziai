@@ -10,7 +10,11 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunctionsTest {
 	public SkaitvardziaiXPathFunctionsXalanTest(String transformerFactoryClassName) {
-		super(transformerFactoryClassName);
+		super(transformerFactoryClassName, new SourceTransformer() {
+			public String transform(String input) {
+				return input.replaceAll("java:", "xalan://");
+			}
+		});
 	}
 
 	@Parameterized.Parameters(name = "{index}: {0}")
@@ -24,13 +28,6 @@ public class SkaitvardziaiXPathFunctionsXalanTest extends SkaitvardziaiXPathFunc
 
 	private static Object[] createParams(String transformerFactoryClassName) {
 		return new Object[] {transformerFactoryClassName};
-	}
-
-	@Override
-	protected String getXsltText() {
-		String r = super.getXsltText();
-		r = r.replaceAll("java:", "xalan://");
-		return r;
 	}
 
 	@Override

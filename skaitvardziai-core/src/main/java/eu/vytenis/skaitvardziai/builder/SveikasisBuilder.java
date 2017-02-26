@@ -59,11 +59,11 @@ public class SveikasisBuilder {
 			super(zodziai);
 		}
 
-		private void buildDaugiazenklis(FormaIrSkaiciai forma) {
-			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", forma.getSveikasisSkaicius(),
-					forma.getPradinisSveikasisSkaicius());
-			BuilderChecks.checkPoskyris("forma.poskyris", forma.getForma().getPoskyris(), SVEIKUJU_NEKUOPINIU_POSKYRIAI);
-			buildDaugiazenklis(forma, Numbers.BILLION);
+		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai) {
+			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", formaIrSkaiciai.getSveikasisSkaicius(),
+					formaIrSkaiciai.getPradinisSveikasisSkaicius());
+			BuilderChecks.checkPoskyris("forma.poskyris", formaIrSkaiciai.getForma().getPoskyris(), SVEIKUJU_NEKUOPINIU_POSKYRIAI);
+			buildDaugiazenklis(formaIrSkaiciai, Numbers.BILLION);
 		}
 
 		private void buildDaugiazenklis(FormaIrSkaiciai formaIrSkaiciai, BigInteger tukstancioLaipsnis) {

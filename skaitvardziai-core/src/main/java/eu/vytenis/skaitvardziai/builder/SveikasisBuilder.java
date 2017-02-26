@@ -43,6 +43,14 @@ public class SveikasisBuilder {
 		zodziai.add(zodisJunginyje);
 	}
 
+	private ZodisJunginyje suma(Zodis zodis) {
+		return new ZodisJunginyje(zodis, Indelis.Suma);
+	}
+
+	private ZodisJunginyje daugyba(Zodis zodis) {
+		return new ZodisJunginyje(zodis, Indelis.Daugyba);
+	}
+
 	private class Daugiazenkliai {
 		private void buildDaugiazenklis(FormaIrSkaiciai forma) {
 			Checks.checkEqual("forma.getSveikasisSkaicius", "forma.pradinisSveikasisSkaicius", forma.getSveikasisSkaicius(),
@@ -177,13 +185,5 @@ public class SveikasisBuilder {
 			add(suma(Zodziai.getKuopinis(skaicius)));
 			return ZodisJunginyje.toString(zodziai, formaIrSkaiciai);
 		}
-	}
-
-	private ZodisJunginyje suma(Zodis zodis) {
-		return new ZodisJunginyje(zodis, Indelis.Suma);
-	}
-
-	private ZodisJunginyje daugyba(Zodis zodis) {
-		return new ZodisJunginyje(zodis, Indelis.Daugyba);
 	}
 }

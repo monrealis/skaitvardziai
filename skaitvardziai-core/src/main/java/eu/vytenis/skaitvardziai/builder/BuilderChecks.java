@@ -10,7 +10,7 @@ import eu.vytenis.skaitvardziai.util.Numbers;
 
 public class BuilderChecks {
 	public static void checkPoskyris(String objectName, Poskyris poskyris, List<Poskyris> validPoskyriai) {
-		if (SveikasisBuilder.SVEIKUJU_POSKYRIAI.contains(poskyris))
+		if (validPoskyriai.contains(poskyris))
 			return;
 		throw new InvalidPoskyrisException(objectName, poskyris, validPoskyriai);
 	}

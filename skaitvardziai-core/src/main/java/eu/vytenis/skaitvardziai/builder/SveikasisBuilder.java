@@ -4,7 +4,6 @@ import static java.util.Arrays.asList;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
@@ -168,7 +167,7 @@ public class SveikasisBuilder {
 
 	private class Kuopiniai {
 		private String buildKuopinis(FormaIrSkaiciai formaIrSkaiciai) {
-			BuilderChecks.checkPoskyris("formaIrSkaiciai.poskyris", formaIrSkaiciai.getForma().getPoskyris(), Arrays.asList(Poskyris.Kuopinis));
+			BuilderChecks.checkPoskyris("formaIrSkaiciai.poskyris", formaIrSkaiciai.getForma().getPoskyris(), asList(Poskyris.Kuopinis));
 			BigInteger skaicius = formaIrSkaiciai.getSveikasisSkaicius();
 			zodziai.add(getSuma(Zodziai.getKuopinis(skaicius)));
 			return ZodisJunginyje.toString(zodziai, formaIrSkaiciai);

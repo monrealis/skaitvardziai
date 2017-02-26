@@ -14,6 +14,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.util.Numbers;
 import eu.vytenis.skaitvardziai.zodziai.Zodis;
 import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje;
+import eu.vytenis.skaitvardziai.zodziai.ZodisJunginyje.Indelis;
 import eu.vytenis.skaitvardziai.zodziai.Zodziai;
 
 public class SveikasisBuilder {
@@ -175,11 +176,10 @@ public class SveikasisBuilder {
 	}
 
 	private ZodisJunginyje getSuma(Zodis zodis) {
-		return new ZodisJunginyje(zodis, false);
+		return new ZodisJunginyje(zodis, Indelis.Suma);
 	}
 
 	private ZodisJunginyje getDaugyba(Zodis zodis) {
-		return new ZodisJunginyje(zodis, true);
+		return new ZodisJunginyje(zodis, Indelis.Daugyba);
 	}
-
 }

@@ -22,12 +22,12 @@ public class ZodisJunginyje {
 	 * būtų žodis "vienas", šimtas būtų padauginamas iš prieš tai einančio žodžio - "vienas x šimtas".
 	 * 
 	 */
-	private final boolean daugyba;
+	private final Indelis indelis;
 
-	public ZodisJunginyje(Zodis zodis, boolean daugyba) {
+	public ZodisJunginyje(Zodis zodis, Indelis indelis) {
 		Checks.checkNotNull("zodis", zodis);
 		this.zodis = zodis;
-		this.daugyba = daugyba;
+		this.indelis = indelis;
 	}
 
 	public Zodis getZodis() {
@@ -81,12 +81,15 @@ public class ZodisJunginyje {
 	}
 
 	public boolean isDaugyba() {
-		return daugyba;
+		return indelis == Indelis.Daugyba;
 	}
 
 	@Override
 	public String toString() {
-		return zodis.toString() + " " + daugyba;
+		return zodis.toString() + " " + indelis;
 	}
 
+	public enum Indelis {
+		Suma, Daugyba
+	}
 }

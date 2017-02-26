@@ -9,22 +9,19 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.util.Numbers;
 
 public class BuilderChecks {
-
 	public static void checkPoskyris(String objectName, Poskyris poskyris, List<Poskyris> validPoskyriai) {
-		if (!SveikasisBuilder.SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI.contains(poskyris)) {
-			throw new InvalidPoskyrisException(objectName, poskyris, validPoskyriai);
-		}
+		if (SveikasisBuilder.SVEIKUJU_SKAICIU_SKAITV_POSKYRIAI.contains(poskyris))
+			return;
+		throw new InvalidPoskyrisException(objectName, poskyris, validPoskyriai);
 	}
 
 	public static void checkPowerOfThousand(String objectName, BigInteger powerOfThousand) {
 		BigInteger thousand = Numbers.THOUSAND;
 		List<BigInteger> expected = new ArrayList<BigInteger>();
-		for (int i = 1; i <= 3; ++i) {
+		for (int i = 1; i <= 3; ++i)
 			expected.add(thousand.pow(i));
-		}
-		if (!expected.contains(powerOfThousand)) {
+		if (!expected.contains(powerOfThousand))
 			throw new InvalidPowerOfThousandException(objectName, powerOfThousand);
-		}
 	}
 
 	public static class InvalidPoskyrisException extends SkaitvardziaiRuntimeException {
@@ -48,11 +45,10 @@ public class BuilderChecks {
 		public List<Poskyris> getValidPoskyriai() {
 			return validPoskyriai;
 		}
-
 	}
 
 	public static class InvalidPowerOfThousandException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = -4914559686070433295L;
+		private static final long serialVersionUID = 1L;
 		private String objectName;
 		private BigInteger invalidPowerOfThousand;
 
@@ -69,7 +65,5 @@ public class BuilderChecks {
 		public BigInteger getInvalidPowerOfThousand() {
 			return invalidPowerOfThousand;
 		}
-
 	}
-
 }

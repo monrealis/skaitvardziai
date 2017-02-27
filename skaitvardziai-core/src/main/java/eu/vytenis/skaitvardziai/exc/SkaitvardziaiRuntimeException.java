@@ -1,8 +1,7 @@
 package eu.vytenis.skaitvardziai.exc;
 
 public class SkaitvardziaiRuntimeException extends RuntimeException {
-
-	private static final long serialVersionUID = 163382671521469010L;
+	private static final long serialVersionUID = 1;
 
 	public SkaitvardziaiRuntimeException() {
 	}
@@ -18,5 +17,4 @@ public class SkaitvardziaiRuntimeException extends RuntimeException {
 	public SkaitvardziaiRuntimeException(Throwable cause) {
 		super(cause);
 	}
-
 }

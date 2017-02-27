@@ -19,8 +19,8 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 class SkaitvardziaiTextParserConstants {
-	static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();
-	static final Map<String, Object> SYMBOLS = createSymbols();
+	public static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();
+	public static final Map<String, Object> SYMBOLS = createSymbols();
 
 	private static List<Class<? extends FormosElementas>> createAllElements() {
 		List<Class<? extends FormosElementas>> all = new ArrayList<Class<? extends FormosElementas>>();
@@ -43,24 +43,32 @@ class SkaitvardziaiTextParserConstants {
 	}
 
 	private static void addSymbolsToMap(Map<String, Object> symbols, Aliased[] values) {
-		for (Aliased aliased : values) {
-			String[] names = {aliased.alias(), aliased.longName()};
-			Set<String> aliases = new TreeSet<String>();
-			for (String name : names) {
-				aliases.add(name);
-				aliases.add(name.toUpperCase(Letters.LT));
-				aliases.add(name.toLowerCase(Letters.LT));
-				aliases.add(Letters.translateLithuanianToLatin(name));
-				aliases.add(Letters.translateLithuanianToLatin(name.toLowerCase(Letters.LT)));
-				aliases.add(Letters.translateLithuanianToLatin(name.toUpperCase(Letters.LT)));
-			}
-			for (String a : aliases) {
-				if (symbols.containsKey(a)) {
-					throw new IllegalArgumentException(
-							a + ": duplicate value. " + aliased.getClass().getSimpleName() + " and " + symbols.get(a).getClass().getSimpleName());
-				}
-				symbols.put(a, aliased);
-			}
+		for (Aliased aliased : values)
+			for (String alias : createAliases(new String[] {aliased.alias(), aliased.longName()}))
+				addAliasToMap(aliased, alias, symbols);
+	}
+
+	private static void addAliasToMap(Aliased aliased, String alias, Map<String, Object> symbols) {
+		if (symbols.containsKey(alias)) {
+			String message = alias + ": duplicate value. " + aliased.getClass().getSimpleName() + " and " + symbols.get(alias).getClass().getSimpleName();
+			throw new IllegalArgumentException(message);
 		}
+		symbols.put(alias, aliased);
+	}
+
+	private static Set<String> createAliases(String[] names) {
+		Set<String> aliases = new TreeSet<String>();
+		for (String name : names)
+			addNameToAliases(aliases, name);
+		return aliases;
+	}
+
+	private static void addNameToAliases(Set<String> aliases, String name) {
+		aliases.add(name);
+		aliases.add(name.toUpperCase(Letters.LT));
+		aliases.add(name.toLowerCase(Letters.LT));
+		aliases.add(Letters.translateLithuanianToLatin(name));
+		aliases.add(Letters.translateLithuanianToLatin(name.toLowerCase(Letters.LT)));
+		aliases.add(Letters.translateLithuanianToLatin(name.toUpperCase(Letters.LT)));
 	}
 }

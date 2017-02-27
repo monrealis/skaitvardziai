@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 
-import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
@@ -21,7 +20,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 class SkaitvardziaiTextParserConstants {
 	public static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();
-	public static final Map<String, Aliased> SYMBOLS = createSymbols();
+	public static final Map<String, FormosElementas> SYMBOLS = createSymbols();
 	public static final Pattern SVEIKASIS;
 	public static final Pattern TRUPMENA;
 
@@ -42,8 +41,8 @@ class SkaitvardziaiTextParserConstants {
 		return unmodifiableList(all);
 	}
 
-	private static Map<String, Aliased> createSymbols() {
-		Map<String, Aliased> symbols = new HashMap<String, Aliased>();
+	private static Map<String, FormosElementas> createSymbols() {
+		Map<String, FormosElementas> symbols = new HashMap<String, FormosElementas>();
 		addSymbolsToMap(symbols, Linksnis.values());
 		addSymbolsToMap(symbols, Skaicius.values());
 		addSymbolsToMap(symbols, Gimine.values());
@@ -52,13 +51,13 @@ class SkaitvardziaiTextParserConstants {
 		return unmodifiableMap(symbols);
 	}
 
-	private static void addSymbolsToMap(Map<String, Aliased> symbols, Aliased[] values) {
-		for (Aliased aliased : values)
-			for (String alias : createAliases(new String[] {aliased.alias(), aliased.longName()}))
-				addAliasToMap(aliased, alias, symbols);
+	private static void addSymbolsToMap(Map<String, FormosElementas> symbols, FormosElementas[] values) {
+		for (FormosElementas element : values)
+			for (String alias : createAliases(new String[] {element.alias(), element.longName()}))
+				addAliasToMap(element, alias, symbols);
 	}
 
-	private static void addAliasToMap(Aliased aliased, String alias, Map<String, Aliased> symbols) {
+	private static void addAliasToMap(FormosElementas aliased, String alias, Map<String, FormosElementas> symbols) {
 		if (symbols.containsKey(alias)) {
 			String message = alias + ": duplicate value. " + aliased.getClass().getSimpleName() + " and " + symbols.get(alias).getClass().getSimpleName();
 			throw new IllegalArgumentException(message);

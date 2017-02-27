@@ -103,11 +103,9 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof SveikasisSkaicius) {
-			return reiksme.equals(((SveikasisSkaicius) obj).getReiksme());
-		} else {
+		if (!(obj instanceof SveikasisSkaicius))
 			return false;
-		}
+		return reiksme.equals(((SveikasisSkaicius) obj).getReiksme());
 	}
 
 	public int compareTo(SveikasisSkaicius o) {
@@ -118,5 +116,4 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 	public int hashCode() {
 		return reiksme.hashCode();
 	}
-
 }

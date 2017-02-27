@@ -1,7 +1,10 @@
 package eu.vytenis.skaitvardziai.skaiciai;
 
+import static java.util.Arrays.asList;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
@@ -101,17 +104,18 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof Trupmena) {
-			Trupmena t = (Trupmena) obj;
-			return getSkaitiklis().equals(t.getSkaitiklis()) && getVardiklis().equals(t.getVardiklis());
-		} else {
+		if (!(obj instanceof Trupmena))
 			return false;
-		}
+		return toList().equals(((Trupmena) obj).toList());
 	}
 
 	@Override
 	public int hashCode() {
-		return getSkaitiklis().hashCode() << 16 | getVardiklis().hashCode();
+		return toList().hashCode();
+	}
+
+	private List<?> toList() {
+		return asList(skaitiklis, vardiklis);
 	}
 
 	public double toDouble() {

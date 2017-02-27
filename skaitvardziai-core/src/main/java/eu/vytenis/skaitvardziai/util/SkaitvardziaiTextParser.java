@@ -1,7 +1,9 @@
 package eu.vytenis.skaitvardziai.util;
 
-import java.util.Arrays;
-import java.util.Collections;
+import static java.util.Collections.unmodifiableList;
+import static java.util.Collections.unmodifiableMap;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,28 +27,31 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class SkaitvardziaiTextParser {
-	@SuppressWarnings("unchecked")
-	private static List<Class<? extends FormosElementas>> ALL_PARAMETERS = Arrays.<Class<? extends FormosElementas>> asList(Linksnis.class, Skaicius.class,
-			Gimine.class, Poskyris.class, Rusis.class);
-	private static final Map<String, Object> symbols;
+	private static List<Class<? extends FormosElementas>> ALL_PARAMETERS = createAllElements();
+	private static final Map<String, Object> SYMBOLS = createSymbols();
 
-	static {
-		Map<String, Object> t = new HashMap<String, Object>();
-		addAll(t, Linksnis.values());
-		addAll(t, Skaicius.values());
-		addAll(t, Gimine.values());
-		addAll(t, Poskyris.values());
-		addAll(t, Rusis.values());
-		symbols = Collections.unmodifiableMap(t);
+	private static List<Class<? extends FormosElementas>> createAllElements() {
+		List<Class<? extends FormosElementas>> all = new ArrayList<Class<? extends FormosElementas>>();
+		all.add(Linksnis.class);
+		all.add(Skaicius.class);
+		all.add(Gimine.class);
+		all.add(Poskyris.class);
+		all.add(Rusis.class);
+		return unmodifiableList(all);
 	}
 
-	private static void addAll(Map<String, Object> symbols, Enum<? extends Aliased>[] values) {
-		for (Enum<?> e : values) {
-			if (!e.getClass().getSuperclass().equals(Enum.class)) {
-				throw new IllegalStateException("Not implemented");
-				// Nerealizuota logika parse() metode usedClasses kintamajam
-			}
-			Aliased aliased = (Aliased) e;
+	private static Map<String, Object> createSymbols() {
+		Map<String, Object> symbols = new HashMap<String, Object>();
+		addSymbolsToMap(symbols, Linksnis.values());
+		addSymbolsToMap(symbols, Skaicius.values());
+		addSymbolsToMap(symbols, Gimine.values());
+		addSymbolsToMap(symbols, Poskyris.values());
+		addSymbolsToMap(symbols, Rusis.values());
+		return unmodifiableMap(symbols);
+	}
+
+	private static void addSymbolsToMap(Map<String, Object> symbols, Aliased[] values) {
+		for (Aliased aliased : values) {
 			String[] names = {aliased.alias(), aliased.longName()};
 			Set<String> aliases = new TreeSet<String>();
 			for (String name : names) {
@@ -60,9 +65,9 @@ public class SkaitvardziaiTextParser {
 			for (String a : aliases) {
 				if (symbols.containsKey(a)) {
 					throw new IllegalArgumentException(
-							a + ": duplicate value. " + e.getClass().getSimpleName() + " and " + symbols.get(a).getClass().getSimpleName());
+							a + ": duplicate value. " + aliased.getClass().getSimpleName() + " and " + symbols.get(a).getClass().getSimpleName());
 				}
-				symbols.put(a, e);
+				symbols.put(a, aliased);
 			}
 		}
 
@@ -81,7 +86,7 @@ public class SkaitvardziaiTextParser {
 		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String param : parameters) {
-			Object o = symbols.get(param);
+			Object o = SYMBOLS.get(param);
 			if (o != null && !supportedParams.contains(o.getClass())) {
 				throw new UnsupportedPartException(param, o);
 			}

@@ -19,6 +19,7 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
 
 public class EchoProcessor implements Processor {
+	private final SkaitvardziaiTextParser parser = new SkaitvardziaiTextParser();
 	private final CommandLine commandLine;
 	private final SystemIo systemIo;
 	private boolean inputFromSystemIn;
@@ -40,8 +41,8 @@ public class EchoProcessor implements Processor {
 
 	private void parseForma() {
 		if (CliOption.Form.isIn(commandLine)) {
-			String formParam = CliOption.Form.getValue(commandLine);
-			forma = SkaitvardziaiTextParser.get().parseForma(formParam, null);
+			String formParameter = CliOption.Form.getValue(commandLine);
+			forma = parser.parseForma(formParameter);
 		} else {
 			forma = new Forma();
 		}
@@ -87,7 +88,7 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void processInputText(String newLine, String line) {
-		SkaitineReiksme sr = SkaitvardziaiTextParser.get().parseSkaicius(line);
+		SkaitineReiksme sr = parser.parseSkaicius(line);
 		if (sr instanceof SveikasisSkaicius) {
 			SveikasisSkaicius ss = (SveikasisSkaicius) sr;
 			systemIo.printOut(ss.toString(forma), newLine);

@@ -25,6 +25,9 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class SkaitvardziaiTextParser {
+	@SuppressWarnings("unchecked")
+	private static List<Class<? extends FormosElementas>> ALL_PARAMETERS = Arrays.<Class<? extends FormosElementas>> asList(Linksnis.class, Skaicius.class,
+			Gimine.class, Poskyris.class, Rusis.class);
 	private static final Map<String, Object> symbols;
 
 	static {
@@ -35,12 +38,6 @@ public class SkaitvardziaiTextParser {
 		addAll(t, Poskyris.values());
 		addAll(t, Rusis.values());
 		symbols = Collections.unmodifiableMap(t);
-	}
-
-	private static final SkaitvardziaiTextParser instance = new SkaitvardziaiTextParser();
-
-	public static SkaitvardziaiTextParser get() {
-		return instance;
 	}
 
 	private static void addAll(Map<String, Object> symbols, Enum<? extends Aliased>[] values) {
@@ -62,8 +59,8 @@ public class SkaitvardziaiTextParser {
 			}
 			for (String a : aliases) {
 				if (symbols.containsKey(a)) {
-					throw new IllegalArgumentException(a + ": duplicate value. " + e.getClass().getSimpleName() + " and "
-							+ symbols.get(a).getClass().getSimpleName());
+					throw new IllegalArgumentException(
+							a + ": duplicate value. " + e.getClass().getSimpleName() + " and " + symbols.get(a).getClass().getSimpleName());
 				}
 				symbols.put(a, e);
 			}
@@ -71,17 +68,17 @@ public class SkaitvardziaiTextParser {
 
 	}
 
+	public Forma parseForma(String parametrai) {
+		return parseForma(parametrai, ALL_PARAMETERS);
+	}
+
 	public Forma parseForma(String parametrai, List<Class<? extends FormosElementas>> supportedParams) {
 		String[] params = parametrai.length() == 0 ? new String[] {} : parametrai.split("\\s*,\\s*");
 		return parseForma(params, supportedParams);
 	}
 
-	@SuppressWarnings("unchecked")
-	public Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParams) {
-		if (supportedParams == null) {
-			supportedParams = Arrays.<Class<? extends FormosElementas>> asList(Linksnis.class, Skaicius.class, Gimine.class, Poskyris.class, Rusis.class);
-		}
-		Forma r = new Forma();
+	private Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParams) {
+		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String param : parameters) {
 			Object o = symbols.get(param);
@@ -92,14 +89,14 @@ public class SkaitvardziaiTextParser {
 				throw new UnsupportedPartException(param, null);
 			}
 			FormosElementas fe = (FormosElementas) o;
-			r = FormosElementasFieldHandler.setElementas(r, fe);
+			forma = FormosElementasFieldHandler.setElementas(forma, fe);
 			if (usedClasses.containsKey(fe.getClass())) {
 				FormosElementas oldFe = usedClasses.get(fe.getClass());
 				throw new DuplicatePartException(fe, oldFe);
 			}
 			usedClasses.put(fe.getClass(), fe);
 		}
-		return r;
+		return forma;
 	}
 
 	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {
@@ -192,9 +189,8 @@ public class SkaitvardziaiTextParser {
 
 	private Trupmena parseTrupmenaIfMatches(String trupmena) {
 		Matcher trm = TRUPMENA.matcher(trupmena);
-		if (!trm.matches()) {
+		if (!trm.matches())
 			return null;
-		}
 		String sk = trm.group(1).replaceAll("\\s*", "");
 		String v = trm.group(2).replaceAll("\\s*", "");
 		return new Trupmena(sk, v);

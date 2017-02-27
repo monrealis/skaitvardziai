@@ -25,45 +25,18 @@ public class BuilderChecks {
 	}
 
 	public static class InvalidPoskyrisException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = -197717691898671729L;
-		private String objectName;
-		private Poskyris poskyris;
-		private List<Poskyris> validPoskyriai;
+		private static final long serialVersionUID = 1L;
 
 		public InvalidPoskyrisException(String objectName, Poskyris poskyris, List<Poskyris> validPoskyriai) {
 			super(objectName + " has invalid value " + poskyris + ". Expected one of " + validPoskyriai);
-		}
-
-		public String getObjectName() {
-			return objectName;
-		}
-
-		public Poskyris getPoskyris() {
-			return poskyris;
-		}
-
-		public List<Poskyris> getValidPoskyriai() {
-			return validPoskyriai;
 		}
 	}
 
 	public static class InvalidPowerOfThousandException extends SkaitvardziaiRuntimeException {
 		private static final long serialVersionUID = 1L;
-		private String objectName;
-		private BigInteger invalidPowerOfThousand;
 
 		public InvalidPowerOfThousandException(String objectName, BigInteger invalidPowerOfThousand) {
 			super(objectName + " value " + invalidPowerOfThousand + " is not a power of thousand");
-			this.objectName = objectName;
-			this.invalidPowerOfThousand = invalidPowerOfThousand;
-		}
-
-		public String getObjectName() {
-			return objectName;
-		}
-
-		public BigInteger getInvalidPowerOfThousand() {
-			return invalidPowerOfThousand;
 		}
 	}
 }

@@ -2,6 +2,8 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 import static java.util.Arrays.asList;
 
+import java.util.List;
+
 import eu.vytenis.skaitvardziai.util.Comparisons;
 
 public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
@@ -26,13 +28,12 @@ public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
 	public boolean equals(Object obj) {
 		if (!(obj instanceof SkaiciusIrLinksnis))
 			return false;
-		SkaiciusIrLinksnis o = (SkaiciusIrLinksnis) obj;
-		return skaicius == o.skaicius && linksnis == o.linksnis;
+		return toList().equals(((SkaiciusIrLinksnis) obj).toList());
 	}
 
 	@Override
 	public int hashCode() {
-		return (skaicius != null ? skaicius.hashCode() : 0) << 16 | (linksnis != null ? linksnis.hashCode() : 0);
+		return toList().hashCode();
 	}
 
 	public SkaiciusIrLinksnis withLinksnis(Linksnis linksnis) {
@@ -43,14 +44,18 @@ public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
 		return new SkaiciusIrLinksnis(skaicius, linksnis);
 	}
 
-	public int compareTo(SkaiciusIrLinksnis o) {
-		return Comparisons.compareLists(asList((Object) skaicius, linksnis), asList((Object) o.skaicius, o.linksnis));
+	public int compareTo(SkaiciusIrLinksnis other) {
+		return Comparisons.compareLists(toList(), other.toList());
+	}
+
+	private List<Object> toList() {
+		return asList((Object) skaicius, linksnis);
 	}
 
 	@Override
 	public String toString() {
 		String r = "";
-		for (Object o : asList((Object) skaicius, linksnis))
+		for (Object o : toList())
 			r = appendIfNotNull(r, o);
 		return r;
 	}

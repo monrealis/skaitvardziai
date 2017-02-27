@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
@@ -21,6 +22,15 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 class SkaitvardziaiTextParserConstants {
 	public static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();
 	public static final Map<String, Object> SYMBOLS = createSymbols();
+	public static final Pattern SVEIKASIS;
+	public static final Pattern TRUPMENA;
+
+	static {
+		String sv = "( [-]? \\d+) ";
+		String tr = sv + "/" + sv;
+		SVEIKASIS = Pattern.compile(sv.replaceAll(" ", "\\\\s*"));
+		TRUPMENA = Pattern.compile(tr.replaceAll(" ", "\\\\s*"));
+	}
 
 	private static List<Class<? extends FormosElementas>> createAllElements() {
 		List<Class<? extends FormosElementas>> all = new ArrayList<Class<? extends FormosElementas>>();

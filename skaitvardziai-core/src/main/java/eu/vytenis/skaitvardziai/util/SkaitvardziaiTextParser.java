@@ -1,13 +1,14 @@
 package eu.vytenis.skaitvardziai.util;
 
 import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.ALL_ELEMENTS;
+import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.SVEIKASIS;
 import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.SYMBOLS;
+import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.TRUPMENA;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
@@ -23,8 +24,11 @@ public class SkaitvardziaiTextParser {
 	}
 
 	public Forma parseForma(String parametrai, List<Class<? extends FormosElementas>> supportedParams) {
-		String[] params = parametrai.length() == 0 ? new String[] {} : parametrai.split("\\s*,\\s*");
-		return parseForma(params, supportedParams);
+		return parseForma(split(parametrai), supportedParams);
+	}
+
+	private String[] split(String text) {
+		return text.length() == 0 ? new String[] {} : text.split("\\s*,\\s*");
 	}
 
 	private Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParams) {
@@ -47,73 +51,6 @@ public class SkaitvardziaiTextParser {
 			usedClasses.put(fe.getClass(), fe);
 		}
 		return forma;
-	}
-
-	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = 7783672469749826083L;
-		private String parsedText;
-		private Object resultObject;
-
-		public UnsupportedPartException(String parsedText, Object resultObject) {
-			super(buildMessage(parsedText, resultObject));
-			this.parsedText = parsedText;
-			this.resultObject = parsedText;
-		}
-
-		public String getParsedText() {
-			return parsedText;
-		}
-
-		public Object getResultObject() {
-			return resultObject;
-		}
-
-		private static String buildMessage(String parsedText, Object resultObject) {
-			if (resultObject == null) {
-				return parsedText + " is not supported, because parameter class " + parsedText.getClass() + " is not supported";
-			} else {
-				return parsedText + " is not supported";
-			}
-		}
-
-	}
-
-	public static class DuplicatePartException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = 8618555191243325555L;
-		private FormosElementas newElement;
-		private FormosElementas existingElement;
-
-		public DuplicatePartException(FormosElementas newElement, FormosElementas existingElement) {
-			super(buildMessage(newElement, existingElement));
-			this.newElement = newElement;
-			this.existingElement = existingElement;
-		}
-
-		public FormosElementas getNewElement() {
-			return newElement;
-		}
-
-		public FormosElementas getExistingElement() {
-			return existingElement;
-		}
-
-		private static String buildMessage(FormosElementas newElement, Object existingElement) {
-			return newElement.getClass() + " instance is used more than one time. Duplicate values: " + newElement.getClass() + ": " + existingElement + "; "
-					+ newElement.getClass() + ": " + newElement;
-		}
-
-	}
-
-	private static final Pattern SVEIKASIS;
-	private static final Pattern TRUPMENA;
-
-	static {
-		String sv = "( [-]? \\d+) ";
-		String tr = sv + "/" + sv;
-		sv = sv.replaceAll(" ", "\\\\s*");
-		tr = tr.replaceAll(" ", "\\\\s*");
-		SVEIKASIS = Pattern.compile(sv);
-		TRUPMENA = Pattern.compile(tr);
 	}
 
 	public SkaitineReiksme parseSkaicius(String skaicius) {
@@ -146,13 +83,39 @@ public class SkaitvardziaiTextParser {
 		return new Trupmena(sk, v);
 	}
 
+	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {
+		private static final long serialVersionUID = 1;
+
+		public UnsupportedPartException(String parsedText, Object resultObject) {
+			super(buildMessage(parsedText, resultObject));
+		}
+
+		private static String buildMessage(String parsedText, Object resultObject) {
+			if (resultObject == null)
+				return parsedText + " is not supported, because parameter class " + parsedText.getClass() + " is not supported";
+			else
+				return parsedText + " is not supported";
+		}
+	}
+
+	public static class DuplicatePartException extends SkaitvardziaiRuntimeException {
+		private static final long serialVersionUID = 1;
+
+		public DuplicatePartException(FormosElementas newElement, FormosElementas existingElement) {
+			super(buildMessage(newElement, existingElement));
+		}
+
+		private static String buildMessage(FormosElementas newElement, Object existingElement) {
+			return newElement.getClass() + " instance is used more than one time. Duplicate values: " + newElement.getClass() + ": " + existingElement + "; "
+					+ newElement.getClass() + ": " + newElement;
+		}
+	}
+
 	public class InvalidNumberException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = -1195581620844776553L;
+		private static final long serialVersionUID = 1;
 
 		public InvalidNumberException(String invalidNumber) {
 			super(invalidNumber + " is not a supported number");
 		}
-
 	}
-
 }

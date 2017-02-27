@@ -34,20 +34,33 @@ public class SkaitvardziaiTextParser {
 	private Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParameters) {
 		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
-		for (String param : parameters) {
-			FormosElementas element = SYMBOLS.get(param);
-			if (element != null && !supportedParameters.contains(element.getClass()))
-				throw new UnsupportedPartException(param, element);
-			if (element == null)
-				throw new UnsupportedPartException(param, null);
-			forma = FormosElementasFieldHandler.setElementas(forma, element);
-			if (usedClasses.containsKey(element.getClass())) {
-				FormosElementas oldElement = usedClasses.get(element.getClass());
-				throw new DuplicatePartException(element, oldElement);
-			}
-			usedClasses.put(element.getClass(), element);
-		}
+		for (String parameter : parameters)
+			forma = getWithUpdatedParameter(parameter, forma, usedClasses, supportedParameters);
 		return forma;
+	}
+
+	private Forma getWithUpdatedParameter(String parameter, Forma forma, Map<Class<?>, FormosElementas> usedClasses,
+			List<Class<? extends FormosElementas>> supportedParameters) {
+		FormosElementas element = SYMBOLS.get(parameter);
+		checkSupported(parameter, element, supportedParameters);
+		addToUsedClassesIfNotUsed(usedClasses, element);
+		forma = FormosElementasFieldHandler.withUpdatedElement(forma, element);
+		return forma;
+	}
+
+	private void checkSupported(String parameter, FormosElementas element, List<Class<? extends FormosElementas>> supportedParameters) {
+		if (element == null)
+			throw new UnsupportedPartException(parameter);
+		if (!supportedParameters.contains(element.getClass()))
+			throw new UnsupportedPartException(parameter, element);
+	}
+
+	private void addToUsedClassesIfNotUsed(Map<Class<?>, FormosElementas> usedClasses, FormosElementas element) {
+		if (usedClasses.containsKey(element.getClass())) {
+			FormosElementas oldElement = usedClasses.get(element.getClass());
+			throw new DuplicatePartException(element, oldElement);
+		}
+		usedClasses.put(element.getClass(), element);
 	}
 
 	// Use exceptions
@@ -80,6 +93,10 @@ public class SkaitvardziaiTextParser {
 
 	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {
 		private static final long serialVersionUID = 1;
+
+		public UnsupportedPartException(String parsedText) {
+			this(parsedText, null);
+		}
 
 		public UnsupportedPartException(String parsedText, Object resultObject) {
 			super(buildMessage(parsedText, resultObject));

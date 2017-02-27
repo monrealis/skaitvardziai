@@ -19,7 +19,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		fieldHandlers = unmodifiableMap(handlers);
 	}
 
-	public static <T extends FormosElementas> Forma setElementas(Forma forma, T elementas) {
+	public static <T extends FormosElementas> Forma withUpdatedElement(Forma forma, T elementas) {
 		return fieldHandlers.get(elementas.getClass()).setUncastedField(forma, elementas);
 	}
 

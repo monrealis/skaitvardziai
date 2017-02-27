@@ -169,7 +169,7 @@ public class Zodis {
 		String r = toString(sl);
 		if (r == null) {
 			// Jei žodis neturi vienaskaitos vardininko, grąžiname daugiskaitos vardininką (pvz., marškiniai)
-			return toString(sl.withSkaicius(Skaicius.D));
+			return toString(sl.skaicius(Skaicius.D));
 		}
 		return r;
 	}

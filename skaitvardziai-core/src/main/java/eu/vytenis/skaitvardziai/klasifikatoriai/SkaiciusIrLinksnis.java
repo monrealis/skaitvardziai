@@ -36,11 +36,11 @@ public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
 		return toList().hashCode();
 	}
 
-	public SkaiciusIrLinksnis withLinksnis(Linksnis linksnis) {
+	public SkaiciusIrLinksnis linksnis(Linksnis linksnis) {
 		return new SkaiciusIrLinksnis(skaicius, linksnis);
 	}
 
-	public SkaiciusIrLinksnis withSkaicius(Skaicius skaicius) {
+	public SkaiciusIrLinksnis skaicius(Skaicius skaicius) {
 		return new SkaiciusIrLinksnis(skaicius, linksnis);
 	}
 

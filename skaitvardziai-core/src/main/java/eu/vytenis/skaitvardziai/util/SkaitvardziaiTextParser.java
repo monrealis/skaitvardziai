@@ -53,9 +53,9 @@ public class SkaitvardziaiTextParser {
 				aliases.add(name);
 				aliases.add(name.toUpperCase(Letters.LT));
 				aliases.add(name.toLowerCase(Letters.LT));
-				aliases.add(Letters.translateLtToLatin(name));
-				aliases.add(Letters.translateLtToLatin(name.toLowerCase(Letters.LT)));
-				aliases.add(Letters.translateLtToLatin(name.toUpperCase(Letters.LT)));
+				aliases.add(Letters.translateLithuanianToLatin(name));
+				aliases.add(Letters.translateLithuanianToLatin(name.toLowerCase(Letters.LT)));
+				aliases.add(Letters.translateLithuanianToLatin(name.toUpperCase(Letters.LT)));
 			}
 			for (String a : aliases) {
 				if (symbols.containsKey(a)) {

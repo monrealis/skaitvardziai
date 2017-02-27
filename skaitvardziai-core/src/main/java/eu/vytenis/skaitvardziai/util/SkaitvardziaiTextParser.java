@@ -31,12 +31,12 @@ public class SkaitvardziaiTextParser {
 		return text.length() == 0 ? new String[] {} : text.split("\\s*,\\s*");
 	}
 
-	private Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParams) {
+	private Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParameters) {
 		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String param : parameters) {
 			Object o = SYMBOLS.get(param);
-			if (o != null && !supportedParams.contains(o.getClass())) {
+			if (o != null && !supportedParameters.contains(o.getClass())) {
 				throw new UnsupportedPartException(param, o);
 			}
 			if (o == null) {
@@ -53,25 +53,23 @@ public class SkaitvardziaiTextParser {
 		return forma;
 	}
 
+	// Use exceptions
 	public SkaitineReiksme parseSkaicius(String skaicius) {
-		SkaitineReiksme r = parseSveikasisIfMatches(skaicius);
-		if (r == null) {
-			r = parseTrupmenaIfMatches(skaicius);
-		}
-		if (r == null) {
-			throw new InvalidNumberException(skaicius);
-		}
-		return r;
+		SveikasisSkaicius sveikasis = parseSveikasisIfMatches(skaicius);
+		if (sveikasis != null)
+			return sveikasis;
+		Trupmena trupmena = parseTrupmenaIfMatches(skaicius);
+		if (trupmena != null)
+			return trupmena;
+		throw new InvalidNumberException(skaicius);
 	}
 
 	private SveikasisSkaicius parseSveikasisIfMatches(String sveikasisSkaicius) {
 		Matcher svm = SVEIKASIS.matcher(sveikasisSkaicius);
-		if (!svm.matches()) {
+		if (!svm.matches())
 			return null;
-		}
 		String sk = svm.group(1).replaceAll("\\s*", "");
 		return new SveikasisSkaicius(sk);
-
 	}
 
 	private Trupmena parseTrupmenaIfMatches(String trupmena) {

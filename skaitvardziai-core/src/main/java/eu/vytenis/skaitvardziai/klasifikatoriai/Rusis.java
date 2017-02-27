@@ -1,9 +1,10 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 public enum Rusis implements Aliased, FormosElementas {
-	P("P", "Paprastasis"), Iv("Įv", "Įvardžiuotinis");
-	private String alias;
-	private String longName;
+	P("P", "Paprastasis"), //
+	Iv("Įv", "Įvardžiuotinis");
+	private final String alias;
+	private final String longName;
 
 	private Rusis(String alias, String longName) {
 		this.alias = alias;

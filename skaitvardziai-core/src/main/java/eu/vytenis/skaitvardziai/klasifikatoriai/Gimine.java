@@ -2,8 +2,8 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
 
 public enum Gimine implements Aliased, FormosElementas {
 	V("VG", "Vyriškas"), M("MG", "Moteriškas");
-	private String alias;
-	private String longName;
+	private final String alias;
+	private final String longName;
 
 	private Gimine(String alias, String longName) {
 		this.alias = alias;
@@ -17,5 +17,4 @@ public enum Gimine implements Aliased, FormosElementas {
 	public String longName() {
 		return longName;
 	}
-
 }

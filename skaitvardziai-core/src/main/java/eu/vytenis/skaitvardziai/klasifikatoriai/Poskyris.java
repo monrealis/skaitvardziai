@@ -8,9 +8,9 @@ public enum Poskyris implements Aliased, FormosElementas {
 	Trupmeninis(Skyrius.Kiekinis, "PT", "Trupmeninis"),
 	Kelintinis(Skyrius.Kelintinis, "Kl", "Kelintinis");
 	// @formatter:on
-	private Skyrius skyrius;
-	private String alias;
-	private String longName;
+	private final Skyrius skyrius;
+	private final String alias;
+	private final String longName;
 
 	private Poskyris(Skyrius skyrius, String alias, String longName) {
 		this.skyrius = skyrius;
@@ -29,5 +29,4 @@ public enum Poskyris implements Aliased, FormosElementas {
 	public String longName() {
 		return longName;
 	}
-
 }

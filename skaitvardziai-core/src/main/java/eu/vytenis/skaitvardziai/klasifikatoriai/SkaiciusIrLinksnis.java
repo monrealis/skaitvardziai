@@ -1,6 +1,6 @@
 package eu.vytenis.skaitvardziai.klasifikatoriai;
 
-import java.util.Arrays;
+import static java.util.Arrays.asList;
 
 import eu.vytenis.skaitvardziai.util.Comparisons;
 
@@ -24,9 +24,8 @@ public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (!(obj instanceof SkaiciusIrLinksnis)) {
+		if (!(obj instanceof SkaiciusIrLinksnis))
 			return false;
-		}
 		SkaiciusIrLinksnis o = (SkaiciusIrLinksnis) obj;
 		return skaicius == o.skaicius && linksnis == o.linksnis;
 	}
@@ -45,27 +44,23 @@ public class SkaiciusIrLinksnis implements Comparable<SkaiciusIrLinksnis> {
 	}
 
 	public int compareTo(SkaiciusIrLinksnis o) {
-		return Comparisons.compareLists(Arrays.<Enum<?>> asList(skaicius, linksnis), Arrays.<Enum<?>> asList(o.skaicius, o.linksnis));
+		return Comparisons.compareLists(asList((Object) skaicius, linksnis), asList((Object) o.skaicius, o.linksnis));
 	}
 
 	@Override
 	public String toString() {
 		String r = "";
-		for (Object o : Arrays.<Object> asList(skaicius, linksnis)) {
+		for (Object o : asList((Object) skaicius, linksnis))
 			r = appendIfNotNull(r, o);
-		}
 		return r;
 	}
 
 	private String appendIfNotNull(String text, Object object) {
-		if (object == null) {
+		if (object == null)
 			return text;
-		}
-		if (text.length() > 0) {
+		if (text.length() > 0)
 			text += " ";
-		}
 		text += object.toString();
 		return text;
 	}
-
 }

@@ -7,9 +7,7 @@ package eu.vytenis.skaitvardziai.klasifikatoriai;
  * skirtingiems objektams unikalias reikšmes.
  */
 public interface Aliased {
-
 	String alias();
 
 	String longName();
-
 }

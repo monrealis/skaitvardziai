@@ -10,8 +10,8 @@ public enum Linksnis implements Aliased, FormosElementas {
 	Vt("Vt", "Vietininkas"),
 	S("Š", "Šauksmininkas");
 	// @formatter:on
-	private String alias;
-	private String longName;
+	private final String alias;
+	private final String longName;
 
 	private Linksnis(String alias, String longName) {
 		this.alias = alias;
@@ -25,5 +25,4 @@ public enum Linksnis implements Aliased, FormosElementas {
 	public String longName() {
 		return longName;
 	}
-
 }

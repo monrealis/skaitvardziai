@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Aliased;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementasFieldHandler;
@@ -35,14 +36,12 @@ public class SkaitvardziaiTextParser {
 		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String param : parameters) {
-			Object o = SYMBOLS.get(param);
-			if (o != null && !supportedParameters.contains(o.getClass())) {
-				throw new UnsupportedPartException(param, o);
-			}
-			if (o == null) {
+			Aliased aliased = SYMBOLS.get(param);
+			if (aliased != null && !supportedParameters.contains(aliased.getClass()))
+				throw new UnsupportedPartException(param, aliased);
+			if (aliased == null)
 				throw new UnsupportedPartException(param, null);
-			}
-			FormosElementas fe = (FormosElementas) o;
+			FormosElementas fe = (FormosElementas) aliased;
 			forma = FormosElementasFieldHandler.setElementas(forma, fe);
 			if (usedClasses.containsKey(fe.getClass())) {
 				FormosElementas oldFe = usedClasses.get(fe.getClass());

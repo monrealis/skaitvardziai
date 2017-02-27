@@ -21,7 +21,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 class SkaitvardziaiTextParserConstants {
 	public static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();
-	public static final Map<String, Object> SYMBOLS = createSymbols();
+	public static final Map<String, Aliased> SYMBOLS = createSymbols();
 	public static final Pattern SVEIKASIS;
 	public static final Pattern TRUPMENA;
 
@@ -42,8 +42,8 @@ class SkaitvardziaiTextParserConstants {
 		return unmodifiableList(all);
 	}
 
-	private static Map<String, Object> createSymbols() {
-		Map<String, Object> symbols = new HashMap<String, Object>();
+	private static Map<String, Aliased> createSymbols() {
+		Map<String, Aliased> symbols = new HashMap<String, Aliased>();
 		addSymbolsToMap(symbols, Linksnis.values());
 		addSymbolsToMap(symbols, Skaicius.values());
 		addSymbolsToMap(symbols, Gimine.values());
@@ -52,13 +52,13 @@ class SkaitvardziaiTextParserConstants {
 		return unmodifiableMap(symbols);
 	}
 
-	private static void addSymbolsToMap(Map<String, Object> symbols, Aliased[] values) {
+	private static void addSymbolsToMap(Map<String, Aliased> symbols, Aliased[] values) {
 		for (Aliased aliased : values)
 			for (String alias : createAliases(new String[] {aliased.alias(), aliased.longName()}))
 				addAliasToMap(aliased, alias, symbols);
 	}
 
-	private static void addAliasToMap(Aliased aliased, String alias, Map<String, Object> symbols) {
+	private static void addAliasToMap(Aliased aliased, String alias, Map<String, Aliased> symbols) {
 		if (symbols.containsKey(alias)) {
 			String message = alias + ": duplicate value. " + aliased.getClass().getSimpleName() + " and " + symbols.get(alias).getClass().getSimpleName();
 			throw new IllegalArgumentException(message);

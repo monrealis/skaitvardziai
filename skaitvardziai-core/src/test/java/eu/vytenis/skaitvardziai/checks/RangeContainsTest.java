@@ -47,13 +47,6 @@ public class RangeContainsTest {
 	}
 
 	@Test
-	public void toStringFormatsRange() {
-		assertEquals("(-infinity; infinity)", all.toString());
-		assertEquals("(-1; 2)", open.toString());
-		assertEquals("[-1; 2]", closed.toString());
-	}
-
-	@Test
 	public void contains() {
 		assertEquals(expectedContains, range.contains(value));
 	}

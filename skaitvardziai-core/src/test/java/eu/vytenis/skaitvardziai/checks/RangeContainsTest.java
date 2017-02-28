@@ -11,7 +11,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class RangeTest {
+public class RangeContainsTest {
 	private static final Range<Integer> closed = new Range<Integer>(-1, true, 1, true);
 	private static final Range<Integer> open = new Range<Integer>(-1, false, 1, false);
 	private static final Range<Integer> all = new Range<Integer>(null, false, null, false);
@@ -34,7 +34,7 @@ public class RangeTest {
 		return cases;
 	}
 
-	public RangeTest(Range<Integer> range, int value, boolean expectedContains) {
+	public RangeContainsTest(Range<Integer> range, int value, boolean expectedContains) {
 		this.range = range;
 		this.value = value;
 		this.expectedContains = expectedContains;

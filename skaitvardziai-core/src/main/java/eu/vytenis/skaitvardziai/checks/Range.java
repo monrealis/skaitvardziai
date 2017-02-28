@@ -1,8 +1,8 @@
 package eu.vytenis.skaitvardziai.checks;
 
 public class Range<T extends Number & Comparable<T>> {
-	private RangeEnd<T> min;
-	private RangeEnd<T> max;
+	private final RangeEnd<T> min;
+	private final RangeEnd<T> max;
 
 	public Range(T min, boolean inclusiveMin, T max, boolean inclusiveMax) {
 		this.min = new RangeEnd<T>(min, inclusiveMin);
@@ -16,21 +16,24 @@ public class Range<T extends Number & Comparable<T>> {
 
 	public boolean contains(T number) {
 		Checks.checkNotNull("number", number);
-		boolean satisfiesLeft = isSatisfiesMin(number);
-		boolean satisfiesRight = isSatisfiesMax(number);
-		return satisfiesLeft && satisfiesRight;
+		if (!isSatisfiesMin(number))
+			return false;
+		if (!isSatisfiesMax(number))
+			return false;
+		return true;
 	}
 
 	protected boolean isSatisfiesMin(T number) {
-		boolean satisfiesLeft = min.getValue() == null || !min.isInclusive() && number.compareTo(min.getValue()) > 0 || min.isInclusive()
-				&& number.compareTo(min.getValue()) >= 0;
-		return satisfiesLeft;
+		if (min.isInfinity())
+			return true;
+		int comparison = number.compareTo(min.getValue());
+		return min.isInclusive() ? comparison >= 0 : comparison > 0;
 	}
 
 	protected boolean isSatisfiesMax(T number) {
-		boolean satisfiesRight = max.getValue() == null || !max.isInclusive() && number.compareTo(max.getValue()) < 0 || max.isInclusive()
-				&& number.compareTo(max.getValue()) <= 0;
-		return satisfiesRight;
+		if (max.isInfinity())
+			return true;
+		int comparison = number.compareTo(max.getValue());
+		return max.isInclusive() ? comparison <= 0 : comparison < 0;
 	}
-
 }

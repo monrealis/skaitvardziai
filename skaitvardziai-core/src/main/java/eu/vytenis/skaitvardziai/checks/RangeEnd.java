@@ -36,7 +36,7 @@ public class RangeEnd<T extends Number & Comparable<?>> {
 		return value.toString() + end;
 	}
 
-	private boolean isInfinity() {
+	public boolean isInfinity() {
 		return value == null;
 	}
 

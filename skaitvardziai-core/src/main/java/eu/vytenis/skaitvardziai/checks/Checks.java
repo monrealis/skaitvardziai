@@ -12,22 +12,6 @@ public class Checks {
 			throw new ObjectNullException(name);
 	}
 
-	public static void checkInclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
-		if (value == null)
-			return;
-		Range<BigInteger> range = new Range<BigInteger>(min, true, max, true);
-		if (!range.contains(value))
-			throw new InvalidRangeException(name, value, range);
-	}
-
-	public static void checkExclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
-		if (value == null)
-			return;
-		Range<BigInteger> range = new Range<BigInteger>(min, false, max, false);
-		if (!range.contains(value))
-			throw new InvalidRangeException(name, value, range);
-	}
-
 	public static void checkMinInclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
 		if (value == null)
 			return;

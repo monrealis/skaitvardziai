@@ -18,58 +18,9 @@ public class ChecksTest {
 	}
 
 	@Test
-	public void testCheckInclusive_Succeeds() {
-		Checks.checkInclusive(NAME, toBi(-10), toBi(-11), toBi(-9));
-		Checks.checkInclusive(NAME, toBi(-11), toBi(-11), toBi(-9));
-		Checks.checkInclusive(NAME, toBi(-9), toBi(-11), toBi(-9));
-	}
-
-	@Test(expected = RangeEnd.InvalidRangeException.class)
-	public void testCheckInclusive_FailsMinusInfinity() {
-		Checks.checkInclusive(NAME, toBi(-9), null, toBi(-9));
-	}
-
-	@Test(expected = RangeEnd.InvalidRangeException.class)
-	public void testCheckInclusive_FailsPlusInfinity() {
-		Checks.checkInclusive(NAME, toBi(-9), toBi(-9), null);
-	}
-
-	@Test(expected = Checks.InvalidRangeException.class)
-	public void testCheckInclusive_FailsLess() {
-		Checks.checkInclusive(NAME, toBi(-11), toBi(-10), toBi(-9));
-	}
-
-	@Test(expected = Checks.InvalidRangeException.class)
-	public void testCheckInclusive_FailsMore() {
-		Checks.checkInclusive(NAME, toBi(-9), toBi(-11), toBi(-10));
-	}
-
-	@Test
-	public void testCheckExclusive_Succeeds() {
-		Checks.checkExclusive(NAME, toBi(-10), toBi(-11), toBi(-9));
-		Checks.checkExclusive(NAME, toBi(-10), null, toBi(-9));
-		Checks.checkExclusive(NAME, toBi(-10), null, null);
-	}
-
-	@Test(expected = Checks.InvalidRangeException.class)
-	public void testCheckExclusive_FailsLess() {
-		Checks.checkExclusive(NAME, toBi(-11), toBi(-11), toBi(-9));
-	}
-
-	@Test(expected = Checks.InvalidRangeException.class)
-	public void testCheckExclusive_FailsMore() {
-		Checks.checkExclusive(NAME, toBi(-9), toBi(-11), toBi(-9));
-	}
-
-	@Test
 	public void testCheckMinInclusive_Succeeds() {
 		Checks.checkMinInclusive(NAME, toBi(-10), toBi(-10), toBi(-9));
 		Checks.checkMinInclusive(NAME, toBi(-10), toBi(-10), null);
-	}
-
-	@Test(expected = Checks.InvalidRangeException.class)
-	public void testCheckMinInclusive_FailsLess() {
-		Checks.checkExclusive(NAME, toBi(-11), toBi(-10), toBi(-9));
 	}
 
 	@Test

@@ -1,7 +1,8 @@
 package eu.vytenis.skaitvardziai.checks;
 
+import static java.util.Arrays.asList;
+
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
@@ -21,9 +22,11 @@ public class Checks {
 	}
 
 	public static void checkEqual(String firstName, String secondName, Object first, Object second) {
-		boolean equal = first == null && second == null || first != null && first.equals(second);
-		if (!equal)
-			throw new NotEqualException(Arrays.asList(firstName, secondName));
+		if (first == null && second == null)
+			return;
+		if (first != null && first.equals(second))
+			return;
+		throw new NotEqualException(asList(firstName, secondName));
 	}
 
 	public static class NotEqualException extends SkaitvardziaiRuntimeException {
@@ -32,7 +35,6 @@ public class Checks {
 		public NotEqualException(List<String> names) {
 			super(names + " are not equal");
 		}
-
 	}
 
 	public static class ObjectNullException extends SkaitvardziaiRuntimeException {

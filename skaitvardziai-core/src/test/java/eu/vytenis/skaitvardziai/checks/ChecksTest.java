@@ -24,13 +24,19 @@ public class ChecksTest {
 	}
 
 	@Test
-	public void testEqual_Succeeds() {
+	public void checkEqual_passes() {
 		Checks.checkEqual(NAME, NAME, "a", "a");
+		Checks.checkEqual(NAME, NAME, null, null);
 	}
 
 	@Test(expected = Checks.NotEqualException.class)
-	public void testEqual_Fails() {
+	public void checkEqual_FailsNotEqual() {
 		Checks.checkEqual(NAME, NAME, "a", "b");
+	}
+
+	@Test(expected = Checks.NotEqualException.class)
+	public void checkEqual_FailsOneNull() {
+		Checks.checkEqual(NAME, NAME, null, "b");
 	}
 
 	private BigInteger toBi(Number number) {

@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.checks;
 
+import static eu.vytenis.skaitvardziai.checks.Inclusive.Exclusive;
+import static eu.vytenis.skaitvardziai.checks.Inclusive.Inclusive;
 import static java.util.Arrays.asList;
 
 import java.math.BigInteger;
@@ -16,7 +18,7 @@ public class Checks {
 	public static void checkMinInclusive(String name, BigInteger value, BigInteger min, BigInteger max) {
 		if (value == null)
 			return;
-		Range<BigInteger> range = new Range<BigInteger>(min, true, max, false);
+		Range<BigInteger> range = new Range<BigInteger>(min, Inclusive, max, Exclusive);
 		if (!range.contains(value))
 			throw new InvalidRangeException(name, value, range);
 	}

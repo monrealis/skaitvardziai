@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.checks;
 
+import static eu.vytenis.skaitvardziai.checks.Inclusive.Exclusive;
+import static eu.vytenis.skaitvardziai.checks.Inclusive.Inclusive;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
@@ -12,9 +14,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class RangeContainsTest {
-	private static final Range<Integer> closed = new Range<Integer>(-1, true, 2, true);
-	private static final Range<Integer> open = new Range<Integer>(-1, false, 2, false);
-	private static final Range<Integer> all = new Range<Integer>(null, false, null, false);
+	private static final Range<Integer> closed = new Range<Integer>(-1, Inclusive, 2, Inclusive);
+	private static final Range<Integer> open = new Range<Integer>(-1, Exclusive, 2, Exclusive);
+	private static final Range<Integer> all = new Range<Integer>(null, Exclusive, null, Exclusive);
 	private final Range<Integer> range;
 	private final int value;
 	private final boolean expectedContains;

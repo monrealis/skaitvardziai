@@ -1,10 +1,10 @@
 package eu.vytenis.skaitvardziai.checks;
 
-public class Range<T extends Number & Comparable<T>> {
+class Range<T extends Number & Comparable<T>> {
 	private final RangeEnd<T> min;
 	private final RangeEnd<T> max;
 
-	public Range(T min, boolean inclusiveMin, T max, boolean inclusiveMax) {
+	public Range(T min, Inclusive inclusiveMin, T max, Inclusive inclusiveMax) {
 		this.min = new RangeEnd<T>(min, inclusiveMin);
 		this.max = new RangeEnd<T>(max, inclusiveMax);
 	}

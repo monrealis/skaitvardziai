@@ -2,13 +2,13 @@ package eu.vytenis.skaitvardziai.checks;
 
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
-public class RangeEnd<T extends Number & Comparable<?>> {
+class RangeEnd<T extends Number & Comparable<?>> {
 	private static final String INFINITY = "infinity";
 	private final T value;
-	private final boolean inclusive;
+	private final Inclusive inclusive;
 
-	public RangeEnd(T value, boolean inclusive) {
-		if (value == null && inclusive)
+	public RangeEnd(T value, Inclusive inclusive) {
+		if (value == null && inclusive == Inclusive.Inclusive)
 			throw new InvalidRangeException();
 		this.value = value;
 		this.inclusive = inclusive;
@@ -19,20 +19,20 @@ public class RangeEnd<T extends Number & Comparable<?>> {
 	}
 
 	public boolean isInclusive() {
-		return inclusive;
+		return inclusive == Inclusive.Inclusive;
 	}
 
 	public String getLeftString() {
 		if (isInfinity())
 			return "(-" + INFINITY;
-		String beginning = inclusive ? "[" : "(";
+		String beginning = isInclusive() ? "[" : "(";
 		return beginning + value.toString();
 	}
 
 	public String getRightString() {
 		if (isInfinity())
 			return INFINITY + ")";
-		String end = inclusive ? "]" : ")";
+		String end = isInclusive() ? "]" : ")";
 		return value.toString() + end;
 	}
 

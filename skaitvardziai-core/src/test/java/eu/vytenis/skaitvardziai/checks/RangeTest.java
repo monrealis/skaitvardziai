@@ -20,23 +20,23 @@ public class RangeTest {
 
 	@Test
 	public void testSatisfiesMin() {
-		assertFalse(closed.isSatisfiesMin(-2));
-		assertTrue(closed.isSatisfiesMin(-1));
-		assertTrue(closed.isSatisfiesMin(0));
-		assertFalse(open.isSatisfiesMin(-2));
-		assertFalse(open.isSatisfiesMin(-1));
-		assertTrue(open.isSatisfiesMin(0));
-		assertTrue(all.isSatisfiesMin(0));
+		assertFalse(closed.contains(-2));
+		assertTrue(closed.contains(-1));
+		assertTrue(closed.contains(0));
+		assertFalse(open.contains(-2));
+		assertFalse(open.contains(-1));
+		assertTrue(open.contains(0));
+		assertTrue(all.contains(0));
 	}
 
 	@Test
 	public void testSatisfiesMax() {
-		assertTrue(closed.isSatisfiesMax(0));
-		assertTrue(closed.isSatisfiesMax(1));
-		assertFalse(closed.isSatisfiesMax(2));
-		assertTrue(open.isSatisfiesMax(0));
-		assertFalse(open.isSatisfiesMax(1));
-		assertFalse(open.isSatisfiesMax(2));
-		assertTrue(all.isSatisfiesMax(0));
+		assertTrue(closed.contains(0));
+		assertTrue(closed.contains(1));
+		assertFalse(closed.contains(2));
+		assertTrue(open.contains(0));
+		assertFalse(open.contains(1));
+		assertFalse(open.contains(2));
+		assertTrue(all.contains(0));
 	}
 }

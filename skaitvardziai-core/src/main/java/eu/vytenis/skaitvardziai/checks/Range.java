@@ -23,14 +23,14 @@ public class Range<T extends Number & Comparable<T>> {
 		return true;
 	}
 
-	protected boolean isSatisfiesMin(T number) {
+	private boolean isSatisfiesMin(T number) {
 		if (min.isInfinity())
 			return true;
 		int comparison = number.compareTo(min.getValue());
 		return min.isInclusive() ? comparison >= 0 : comparison > 0;
 	}
 
-	protected boolean isSatisfiesMax(T number) {
+	private boolean isSatisfiesMax(T number) {
 		if (max.isInfinity())
 			return true;
 		int comparison = number.compareTo(max.getValue());

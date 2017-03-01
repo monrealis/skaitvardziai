@@ -12,18 +12,18 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
-import eu.vytenis.skaitvardziai.text.FormosElementasFieldHandler.GimineHandler;
-import eu.vytenis.skaitvardziai.text.FormosElementasFieldHandler.LinksnisHandler;
-import eu.vytenis.skaitvardziai.text.FormosElementasFieldHandler.PoskyrisHandler;
-import eu.vytenis.skaitvardziai.text.FormosElementasFieldHandler.RusisHandler;
-import eu.vytenis.skaitvardziai.text.FormosElementasFieldHandler.SkaiciusHandler;
+import eu.vytenis.skaitvardziai.text.FieldHandler.GimineHandler;
+import eu.vytenis.skaitvardziai.text.FieldHandler.LinksnisHandler;
+import eu.vytenis.skaitvardziai.text.FieldHandler.PoskyrisHandler;
+import eu.vytenis.skaitvardziai.text.FieldHandler.RusisHandler;
+import eu.vytenis.skaitvardziai.text.FieldHandler.SkaiciusHandler;
 
 public class FieldHandlers {
-	private static final Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> fieldHandlers;
+	private static final Map<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>> fieldHandlers;
 
 	static {
-		Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> handlers;
-		handlers = new HashMap<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>>();
+		Map<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>> handlers;
+		handlers = new HashMap<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>>();
 		handlers.put(Linksnis.class, new LinksnisHandler());
 		handlers.put(Skaicius.class, new SkaiciusHandler());
 		handlers.put(Gimine.class, new GimineHandler());

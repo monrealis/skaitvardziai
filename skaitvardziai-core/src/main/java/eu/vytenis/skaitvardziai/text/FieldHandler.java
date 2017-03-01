@@ -8,10 +8,10 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
-public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
+public abstract class FieldHandler<T extends FormosElementas> {
 	private final Class<T> type;
 
-	public FormosElementasFieldHandler(Class<T> type) {
+	public FieldHandler(Class<T> type) {
 		this.type = type;
 	}
 
@@ -21,7 +21,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 
 	protected abstract Forma setField(Forma forma, T formosElementas);
 
-	public static class LinksnisHandler extends FormosElementasFieldHandler<Linksnis> {
+	public static class LinksnisHandler extends FieldHandler<Linksnis> {
 		public LinksnisHandler() {
 			super(Linksnis.class);
 		}
@@ -32,7 +32,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 	}
 
-	public static class SkaiciusHandler extends FormosElementasFieldHandler<Skaicius> {
+	public static class SkaiciusHandler extends FieldHandler<Skaicius> {
 		public SkaiciusHandler() {
 			super(Skaicius.class);
 		}
@@ -43,7 +43,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 	}
 
-	public static class GimineHandler extends FormosElementasFieldHandler<Gimine> {
+	public static class GimineHandler extends FieldHandler<Gimine> {
 		public GimineHandler() {
 			super(Gimine.class);
 		}
@@ -54,7 +54,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 	}
 
-	public static class PoskyrisHandler extends FormosElementasFieldHandler<Poskyris> {
+	public static class PoskyrisHandler extends FieldHandler<Poskyris> {
 		public PoskyrisHandler() {
 			super(Poskyris.class);
 		}
@@ -65,7 +65,7 @@ public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 		}
 	}
 
-	public static class RusisHandler extends FormosElementasFieldHandler<Rusis> {
+	public static class RusisHandler extends FieldHandler<Rusis> {
 		public RusisHandler() {
 			super(Rusis.class);
 		}

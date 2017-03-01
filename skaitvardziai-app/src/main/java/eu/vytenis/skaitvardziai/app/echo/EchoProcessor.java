@@ -16,7 +16,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
+import eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParser;
 
 public class EchoProcessor implements Processor {
 	private final SkaitvardziaiTextParser parser = new SkaitvardziaiTextParser();

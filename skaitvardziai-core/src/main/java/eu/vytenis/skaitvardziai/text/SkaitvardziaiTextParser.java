@@ -1,9 +1,9 @@
-package eu.vytenis.skaitvardziai.util;
+package eu.vytenis.skaitvardziai.text;
 
-import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.ALL_ELEMENTS;
-import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.SVEIKASIS;
-import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.SYMBOLS;
-import static eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParserConstants.TRUPMENA;
+import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.ALL_ELEMENTS;
+import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.SVEIKASIS;
+import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.SYMBOLS;
+import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.TRUPMENA;
 
 import java.util.HashMap;
 import java.util.List;

@@ -10,7 +10,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.util.SkaitvardziaiTextParser;
+import eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParser;
 
 /**
  * Metodai, kuriuos kviečia išoriniai (ne JAVA) API.

@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.util;
+package eu.vytenis.skaitvardziai.text;
 
 import static java.util.Collections.unmodifiableList;
 import static java.util.Collections.unmodifiableMap;
@@ -17,6 +17,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
+import eu.vytenis.skaitvardziai.util.Letters;
 
 class SkaitvardziaiTextParserConstants {
 	public static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();

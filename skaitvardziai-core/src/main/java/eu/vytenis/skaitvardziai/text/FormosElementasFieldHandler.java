@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.util;
+package eu.vytenis.skaitvardziai.text;
 
 import static java.util.Collections.unmodifiableMap;
 

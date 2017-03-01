@@ -19,14 +19,14 @@ public class Facade {
 	@SuppressWarnings("unchecked")
 	private static final List<Class<? extends FormosElementas>> LINKSNIS = Arrays.<Class<? extends FormosElementas>> asList(Linksnis.class);
 	private static final SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
-	private static final SkaitvardziaiTextParser parser = new SkaitvardziaiTextParser();
+	private static final SkaitvardziaiTextParser PARSER = new SkaitvardziaiTextParser();
 
 	public static String sveikasis(SveikasisSkaicius skaicius) {
 		return sveikasis(skaicius, "");
 	}
 
 	public static String sveikasis(SveikasisSkaicius skaicius, String forma) {
-		Forma f = parser.parseForma(nullToEmpty(forma));
+		Forma f = PARSER.parseForma(nullToEmpty(forma));
 		return skaicius.toString(f);
 	}
 
@@ -35,7 +35,7 @@ public class Facade {
 	}
 
 	public static String trupmena(Trupmena trupmena, String forma) {
-		Forma f = parser.parseForma(nullToEmpty(forma), LINKSNIS);
+		Forma f = PARSER.parseForma(nullToEmpty(forma), LINKSNIS);
 		return trupmena.toString(f.getLinksnis());
 	}
 
@@ -44,7 +44,7 @@ public class Facade {
 	}
 
 	public static String kiti(SveikasisSkaicius skaicius, String forma, String vns, String dgs, String dgsKilm) {
-		Forma f = parser.parseForma(nullToEmpty(forma));
+		Forma f = PARSER.parseForma(nullToEmpty(forma));
 		SkaiciusIrLinksnis kitas = skaicius.getKitoZodzioSkaiciusIrLinksnis(f);
 		if (kitas.equals(DGS_K))
 			return getKitasIfNextDgsK(dgs, dgsKilm, f.getLinksnis());

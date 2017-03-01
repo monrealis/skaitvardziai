@@ -19,7 +19,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.util.Letters;
 
-class SkaitvardziaiTextParserConstants {
+class FormaParserConstants {
 	public static List<Class<? extends FormosElementas>> ALL_ELEMENTS = createAllElements();
 	public static final Map<String, FormosElementas> SYMBOLS = createSymbols();
 	public static final Pattern SVEIKASIS;

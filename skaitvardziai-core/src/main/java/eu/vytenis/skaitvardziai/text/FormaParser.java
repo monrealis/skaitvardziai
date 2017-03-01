@@ -1,9 +1,9 @@
 package eu.vytenis.skaitvardziai.text;
 
-import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.ALL_ELEMENTS;
-import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.SVEIKASIS;
-import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.SYMBOLS;
-import static eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParserConstants.TRUPMENA;
+import static eu.vytenis.skaitvardziai.text.FormaParserConstants.ALL_ELEMENTS;
+import static eu.vytenis.skaitvardziai.text.FormaParserConstants.SVEIKASIS;
+import static eu.vytenis.skaitvardziai.text.FormaParserConstants.SYMBOLS;
+import static eu.vytenis.skaitvardziai.text.FormaParserConstants.TRUPMENA;
 
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +17,7 @@ import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
-public class SkaitvardziaiTextParser {
+public class FormaParser {
 	public Forma parseForma(String parametrai) {
 		return parseForma(parametrai, ALL_ELEMENTS);
 	}

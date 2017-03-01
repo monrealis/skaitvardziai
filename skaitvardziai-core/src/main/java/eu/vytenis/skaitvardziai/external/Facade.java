@@ -10,7 +10,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
-import eu.vytenis.skaitvardziai.text.SkaitvardziaiTextParser;
+import eu.vytenis.skaitvardziai.text.FormaParser;
 
 /**
  * Metodai, kuriuos kviečia išoriniai (ne JAVA) API.
@@ -19,7 +19,7 @@ public class Facade {
 	@SuppressWarnings("unchecked")
 	private static final List<Class<? extends FormosElementas>> LINKSNIS = Arrays.<Class<? extends FormosElementas>> asList(Linksnis.class);
 	private static final SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
-	private static final SkaitvardziaiTextParser PARSER = new SkaitvardziaiTextParser();
+	private static final FormaParser PARSER = new FormaParser();
 
 	public static String sveikasis(SveikasisSkaicius skaicius) {
 		return sveikasis(skaicius, "");

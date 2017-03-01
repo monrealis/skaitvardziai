@@ -19,9 +19,10 @@ import eu.vytenis.skaitvardziai.text.FieldHandler.RusisHandler;
 import eu.vytenis.skaitvardziai.text.FieldHandler.SkaiciusHandler;
 
 public class FieldHandlers {
-	private static final Map<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>> fieldHandlers;
+	private static final Map<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>> fieldHandlers = unmodifiableMap(
+			createHandlersByClass());
 
-	static {
+	private static Map<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>> createHandlersByClass() {
 		Map<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>> handlers;
 		handlers = new HashMap<Class<? extends FormosElementas>, FieldHandler<? extends FormosElementas>>();
 		handlers.put(Linksnis.class, new LinksnisHandler());
@@ -29,7 +30,7 @@ public class FieldHandlers {
 		handlers.put(Gimine.class, new GimineHandler());
 		handlers.put(Poskyris.class, new PoskyrisHandler());
 		handlers.put(Rusis.class, new RusisHandler());
-		fieldHandlers = unmodifiableMap(handlers);
+		return handlers;
 	}
 
 	public static <T extends FormosElementas> Forma getUpdatedCopy(Forma forma, T elementas) {

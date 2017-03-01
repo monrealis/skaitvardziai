@@ -43,7 +43,7 @@ public class SkaitvardziaiTextParser {
 		FormosElementas element = SYMBOLS.get(parameter);
 		checkSupported(parameter, element, supportedParameters);
 		addToUsedClassesIfNotUsed(usedClasses, element);
-		forma = FormosElementasFieldHandler.withUpdatedElement(forma, element);
+		forma = FieldHandlers.withUpdatedElement(forma, element);
 		return forma;
 	}
 

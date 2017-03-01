@@ -64,30 +64,48 @@ public class FormaParser {
 
 	// Use exceptions
 	public SkaitineReiksme parseSkaicius(String skaicius) {
-		SveikasisSkaicius sveikasis = parseSveikasisIfMatches(skaicius);
-		if (sveikasis != null)
-			return sveikasis;
-		Trupmena trupmena = parseTrupmenaIfMatches(skaicius);
-		if (trupmena != null)
-			return trupmena;
+		Parser[] parsers = {new SveikasisParser(), new TrupmenaParser()};
+		for (Parser parser : parsers)
+			try {
+				return parser.parse(skaicius);
+			} catch (RegexpDoesNotMatchException e) {
+				continue;
+			}
 		throw new InvalidNumberException(skaicius);
 	}
 
-	private SveikasisSkaicius parseSveikasisIfMatches(String sveikasisSkaicius) {
-		Matcher svm = SVEIKASIS.matcher(sveikasisSkaicius);
-		if (!svm.matches())
-			return null;
-		String sk = svm.group(1).replaceAll("\\s*", "");
-		return new SveikasisSkaicius(sk);
+	private static abstract class Parser {
+		protected void checkMatches(Matcher matcher) throws RegexpDoesNotMatchException {
+			if (!matcher.matches())
+				throw new RegexpDoesNotMatchException();
+		}
+
+		public abstract SkaitineReiksme parse(String skaicius) throws RegexpDoesNotMatchException;
 	}
 
-	private Trupmena parseTrupmenaIfMatches(String trupmena) {
-		Matcher trm = TRUPMENA.matcher(trupmena);
-		if (!trm.matches())
-			return null;
-		String sk = trm.group(1).replaceAll("\\s*", "");
-		String v = trm.group(2).replaceAll("\\s*", "");
-		return new Trupmena(sk, v);
+	private static class SveikasisParser extends Parser {
+		@Override
+		public SveikasisSkaicius parse(String sveikasisSkaicius) throws RegexpDoesNotMatchException {
+			Matcher matcher = SVEIKASIS.matcher(sveikasisSkaicius);
+			checkMatches(matcher);
+			String sk = matcher.group(1).replaceAll("\\s*", "");
+			return new SveikasisSkaicius(sk);
+		}
+	}
+
+	private static class TrupmenaParser extends Parser {
+		@Override
+		public Trupmena parse(String trupmena) throws RegexpDoesNotMatchException {
+			Matcher matcher = TRUPMENA.matcher(trupmena);
+			checkMatches(matcher);
+			String sk = matcher.group(1).replaceAll("\\s*", "");
+			String v = matcher.group(2).replaceAll("\\s*", "");
+			return new Trupmena(sk, v);
+		}
+	}
+
+	private static class RegexpDoesNotMatchException extends Exception {
+		private static final long serialVersionUID = 1;
 	}
 
 	public static class UnsupportedPartException extends SkaitvardziaiRuntimeException {

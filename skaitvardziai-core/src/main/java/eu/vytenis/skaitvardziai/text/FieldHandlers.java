@@ -32,7 +32,7 @@ public class FieldHandlers {
 		fieldHandlers = unmodifiableMap(handlers);
 	}
 
-	public static <T extends FormosElementas> Forma withUpdatedElement(Forma forma, T elementas) {
+	public static <T extends FormosElementas> Forma getUpdatedCopy(Forma forma, T elementas) {
 		return fieldHandlers.get(elementas.getClass()).setUncastedField(forma, elementas);
 	}
 }

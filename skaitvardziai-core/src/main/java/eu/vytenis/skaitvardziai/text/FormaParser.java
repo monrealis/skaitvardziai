@@ -34,16 +34,16 @@ public class FormaParser {
 		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String parameter : parameters)
-			forma = getWithUpdatedParameter(parameter, forma, usedClasses, supportedParameters);
+			forma = getUpdatedCopy(parameter, forma, usedClasses, supportedParameters);
 		return forma;
 	}
 
-	private Forma getWithUpdatedParameter(String parameter, Forma forma, Map<Class<?>, FormosElementas> usedClasses,
+	private Forma getUpdatedCopy(String parameter, Forma forma, Map<Class<?>, FormosElementas> usedClasses,
 			List<Class<? extends FormosElementas>> supportedParameters) {
 		FormosElementas element = SYMBOLS.get(parameter);
 		checkSupported(parameter, element, supportedParameters);
 		addToUsedClassesIfNotUsed(usedClasses, element);
-		forma = FieldHandlers.withUpdatedElement(forma, element);
+		forma = FieldHandlers.getUpdatedCopy(forma, element);
 		return forma;
 	}
 

@@ -1,9 +1,17 @@
-package eu.vytenis.skaitvardziai.klasifikatoriai;
+package eu.vytenis.skaitvardziai.util;
 
 import static java.util.Collections.unmodifiableMap;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
+import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Rusis;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
 
 public abstract class FormosElementasFieldHandler<T extends FormosElementas> {
 	private static final Map<Class<? extends FormosElementas>, FormosElementasFieldHandler<? extends FormosElementas>> fieldHandlers;

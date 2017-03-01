@@ -13,7 +13,6 @@ import java.util.regex.Matcher;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
-import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementasFieldHandler;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;

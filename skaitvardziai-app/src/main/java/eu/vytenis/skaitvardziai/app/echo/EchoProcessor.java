@@ -1,5 +1,10 @@
 package eu.vytenis.skaitvardziai.app.echo;
 
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.Form;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.NoNewline;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.getValue;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.isIn;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -40,8 +45,8 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void parseForma() {
-		if (CliOption.Form.isIn(commandLine)) {
-			String formParameter = CliOption.Form.getValue(commandLine);
+		if (isIn(Form, commandLine)) {
+			String formParameter = getValue(Form, commandLine);
 			forma = parser.parseForma(formParameter);
 		} else {
 			forma = new Forma();
@@ -67,7 +72,7 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void calculateOutputNewLineSeparator() {
-		boolean noNewLine = CliOption.NoNewline.isIn(commandLine) && !inputFromSystemIn;
+		boolean noNewLine = CliOption.isIn(NoNewline, commandLine) && !inputFromSystemIn;
 		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
 	}
 

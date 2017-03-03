@@ -43,12 +43,12 @@ public enum CliOption {
 		return hasArgument;
 	}
 
-	public boolean isIn(CommandLine commandLine) {
-		return commandLine.hasOption(getShortName());
+	public static boolean isIn(CliOption option, CommandLine commandLine) {
+		return commandLine.hasOption(option.getShortName());
 	}
 
-	public String getValue(CommandLine commandLine) {
-		return commandLine.getOptionValue(getShortName());
+	public static String getValue(CliOption option, CommandLine commandLine) {
+		return commandLine.getOptionValue(option.getShortName());
 	}
 
 	public static CliOption[] getOptionsForArgs() {

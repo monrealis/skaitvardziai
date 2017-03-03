@@ -1,5 +1,15 @@
 package eu.vytenis.skaitvardziai.app.main;
 
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.Help;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.InputEncoding;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.InputFile;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.OutputEncoding;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.OutputFile;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.Transform;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.getOptionsForArgs;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.getValue;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.isIn;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -48,24 +58,24 @@ public class Main {
 	}
 
 	private void checkHelpOption() {
-		if (CliOption.Help.isIn(commandLine)) {
+		if (isIn(Help, commandLine)) {
 			throw new ShowHelpException();
 		}
 	}
 
 	private void buildSystemIo() {
 		SystemIo io = new SystemIo();
-		if (CliOption.OutputEncoding.isIn(commandLine)) {
-			io.setOutputCharsetName(CliOption.OutputEncoding.getValue(commandLine));
+		if (isIn(OutputEncoding, commandLine)) {
+			io.setOutputCharsetName(getValue(OutputEncoding, commandLine));
 		}
-		if (CliOption.InputEncoding.isIn(commandLine)) {
-			io.setInputCharsetName(CliOption.InputEncoding.getValue(commandLine));
+		if (isIn(InputEncoding, commandLine)) {
+			io.setInputCharsetName(getValue(InputEncoding, commandLine));
 		}
-		if (CliOption.OutputFile.isIn(commandLine)) {
-			io.setOutput(new File(CliOption.OutputFile.getValue(commandLine)));
+		if (isIn(OutputFile, commandLine)) {
+			io.setOutput(new File(getValue(OutputFile, commandLine)));
 		}
-		if (CliOption.InputFile.isIn(commandLine)) {
-			io.setInput(new File(CliOption.InputFile.getValue(commandLine)));
+		if (isIn(InputFile, commandLine)) {
+			io.setInput(new File(getValue(InputFile, commandLine)));
 		}
 		systemIo = io;
 	}
@@ -81,14 +91,14 @@ public class Main {
 
 	private void createOptions() {
 		options = new Options();
-		for (CliOption o : CliOption.getOptionsForArgs()) {
+		for (CliOption o : getOptionsForArgs()) {
 			options.addOption(o.getShortName(), o.getName(), o.isHasArgument(), o.getDescription());
 		}
 	}
 
 	private Processor createProcessor() {
 		Processor p;
-		if (CliOption.Transform.isIn(commandLine)) {
+		if (isIn(Transform, commandLine)) {
 			p = new TemplateProcessor(commandLine, systemIo);
 		} else {
 			p = new EchoProcessor(commandLine, systemIo);

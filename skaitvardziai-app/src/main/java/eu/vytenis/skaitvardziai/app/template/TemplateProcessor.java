@@ -1,5 +1,10 @@
 package eu.vytenis.skaitvardziai.app.template;
 
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.EndTag;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.StartTag;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.getValue;
+import static eu.vytenis.skaitvardziai.app.cli.CliOption.isIn;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
@@ -10,7 +15,6 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.cli.CommandLine;
 
-import eu.vytenis.skaitvardziai.app.cli.CliOption;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
@@ -19,8 +23,6 @@ import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 public class TemplateProcessor implements Processor {
 	static final String DEFAULT_START_TAG = "${";
 	static final String DEFAULT_END_TAG = "}";
-	@SuppressWarnings("unused")
-	private final CommandLine commandLine;
 	private final SystemIo systemIo;
 	private String startTag = DEFAULT_START_TAG;
 	private String endTag = DEFAULT_END_TAG;
@@ -30,18 +32,16 @@ public class TemplateProcessor implements Processor {
 	private List<TextSource> fragments;
 
 	public TemplateProcessor(CommandLine commandLine, SystemIo systemIo) {
-		this.commandLine = commandLine;
 		this.systemIo = systemIo;
-		if (CliOption.StartTag.isIn(commandLine)) {
-			startTag = CliOption.StartTag.getValue(commandLine);
+		if (isIn(StartTag, commandLine)) {
+			startTag = getValue(StartTag, commandLine);
 		}
-		if (CliOption.EndTag.isIn(commandLine)) {
-			endTag = CliOption.EndTag.getValue(commandLine);
+		if (isIn(EndTag, commandLine)) {
+			endTag = getValue(EndTag, commandLine);
 		}
 	}
 
 	TemplateProcessor(String startTag, String endTag, String inputText, SystemIo systemIo) {
-		commandLine = null;
 		this.startTag = startTag;
 		this.endTag = endTag;
 		this.inputText = inputText;
@@ -117,12 +117,10 @@ public class TemplateProcessor implements Processor {
 	}
 
 	public static class TemplateParseException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = -2523506465513363826L;
+		private static final long serialVersionUID = 1;
 
 		public TemplateParseException(String message) {
 			super(message);
 		}
-
 	}
-
 }

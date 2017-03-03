@@ -15,15 +15,15 @@ public enum CliOption {
 	InputFile("i", "input", true, "input file (defaults to stdin)"),
 	OutputFile("o", "output", true, "output file (defaults to stdoud)");
 	// @formatter:on
-	private String shortName;
-	private String name;
-	private boolean hasArg;
-	private String description;
+	private final String shortName;
+	private final String name;
+	private final boolean hasArgument;
+	private final String description;
 
-	private CliOption(String shortName, String name, boolean hasArg, String description) {
+	private CliOption(String shortName, String name, boolean hasArgument, String description) {
 		this.shortName = shortName;
 		this.name = name;
-		this.hasArg = hasArg;
+		this.hasArgument = hasArgument;
 		this.description = description;
 	}
 
@@ -39,8 +39,8 @@ public enum CliOption {
 		return description;
 	}
 
-	public boolean isHasArg() {
-		return hasArg;
+	public boolean isHasArgument() {
+		return hasArgument;
 	}
 
 	public boolean isIn(CommandLine commandLine) {
@@ -54,5 +54,4 @@ public enum CliOption {
 	public static CliOption[] getOptionsForArgs() {
 		return CliOption.values();
 	}
-
 }

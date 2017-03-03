@@ -82,7 +82,7 @@ public class Main {
 	private void createOptions() {
 		options = new Options();
 		for (CliOption o : CliOption.getOptionsForArgs()) {
-			options.addOption(o.getShortName(), o.getName(), o.isHasArg(), o.getDescription());
+			options.addOption(o.getShortName(), o.getName(), o.isHasArgument(), o.getDescription());
 		}
 	}
 

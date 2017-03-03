@@ -6,9 +6,9 @@ import static eu.vytenis.skaitvardziai.app.cli.CliOption.InputFile;
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.OutputEncoding;
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.OutputFile;
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.Transform;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.getOptionsForArgs;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.getValue;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.isIn;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.getOptionsForArgs;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.getValue;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.isIn;
 
 import java.io.File;
 import java.io.PrintWriter;

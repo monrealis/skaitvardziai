@@ -2,8 +2,8 @@ package eu.vytenis.skaitvardziai.app.template;
 
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.EndTag;
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.StartTag;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.getValue;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.isIn;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.getValue;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.isIn;
 
 import java.io.IOException;
 import java.io.Reader;

@@ -2,8 +2,8 @@ package eu.vytenis.skaitvardziai.app.echo;
 
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.Form;
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.NoNewline;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.getValue;
-import static eu.vytenis.skaitvardziai.app.cli.CliOption.isIn;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.getValue;
+import static eu.vytenis.skaitvardziai.app.cli.CliOptions.isIn;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +12,6 @@ import java.io.StringReader;
 
 import org.apache.commons.cli.CommandLine;
 
-import eu.vytenis.skaitvardziai.app.cli.CliOption;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
@@ -72,7 +71,7 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void calculateOutputNewLineSeparator() {
-		boolean noNewLine = CliOption.isIn(NoNewline, commandLine) && !inputFromSystemIn;
+		boolean noNewLine = isIn(NoNewline, commandLine) && !inputFromSystemIn;
 		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
 	}
 

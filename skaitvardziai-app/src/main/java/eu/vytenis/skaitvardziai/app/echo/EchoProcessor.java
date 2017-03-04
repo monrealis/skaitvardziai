@@ -44,12 +44,10 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void parseForma() {
-		if (isIn(Form, commandLine)) {
-			String formParameter = getValue(Form, commandLine);
-			forma = parser.parseForma(formParameter);
-		} else {
+		if (isIn(Form, commandLine))
+			forma = parser.parseForma(getValue(Form, commandLine));
+		else
 			forma = new Forma();
-		}
 	}
 
 	private void calculateReader() {
@@ -63,11 +61,10 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void createArgValuesReader() {
-		StringBuilder b = new StringBuilder();
-		for (String line : commandLine.getArgs()) {
-			b.append(line).append(SystemIo.NEW_LINE);
-		}
-		reader = new StringReader(b.toString());
+		String s = "";
+		for (String line : commandLine.getArgs())
+			s += line + SystemIo.NEW_LINE;
+		reader = new StringReader(s);
 	}
 
 	private void calculateOutputNewLineSeparator() {
@@ -77,31 +74,38 @@ public class EchoProcessor implements Processor {
 
 	private void processInput() {
 		try {
-			tryProcessInput(outputNewLineSeparator);
+			tryProcessInput();
 		} catch (IOException e) {
 			throw new SkaitvardziaiIOException(e);
 		}
 	}
 
-	private void tryProcessInput(String newLine) throws IOException {
+	private void tryProcessInput() throws IOException {
 		BufferedReader br = new BufferedReader(reader);
 		String line;
-		while ((line = br.readLine()) != null) {
-			processInputText(newLine, line);
-		}
+		while ((line = br.readLine()) != null)
+			processInputText(line);
 	}
 
-	private void processInputText(String newLine, String line) {
+	private void processInputText(String line) {
 		SkaitineReiksme sr = parser.parseSkaicius(line);
-		if (sr instanceof SveikasisSkaicius) {
-			SveikasisSkaicius ss = (SveikasisSkaicius) sr;
-			systemIo.printOut(ss.toString(forma), newLine);
-		} else if (sr instanceof Trupmena) {
-			Trupmena tr = (Trupmena) sr;
-			systemIo.printOut(tr.toString(forma.getLinksnis()), newLine);
-		} else {
+		if (sr instanceof SveikasisSkaicius)
+			printSveikasis((SveikasisSkaicius) sr);
+		else if (sr instanceof Trupmena)
+			printTrupmena((Trupmena) sr);
+		else
 			throw new SkaitvardziaiRuntimeException();
-		}
 	}
 
+	private void printSveikasis(SveikasisSkaicius sveikasisSkaicius) {
+		printOut(sveikasisSkaicius.toString(forma));
+	}
+
+	private void printTrupmena(Trupmena trupmena) {
+		printOut(trupmena.toString(forma.getLinksnis()));
+	}
+
+	private void printOut(String text) {
+		systemIo.printOut(text, outputNewLineSeparator);
+	}
 }

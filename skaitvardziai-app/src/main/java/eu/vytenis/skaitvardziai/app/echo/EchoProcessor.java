@@ -86,7 +86,7 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void processInputText(String line) {
-		SkaitineReiksme sr = new SkaitineReiksmeParser().parse(line);
+		SkaitineReiksme sr = new SkaitineReiksmeParser(line).parse();
 		String text = sr.accept(new Formatter(sr, forma));
 		printOut(text);
 	}

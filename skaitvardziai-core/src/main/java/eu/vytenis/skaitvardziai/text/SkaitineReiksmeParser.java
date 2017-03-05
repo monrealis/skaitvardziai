@@ -11,9 +11,14 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class SkaitineReiksmeParser {
-	// Use exceptions
-	public SkaitineReiksme parse(String skaicius) {
-		Parser[] parsers = {new SveikasisParser(), new TrupmenaParser()};
+	private final Parser[] parsers = {new SveikasisParser(), new TrupmenaParser()};
+	private final String skaicius;
+
+	public SkaitineReiksmeParser(String skaicius) {
+		this.skaicius = skaicius;
+	}
+
+	public SkaitineReiksme parse() {
 		for (Parser parser : parsers)
 			try {
 				return parser.parse(skaicius);

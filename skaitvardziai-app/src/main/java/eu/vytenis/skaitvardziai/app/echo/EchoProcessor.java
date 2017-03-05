@@ -45,7 +45,7 @@ public class EchoProcessor implements Processor {
 	private Forma parseForma() {
 		if (!isIn(Form, commandLine))
 			return new Forma();
-		return new FormaParser().parseForma(getValue(Form, commandLine));
+		return new FormaParser().parse(getValue(Form, commandLine));
 	}
 
 	private Reader calculateReader() {
@@ -86,7 +86,7 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void processInputText(String line) {
-		SkaitineReiksme sr = new SkaitineReiksmeParser().parseSkaicius(line);
+		SkaitineReiksme sr = new SkaitineReiksmeParser().parse(line);
 		String text = sr.accept(new Formatter(sr, forma));
 		printOut(text);
 	}

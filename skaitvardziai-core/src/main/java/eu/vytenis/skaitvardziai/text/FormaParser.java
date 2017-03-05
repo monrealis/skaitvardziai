@@ -12,11 +12,11 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 
 public class FormaParser {
-	public Forma parseForma(String parametrai) {
-		return parseForma(parametrai, ALL_ELEMENTS);
+	public Forma parse(String parametrai) {
+		return parse(parametrai, ALL_ELEMENTS);
 	}
 
-	public Forma parseForma(String parametrai, List<Class<? extends FormosElementas>> supportedParams) {
+	public Forma parse(String parametrai, List<Class<? extends FormosElementas>> supportedParams) {
 		return parseForma(split(parametrai), supportedParams);
 	}
 

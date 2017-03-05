@@ -12,7 +12,7 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class SkaitineReiksmeParser {
 	// Use exceptions
-	public SkaitineReiksme parseSkaicius(String skaicius) {
+	public SkaitineReiksme parse(String skaicius) {
 		Parser[] parsers = {new SveikasisParser(), new TrupmenaParser()};
 		for (Parser parser : parsers)
 			try {

@@ -15,9 +15,9 @@ import org.apache.commons.cli.CommandLine;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
-import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
+import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksmeVisitor;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 import eu.vytenis.skaitvardziai.text.FormaParser;
@@ -84,20 +84,8 @@ public class EchoProcessor implements Processor {
 
 	private void processInputText(String line) {
 		SkaitineReiksme sr = new SkaitineReiksmeParser().parseSkaicius(line);
-		if (sr instanceof SveikasisSkaicius)
-			printSveikasis((SveikasisSkaicius) sr);
-		else if (sr instanceof Trupmena)
-			printTrupmena((Trupmena) sr);
-		else
-			throw new SkaitvardziaiRuntimeException();
-	}
-
-	private void printSveikasis(SveikasisSkaicius sveikasisSkaicius) {
-		printOut(sveikasisSkaicius.toString(forma));
-	}
-
-	private void printTrupmena(Trupmena trupmena) {
-		printOut(trupmena.toString(forma.getLinksnis()));
+		String text = sr.accept(new Formatter(sr, forma));
+		printOut(text);
 	}
 
 	private void printOut(String text) {
@@ -106,5 +94,23 @@ public class EchoProcessor implements Processor {
 
 	private boolean isInputFromSystemIn() {
 		return commandLine.getArgs().length == 0;
+	}
+
+	private static class Formatter implements SkaitineReiksmeVisitor<String> {
+		private final SkaitineReiksme skaitineReiksme;
+		private final Forma forma;
+
+		private Formatter(SkaitineReiksme skaitineReiksme, Forma forma) {
+			this.skaitineReiksme = skaitineReiksme;
+			this.forma = forma;
+		}
+
+		public String visitSveikasisSkaicius() {
+			return ((SveikasisSkaicius) skaitineReiksme).toString(forma);
+		}
+
+		public String visitTrupmena() {
+			return ((Trupmena) skaitineReiksme).toString(forma.getLinksnis());
+		}
 	}
 }

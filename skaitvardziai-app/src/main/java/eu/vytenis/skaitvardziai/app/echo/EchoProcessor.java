@@ -45,7 +45,7 @@ public class EchoProcessor implements Processor {
 	private Forma parseForma() {
 		if (!isIn(Form, commandLine))
 			return new Forma();
-		return new FormaParser().parse(getValue(Form, commandLine));
+		return new FormaParser(getValue(Form, commandLine)).parse();
 	}
 
 	private Reader calculateReader() {

@@ -21,9 +21,9 @@ import eu.vytenis.skaitvardziai.skaiciai.SkaitineReiksme;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 import eu.vytenis.skaitvardziai.text.FormaParser;
+import eu.vytenis.skaitvardziai.text.SkaitineReiksmeParser;
 
 public class EchoProcessor implements Processor {
-	private final FormaParser parser = new FormaParser();
 	private final CommandLine commandLine;
 	private final SystemIo systemIo;
 	private boolean inputFromSystemIn;
@@ -37,17 +37,16 @@ public class EchoProcessor implements Processor {
 	}
 
 	public void process() {
-		parseForma();
+		forma = parseForma();
 		calculateReader();
 		calculateOutputNewLineSeparator();
 		processInput();
 	}
 
-	private void parseForma() {
-		if (isIn(Form, commandLine))
-			forma = parser.parseForma(getValue(Form, commandLine));
-		else
-			forma = new Forma();
+	private Forma parseForma() {
+		if (!isIn(Form, commandLine))
+			return new Forma();
+		return new FormaParser().parseForma(getValue(Form, commandLine));
 	}
 
 	private void calculateReader() {
@@ -88,7 +87,7 @@ public class EchoProcessor implements Processor {
 	}
 
 	private void processInputText(String line) {
-		SkaitineReiksme sr = parser.parseSkaicius(line);
+		SkaitineReiksme sr = new SkaitineReiksmeParser().parseSkaicius(line);
 		if (sr instanceof SveikasisSkaicius)
 			printSveikasis((SveikasisSkaicius) sr);
 		else if (sr instanceof Trupmena)

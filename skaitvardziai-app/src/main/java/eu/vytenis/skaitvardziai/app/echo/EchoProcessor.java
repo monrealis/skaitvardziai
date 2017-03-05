@@ -63,8 +63,11 @@ public class EchoProcessor implements Processor {
 	}
 
 	private String calculateOutputNewLineSeparator() {
-		boolean noNewLine = isIn(NoNewline, commandLine) && !isInputFromSystemIn();
-		return noNewLine ? SystemIo.NO_NEW_LINE : SystemIo.NEW_LINE;
+		if (isInputFromSystemIn())
+			return SystemIo.NEW_LINE;
+		if (!isIn(NoNewline, commandLine))
+			return SystemIo.NEW_LINE;
+		return SystemIo.NO_NEW_LINE;
 	}
 
 	private void processInput() {

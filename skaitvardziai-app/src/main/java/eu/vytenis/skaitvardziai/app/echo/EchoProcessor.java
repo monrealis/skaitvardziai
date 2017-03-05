@@ -26,7 +26,6 @@ import eu.vytenis.skaitvardziai.text.SkaitineReiksmeParser;
 public class EchoProcessor implements Processor {
 	private final CommandLine commandLine;
 	private final SystemIo systemIo;
-	private boolean inputFromSystemIn;
 	private Reader reader;
 	private String outputNewLineSeparator;
 	private Forma forma;
@@ -38,7 +37,7 @@ public class EchoProcessor implements Processor {
 
 	public void process() {
 		forma = parseForma();
-		calculateReader();
+		reader = calculateReader();
 		calculateOutputNewLineSeparator();
 		processInput();
 	}
@@ -49,25 +48,22 @@ public class EchoProcessor implements Processor {
 		return new FormaParser().parseForma(getValue(Form, commandLine));
 	}
 
-	private void calculateReader() {
-		inputFromSystemIn = commandLine.getArgs().length == 0;
-		if (inputFromSystemIn) {
-			reader = systemIo.createInReader();
-			inputFromSystemIn = true;
-		} else {
-			createArgValuesReader();
-		}
+	private Reader calculateReader() {
+		if (isInputFromSystemIn())
+			return systemIo.createInReader();
+		else
+			return createArgValuesReader();
 	}
 
-	private void createArgValuesReader() {
+	private Reader createArgValuesReader() {
 		String s = "";
 		for (String line : commandLine.getArgs())
 			s += line + SystemIo.NEW_LINE;
-		reader = new StringReader(s);
+		return new StringReader(s);
 	}
 
 	private void calculateOutputNewLineSeparator() {
-		boolean noNewLine = isIn(NoNewline, commandLine) && !inputFromSystemIn;
+		boolean noNewLine = isIn(NoNewline, commandLine) && !isInputFromSystemIn();
 		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
 	}
 
@@ -106,5 +102,9 @@ public class EchoProcessor implements Processor {
 
 	private void printOut(String text) {
 		systemIo.printOut(text, outputNewLineSeparator);
+	}
+
+	private boolean isInputFromSystemIn() {
+		return commandLine.getArgs().length == 0;
 	}
 }

@@ -38,7 +38,7 @@ public class EchoProcessor implements Processor {
 	public void process() {
 		forma = parseForma();
 		reader = calculateReader();
-		calculateOutputNewLineSeparator();
+		outputNewLineSeparator = calculateOutputNewLineSeparator();
 		processInput();
 	}
 
@@ -62,9 +62,9 @@ public class EchoProcessor implements Processor {
 		return new StringReader(s);
 	}
 
-	private void calculateOutputNewLineSeparator() {
+	private String calculateOutputNewLineSeparator() {
 		boolean noNewLine = isIn(NoNewline, commandLine) && !isInputFromSystemIn();
-		outputNewLineSeparator = !noNewLine ? SystemIo.NEW_LINE : SystemIo.NO_NEW_LINE;
+		return noNewLine ? SystemIo.NO_NEW_LINE : SystemIo.NEW_LINE;
 	}
 
 	private void processInput() {

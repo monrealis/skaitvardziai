@@ -108,12 +108,16 @@ public class SveikasisSkaicius implements SkaitineReiksme, Comparable<SveikasisS
 		return reiksme.equals(((SveikasisSkaicius) obj).getReiksme());
 	}
 
+	@Override
+	public int hashCode() {
+		return reiksme.hashCode();
+	}
+
 	public int compareTo(SveikasisSkaicius o) {
 		return reiksme.compareTo(o.getReiksme());
 	}
 
-	@Override
-	public int hashCode() {
-		return reiksme.hashCode();
+	public <T> T accept(SkaitineReiksmeVisitor<T> visitor) {
+		return visitor.visitSveikasisSkaicius();
 	}
 }

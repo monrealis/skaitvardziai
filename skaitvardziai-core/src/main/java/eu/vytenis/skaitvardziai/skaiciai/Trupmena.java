@@ -130,4 +130,7 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 		return r;
 	}
 
+	public <T> T accept(SkaitineReiksmeVisitor<T> visitor) {
+		return visitor.visitTrupmena();
+	}
 }

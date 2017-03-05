@@ -12,7 +12,7 @@ import eu.vytenis.skaitvardziai.klasifikatoriai.Forma;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormosElementas;
 
 public class FormaParser {
-	private final String parameters;
+	private final String[] parameters;
 	private final List<Class<? extends FormosElementas>> supportedParameters;
 
 	public FormaParser(String parameters) {
@@ -20,33 +20,27 @@ public class FormaParser {
 	}
 
 	public FormaParser(String parameters, List<Class<? extends FormosElementas>> supportedParameters) {
-		this.parameters = parameters;
+		this.parameters = split(parameters);
 		this.supportedParameters = supportedParameters;
-	}
-
-	public Forma parse() {
-		return parseForma(split(parameters), supportedParameters);
 	}
 
 	private String[] split(String text) {
 		return text.length() == 0 ? new String[] {} : text.split("\\s*,\\s*");
 	}
 
-	private Forma parseForma(String[] parameters, List<Class<? extends FormosElementas>> supportedParameters) {
+	public Forma parse() {
 		Forma forma = new Forma();
 		Map<Class<?>, FormosElementas> usedClasses = new HashMap<Class<?>, FormosElementas>();
 		for (String parameter : parameters)
-			forma = getUpdatedCopy(parameter, forma, usedClasses, supportedParameters);
+			forma = getUpdatedCopy(parameter, forma, usedClasses);
 		return forma;
 	}
 
-	private Forma getUpdatedCopy(String parameter, Forma forma, Map<Class<?>, FormosElementas> usedClasses,
-			List<Class<? extends FormosElementas>> supportedParameters) {
+	private Forma getUpdatedCopy(String parameter, Forma forma, Map<Class<?>, FormosElementas> usedClasses) {
 		FormosElementas element = SYMBOLS.get(parameter);
 		checkSupported(parameter, element, supportedParameters);
 		addToUsedClassesIfNotUsed(usedClasses, element);
-		forma = FieldHandlers.getUpdatedCopy(forma, element);
-		return forma;
+		return FieldHandlers.getUpdatedCopy(forma, element);
 	}
 
 	private void checkSupported(String parameter, FormosElementas element, List<Class<? extends FormosElementas>> supportedParameters) {
@@ -91,7 +85,9 @@ public class FormaParser {
 		}
 
 		private static String buildMessage(FormosElementas newElement, Object existingElement) {
-			return newElement.getClass() + " instance is used more than one time. Duplicate values: " + newElement.getClass() + ": " + existingElement + "; "
+			return newElement.getClass() //
+					+ " instance is used more than one time. Duplicate values: " //
+					+ newElement.getClass() + ": " + existingElement + "; " //
 					+ newElement.getClass() + ": " + newElement;
 		}
 	}

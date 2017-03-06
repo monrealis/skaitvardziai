@@ -15,8 +15,6 @@ import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 
 // TODO 2017-03-07 separate IO from parameters 
 public class SystemIo {
-	public static final String NEW_LINE = "\n";
-	public static final String NO_NEW_LINE = "";
 	private OutputStream systemOut = System.out;
 	private OutputStream systemErr = System.err;
 	private InputStream systemIn = System.in;

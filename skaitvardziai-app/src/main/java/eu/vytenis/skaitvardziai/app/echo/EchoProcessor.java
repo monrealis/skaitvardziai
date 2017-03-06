@@ -24,6 +24,7 @@ import eu.vytenis.skaitvardziai.text.FormaParser;
 import eu.vytenis.skaitvardziai.text.SkaitineReiksmeParser;
 
 public class EchoProcessor implements Processor {
+	private static final String NEW_LINE = "\n";
 	private final CommandLine commandLine;
 	private final SystemIo systemIo;
 	private Reader reader;
@@ -58,16 +59,16 @@ public class EchoProcessor implements Processor {
 	private Reader createArgValuesReader() {
 		String s = "";
 		for (String line : commandLine.getArgs())
-			s += line + SystemIo.NEW_LINE;
+			s += line + NEW_LINE;
 		return new StringReader(s);
 	}
 
 	private String calculateOutputNewLineSeparator() {
 		if (isInputFromSystemIn())
-			return SystemIo.NEW_LINE;
+			return NEW_LINE;
 		if (!isIn(NoNewline, commandLine))
-			return SystemIo.NEW_LINE;
-		return SystemIo.NO_NEW_LINE;
+			return NEW_LINE;
+		return "";
 	}
 
 	private void processInput() {

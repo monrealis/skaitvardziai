@@ -104,14 +104,14 @@ public class Main {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printHelp(new PrintWriter(out), 80, "skaiciai", "Parameters", options, 2, 2, "Prints text that represents given number", true);
-		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
+		systemIo.printOut(out.toString(), "");
 	}
 
 	public void usage() {
 		HelpFormatter f = new HelpFormatter();
 		StringWriter out = new StringWriter();
 		f.printUsage(new PrintWriter(out), 80, "java -jar main.jar", options);
-		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
+		systemIo.printOut(out.toString(), "");
 	}
 
 	public void setSystemIo(SystemIo systemIo) {

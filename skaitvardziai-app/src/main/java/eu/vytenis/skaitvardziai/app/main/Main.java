@@ -64,20 +64,14 @@ public class Main {
 	}
 
 	private void buildSystemIo() {
-		SystemIo io = new SystemIo();
-		if (isIn(OutputEncoding, commandLine)) {
-			io.setOutputCharsetName(getValue(OutputEncoding, commandLine));
-		}
-		if (isIn(InputEncoding, commandLine)) {
-			io.setInputCharsetName(getValue(InputEncoding, commandLine));
-		}
-		if (isIn(OutputFile, commandLine)) {
-			io.setOutput(new File(getValue(OutputFile, commandLine)));
-		}
-		if (isIn(InputFile, commandLine)) {
-			io.setInput(new File(getValue(InputFile, commandLine)));
-		}
-		systemIo = io;
+		if (isIn(OutputEncoding, commandLine))
+			systemIo.setOutputCharsetName(getValue(OutputEncoding, commandLine));
+		if (isIn(InputEncoding, commandLine))
+			systemIo.setInputCharsetName(getValue(InputEncoding, commandLine));
+		if (isIn(OutputFile, commandLine))
+			systemIo.setOutput(new File(getValue(OutputFile, commandLine)));
+		if (isIn(InputFile, commandLine))
+			systemIo.setInput(new File(getValue(InputFile, commandLine)));
 	}
 
 	private void parseCommandLine(String[] args) {

@@ -23,6 +23,9 @@ public class SystemIo {
 	private Charset inputCharset = Charset.defaultCharset();
 	private Charset outputCharset = Charset.defaultCharset();
 
+	public SystemIo() {
+	}
+
 	public void setSystemOut(OutputStream out) {
 		systemOut.set(out);
 	}

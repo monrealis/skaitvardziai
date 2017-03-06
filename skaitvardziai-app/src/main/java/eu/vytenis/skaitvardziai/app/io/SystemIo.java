@@ -31,6 +31,14 @@ public class SystemIo {
 		systemErr.set(err);
 	}
 
+	public void restoreSystemOut() {
+		systemOut.set(null);
+	}
+
+	public void restoreSystemErr() {
+		systemErr.set(null);
+	}
+
 	public void printErr(String text, String newLine) {
 		OutputStream os = getErr();
 		writeString(os, text + newLine);

@@ -37,8 +37,8 @@ public abstract class AppTest {
 		try {
 			return doMain(out, err, args);
 		} finally {
-			systemIo.setSystemOut(null);
-			systemIo.setSystemErr(null);
+			systemIo.restoreSystemOut();
+			systemIo.restoreSystemErr();
 		}
 	}
 

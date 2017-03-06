@@ -13,7 +13,7 @@ import java.nio.charset.Charset;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 
-// TODO 2017-03-07 separate IO from parameters 
+// TODO 2017-03-07 separate streams from readers/writers
 public class SystemIo {
 	private OutputStream systemOut = System.out;
 	private OutputStream systemErr = System.err;

@@ -114,4 +114,7 @@ public class Main {
 		systemIo.printOut(out.toString(), SystemIo.NO_NEW_LINE);
 	}
 
+	public void setSystemIo(SystemIo systemIo) {
+		this.systemIo = systemIo;
+	}
 }

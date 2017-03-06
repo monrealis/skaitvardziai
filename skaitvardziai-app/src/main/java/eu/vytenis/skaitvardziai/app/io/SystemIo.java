@@ -17,10 +17,9 @@ import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 public class SystemIo {
 	public static final String NEW_LINE = "\n";
 	public static final String NO_NEW_LINE = "";
-	private static ThreadLocal<OutputStream> systemOut = new ThreadLocal<OutputStream>();
-	private static ThreadLocal<OutputStream> systemErr = new ThreadLocal<OutputStream>();
-	private OutputStream nonSystemOut;
-	private InputStream nonSystemIn;
+	private OutputStream systemOut = System.out;
+	private OutputStream systemErr = System.err;
+	private InputStream systemIn = System.in;
 	private Charset inputCharset = Charset.defaultCharset();
 	private Charset outputCharset = Charset.defaultCharset();
 
@@ -28,19 +27,27 @@ public class SystemIo {
 	}
 
 	public void setSystemOut(OutputStream out) {
-		systemOut.set(out);
+		systemOut = out;
 	}
 
 	public void setSystemErr(OutputStream err) {
-		systemErr.set(err);
+		systemErr = err;
+	}
+
+	public void setSystemIn(InputStream in) {
+		systemIn = in;
 	}
 
 	public void restoreSystemOut() {
-		systemOut.set(null);
+		systemOut = System.out;
 	}
 
 	public void restoreSystemErr() {
-		systemErr.set(null);
+		systemErr = System.err;
+	}
+
+	public void restoreSystemIn() {
+		systemIn = System.in;
 	}
 
 	public void printErr(String text, String newLine) {
@@ -49,11 +56,7 @@ public class SystemIo {
 	}
 
 	private OutputStream getErr() {
-		if (systemErr.get() != null) {
-			return systemErr.get();
-		} else {
-			return System.err;
-		}
+		return systemErr;
 	}
 
 	public void printOut(String text, String newLine) {
@@ -62,13 +65,7 @@ public class SystemIo {
 	}
 
 	private OutputStream getOut() {
-		if (nonSystemOut != null) {
-			return nonSystemOut;
-		} else if (systemOut.get() != null) {
-			return systemOut.get();
-		} else {
-			return System.out;
-		}
+		return systemOut;
 	}
 
 	private void writeString(OutputStream output, String text) {
@@ -101,16 +98,12 @@ public class SystemIo {
 	}
 
 	private InputStream getIn() {
-		if (nonSystemIn != null) {
-			return nonSystemIn;
-		} else {
-			return System.in;
-		}
+		return systemIn;
 	}
 
 	public void setInput(File file) {
 		try {
-			nonSystemIn = new FileInputStream(file);
+			systemIn = new FileInputStream(file);
 		} catch (FileNotFoundException e) {
 			throw new SkaitvardziaiIOException(e);
 		}
@@ -118,10 +111,9 @@ public class SystemIo {
 
 	public void setOutput(File file) {
 		try {
-			nonSystemOut = new FileOutputStream(file);
+			systemOut = new FileOutputStream(file);
 		} catch (FileNotFoundException e) {
 			throw new SkaitvardziaiIOException(e);
 		}
 	}
-
 }

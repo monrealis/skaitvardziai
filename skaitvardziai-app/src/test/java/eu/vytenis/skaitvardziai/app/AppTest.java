@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
@@ -23,6 +24,7 @@ public abstract class AppTest {
 	protected static final String UTF8 = "utf-8";
 	protected static final String WIN1257 = "windows-1257";
 	protected SystemIo systemIo;
+	private InputStream in = System.in;
 
 	@Before
 	public void before() {
@@ -35,7 +37,7 @@ public abstract class AppTest {
 
 	protected void assertOutByIn(ExpectedOut out, String in, Object... args) {
 		byte[] bytes = getInputAsBytes(in);
-		System.setIn(new ByteArrayInputStream(bytes));
+		this.in = new ByteArrayInputStream(bytes);
 		assertOutErr(out, ExpectedOut.EMPTY, args);
 	}
 
@@ -82,17 +84,21 @@ public abstract class AppTest {
 		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
 		systemIo.setSystemOut(out);
 		systemIo.setSystemErr(err);
+		systemIo.setSystemIn(in);
 		try {
 			return doMain(out, err, args);
 		} finally {
 			systemIo.restoreSystemOut();
 			systemIo.restoreSystemErr();
+			systemIo.restoreSystemIn();
 		}
 	}
 
 	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
 		String[] params = getMainArgs(args);
-		Main.main(params);
+		Main main = new Main();
+		main.setSystemIo(systemIo);
+		main.doMain(params);
 		return new SystemOutputFiles(out, err);
 	}
 

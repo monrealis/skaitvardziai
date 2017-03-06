@@ -2,12 +2,12 @@ package eu.vytenis.skaitvardziai.app;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
-import org.junit.Assert;
 import org.junit.Before;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
@@ -27,33 +27,6 @@ public abstract class AppTest {
 	@Before
 	public void before() {
 		systemIo = new SystemIo();
-	}
-
-	protected SystemOutputFiles main(Object... args) {
-		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
-		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
-		systemIo.setSystemOut(out);
-		systemIo.setSystemErr(err);
-		try {
-			return doMain(out, err, args);
-		} finally {
-			systemIo.restoreSystemOut();
-			systemIo.restoreSystemErr();
-		}
-	}
-
-	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
-		String[] params = getMainArgs(args);
-		Main.main(params);
-		return new SystemOutputFiles(out, err);
-	}
-
-	private String[] getMainArgs(Object... args) {
-		String[] params = new String[args.length];
-		for (int i = 0; i < args.length; ++i) {
-			params[i] = args[i] != null ? args[i].toString() : null;
-		}
-		return params;
 	}
 
 	protected void assertOut(ExpectedOut out, Object... args) {
@@ -82,22 +55,15 @@ public abstract class AppTest {
 	private void assertOutErr(ExpectedOut expectedOut, ExpectedOut expectedErr, Object... args) {
 		SystemOutputFiles oe = main(args);
 		assertEquals(expectedOut.getText(), oe.getOutText(systemIo.getOutputCharset()));
-		if (expectedOut.getEncoding() != null) {
+		if (expectedOut.getEncoding() != null)
 			assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
-		}
 		assertEquals(expectedErr.getText(), oe.getErrText(systemIo.getOutputCharset()));
-		if (expectedErr.getEncoding() != null) {
+		if (expectedErr.getEncoding() != null)
 			assertArrayEquals(expectedErr.getTextEncoded(), oe.getErrEncoded());
-		}
 	}
 
 	protected void assertOutMatches(ExpectedOut out, Object... args) {
 		assertOutErrMatches(out.toPattern(), EMPTY_PATTERN, args);
-	}
-
-	@SuppressWarnings("unused")
-	private void assertErrMatches(ExpectedOut err, Object... args) {
-		assertOutErrMatches(EMPTY_PATTERN, err.toPattern(), args);
 	}
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
@@ -107,9 +73,33 @@ public abstract class AppTest {
 	}
 
 	private void assertMatches(String text, Pattern pattern) {
-		if (!pattern.matcher(text).matches()) {
-			Assert.fail(text + "\ndoes not match\n" + pattern.pattern());
+		if (!pattern.matcher(text).matches())
+			fail(text + "\ndoes not match\n" + pattern.pattern());
+	}
+
+	protected SystemOutputFiles main(Object... args) {
+		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
+		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
+		systemIo.setSystemOut(out);
+		systemIo.setSystemErr(err);
+		try {
+			return doMain(out, err, args);
+		} finally {
+			systemIo.restoreSystemOut();
+			systemIo.restoreSystemErr();
 		}
 	}
 
+	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
+		String[] params = getMainArgs(args);
+		Main.main(params);
+		return new SystemOutputFiles(out, err);
+	}
+
+	private String[] getMainArgs(Object... args) {
+		String[] params = new String[args.length];
+		for (int i = 0; i < args.length; ++i)
+			params[i] = args[i] != null ? args[i].toString() : null;
+		return params;
+	}
 }

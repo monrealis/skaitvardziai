@@ -11,10 +11,8 @@ public class TemplateProcessorTest extends AppTest {
 	private String startTag;
 	private String endTag;
 
-	@Override
 	@Before
 	public void before() {
-		super.before();
 		startTag = TemplateProcessor.DEFAULT_START_TAG;
 		endTag = TemplateProcessor.DEFAULT_END_TAG;
 	}

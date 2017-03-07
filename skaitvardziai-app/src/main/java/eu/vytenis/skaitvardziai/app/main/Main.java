@@ -25,18 +25,27 @@ import eu.vytenis.skaitvardziai.app.cli.CliOption;
 import eu.vytenis.skaitvardziai.app.echo.EchoProcessor;
 import eu.vytenis.skaitvardziai.app.exc.ShowHelpException;
 import eu.vytenis.skaitvardziai.app.exc.ShowUsageException;
+import eu.vytenis.skaitvardziai.app.io.SystemFiles;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.app.template.TemplateProcessor;
+import eu.vytenis.skaitvardziai.checks.Checks;
 
 public class Main {
 	private CommandLine commandLine;
 	private Options options;
-	private SystemIo systemIo = new SystemIo();
+	private final SystemFiles systemFiles;
+	private final SystemIo systemIo;
 
 	public static void main(String[] args) {
-		Main main = new Main();
+		Main main = new Main(new SystemIo(new SystemFiles()));
 		main.doMain(args);
+	}
+
+	public Main(SystemIo systemIo) {
+		Checks.checkNotNull("systemIo", systemIo);
+		this.systemFiles = systemIo.getSystemFiles();
+		this.systemIo = new SystemIo(systemFiles);
 	}
 
 	public void doMain(String[] args) {
@@ -69,9 +78,9 @@ public class Main {
 		if (isIn(InputEncoding, commandLine))
 			systemIo.setInputCharsetName(getValue(InputEncoding, commandLine));
 		if (isIn(OutputFile, commandLine))
-			systemIo.setOutput(new File(getValue(OutputFile, commandLine)));
+			systemFiles.setOutput(new File(getValue(OutputFile, commandLine)));
 		if (isIn(InputFile, commandLine))
-			systemIo.setInput(new File(getValue(InputFile, commandLine)));
+			systemFiles.setInput(new File(getValue(InputFile, commandLine)));
 	}
 
 	private void parseCommandLine(String[] args) {
@@ -114,7 +123,7 @@ public class Main {
 		systemIo.printOut(out.toString(), "");
 	}
 
-	public void setSystemIo(SystemIo systemIo) {
-		this.systemIo = systemIo;
+	public SystemIo getSystemIo() {
+		return systemIo;
 	}
 }

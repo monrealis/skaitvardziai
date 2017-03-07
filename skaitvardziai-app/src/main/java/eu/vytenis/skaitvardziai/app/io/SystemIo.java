@@ -1,9 +1,5 @@
 package eu.vytenis.skaitvardziai.app.io;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,39 +9,13 @@ import java.nio.charset.Charset;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 
-// TODO 2017-03-07 separate streams from readers/writers
 public class SystemIo {
-	private OutputStream systemOut = System.out;
-	private OutputStream systemErr = System.err;
-	private InputStream systemIn = System.in;
 	private Charset inputCharset = Charset.defaultCharset();
 	private Charset outputCharset = Charset.defaultCharset();
+	private final SystemFiles systemFiles;
 
-	public SystemIo() {
-	}
-
-	public void setSystemOut(OutputStream out) {
-		systemOut = out;
-	}
-
-	public void setSystemErr(OutputStream err) {
-		systemErr = err;
-	}
-
-	public void setSystemIn(InputStream in) {
-		systemIn = in;
-	}
-
-	public void restoreSystemOut() {
-		systemOut = System.out;
-	}
-
-	public void restoreSystemErr() {
-		systemErr = System.err;
-	}
-
-	public void restoreSystemIn() {
-		systemIn = System.in;
+	public SystemIo(SystemFiles systemFiles) {
+		this.systemFiles = systemFiles;
 	}
 
 	public void printErr(String text, String newLine) {
@@ -54,7 +24,7 @@ public class SystemIo {
 	}
 
 	private OutputStream getErr() {
-		return systemErr;
+		return systemFiles.getErr();
 	}
 
 	public void printOut(String text, String newLine) {
@@ -63,7 +33,7 @@ public class SystemIo {
 	}
 
 	private OutputStream getOut() {
-		return systemOut;
+		return systemFiles.getOut();
 	}
 
 	private void writeString(OutputStream output, String text) {
@@ -96,22 +66,10 @@ public class SystemIo {
 	}
 
 	private InputStream getIn() {
-		return systemIn;
+		return systemFiles.getIn();
 	}
-
-	public void setInput(File file) {
-		try {
-			systemIn = new FileInputStream(file);
-		} catch (FileNotFoundException e) {
-			throw new SkaitvardziaiIOException(e);
-		}
-	}
-
-	public void setOutput(File file) {
-		try {
-			systemOut = new FileOutputStream(file);
-		} catch (FileNotFoundException e) {
-			throw new SkaitvardziaiIOException(e);
-		}
+	
+	public SystemFiles getSystemFiles() {
+		return systemFiles;
 	}
 }

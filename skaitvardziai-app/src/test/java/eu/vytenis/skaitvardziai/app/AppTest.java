@@ -9,11 +9,10 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
 
-import org.junit.Before;
-
 import eu.vytenis.skaitvardziai.app.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
+import eu.vytenis.skaitvardziai.app.io.SystemFiles;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.main.Main;
 
@@ -21,13 +20,9 @@ public abstract class AppTest {
 	protected static final Pattern EMPTY_PATTERN = Pattern.compile("^$");
 	protected static final String UTF8 = "utf-8";
 	protected static final String WIN1257 = "windows-1257";
-	protected SystemIo systemIo;
+	protected SystemFiles systemFiles = new SystemFiles();
+	protected SystemIo systemIo = new SystemIo(systemFiles);
 	private InputStream in = System.in;
-
-	@Before
-	public void before() {
-		systemIo = new SystemIo();
-	}
 
 	protected void assertOut(ExpectedOut out, Object... args) {
 		assertOutErr(out, ExpectedOut.EMPTY, args);
@@ -80,22 +75,21 @@ public abstract class AppTest {
 	protected SystemOutputFiles main(Object... args) {
 		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
 		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
-		systemIo.setSystemOut(out);
-		systemIo.setSystemErr(err);
-		systemIo.setSystemIn(in);
+		systemFiles.setSystemOut(out);
+		systemFiles.setSystemErr(err);
+		systemFiles.setSystemIn(in);
 		try {
 			return doMain(out, err, args);
 		} finally {
-			systemIo.restoreSystemOut();
-			systemIo.restoreSystemErr();
-			systemIo.restoreSystemIn();
+			systemFiles.restoreSystemOut();
+			systemFiles.restoreSystemErr();
+			systemFiles.restoreSystemIn();
 		}
 	}
 
 	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
 		String[] params = getMainArgs(args);
-		Main main = new Main();
-		main.setSystemIo(systemIo);
+		Main main = new Main(systemIo);
 		main.doMain(params);
 		return new SystemOutputFiles(out, err);
 	}

@@ -42,10 +42,11 @@ public class Main {
 		main.doMain(args);
 	}
 
+	// TODO too many information to get systemIo
 	public Main(SystemIo systemIo) {
 		Checks.checkNotNull("systemIo", systemIo);
 		this.systemFiles = systemIo.getSystemFiles();
-		this.systemIo = new SystemIo(systemFiles);
+		this.systemIo = systemIo;
 	}
 
 	public void doMain(String[] args) {

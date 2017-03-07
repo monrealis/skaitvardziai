@@ -21,9 +21,7 @@ public class EchoProcessorTest extends AppTest {
 
 	@Test
 	public void testEchoParametersWithCharset() {
-		systemIo.setOutputCharsetName(WIN1257);
 		assertOut(new ExpectedOut("dvidešimt", WIN1257), "-n", 20, "-oe", WIN1257);
-		systemIo.setOutputCharsetName(UTF8);
 		assertOut(new ExpectedOut("dvidešimt", UTF8), "-n", 20, "-oe", UTF8);
 	}
 
@@ -37,11 +35,7 @@ public class EchoProcessorTest extends AppTest {
 
 	@Test
 	public void testEchoSystemInCharset() {
-		systemIo.setInputCharsetName(WIN1257);
-		systemIo.setOutputCharsetName(WIN1257);
 		assertOutByIn(new ExpectedOut("dešimt\n", WIN1257), "10", "-ie", WIN1257, "-oe", WIN1257);
-		systemIo.setInputCharsetName(UTF8);
-		systemIo.setOutputCharsetName(UTF8);
 		assertOutByIn(new ExpectedOut("dešimt\n", UTF8), "10", "-ie", UTF8, "-oe", UTF8);
 	}
 

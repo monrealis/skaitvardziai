@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app.io;
+package eu.vytenis.skaitvardziai.app;
 
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;

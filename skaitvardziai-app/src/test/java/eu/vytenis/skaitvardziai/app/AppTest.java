@@ -11,12 +11,10 @@ import java.util.regex.Pattern;
 
 import org.junit.Before;
 
+import eu.vytenis.skaitvardziai.app.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
-import eu.vytenis.skaitvardziai.app.io.DecoratingStream;
-import eu.vytenis.skaitvardziai.app.io.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
-import eu.vytenis.skaitvardziai.app.io.SystemOutputFiles;
 import eu.vytenis.skaitvardziai.app.main.Main;
 
 public abstract class AppTest {

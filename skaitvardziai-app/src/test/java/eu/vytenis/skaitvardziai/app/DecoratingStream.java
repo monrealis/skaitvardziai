@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.app.io;
+package eu.vytenis.skaitvardziai.app;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FilterOutputStream;

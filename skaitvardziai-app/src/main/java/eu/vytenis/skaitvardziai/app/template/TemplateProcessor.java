@@ -16,6 +16,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.cli.CommandLine;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
+import eu.vytenis.skaitvardziai.app.io.SystemFiles;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
@@ -41,11 +42,11 @@ public class TemplateProcessor implements Processor {
 		}
 	}
 
-	TemplateProcessor(String startTag, String endTag, String inputText, SystemIo systemIo) {
+	TemplateProcessor(String startTag, String endTag, String inputText, SystemFiles systemFiles) {
 		this.startTag = startTag;
 		this.endTag = endTag;
 		this.inputText = inputText;
-		this.systemIo = systemIo;
+		this.systemIo = new SystemIo(systemFiles);
 	}
 
 	public void process() {

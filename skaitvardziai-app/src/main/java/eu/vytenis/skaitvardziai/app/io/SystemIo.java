@@ -9,7 +9,7 @@ import java.nio.charset.Charset;
 
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 
-public class SystemIo {
+public class SystemIo implements Charsets {
 	private Charset inputCharset = Charset.defaultCharset();
 	private Charset outputCharset = Charset.defaultCharset();
 	private final SystemFiles systemFiles;

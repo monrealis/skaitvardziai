@@ -25,6 +25,7 @@ import eu.vytenis.skaitvardziai.app.cli.CliOption;
 import eu.vytenis.skaitvardziai.app.echo.EchoProcessor;
 import eu.vytenis.skaitvardziai.app.exc.ShowHelpException;
 import eu.vytenis.skaitvardziai.app.exc.ShowUsageException;
+import eu.vytenis.skaitvardziai.app.io.Charsets;
 import eu.vytenis.skaitvardziai.app.io.SystemFiles;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.processors.Processor;
@@ -38,18 +39,18 @@ public class Main {
 	private final SystemIo systemIo;
 
 	public static void main(String[] args) {
-		Main main = new Main(new SystemIo(new SystemFiles()));
+		Main main = new Main(new SystemFiles());
 		main.doMain(args);
 	}
 
-	// TODO too many information to get systemIo
-	public Main(SystemIo systemIo) {
-		Checks.checkNotNull("systemIo", systemIo);
-		this.systemFiles = systemIo.getSystemFiles();
-		this.systemIo = systemIo;
+	public Main(SystemFiles systemFiles) {
+		Checks.checkNotNull("systemFiles", systemFiles);
+		this.systemFiles = systemFiles;
+		;
+		this.systemIo = new SystemIo(systemFiles);
 	}
 
-	public void doMain(String[] args) {
+	public Charsets doMain(String[] args) {
 		try {
 			tryMain(args);
 		} catch (ShowUsageException e) {
@@ -57,6 +58,7 @@ public class Main {
 		} catch (ShowHelpException e) {
 			help();
 		}
+		return systemIo;
 	}
 
 	private void tryMain(String[] args) {

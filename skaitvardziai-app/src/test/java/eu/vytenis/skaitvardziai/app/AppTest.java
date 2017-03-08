@@ -7,13 +7,14 @@ import static org.junit.Assert.fail;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.app.DecoratingStream.Mode;
 import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
+import eu.vytenis.skaitvardziai.app.io.Charsets;
 import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
 import eu.vytenis.skaitvardziai.app.io.SystemFiles;
-import eu.vytenis.skaitvardziai.app.io.SystemIo;
 import eu.vytenis.skaitvardziai.app.main.Main;
 
 public abstract class AppTest {
@@ -21,7 +22,7 @@ public abstract class AppTest {
 	protected static final String UTF8 = "utf-8";
 	protected static final String WIN1257 = "windows-1257";
 	protected SystemFiles systemFiles = new SystemFiles();
-	protected SystemIo systemIo = new SystemIo(systemFiles);
+	protected Charsets charsets;
 	private InputStream in = System.in;
 
 	protected void assertOut(ExpectedOut out, Object... args) {
@@ -36,7 +37,7 @@ public abstract class AppTest {
 
 	private byte[] getInputAsBytes(String input) {
 		try {
-			return input.getBytes(systemIo.getInputCharset().name());
+			return input.getBytes(Charset.defaultCharset().name());
 		} catch (UnsupportedEncodingException e) {
 			throw new SkaitvardziaiIOException(e);
 		}
@@ -49,10 +50,10 @@ public abstract class AppTest {
 
 	private void assertOutErr(ExpectedOut expectedOut, ExpectedOut expectedErr, Object... args) {
 		SystemOutputFiles oe = main(args);
-		assertEquals(expectedOut.getText(), oe.getOutText(systemIo.getOutputCharset()));
+		assertEquals(expectedOut.getText(), oe.getOutText(charsets.getOutputCharset()));
 		if (expectedOut.getEncoding() != null)
 			assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
-		assertEquals(expectedErr.getText(), oe.getErrText(systemIo.getOutputCharset()));
+		assertEquals(expectedErr.getText(), oe.getErrText(charsets.getOutputCharset()));
 		if (expectedErr.getEncoding() != null)
 			assertArrayEquals(expectedErr.getTextEncoded(), oe.getErrEncoded());
 	}
@@ -63,8 +64,8 @@ public abstract class AppTest {
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
 		SystemOutputFiles oe = main(args);
-		assertMatches(oe.getOutText(systemIo.getOutputCharset()), out);
-		assertMatches(oe.getErrText(systemIo.getOutputCharset()), err);
+		assertMatches(oe.getOutText(charsets.getOutputCharset()), out);
+		assertMatches(oe.getErrText(charsets.getOutputCharset()), err);
 	}
 
 	private void assertMatches(String text, Pattern pattern) {
@@ -89,8 +90,8 @@ public abstract class AppTest {
 
 	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
 		String[] params = getMainArgs(args);
-		Main main = new Main(systemIo);
-		main.doMain(params);
+		Main main = new Main(systemFiles);
+		charsets = main.doMain(params);
 		return new SystemOutputFiles(out, err);
 	}
 

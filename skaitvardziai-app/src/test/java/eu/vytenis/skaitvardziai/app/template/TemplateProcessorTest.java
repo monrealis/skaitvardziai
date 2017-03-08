@@ -59,7 +59,7 @@ public class TemplateProcessorTest extends AppTest {
 	}
 
 	private void assertParsedFragments(String text, Object[] expected) {
-		TemplateProcessor p = new TemplateProcessor(startTag, endTag, text, systemIo);
+		TemplateProcessor p = new TemplateProcessor(startTag, endTag, text, systemFiles);
 		p.createPattern();
 		p.collectFragments();
 		assertArrayEquals(expected, p.getFragments().toArray());

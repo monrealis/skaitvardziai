@@ -23,6 +23,7 @@ public abstract class AppTest {
 	protected static final String WIN1257 = "windows-1257";
 	protected SystemFiles systemFiles = new SystemFiles();
 	protected Charsets charsets;
+	protected SystemOutputFiles systemOutputFiles;
 	private InputStream in = System.in;
 
 	protected void assertOut(ExpectedOut out, Object... args) {
@@ -49,7 +50,8 @@ public abstract class AppTest {
 	}
 
 	private void assertOutErr(ExpectedOut expectedOut, ExpectedOut expectedErr, Object... args) {
-		SystemOutputFiles oe = main(args);
+		main(args);
+		SystemOutputFiles oe = systemOutputFiles;
 		assertEquals(expectedOut.getText(), oe.getOutText(charsets.getOutputCharset()));
 		if (expectedOut.getEncoding() != null)
 			assertArrayEquals(expectedOut.getTextEncoded(), oe.getOutEncoded());
@@ -63,7 +65,8 @@ public abstract class AppTest {
 	}
 
 	private void assertOutErrMatches(Pattern out, Pattern err, Object... args) {
-		SystemOutputFiles oe = main(args);
+		main(args);
+		SystemOutputFiles oe = systemOutputFiles;
 		assertMatches(oe.getOutText(charsets.getOutputCharset()), out);
 		assertMatches(oe.getErrText(charsets.getOutputCharset()), err);
 	}
@@ -73,14 +76,14 @@ public abstract class AppTest {
 			fail(text + "\ndoes not match\n" + pattern.pattern());
 	}
 
-	protected SystemOutputFiles main(Object... args) {
+	protected void main(Object... args) {
 		DecoratingStream out = new DecoratingStream(System.out, Mode.CollectOnly);
 		DecoratingStream err = new DecoratingStream(System.err, Mode.CollectOnly);
 		systemFiles.setSystemOut(out);
 		systemFiles.setSystemErr(err);
 		systemFiles.setSystemIn(in);
 		try {
-			return doMain(out, err, args);
+			doMain(out, err, args);
 		} finally {
 			systemFiles.restoreSystemOut();
 			systemFiles.restoreSystemErr();
@@ -88,11 +91,11 @@ public abstract class AppTest {
 		}
 	}
 
-	private SystemOutputFiles doMain(DecoratingStream out, DecoratingStream err, Object... args) {
+	private void doMain(DecoratingStream out, DecoratingStream err, Object... args) {
 		String[] params = getMainArgs(args);
 		Main main = new Main(systemFiles);
 		charsets = main.doMain(params);
-		return new SystemOutputFiles(out, err);
+		systemOutputFiles = new SystemOutputFiles(out, err);
 	}
 
 	private String[] getMainArgs(Object... args) {

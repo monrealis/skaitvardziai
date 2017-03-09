@@ -1,9 +1,9 @@
-Summary: Foo to the Bar
-Name: foobar
+Summary: Skaičių konvertavimo į lietuvių kalbos skaitvardžius biblioteka
+Name: skaiciai
 Version: 0.1
 Release: 1
-Group: Foo/Bar
-License: FooBarPL
+Group: skaiciai
+License: Apache License, Version 2.0
 Source: %{expand:%%(pwd)}
 BuildRoot: %{_topdir}/BUILD/%{name}-%{version}-%{release}
 

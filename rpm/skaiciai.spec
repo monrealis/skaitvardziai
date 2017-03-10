@@ -23,6 +23,6 @@ rm -r -f "$RPM_BUILD_ROOT"
 
 %files
 %defattr(644,root,root)
-%config(noreplace) %{_prefix}/lib/skaiciai.jar
+%{_prefix}/lib/skaiciai.jar
 %defattr(755,root,root)
 %{_prefix}/bin/skaiciai

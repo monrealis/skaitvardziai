@@ -1,0 +1,11 @@
+Source: helloworld  
+Maintainer: Vytenis Bivainis <monrealis@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.3
+Section: utils
+
+Package: skaiciai  
+Priority: extra  
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}  
+Description: Skaičių konvertavimo į lietuvių kalbos skaitvardžius biblioteka.

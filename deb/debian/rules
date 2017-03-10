@@ -1,3 +1,8 @@
 #!/usr/bin/make -f  
 %:  
 	dh $@
+	
+override_dh_auto_install:
+	install -D -m 0755 skaiciai.sh $$(pwd)/debian/skaiciai/usr/bin/skaiciai
+	install -D -m 0644 ../skaitvardziai-app/target/skaitvardziai-*-jar-with-dependencies.jar $$(pwd)/debian/skaiciai/usr/lib/skaiciai.jar
+	

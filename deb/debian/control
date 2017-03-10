@@ -1,4 +1,4 @@
-Source: helloworld  
+Source: skaiciai  
 Maintainer: Vytenis Bivainis <monrealis@gmail.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.3

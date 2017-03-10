@@ -1,1 +1,1 @@
-debuild -us -uc -b
+debuild -d -us -uc -b

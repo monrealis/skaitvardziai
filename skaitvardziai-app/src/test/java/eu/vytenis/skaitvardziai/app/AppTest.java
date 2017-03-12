@@ -6,12 +6,9 @@ import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.util.regex.Pattern;
 
 import eu.vytenis.skaitvardziai.app.DecoratingStream.Mode;
-import eu.vytenis.skaitvardziai.app.exc.SkaitvardziaiIOException;
 import eu.vytenis.skaitvardziai.app.io.Charsets;
 import eu.vytenis.skaitvardziai.app.io.ExpectedOut;
 import eu.vytenis.skaitvardziai.app.io.SystemFiles;
@@ -31,17 +28,12 @@ public abstract class AppTest {
 	}
 
 	protected void assertOutByIn(ExpectedOut out, String in, Object... args) {
-		byte[] bytes = getInputAsBytes(in);
-		this.in = new ByteArrayInputStream(bytes);
-		assertOutErr(out, ExpectedOut.EMPTY, args);
+		assertOutByIn(out, in.getBytes(), args);
 	}
 
-	private byte[] getInputAsBytes(String input) {
-		try {
-			return input.getBytes(Charset.defaultCharset().name());
-		} catch (UnsupportedEncodingException e) {
-			throw new SkaitvardziaiIOException(e);
-		}
+	protected void assertOutByIn(ExpectedOut out, byte[] inBytes, Object... args) {
+		this.in = new ByteArrayInputStream(inBytes);
+		assertOutErr(out, ExpectedOut.EMPTY, args);
 	}
 
 	@SuppressWarnings("unused")

@@ -1,5 +1,7 @@
 package eu.vytenis.skaitvardziai.app.template;
 
+import java.io.UnsupportedEncodingException;
+
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.app.AppTest;
@@ -69,10 +71,9 @@ public class TemplateTest extends AppTest {
 	}
 
 	@Test
-	public void changingInputEncodingSucceeds() {
-		// TODO Impossible to test the parameter?
-		// assertOutByIn(new ExpectedOut("dešimt"), "dešimt", "-t", "-ie", WIN1257);
-		assertOutByIn(new ExpectedOut("dešimt"), "dešimt", "-t", "-ie", UTF8);
+	public void changingInputEncodingSucceeds() throws UnsupportedEncodingException {
+		assertOutByIn(new ExpectedOut("dešimt"), "dešimt".getBytes(WIN1257), "-t", "-ie", WIN1257);
+		assertOutByIn(new ExpectedOut("dešimt"), "dešimt".getBytes(UTF8), "-t", "-ie", UTF8);
 	}
 
 	@Test

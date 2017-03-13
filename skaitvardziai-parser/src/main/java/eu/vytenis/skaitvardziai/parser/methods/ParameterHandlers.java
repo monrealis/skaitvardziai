@@ -1,6 +1,7 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
-import java.util.Collections;
+import static java.util.Collections.unmodifiableMap;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,21 +14,25 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 class ParameterHandlers {
-	static final Map<String, ParameterHandler> HANDLERS_BY_NAME;
-	static {
-		Map<String, ParameterHandler> h = new HashMap<String, ParameterHandler>();
-		h.put(TreeConstants.Null(), new NullHandler());
-		h.put(TreeConstants.string(), new StringHandler());
-		h.put(TreeConstants.integer(), new IntegerHandler());
-		h.put(TreeConstants.fraction(), new FractionHandler());
-		HANDLERS_BY_NAME = Collections.unmodifiableMap(h);
+	private static final Map<String, ParameterHandler> HANDLERS_BY_NAME = unmodifiableMap(createHandlersByName());
+
+	private static Map<String, ParameterHandler> createHandlersByName() {
+		Map<String, ParameterHandler> byName = new HashMap<String, ParameterHandler>();
+		byName.put(TreeConstants.Null(), new NullHandler());
+		byName.put(TreeConstants.string(), new StringHandler());
+		byName.put(TreeConstants.integer(), new IntegerHandler());
+		byName.put(TreeConstants.fraction(), new FractionHandler());
+		return byName;
+	}
+
+	public static ParameterHandler byName(String nodeName) {
+		return HANDLERS_BY_NAME.get(nodeName);
 	}
 
 	public static class StringHandler implements ParameterHandler {
 		public String getValue(SimpleNode node) {
 			String image = ((Token) node.jjtGetValue()).image;
-			image = image.substring(1, image.length() - 1);
-			return image;
+			return image.substring(1, image.length() - 1);
 		}
 	}
 
@@ -48,8 +53,9 @@ class ParameterHandlers {
 			SimpleNode unsigned = Nodes.getOnlyChild(node, TreeConstants.unsignedInteger());
 			String number = ((Token) unsigned.jjtGetValue()).image;
 			if (minus != null)
-				number = "-" + number;
-			return number;
+				return "-" + number;
+			else
+				return number;
 		}
 	}
 

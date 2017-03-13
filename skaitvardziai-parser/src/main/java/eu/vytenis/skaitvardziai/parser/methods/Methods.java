@@ -35,7 +35,7 @@ public class Methods {
 	private static Object getParameter(SimpleNode parameterNode) {
 		SimpleNode childNode = (SimpleNode) parameterNode.jjtGetChild(0);
 		String nodeName = childNode.toString();
-		return ParameterHandlers.HANDLERS_BY_NAME.get(nodeName).getValue(childNode);
+		return ParameterHandlers.byName(nodeName).getValue(childNode);
 	}
 
 	static SimpleNode parse(String methodInvocationText) {

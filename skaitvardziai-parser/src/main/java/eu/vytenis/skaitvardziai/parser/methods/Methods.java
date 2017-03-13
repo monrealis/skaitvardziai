@@ -18,7 +18,6 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class Methods {
-
 	public static MethodInvocation getMethodInvocation(String methodInvocationText) {
 		SimpleNode node = parse(methodInvocationText);
 		return new MethodInvocation(getMethodName(node), getParameters(node));
@@ -26,20 +25,16 @@ public class Methods {
 
 	private static String getMethodName(SimpleNode methodInvocationNode) {
 		SimpleNode identifier = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getIdentifier());
-		String name = ((Token) identifier.jjtGetValue()).image;
-		return name;
+		return ((Token) identifier.jjtGetValue()).image;
 	}
 
 	private static Object[] getParameters(SimpleNode methodInvocationNode) {
-		SimpleNode paramsNode = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getParameters());
-		List<SimpleNode> parameterNodes = Nodes.getChildren(paramsNode, TreeConstants.getParameter());
-
-		List<Object> r = new ArrayList<Object>();
-		for (SimpleNode n : parameterNodes) {
-			r.add(getParameter(n));
-		}
-
-		return r.toArray(new Object[] {});
+		SimpleNode node = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getParameters());
+		List<SimpleNode> parameterNodes = Nodes.getChildren(node, TreeConstants.getParameter());
+		List<Object> parameters = new ArrayList<Object>();
+		for (SimpleNode n : parameterNodes)
+			parameters.add(getParameter(n));
+		return parameters.toArray(new Object[] {});
 	}
 
 	private static Object getParameter(SimpleNode parameterNode) {
@@ -63,25 +58,20 @@ public class Methods {
 	}
 
 	public static class StringHandler implements ParameterHandler {
-
 		public String getValue(SimpleNode node) {
 			String image = ((Token) node.jjtGetValue()).image;
 			image = image.substring(1, image.length() - 1);
 			return image;
 		}
-
 	}
 
 	public static class NullHandler implements ParameterHandler {
-
 		public Object getValue(SimpleNode node) {
 			return null;
 		}
-
 	}
 
 	public static class IntegerHandler implements ParameterHandler {
-
 		public SveikasisSkaicius getValue(SimpleNode node) {
 			String number = getNumberString(node);
 			return new SveikasisSkaicius(number);
@@ -90,18 +80,14 @@ public class Methods {
 		private String getNumberString(SimpleNode node) {
 			SimpleNode minus = Nodes.getOnlyChild(node, TreeConstants.getMinus());
 			SimpleNode unsigned = Nodes.getOnlyChild(node, TreeConstants.getUnsignedInteger());
-
 			String number = ((Token) unsigned.jjtGetValue()).image;
-			if (minus != null) {
+			if (minus != null)
 				number = "-" + number;
-			}
 			return number;
 		}
-
 	}
 
 	public static class FractionHandler implements ParameterHandler {
-
 		private IntegerHandler integerHandler = new IntegerHandler();
 
 		public Object getValue(SimpleNode node) {
@@ -110,26 +96,21 @@ public class Methods {
 			String v = integerHandler.getNumberString(skaitiklisVardiklis.get(1));
 			return new Trupmena(s, v);
 		}
-
 	}
 
 	static SimpleNode parse(String methodInvocationText) {
-		SimpleNode n;
 		try {
-			n = new TreeParser(new StringReader(methodInvocationText)).MethodInvocation();
+			return new TreeParser(new StringReader(methodInvocationText)).MethodInvocation();
 		} catch (ParseException e) {
 			throw new SkaitvardziaiParseException(e);
 		}
-		return n;
 	}
 
 	public static class SkaitvardziaiParseException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = -2523506465513363826L;
+		private static final long serialVersionUID = 1;
 
 		public SkaitvardziaiParseException(Exception cause) {
 			super(cause);
 		}
-
 	}
-
 }

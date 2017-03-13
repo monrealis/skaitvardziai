@@ -1,8 +1,8 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
 public class MethodInvocation {
-	private String methodName;
-	private Object[] parameters;
+	private final String methodName;
+	private final Object[] parameters;
 
 	public MethodInvocation(String methodName, Object... parameters) {
 		this.methodName = methodName;
@@ -16,5 +16,4 @@ public class MethodInvocation {
 	public Object[] getParameters() {
 		return parameters;
 	}
-
 }

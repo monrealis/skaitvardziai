@@ -36,21 +36,21 @@ public class NodesTest {
 
 	@Test
 	public void testGetChildren() {
-		assertEquals(2, Nodes.getChildren(node, TreeConstants.getParameter()).size());
-		assertEquals(0, Nodes.getChildren(node, TreeConstants.getParameters()).size());
-		assertEquals(1, Nodes.getChildren(node, TreeConstants.getInteger()).size());
+		assertEquals(2, Nodes.getChildren(node, TreeConstants.parameter()).size());
+		assertEquals(0, Nodes.getChildren(node, TreeConstants.parameters()).size());
+		assertEquals(1, Nodes.getChildren(node, TreeConstants.integer()).size());
 	}
 
 	@Test
 	public void testGetOnlyChild() {
-		assertEquals((Object) null, Nodes.getOnlyChild(node, TreeConstants.getParameters()));
-		assertEquals(node.jjtGetChild(2), Nodes.getOnlyChild(node, TreeConstants.getInteger()));
-		assertFalse(node.jjtGetChild(1).equals(Nodes.getOnlyChild(node, TreeConstants.getInteger())));
+		assertEquals((Object) null, Nodes.getOnlyChild(node, TreeConstants.parameters()));
+		assertEquals(node.jjtGetChild(2), Nodes.getOnlyChild(node, TreeConstants.integer()));
+		assertFalse(node.jjtGetChild(1).equals(Nodes.getOnlyChild(node, TreeConstants.integer())));
 	}
 
 	@Test(expected = Nodes.MoreThanOneChildException.class)
 	public void testGetOnlyChild_Fails() {
-		Nodes.getOnlyChild(node, TreeConstants.getParameter());
+		Nodes.getOnlyChild(node, TreeConstants.parameter());
 	}
 
 }

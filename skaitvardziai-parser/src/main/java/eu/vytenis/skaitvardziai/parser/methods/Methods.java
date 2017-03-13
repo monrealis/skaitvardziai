@@ -24,13 +24,13 @@ public class Methods {
 	}
 
 	private static String getMethodName(SimpleNode methodInvocationNode) {
-		SimpleNode identifier = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getIdentifier());
+		SimpleNode identifier = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.identifier());
 		return ((Token) identifier.jjtGetValue()).image;
 	}
 
 	private static Object[] getParameters(SimpleNode methodInvocationNode) {
-		SimpleNode node = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.getParameters());
-		List<SimpleNode> parameterNodes = Nodes.getChildren(node, TreeConstants.getParameter());
+		SimpleNode node = Nodes.getOnlyChild(methodInvocationNode, TreeConstants.parameters());
+		List<SimpleNode> parameterNodes = Nodes.getChildren(node, TreeConstants.parameter());
 		List<Object> parameters = new ArrayList<Object>();
 		for (SimpleNode n : parameterNodes)
 			parameters.add(getParameter(n));
@@ -46,10 +46,10 @@ public class Methods {
 	private static final Map<String, ParameterHandler> parameterHandlers;
 	static {
 		Map<String, ParameterHandler> h = new HashMap<String, Methods.ParameterHandler>();
-		h.put(TreeConstants.getNull(), new NullHandler());
-		h.put(TreeConstants.getString(), new StringHandler());
-		h.put(TreeConstants.getInteger(), new IntegerHandler());
-		h.put(TreeConstants.getFraction(), new FractionHandler());
+		h.put(TreeConstants.Null(), new NullHandler());
+		h.put(TreeConstants.string(), new StringHandler());
+		h.put(TreeConstants.integer(), new IntegerHandler());
+		h.put(TreeConstants.fraction(), new FractionHandler());
 		parameterHandlers = Collections.unmodifiableMap(h);
 	}
 
@@ -78,8 +78,8 @@ public class Methods {
 		}
 
 		private String getNumberString(SimpleNode node) {
-			SimpleNode minus = Nodes.getOnlyChild(node, TreeConstants.getMinus());
-			SimpleNode unsigned = Nodes.getOnlyChild(node, TreeConstants.getUnsignedInteger());
+			SimpleNode minus = Nodes.getOnlyChild(node, TreeConstants.minus());
+			SimpleNode unsigned = Nodes.getOnlyChild(node, TreeConstants.unsignedInteger());
 			String number = ((Token) unsigned.jjtGetValue()).image;
 			if (minus != null)
 				number = "-" + number;
@@ -91,7 +91,7 @@ public class Methods {
 		private IntegerHandler integerHandler = new IntegerHandler();
 
 		public Object getValue(SimpleNode node) {
-			List<SimpleNode> skaitiklisVardiklis = Nodes.getChildren(node, TreeConstants.getInteger());
+			List<SimpleNode> skaitiklisVardiklis = Nodes.getChildren(node, TreeConstants.integer());
 			String s = integerHandler.getNumberString(skaitiklisVardiklis.get(0));
 			String v = integerHandler.getNumberString(skaitiklisVardiklis.get(1));
 			return new Trupmena(s, v);

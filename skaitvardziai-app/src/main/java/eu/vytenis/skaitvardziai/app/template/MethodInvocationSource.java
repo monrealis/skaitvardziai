@@ -6,21 +6,34 @@ import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.parser.methods.Methods;
 
 public class MethodInvocationSource implements TextSource {
-	private String unparsedText;
+	private final String unparsedText;
 
 	public MethodInvocationSource(String unparsedText) {
 		this.unparsedText = unparsedText;
 	}
 
 	public String getText() {
-		MethodInvocation mi = Methods.getMethodInvocation(unparsedText);
-		Invoker i = new Invoker();
-		i.addPublicStaticMethods(Facade.class, Facade.class);
-		Object r = i.invoke(mi);
-		return r != null ? r.toString() : null;
+		Object r = getInvoker().invoke(getInvocation());
+		return toString(r);
 	}
 
-	public String getUnparsedText() {
+	private Invoker getInvoker() {
+		Invoker invoker = new Invoker();
+		invoker.addPublicStaticMethods(Facade.class, Facade.class);
+		return invoker;
+	}
+
+	private MethodInvocation getInvocation() {
+		return Methods.getMethodInvocation(unparsedText);
+	}
+
+	private String toString(Object optionalObject) {
+		if (optionalObject == null)
+			return null;
+		return optionalObject.toString();
+	}
+
+	private String getUnparsedText() {
 		return unparsedText;
 	}
 
@@ -31,11 +44,8 @@ public class MethodInvocationSource implements TextSource {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof MethodInvocationSource) {
-			return ((MethodInvocationSource) obj).getUnparsedText().equals(getUnparsedText());
-		} else {
+		if (!(obj instanceof MethodInvocationSource))
 			return false;
-		}
+		return ((MethodInvocationSource) obj).getUnparsedText().equals(getUnparsedText());
 	}
-
 }

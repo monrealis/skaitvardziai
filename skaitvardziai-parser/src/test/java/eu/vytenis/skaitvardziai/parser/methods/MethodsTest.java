@@ -10,55 +10,56 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class MethodsTest {
+	private Object Null = null;
+
 	@Test
-	public void testNoParams() {
-		assertMethodInvocations(" f ( ) ", "f", new Object[] {});
+	public void withoutParameters() {
+		assertInvocations(" f ( ) ", "f");
 	}
 
 	@Test
-	public void testNullParams() {
-		assertMethodInvocations(" f ( null ) ", "f", new Object[] {null});
-		assertMethodInvocations(" f ( null , null ) ", "f", new Object[] {null, null});
-		assertMethodInvocations(" f ( null , null , null ) ", "f", new Object[] {null, null, null});
+	public void withNullParameters() {
+		assertInvocations(" f ( null ) ", "f", Null);
+		assertInvocations(" f ( null , null ) ", "f", Null, Null);
+		assertInvocations(" f ( null , null , null ) ", "f", Null, Null, Null);
 	}
 
 	@Test
-	public void testIntegerParams() {
-		assertMethodInvocations(" f ( 1 ) ", "f", new Object[] {getSv(1)});
-		assertMethodInvocations(" f ( 1 , 2 ) ", "f", new Object[] {getSv(1), getSv(2)});
-		assertMethodInvocations(" f ( 1 , 2, 3 ) ", "f", new Object[] {getSv(1), getSv(2), getSv(3)});
-		assertMethodInvocations(" f ( - 1 ) ", "f", new Object[] {getSv(-1)});
-		assertMethodInvocations(" f ( -1 , - 2 ) ", "f", new Object[] {getSv(-1), getSv(-2)});
-		assertMethodInvocations(" f ( -1 , -2, - 3 ) ", "f", new Object[] {getSv(-1), getSv(-2), getSv(-3)});
+	public void withIntegerParameters() {
+		assertInvocations(" f ( 1 ) ", "f", getSv(1));
+		assertInvocations(" f ( 1 , 2 ) ", "f", getSv(1), getSv(2));
+		assertInvocations(" f ( 1 , 2, 3 ) ", "f", getSv(1), getSv(2), getSv(3));
+		assertInvocations(" f ( - 1 ) ", "f", getSv(-1));
+		assertInvocations(" f ( -1 , - 2 ) ", "f", getSv(-1), getSv(-2));
+		assertInvocations(" f ( -1 , -2, - 3 ) ", "f", getSv(-1), getSv(-2), getSv(-3));
 	}
 
 	@Test
-	public void testFractionParams() {
-		assertMethodInvocations(" f ( 1 / 2 ) ", "f", new Object[] {getTr(1, 2)});
-		assertMethodInvocations(" f ( 1 / 2 , 2 / 3 ) ", "f", new Object[] {getTr(1, 2), getTr(2, 3)});
-		assertMethodInvocations(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", "f", new Object[] {getTr(1, 4), getTr(2, 10), getTr(3, 2)});
-		assertMethodInvocations(" f ( - 1 / 2 ) ", "f", new Object[] {getTr(-1, 2)});
-		assertMethodInvocations(" f ( -1 / - 2 ) ", "f", new Object[] {getTr(-1, -2)});
-		assertMethodInvocations(" f ( 1 / -2 ) ", "f", new Object[] {getTr(1, -2)});
+	public void withFractionParameters() {
+		assertInvocations(" f ( 1 / 2 ) ", "f", getTr(1, 2));
+		assertInvocations(" f ( 1 / 2 , 2 / 3 ) ", "f", getTr(1, 2), getTr(2, 3));
+		assertInvocations(" f ( 1 / 4 , 2 / 10, 3 / 2 ) ", "f", getTr(1, 4), getTr(2, 10), getTr(3, 2));
+		assertInvocations(" f ( - 1 / 2 ) ", "f", getTr(-1, 2));
+		assertInvocations(" f ( -1 / - 2 ) ", "f", getTr(-1, -2));
+		assertInvocations(" f ( 1 / -2 ) ", "f", getTr(1, -2));
 	}
 
 	@Test
 	public void testStringParams() {
-		assertMethodInvocations(" f ( 'a' ) ", "f", new Object[] {"a"});
-		assertMethodInvocations(" f ( 'b,\"b' , 'cccc' ) ", "f", new Object[] {"b,\"b", "cccc"});
-		assertMethodInvocations(" f ( 'ddd' , 'eee', 'fff' ) ", "f", new Object[] {"ddd", "eee", "fff"});
-		assertMethodInvocations(" f ( \"a\" ) ", "f", new Object[] {"a"});
-		assertMethodInvocations(" f ( \"bb\" , \"cccc\" ) ", "f", new Object[] {"bb", "cccc"});
-		assertMethodInvocations(" f ( \"ddd\" , \"eee\", \"fff\" ) ", "f", new Object[] {"ddd", "eee", "fff"});
+		assertInvocations(" f ( 'a' ) ", "f", "a");
+		assertInvocations(" f ( 'b,\"b' , 'cccc' ) ", "f", "b,\"b", "cccc");
+		assertInvocations(" f ( 'ddd' , 'eee', 'fff' ) ", "f", "ddd", "eee", "fff");
+		assertInvocations(" f ( \"a\" ) ", "f", "a");
+		assertInvocations(" f ( \"bb\" , \"cccc\" ) ", "f", "bb", "cccc");
+		assertInvocations(" f ( \"ddd\" , \"eee\", \"fff\" ) ", "f", "ddd", "eee", "fff");
 	}
 
-	private void assertMethodInvocations(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
-		assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
-		methodInvocationText = methodInvocationText.replaceAll("\\s", "");
-		assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
+	private void assertInvocations(String text, String expectedMethod, Object... expectedParameters) {
+		assertInvocation(text, expectedMethod, expectedParameters);
+		assertInvocation(text.replaceAll("\\s+", ""), expectedMethod, expectedParameters);
 	}
 
-	private void assertMethodInvocation(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
+	private void assertInvocation(String methodInvocationText, String expectedMethodName, Object... expectedParameterValues) {
 		MethodInvocation i = Methods.getMethodInvocation(methodInvocationText);
 		assertEquals(expectedMethodName, i.getMethodName());
 		assertEquals(expectedParameterValues.length, i.getParameters().length);

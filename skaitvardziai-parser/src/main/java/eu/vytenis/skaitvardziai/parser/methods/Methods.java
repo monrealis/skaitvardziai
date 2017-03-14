@@ -22,7 +22,7 @@ public class Methods {
 		return new MethodInvocation(getMethodName(methodInvocationNode), getParameters(methodInvocationNode));
 	}
 
-	static SimpleNode parse(String methodInvocationText) {
+	private static SimpleNode parse(String methodInvocationText) {
 		try {
 			return new TreeParser(new StringReader(methodInvocationText)).MethodInvocation();
 		} catch (ParseException e) {

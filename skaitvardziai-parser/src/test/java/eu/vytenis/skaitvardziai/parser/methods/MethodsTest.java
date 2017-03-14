@@ -6,12 +6,10 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class MethodsTest {
-
 	@Test
 	public void testNoParams() {
 		assertMethodInvocations(" f ( ) ", "f", new Object[] {});
@@ -54,20 +52,18 @@ public class MethodsTest {
 		assertMethodInvocations(" f ( \"ddd\" , \"eee\", \"fff\" ) ", "f", new Object[] {"ddd", "eee", "fff"});
 	}
 
-	private SimpleNode assertMethodInvocations(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
+	private void assertMethodInvocations(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
 		assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
 		methodInvocationText = methodInvocationText.replaceAll("\\s", "");
-		return assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
+		assertMethodInvocation(methodInvocationText, expectedMethodName, expectedParameterValues);
 	}
 
-	private SimpleNode assertMethodInvocation(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
-		SimpleNode node = Methods.parse(methodInvocationText);
+	private void assertMethodInvocation(String methodInvocationText, String expectedMethodName, Object[] expectedParameterValues) {
 		MethodInvocation i = Methods.getMethodInvocation(methodInvocationText);
 		assertEquals(expectedMethodName, i.getMethodName());
 		assertEquals(expectedParameterValues.length, i.getParameters().length);
 		assertArrayEquals(expectedParameterValues, i.getParameters());
 		assertNotNull(methodInvocationText);
-		return node;
 	}
 
 	private SveikasisSkaicius getSv(Number number) {
@@ -77,5 +73,4 @@ public class MethodsTest {
 	private Trupmena getTr(Number skaitiklis, Number vardiklis) {
 		return new Trupmena(skaitiklis.toString(), vardiklis.toString());
 	}
-
 }

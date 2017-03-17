@@ -1,16 +1,18 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
+import static java.util.Collections.unmodifiableList;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
+// TODO 2017-03-18 add method name + parameter count value object
 public class Invoker {
 	private List<Method> methods = new ArrayList<Method>();
 
@@ -19,34 +21,36 @@ public class Invoker {
 		Checks.checkNotNull("mostGeneralType", biggestAncestorTypeOfDeclaringClass);
 		List<Method> existingMethods = new ArrayList<Method>(methods);
 		List<Method> newMethods = new ArrayList<Method>();
-		for (Method m : type.getMethods()) {
-			if (!Modifier.isStatic(m.getModifiers())) {
-				continue;
-			}
-			if (!biggestAncestorTypeOfDeclaringClass.isAssignableFrom(m.getDeclaringClass())) {
-				continue;
-			}
-			checkCanAddMethod(existingMethods, m, biggestAncestorTypeOfDeclaringClass);
-			existingMethods.add(m);
-			newMethods.add(m);
-		}
+		for (Method m : type.getMethods())
+			addIfPublicStatic(biggestAncestorTypeOfDeclaringClass, m, existingMethods, newMethods);
 		methods.addAll(newMethods);
 	}
 
-	private void checkCanAddMethod(Iterable<Method> existingMethods, Method newMethod, Class<?> biggestAncestorTypeOfDeclaringClass) {
-		for (Method m : existingMethods) {
+	private void addIfPublicStatic(Class<?> biggestAncestorTypeOfDeclaringClass, Method method, List<Method> existingMethods, List<Method> newMethods) {
+		if (!Modifier.isStatic(method.getModifiers()))
+			return;
+		if (!biggestAncestorTypeOfDeclaringClass.isAssignableFrom(method.getDeclaringClass()))
+			return;
+		checkCanAddMethod(existingMethods, method);
+		existingMethods.add(method);
+		newMethods.add(method);
+	}
+
+	private void checkCanAddMethod(Iterable<Method> existingMethods, Method newMethod) {
+		for (Method m : existingMethods)
 			checkDuplicateMethodDoesNotExist(m, newMethod);
-		}
 	}
 
 	private void checkDuplicateMethodDoesNotExist(Method existingMethod, Method newMethod) {
-		if (newMethod.getName().equals(existingMethod.getName()) && newMethod.getParameterTypes().length == existingMethod.getParameterTypes().length) {
-			throw new DuplicateMethodException(existingMethod, newMethod);
-		}
+		if (!newMethod.getName().equals(existingMethod.getName()))
+			return;
+		if (newMethod.getParameterTypes().length != existingMethod.getParameterTypes().length)
+			return;
+		throw new DuplicateMethodException(existingMethod, newMethod);
 	}
 
 	public List<Method> getMethods() {
-		return Collections.unmodifiableList(methods);
+		return unmodifiableList(methods);
 	}
 
 	public Object invoke(MethodInvocation invocation) {
@@ -62,11 +66,9 @@ public class Invoker {
 	}
 
 	private Method getMethodOrFail(String methodName, Object[] parameters) {
-		for (Method m : methods) {
-			if (m.getName().equals(methodName) && m.getParameterTypes().length == parameters.length) {
+		for (Method m : methods)
+			if (m.getName().equals(methodName) && m.getParameterTypes().length == parameters.length)
 				return m;
-			}
-		}
 		throw new MethodNotFoundException(methodName, parameters);
 
 	}
@@ -89,11 +91,10 @@ public class Invoker {
 		public Method getMethod2() {
 			return method2;
 		}
-
 	}
 
 	public static class MethodNotFoundException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = 5381094985580639096L;
+		private static final long serialVersionUID = 1L;
 		private String methodName;
 		private Object[] parameters;
 
@@ -110,16 +111,13 @@ public class Invoker {
 		public Object[] getParameters() {
 			return parameters;
 		}
-
 	}
 
 	public static class MethodInvocationException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = 4395326913193648843L;
+		private static final long serialVersionUID = 1L;
 
 		public MethodInvocationException(Exception nested) {
 			super(nested);
 		}
-
 	}
-
 }

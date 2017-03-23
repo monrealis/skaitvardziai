@@ -8,11 +8,9 @@ import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 /**
- * XPath funkcijų klasė XSLT procesoriams. Palaikomas standartinis Sun JRE
- * procesorius (padarytas iš XALAN), XALAN ir Saxon procesoriai.
+ * XPath funkcijų klasė XSLT procesoriams. Palaikomas standartinis Sun JRE procesorius (padarytas iš XALAN), XALAN ir Saxon procesoriai.
  */
 public class SkaitvardziaiXPathFunctions {
-
 	public static SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
 
 	public static String sveikasis(int skaicius) {
@@ -25,7 +23,6 @@ public class SkaitvardziaiXPathFunctions {
 
 	public static String trupmena(int skaitiklis, int vardiklis) {
 		return Facade.trupmena(new Trupmena(skaitiklis, vardiklis));
-
 	}
 
 	public static String trupmena(int skaitiklis, int vardiklis, String forma) {
@@ -39,5 +36,4 @@ public class SkaitvardziaiXPathFunctions {
 	public static String kiti(int skaicius, String forma, String vns, String dgs, String dgsKilm) {
 		return Facade.kiti(new SveikasisSkaicius(skaicius), forma, vns, dgs, dgsKilm);
 	}
-
 }

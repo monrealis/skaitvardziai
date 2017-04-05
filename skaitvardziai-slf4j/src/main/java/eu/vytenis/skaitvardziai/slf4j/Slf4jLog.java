@@ -19,5 +19,4 @@ public class Slf4jLog implements Log {
 	public void warn(String text) {
 		logger.warn(text);
 	}
-
 }

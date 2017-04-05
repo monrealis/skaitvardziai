@@ -1,18 +1,17 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
+import static eu.vytenis.skaitvardziai.parser.methods.MethodKeys.getKey;
 import static java.util.Collections.unmodifiableList;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
-// TODO 2017-03-18 add method name + parameter count value object
 public class Invoker {
 	private List<Method> methods = new ArrayList<Method>();
 
@@ -42,11 +41,8 @@ public class Invoker {
 	}
 
 	private void checkDuplicateMethodDoesNotExist(Method existingMethod, Method newMethod) {
-		if (!newMethod.getName().equals(existingMethod.getName()))
-			return;
-		if (newMethod.getParameterTypes().length != existingMethod.getParameterTypes().length)
-			return;
-		throw new DuplicateMethodException(existingMethod, newMethod);
+		if (getKey(existingMethod).equals(getKey(newMethod)))
+			throw new DuplicateMethodException(existingMethod, newMethod);
 	}
 
 	public List<Method> getMethods() {
@@ -55,7 +51,7 @@ public class Invoker {
 
 	public Object invoke(MethodInvocation invocation) {
 		try {
-			return getMethodOrFail(invocation.getMethodName(), invocation.getParameters()).invoke(null, invocation.getParameters());
+			return getMethodOrFail(invocation.toKey()).invoke(null, invocation.getParameters());
 		} catch (IllegalAccessException e) {
 			throw new MethodInvocationException(e);
 		} catch (IllegalArgumentException e) {
@@ -65,18 +61,18 @@ public class Invoker {
 		}
 	}
 
-	private Method getMethodOrFail(String methodName, Object[] parameters) {
+	private Method getMethodOrFail(MethodKey key) {
 		for (Method m : methods)
-			if (m.getName().equals(methodName) && m.getParameterTypes().length == parameters.length)
+			if (getKey(m).equals(key))
 				return m;
-		throw new MethodNotFoundException(methodName, parameters);
+		throw new MethodNotFoundException(key.getMethodName(), key.getParameterCount());
 
 	}
 
 	public static class DuplicateMethodException extends SkaitvardziaiRuntimeException {
-		private static final long serialVersionUID = 5765776642702346476L;
-		private Method method1;
-		private Method method2;
+		private static final long serialVersionUID = 1L;
+		private final Method method1;
+		private final Method method2;
 
 		public DuplicateMethodException(Method method1, Method method2) {
 			super("Methods duplicate each other: " + method1 + ", " + method2);
@@ -95,21 +91,21 @@ public class Invoker {
 
 	public static class MethodNotFoundException extends SkaitvardziaiRuntimeException {
 		private static final long serialVersionUID = 1L;
-		private String methodName;
-		private Object[] parameters;
+		private final String methodName;
+		private final int parameterCount;
 
-		public MethodNotFoundException(String methodName, Object[] parameters) {
-			super("Method not found. Name: " + methodName + ". Parameters: " + Arrays.asList(parameters));
+		public MethodNotFoundException(String methodName, int parameterCount) {
+			super("Method not found. Name: " + methodName + ". Parameters: " + parameterCount);
 			this.methodName = methodName;
-			this.parameters = parameters;
+			this.parameterCount = parameterCount;
 		}
 
 		public String getMethodName() {
 			return methodName;
 		}
 
-		public Object[] getParameters() {
-			return parameters;
+		public int getParameterCount() {
+			return parameterCount;
 		}
 	}
 

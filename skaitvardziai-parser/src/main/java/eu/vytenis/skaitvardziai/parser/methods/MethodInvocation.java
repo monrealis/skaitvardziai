@@ -16,4 +16,8 @@ public class MethodInvocation {
 	public Object[] getParameters() {
 		return parameters;
 	}
+
+	public MethodKey toKey() {
+		return new MethodKey(methodName, parameters.length);
+	}
 }

@@ -4,6 +4,7 @@ import static eu.vytenis.skaitvardziai.app.cli.CliOption.EndTag;
 import static eu.vytenis.skaitvardziai.app.cli.CliOption.StartTag;
 import static eu.vytenis.skaitvardziai.app.cli.CliOptions.getValue;
 import static eu.vytenis.skaitvardziai.app.cli.CliOptions.isIn;
+import static java.util.Collections.unmodifiableList;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -34,12 +35,10 @@ public class TemplateProcessor implements Processor {
 
 	public TemplateProcessor(CommandLine commandLine, SystemIo systemIo) {
 		this.systemIo = systemIo;
-		if (isIn(StartTag, commandLine)) {
+		if (isIn(StartTag, commandLine))
 			startTag = getValue(StartTag, commandLine);
-		}
-		if (isIn(EndTag, commandLine)) {
+		if (isIn(EndTag, commandLine))
 			endTag = getValue(EndTag, commandLine);
-		}
 	}
 
 	TemplateProcessor(String startTag, String endTag, String inputText, SystemFiles systemFiles) {
@@ -73,9 +72,8 @@ public class TemplateProcessor implements Processor {
 		StringWriter w = new StringWriter();
 		char[] buffer = new char[1024];
 		int count;
-		while ((count = reader.read(buffer)) > 0) {
+		while ((count = reader.read(buffer)) > 0)
 			w.write(buffer, 0, count);
-		}
 		inputText = w.toString();
 	}
 
@@ -97,24 +95,22 @@ public class TemplateProcessor implements Processor {
 	}
 
 	private void addStaticFragmentIfNotEmpty(int firstIndex, int lastIndex) {
-		if (lastIndex > firstIndex) {
-			String text = inputText.substring(firstIndex, lastIndex);
-			int idx = text.indexOf(startTag);
-			if (idx >= 0) {
-				throw new TemplateParseException(String.format("Invalid text starting at index %d: %s", idx, startTag));
-			}
-			fragments.add(new StringSource(text));
-		}
+		if (lastIndex <= firstIndex)
+			return;
+		String text = inputText.substring(firstIndex, lastIndex);
+		int idx = text.indexOf(startTag);
+		if (idx >= 0)
+			throw new TemplateParseException(String.format("Invalid text starting at index %d: %s", idx, startTag));
+		fragments.add(new StringSource(text));
 	}
 
 	private void write() {
-		for (TextSource s : fragments) {
+		for (TextSource s : fragments)
 			systemIo.printOut(s.getText(), "");
-		}
 	}
 
 	public List<TextSource> getFragments() {
-		return fragments;
+		return unmodifiableList(fragments);
 	}
 
 	public static class TemplateParseException extends SkaitvardziaiRuntimeException {

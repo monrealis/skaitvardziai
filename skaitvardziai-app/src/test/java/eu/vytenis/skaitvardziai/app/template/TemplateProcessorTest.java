@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.app.AppTest;
 
+// TODO 2017-04-07 monrealis: Split TemplateProcessor to two classes
 public class TemplateProcessorTest extends AppTest {
 	private String startTag;
 	private String endTag;

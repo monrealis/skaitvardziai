@@ -23,8 +23,8 @@ import eu.vytenis.skaitvardziai.app.processors.Processor;
 import eu.vytenis.skaitvardziai.exc.SkaitvardziaiRuntimeException;
 
 public class TemplateProcessor implements Processor {
-	static final String DEFAULT_START_TAG = "${";
-	static final String DEFAULT_END_TAG = "}";
+	public static final String DEFAULT_START_TAG = "${";
+	public static final String DEFAULT_END_TAG = "}";
 	private final SystemIo systemIo;
 	private String startTag = DEFAULT_START_TAG;
 	private String endTag = DEFAULT_END_TAG;
@@ -51,24 +51,24 @@ public class TemplateProcessor implements Processor {
 	public void process() {
 		createReader();
 		createPattern();
-		tryRead();
+		read();
 		collectFragments();
 		write();
 	}
 
-	void createReader() {
+	private void createReader() {
 		reader = systemIo.createInReader();
 	}
 
-	void tryRead() {
+	private void read() {
 		try {
-			read();
+			tryRead();
 		} catch (IOException e) {
 			throw new SkaitvardziaiIOException(e);
 		}
 	}
 
-	void read() throws IOException {
+	private void tryRead() throws IOException {
 		StringWriter w = new StringWriter();
 		char[] buffer = new char[1024];
 		int count;

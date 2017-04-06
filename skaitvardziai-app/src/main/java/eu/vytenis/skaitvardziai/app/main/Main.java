@@ -46,7 +46,6 @@ public class Main {
 	public Main(SystemFiles systemFiles) {
 		Checks.checkNotNull("systemFiles", systemFiles);
 		this.systemFiles = systemFiles;
-		;
 		this.systemIo = new SystemIo(systemFiles);
 	}
 
@@ -70,9 +69,8 @@ public class Main {
 	}
 
 	private void checkHelpOption() {
-		if (isIn(Help, commandLine)) {
+		if (isIn(Help, commandLine))
 			throw new ShowHelpException();
-		}
 	}
 
 	private void buildSystemIo() {
@@ -97,19 +95,15 @@ public class Main {
 
 	private void createOptions() {
 		options = new Options();
-		for (CliOption o : getOptionsForArgs()) {
+		for (CliOption o : getOptionsForArgs())
 			options.addOption(o.getShortName(), o.getName(), o.isHasArgument(), o.getDescription());
-		}
 	}
 
 	private Processor createProcessor() {
-		Processor p;
-		if (isIn(Transform, commandLine)) {
-			p = new TemplateProcessor(commandLine, systemIo);
-		} else {
-			p = new EchoProcessor(commandLine, systemIo);
-		}
-		return p;
+		if (isIn(Transform, commandLine))
+			return new TemplateProcessor(commandLine, systemIo);
+		else
+			return new EchoProcessor(commandLine, systemIo);
 	}
 
 	private void help() {

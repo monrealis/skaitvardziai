@@ -92,11 +92,12 @@ public class TemplateProcessorTest extends AppTest {
 
 	private void assertParsedFragments() {
 		systemFiles.setSystemIn(new ByteArrayInputStream(input.getBytes()));
-		TemplateProcessor p = new TemplateProcessor(startTag, endTag, new SystemIo(systemFiles));
-		p.createReader();
-		p.createPattern();
-		p.read();
-		p.collectFragments();
+		TemplateProcessor p = new TemplateProcessor(startTag, endTag, new SystemIo(systemFiles)) {
+			@Override
+			void write() {
+			};
+		};
+		p.process();
 		assertArrayEquals(outputs, p.getFragments().toArray());
 	}
 

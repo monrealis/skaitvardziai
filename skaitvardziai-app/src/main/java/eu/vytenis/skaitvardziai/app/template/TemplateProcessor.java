@@ -54,11 +54,11 @@ public class TemplateProcessor implements Processor {
 		write();
 	}
 
-	void createReader() {
+	private void createReader() {
 		reader = systemIo.createInReader();
 	}
 
-	void read() {
+	private void read() {
 		try {
 			tryRead();
 		} catch (IOException e) {
@@ -75,12 +75,12 @@ public class TemplateProcessor implements Processor {
 		inputText = w.toString();
 	}
 
-	void createPattern() {
+	private void createPattern() {
 		String patternText = Patterns.quote(startTag) + "(.*?)" + Patterns.quote(endTag);
 		instructionsPattern = Pattern.compile(patternText, Pattern.MULTILINE | Pattern.DOTALL);
 	}
 
-	void collectFragments() {
+	private void collectFragments() {
 		fragments = new ArrayList<TextSource>();
 		Matcher m = instructionsPattern.matcher(inputText);
 		int nextCharIndex = 0;
@@ -102,7 +102,7 @@ public class TemplateProcessor implements Processor {
 		fragments.add(new StringSource(text));
 	}
 
-	private void write() {
+	void write() {
 		for (TextSource s : fragments)
 			systemIo.printOut(s.getText(), "");
 	}

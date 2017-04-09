@@ -6,8 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.app.AppTest;
+import eu.vytenis.skaitvardziai.app.io.SystemIo;
 
 // TODO 2017-04-07 monrealis: Split TemplateProcessor to two classes
+// or refactor in a nother way
 public class TemplateProcessorTest extends AppTest {
 	private String startTag;
 	private String endTag;
@@ -86,7 +88,7 @@ public class TemplateProcessorTest extends AppTest {
 	}
 
 	private void assertParsedFragments() {
-		TemplateProcessor p = new TemplateProcessor(startTag, endTag, input, systemFiles);
+		TemplateProcessor p = new TemplateProcessor(startTag, endTag, input, new SystemIo(systemFiles));
 		p.createPattern();
 		p.collectFragments();
 		assertArrayEquals(outputs, p.getFragments().toArray());

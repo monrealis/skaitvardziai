@@ -40,10 +40,9 @@ public class TemplateProcessor implements Processor {
 			endTag = getValue(EndTag, commandLine);
 	}
 
-	public TemplateProcessor(String startTag, String endTag, String inputText, SystemIo systemIo) {
+	public TemplateProcessor(String startTag, String endTag, SystemIo systemIo) {
 		this.startTag = startTag;
 		this.endTag = endTag;
-		this.inputText = inputText;
 		this.systemIo = systemIo;
 	}
 
@@ -55,11 +54,11 @@ public class TemplateProcessor implements Processor {
 		write();
 	}
 
-	private void createReader() {
+	void createReader() {
 		reader = systemIo.createInReader();
 	}
 
-	private void read() {
+	void read() {
 		try {
 			tryRead();
 		} catch (IOException e) {

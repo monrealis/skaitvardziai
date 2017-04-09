@@ -2,6 +2,8 @@ package eu.vytenis.skaitvardziai.app.template;
 
 import static org.junit.Assert.assertArrayEquals;
 
+import java.io.ByteArrayInputStream;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -88,8 +90,11 @@ public class TemplateProcessorTest extends AppTest {
 	}
 
 	private void assertParsedFragments() {
-		TemplateProcessor p = new TemplateProcessor(startTag, endTag, input, new SystemIo(systemFiles));
+		systemFiles.setSystemIn(new ByteArrayInputStream(input.getBytes()));
+		TemplateProcessor p = new TemplateProcessor(startTag, endTag, new SystemIo(systemFiles));
+		p.createReader();
 		p.createPattern();
+		p.read();
 		p.collectFragments();
 		assertArrayEquals(outputs, p.getFragments().toArray());
 	}

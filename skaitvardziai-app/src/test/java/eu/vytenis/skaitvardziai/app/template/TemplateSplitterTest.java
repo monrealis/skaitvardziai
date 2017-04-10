@@ -5,26 +5,17 @@ import static org.junit.Assert.assertArrayEquals;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import eu.vytenis.skaitvardziai.app.io.SystemFiles;
 import eu.vytenis.skaitvardziai.app.io.SystemIo;
 
-// TODO 2017-04-07 monrealis: Split TemplateProcessor to two classes
-// or refactor in a nother way
 public class TemplateSplitterTest {
 	private SystemFiles systemFiles = new SystemFiles();
-	private String startTag;
-	private String endTag;
+	private String startTag = TemplateProcessor.DEFAULT_START_TAG;
+	private String endTag = TemplateProcessor.DEFAULT_END_TAG;
 	private String input;
 	private Object[] outputs;
-
-	@Before
-	public void before() {
-		startTag = TemplateProcessor.DEFAULT_START_TAG;
-		endTag = TemplateProcessor.DEFAULT_END_TAG;
-	}
 
 	@Test
 	public void empty() {

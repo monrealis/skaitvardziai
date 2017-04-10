@@ -42,8 +42,8 @@ public class TemplateProcessor implements Processor {
 	}
 
 	public void process() {
-		TemplateParser parser = new TemplateParser(startTag, endTag, systemIo);
-		fragments = parser.process();
+		TemplateSplitter parser = new TemplateSplitter(startTag, endTag, systemIo);
+		fragments = parser.split();
 		write();
 	}
 
@@ -56,16 +56,16 @@ public class TemplateProcessor implements Processor {
 		return unmodifiableList(fragments);
 	}
 
-	private static class TemplateParser {
+	private static class TemplateSplitter {
 		private final String startTag;
 		private final String endTag;
 		private final SystemIo systemIo;
+		private final List<TextSource> fragments = new ArrayList<TextSource>();
 		private Pattern instructionsPattern;
 		private Reader reader;
 		private String inputText;
-		private List<TextSource> fragments;
 
-		public TemplateParser(String startTag, String endTag, SystemIo systemIo) {
+		public TemplateSplitter(String startTag, String endTag, SystemIo systemIo) {
 			this.startTag = startTag;
 			this.endTag = endTag;
 			this.systemIo = systemIo;
@@ -75,7 +75,7 @@ public class TemplateProcessor implements Processor {
 			reader = systemIo.createInReader();
 		}
 
-		public List<TextSource> process() {
+		public List<TextSource> split() {
 			createReader();
 			createPattern();
 			read();
@@ -106,13 +106,12 @@ public class TemplateProcessor implements Processor {
 		}
 
 		private void collectFragments() {
-			fragments = new ArrayList<TextSource>();
-			Matcher m = instructionsPattern.matcher(inputText);
+			Matcher matcher = instructionsPattern.matcher(inputText);
 			int nextCharIndex = 0;
-			while (m.find()) {
-				addStaticFragmentIfNotEmpty(nextCharIndex, m.start());
-				fragments.add(new MethodInvocationSource(m.group(1)));
-				nextCharIndex = m.end();
+			while (matcher.find()) {
+				addStaticFragmentIfNotEmpty(nextCharIndex, matcher.start());
+				fragments.add(new MethodInvocationSource(matcher.group(1)));
+				nextCharIndex = matcher.end();
 			}
 			addStaticFragmentIfNotEmpty(nextCharIndex, inputText.length());
 		}
@@ -126,7 +125,6 @@ public class TemplateProcessor implements Processor {
 				throw new TemplateParseException(String.format("Invalid text starting at index %d: %s", idx, startTag));
 			fragments.add(new StringSource(text));
 		}
-
 	}
 
 	public static class TemplateParseException extends SkaitvardziaiRuntimeException {

@@ -14,7 +14,7 @@ import eu.vytenis.skaitvardziai.app.io.SystemIo;
 // TODO 2017-04-07 monrealis: Split TemplateProcessor to two classes
 // or refactor in a nother way
 // TODO 2017-04-10 monrealis: don't extend AppTest
-public class TemplateProcessorTest extends AppTest {
+public class TemplateSplitterTest extends AppTest {
 	private String startTag;
 	private String endTag;
 	private String input;

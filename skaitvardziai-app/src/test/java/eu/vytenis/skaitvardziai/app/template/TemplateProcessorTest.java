@@ -3,6 +3,7 @@ package eu.vytenis.skaitvardziai.app.template;
 import static org.junit.Assert.assertArrayEquals;
 
 import java.io.ByteArrayInputStream;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -92,13 +93,14 @@ public class TemplateProcessorTest extends AppTest {
 
 	private void assertParsedFragments() {
 		systemFiles.setSystemIn(new ByteArrayInputStream(input.getBytes()));
-		TemplateProcessor p = new TemplateProcessor(startTag, endTag, new SystemIo(systemFiles)) {
-			@Override
-			void write() {
-			};
-		};
-		p.process();
-		assertArrayEquals(outputs, p.getFragments().toArray());
+		List<TextSource> fragments = split();
+		assertArrayEquals(outputs, fragments.toArray());
+	}
+
+	private List<TextSource> split() {
+		TemplateSplitter splitter = new TemplateSplitter(startTag, endTag, new SystemIo(systemFiles));
+		List<TextSource> fragments = splitter.split();
+		return fragments;
 	}
 
 	private StringSource string(String text) {

@@ -108,5 +108,4 @@ public class TemplateProcessorTest extends AppTest {
 	private MethodInvocationSource method(String unparsedText) {
 		return new MethodInvocationSource(unparsedText);
 	}
-
 }

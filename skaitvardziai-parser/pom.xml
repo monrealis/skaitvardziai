@@ -32,6 +32,13 @@
 				<groupId>org.antlr</groupId>
 				<artifactId>antlr4-maven-plugin</artifactId>
 				<version>4.3</version>
+				<configuration>
+					<arguments>
+						<argument>-package</argument>
+						<argument>eu.vytenis.skaitvardziai.parser.antlr</argument>
+					</arguments>
+					<outputDirectory>${project.build.directory}/generated-sources/antlr/eu/vytenis/skaitvardziai/parser/antlr</outputDirectory>
+				</configuration>
 				<executions>
 					<execution>
 						<id>antlr</id>

@@ -49,5 +49,10 @@
 			<artifactId>skaitvardziai-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4</artifactId>
+			<version>4.9</version>
+		</dependency>
 	</dependencies>
 </project>

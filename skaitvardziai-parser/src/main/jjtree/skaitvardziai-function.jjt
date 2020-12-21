@@ -1,8 +1,8 @@
 options {
 	UNICODE_INPUT = true;
 	STATIC = false;
-	MULTI=false;
-	NODE_PREFIX="";
+	MULTI = false;
+	NODE_PREFIX = "";
 	NODE_SCOPE_HOOK = false;
 }
 

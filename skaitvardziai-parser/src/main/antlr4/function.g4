@@ -1,15 +1,19 @@
 grammar function;
 
-csvFile: hdr row+ ;
-hdr : row ;
+methodInvocation: IDENTIFIER '(' PARAMETERS ')';
 
-row : field (',' field)* '\r'? '\n' ;
+PARAMETERS: PARAMETER ( ',' PARAMETER )* ;
+PARAMETER: FRACTION | INTEGER | STRING | NULL;
 
-field
-    : TEXT
-    | STRING
-    |
-    ;
+FRACTION: INTEGER '/' INTEGER;
 
-TEXT   : ~[,\n\r"]+ ;
-STRING : '"' ('""'|~'"')* '"' ; // quote-quote is an escaped quote
+STRING: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
+SINGLE_QUOTED_STRING:  '\'' (~["'"])* '\'';
+DOUBLE_QUOTED_STRING: '"' (~["'"])* '"';
+
+IDENTIFIER: LETTER (LETTER | DIGIT)*;
+LETTER: [a];
+DIGIT: [0];
+
+INTEGER: [0-9]+;
+NULL : 'null';

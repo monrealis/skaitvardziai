@@ -1,4 +1,4 @@
-package eu.vytenis.skaitvardziai.parser.methods;
+package eu.vytenis.skaitvardziai.parser.methods.jjt;
 
 import eu.vytenis.skaitvardziai.parser.tree.SimpleNode;
 

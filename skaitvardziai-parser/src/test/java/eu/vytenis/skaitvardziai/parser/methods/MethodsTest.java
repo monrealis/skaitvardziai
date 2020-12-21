@@ -6,10 +6,12 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import eu.vytenis.skaitvardziai.parser.methods.jjt.JjtMethods;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
 public class MethodsTest {
+	private Methods methods = new JjtMethods();
 	private Object Null = null;
 
 	@Test
@@ -59,8 +61,9 @@ public class MethodsTest {
 		assertInvocation(text.replaceAll("\\s+", ""), expectedMethod, expectedParameters);
 	}
 
-	private void assertInvocation(String methodInvocationText, String expectedMethodName, Object... expectedParameterValues) {
-		MethodInvocation i = Methods.getMethodInvocation(methodInvocationText);
+	private void assertInvocation(String methodInvocationText, String expectedMethodName,
+			Object... expectedParameterValues) {
+		MethodInvocation i = methods.getMethodInvocation(methodInvocationText);
 		assertEquals(expectedMethodName, i.getMethodName());
 		assertEquals(expectedParameterValues.length, i.getParameters().length);
 		assertArrayEquals(expectedParameterValues, i.getParameters());

@@ -73,7 +73,6 @@ public abstract class KelintiniaiTest extends SkaitvardziaiTest {
 		testVirst1000BigIntegers(Gimine.M, Linksnis.N);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testVirst1000BigIntegers(Gimine gimine, Linksnis linksnis) {
 		BigInteger e18 = Numbers.BILLION.multiply(Numbers.BILLION);
 		BigInteger e9 = Numbers.BILLION;

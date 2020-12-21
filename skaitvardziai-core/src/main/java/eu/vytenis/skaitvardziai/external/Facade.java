@@ -16,7 +16,6 @@ import eu.vytenis.skaitvardziai.text.FormaParser;
  * Metodai, kuriuos kviečia išoriniai (ne JAVA) API.
  */
 public class Facade {
-	@SuppressWarnings("unchecked")
 	private static final List<Class<? extends FormosElementas>> LINKSNIS = Arrays.<Class<? extends FormosElementas>> asList(Linksnis.class);
 	private static final SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
 

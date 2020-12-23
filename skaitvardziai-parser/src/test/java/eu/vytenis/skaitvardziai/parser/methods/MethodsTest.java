@@ -1,18 +1,35 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import java.util.Collection;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameters;
+
+import eu.vytenis.skaitvardziai.parser.methods.antrl4.Antlr4Methods;
 import eu.vytenis.skaitvardziai.parser.methods.jjt.JjtMethods;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
+@RunWith(Parameterized.class)
 public class MethodsTest {
-	private Methods methods = new JjtMethods();
-	private Object Null = null;
+	private final Methods methods;
+	private final Object Null = null;
+
+	public MethodsTest(Methods methods) {
+		this.methods = methods;
+	}
+
+	@Parameters
+	public static Collection<Object[]> data() {
+		return asList(new Object[][] { { new JjtMethods() }, { new Antlr4Methods() } });
+	}
 
 	@Test
 	public void withoutParameters() {

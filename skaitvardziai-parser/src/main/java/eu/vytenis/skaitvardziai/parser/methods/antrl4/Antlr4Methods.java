@@ -5,11 +5,13 @@ import java.io.StringReader;
 import java.math.BigInteger;
 import java.util.Stack;
 
+import org.antlr.v4.runtime.BailErrorStrategy;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import eu.vytenis.skaitvardziai.parser.antlr4.functionBaseListener;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionLexer;
@@ -19,6 +21,7 @@ import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.IdentifierContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.IntegerLiteralContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.MethodInvocationContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.NullLiteralContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.StringLiteralContext;
 import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.parser.methods.Methods;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
@@ -27,18 +30,22 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 public class Antlr4Methods extends Methods {
 	@Override
 	public MethodInvocation getMethodInvocation(String methodInvocationText) {
-		CharStream s = toCharStream(methodInvocationText);
-		CommonTokenStream tokens = new CommonTokenStream(new functionLexer(s));
-		System.out.println();
-		new functionLexer(toCharStream(methodInvocationText)).getAllTokens()
-				.forEach(t -> System.out.println("*" + t.getText()));
-		functionParser parser = new functionParser(tokens);
-		// parser.setErrorHandler(new BailErrorStrategy());
+		CommonTokenStream tokens = getTokenStream(methodInvocationText);
+		functionParser parser = createParser(tokens);
 		MethodInvocationContext methodInvocation = parser.methodInvocation();
-		ParseTreeWalker walker = new ParseTreeWalker();
-		MethodInvocationBuilder listener = new MethodInvocationBuilder();
-		walker.walk(listener, methodInvocation);
-		return listener.toMethodInvocation();
+		return toMethodInvocation(methodInvocation);
+	}
+
+	private CommonTokenStream getTokenStream(String methodInvocationText) {
+		CharStream stream = toCharStream(methodInvocationText);
+		CommonTokenStream tokens = new CommonTokenStream(new functionLexer(stream));
+		return tokens;
+	}
+
+	private functionParser createParser(CommonTokenStream tokens) {
+		functionParser parser = new functionParser(tokens);
+		parser.setErrorHandler(new BailErrorStrategy());
+		return parser;
 	}
 
 	private CodePointCharStream toCharStream(String methodInvocationText) {
@@ -49,6 +56,13 @@ public class Antlr4Methods extends Methods {
 		}
 	}
 
+	private MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
+		ParseTreeWalker walker = new ParseTreeWalker();
+		MethodInvocationBuilder listener = new MethodInvocationBuilder();
+		walker.walk(listener, methodInvocation);
+		return listener.toMethodInvocation();
+	}
+
 	private static class MethodInvocationBuilder extends functionBaseListener {
 		private String name;
 		private Stack<Object> parameters = new Stack<Object>();
@@ -56,6 +70,19 @@ public class Antlr4Methods extends Methods {
 		@Override
 		public void exitIdentifier(IdentifierContext ctx) {
 			name = ctx.getText();
+		}
+
+		@Override
+		public void exitStringLiteral(StringLiteralContext ctx) {
+			if (ctx.SINGLE_QUOTED_STRING() != null)
+				addParameter(unwrapString(ctx.SINGLE_QUOTED_STRING()));
+			else if (ctx.DOUBLE_QUOTED_STRING() != null)
+				addParameter(unwrapString(ctx.DOUBLE_QUOTED_STRING()));
+		}
+
+		private String unwrapString(TerminalNode node) {
+			String t = node.getText();
+			return t.substring(1, t.length() - 1);
 		}
 
 		@Override

@@ -1,9 +1,9 @@
 grammar function;
 
-methodInvocation: identifier '(' parameters? ')';
+methodInvocation: identifier '(' arguments? ')';
 
-parameters: parameter (',' parameter)*;
-parameter: fractionLiteral | integerLiteral | stringLiteral | nullLiteral;
+arguments: argument (',' argument)*;
+argument: fractionLiteral | integerLiteral | stringLiteral | nullLiteral;
 
 fractionLiteral: integerLiteral '/' integerLiteral;
 integerLiteral: MINUS? INTEGER;

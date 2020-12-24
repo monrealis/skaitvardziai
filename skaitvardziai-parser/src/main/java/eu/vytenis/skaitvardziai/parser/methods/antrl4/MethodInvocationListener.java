@@ -15,7 +15,7 @@ import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
-class MethodInvocationBuilder extends SkaitvardziaiFunctionBaseListener {
+class MethodInvocationListener extends SkaitvardziaiFunctionBaseListener {
 	private String name;
 	private final Stack<Object> parameters = new Stack<Object>();
 

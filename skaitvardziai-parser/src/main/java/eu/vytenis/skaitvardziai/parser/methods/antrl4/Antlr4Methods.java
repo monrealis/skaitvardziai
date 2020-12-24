@@ -47,7 +47,7 @@ public class Antlr4Methods extends Methods {
 
 	private MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
 		ParseTreeWalker walker = new ParseTreeWalker();
-		MethodInvocationBuilder listener = new MethodInvocationBuilder();
+		MethodInvocationListener listener = new MethodInvocationListener();
 		walker.walk(listener, methodInvocation);
 		return listener.toMethodInvocation();
 	}

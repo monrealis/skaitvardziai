@@ -1,11 +1,13 @@
 package eu.vytenis.skaitvardziai.parser.methods;
 
-import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +30,11 @@ public class MethodsTest {
 
 	@Parameters
 	public static Collection<Object[]> data() {
-		return asList(new Object[][] { { new JjtMethods() }, { new Antlr4Methods() } });
+		List<Object> r = new ArrayList<>();
+		r.add(new JjtMethods());
+		r.add(Antlr4Methods.createListenerBased());
+		r.add(Antlr4Methods.createVisitorBased());
+		return r.stream().map(p -> new Object[] { p }).collect(toList());
 	}
 
 	@Test

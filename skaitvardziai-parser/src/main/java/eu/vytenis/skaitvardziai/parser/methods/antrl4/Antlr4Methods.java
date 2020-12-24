@@ -16,7 +16,15 @@ import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.Method
 import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.parser.methods.Methods;
 
-public class Antlr4Methods extends Methods {
+public abstract class Antlr4Methods extends Methods {
+	public static Antlr4Methods createListenerBased() {
+		return new ListenerBasedAntlr4Methods();
+	}
+
+	public static Antlr4Methods createVisitorBased() {
+		return new VisitorBasedAntlr4Methods();
+	}
+
 	@Override
 	public MethodInvocation getMethodInvocation(String methodInvocationText) {
 		CommonTokenStream tokens = getTokenStream(methodInvocationText);
@@ -45,10 +53,25 @@ public class Antlr4Methods extends Methods {
 		}
 	}
 
-	private MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
+	abstract MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation);
+
+}
+
+class ListenerBasedAntlr4Methods extends Antlr4Methods {
+	@Override
+	MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
 		ParseTreeWalker walker = new ParseTreeWalker();
 		MethodInvocationListener listener = new MethodInvocationListener();
 		walker.walk(listener, methodInvocation);
 		return listener.toMethodInvocation();
+	}
+}
+
+class VisitorBasedAntlr4Methods extends Antlr4Methods {
+	@Override
+	MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
+		MethodInvocationVisitor visitor = new MethodInvocationVisitor();
+		methodInvocation.accept(visitor);
+		return visitor.toMethodInvocation();
 	}
 }

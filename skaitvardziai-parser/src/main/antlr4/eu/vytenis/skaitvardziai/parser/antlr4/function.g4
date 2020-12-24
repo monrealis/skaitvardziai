@@ -1,27 +1,30 @@
 grammar function;
 
-methodInvocation: identifier '(' arguments? ')';
+methodInvocation: methodName '(' arguments? ')';
 
 arguments: argument (',' argument)*;
 argument: fractionLiteral | integerLiteral | stringLiteral | nullLiteral;
 
 fractionLiteral: integerLiteral '/' integerLiteral;
-integerLiteral: MINUS? INTEGER;
+integerLiteral: Minus? IntegerLiteral;
 
-stringLiteral: SINGLE_QUOTED_STRING | DOUBLE_QUOTED_STRING;
-SINGLE_QUOTED_STRING: '\'' SINGLE_QUOTED_STRING_CONTENT '\'';
-DOUBLE_QUOTED_STRING: '"' DOUBLE_QUOTED_STRING_CONTENT '"';
+stringLiteral: SingleQuotedStringLiteral | DoubleQuotedStringLiteral;
+SingleQuotedStringLiteral: '\'' SingleQuotedStringCharacters '\'';
+DoubleQuotedStringLiteral: '"' DoubleQuotedStringCharacters '"';
 
-identifier: IDENTIFIER;
+methodName: Identifier;
+nullLiteral: NullLiteral;
 
-fragment LETTER: [a-zA-Z];
-fragment DIGIT: [0-9];
-fragment SINGLE_QUOTED_STRING_CONTENT : (~['])*;
-fragment DOUBLE_QUOTED_STRING_CONTENT : (~["])*;
 
-MINUS: '-';
-INTEGER: DIGIT+;
-nullLiteral: NULL;
-NULL: 'null';
-IDENTIFIER: LETTER (LETTER | DIGIT)*;
+Minus: '-';
+IntegerLiteral: Digit+;
+
+NullLiteral: 'null';
+Identifier: Letter (Letter | Digit)*;
+
+fragment Letter: [a-zA-Z];
+fragment Digit: [0-9];
+fragment SingleQuotedStringCharacters : (~['])*;
+fragment DoubleQuotedStringCharacters : (~["])*;
+
 WS: [ \t\r\n]+ -> skip;

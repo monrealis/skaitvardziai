@@ -17,9 +17,9 @@ import eu.vytenis.skaitvardziai.parser.antlr4.functionBaseListener;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionLexer;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.FractionLiteralContext;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.IdentifierContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.IntegerLiteralContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.MethodInvocationContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.MethodNameContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.NullLiteralContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.StringLiteralContext;
 import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
@@ -68,16 +68,16 @@ public class Antlr4Methods extends Methods {
 		private Stack<Object> parameters = new Stack<Object>();
 
 		@Override
-		public void exitIdentifier(IdentifierContext ctx) {
+		public void exitMethodName(MethodNameContext ctx) {
 			name = ctx.getText();
 		}
 
 		@Override
 		public void exitStringLiteral(StringLiteralContext ctx) {
-			if (ctx.SINGLE_QUOTED_STRING() != null)
-				addParameter(unwrapString(ctx.SINGLE_QUOTED_STRING()));
-			else if (ctx.DOUBLE_QUOTED_STRING() != null)
-				addParameter(unwrapString(ctx.DOUBLE_QUOTED_STRING()));
+			if (ctx.SingleQuotedStringLiteral() != null)
+				addParameter(unwrapString(ctx.SingleQuotedStringLiteral()));
+			else if (ctx.DoubleQuotedStringLiteral() != null)
+				addParameter(unwrapString(ctx.DoubleQuotedStringLiteral()));
 		}
 
 		private String unwrapString(TerminalNode node) {
@@ -103,8 +103,8 @@ public class Antlr4Methods extends Methods {
 
 		@Override
 		public void exitIntegerLiteral(IntegerLiteralContext ctx) {
-			String sign = ctx.MINUS() != null ? "-" : "";
-			SveikasisSkaicius s = new SveikasisSkaicius(sign + ctx.INTEGER().getText());
+			String sign = ctx.Minus() != null ? "-" : "";
+			SveikasisSkaicius s = new SveikasisSkaicius(sign + ctx.IntegerLiteral().getText());
 			addParameter(s);
 		}
 

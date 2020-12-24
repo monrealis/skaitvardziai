@@ -1,4 +1,4 @@
-grammar function;
+grammar SkaitvardziaiFunction;
 
 methodInvocation: methodName '(' arguments? ')';
 

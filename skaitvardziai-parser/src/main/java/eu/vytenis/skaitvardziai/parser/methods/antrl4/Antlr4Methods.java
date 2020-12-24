@@ -13,15 +13,15 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import eu.vytenis.skaitvardziai.parser.antlr4.functionBaseListener;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionLexer;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.FractionLiteralContext;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.IntegerLiteralContext;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.MethodInvocationContext;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.MethodNameContext;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.NullLiteralContext;
-import eu.vytenis.skaitvardziai.parser.antlr4.functionParser.StringLiteralContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionBaseListener;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionLexer;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.FractionLiteralContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.IntegerLiteralContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.MethodInvocationContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.MethodNameContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.NullLiteralContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.StringLiteralContext;
 import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.parser.methods.Methods;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
@@ -31,19 +31,19 @@ public class Antlr4Methods extends Methods {
 	@Override
 	public MethodInvocation getMethodInvocation(String methodInvocationText) {
 		CommonTokenStream tokens = getTokenStream(methodInvocationText);
-		functionParser parser = createParser(tokens);
+		SkaitvardziaiFunctionParser parser = createParser(tokens);
 		MethodInvocationContext methodInvocation = parser.methodInvocation();
 		return toMethodInvocation(methodInvocation);
 	}
 
 	private CommonTokenStream getTokenStream(String methodInvocationText) {
 		CharStream stream = toCharStream(methodInvocationText);
-		CommonTokenStream tokens = new CommonTokenStream(new functionLexer(stream));
+		CommonTokenStream tokens = new CommonTokenStream(new SkaitvardziaiFunctionLexer(stream));
 		return tokens;
 	}
 
-	private functionParser createParser(CommonTokenStream tokens) {
-		functionParser parser = new functionParser(tokens);
+	private SkaitvardziaiFunctionParser createParser(CommonTokenStream tokens) {
+		SkaitvardziaiFunctionParser parser = new SkaitvardziaiFunctionParser(tokens);
 		parser.setErrorHandler(new BailErrorStrategy());
 		return parser;
 	}
@@ -63,9 +63,9 @@ public class Antlr4Methods extends Methods {
 		return listener.toMethodInvocation();
 	}
 
-	private static class MethodInvocationBuilder extends functionBaseListener {
+	private static class MethodInvocationBuilder extends SkaitvardziaiFunctionBaseListener {
 		private String name;
-		private Stack<Object> parameters = new Stack<Object>();
+		private final Stack<Object> parameters = new Stack<Object>();
 
 		@Override
 		public void exitMethodName(MethodNameContext ctx) {

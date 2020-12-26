@@ -12,13 +12,16 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionLexer;
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser;
-import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.MethodInvocationContext;
 import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.parser.methods.Methods;
 
 public abstract class Antlr4Methods extends Methods {
 	public static Antlr4Methods createListenerBased() {
 		return new ListenerBasedAntlr4Methods();
+	}
+
+	public static Antlr4Methods createStateless() {
+		return new StatelessListenerBasedAntlr4Methods();
 	}
 
 	public static Antlr4Methods createVisitorBased() {
@@ -29,8 +32,7 @@ public abstract class Antlr4Methods extends Methods {
 	public MethodInvocation getMethodInvocation(String methodInvocationText) {
 		CommonTokenStream tokens = getTokenStream(methodInvocationText);
 		SkaitvardziaiFunctionParser parser = createParser(tokens);
-		MethodInvocationContext methodInvocation = parser.methodInvocation();
-		return toMethodInvocation(methodInvocation);
+		return toMethodInvocation(parser);
 	}
 
 	private CommonTokenStream getTokenStream(String methodInvocationText) {
@@ -39,7 +41,7 @@ public abstract class Antlr4Methods extends Methods {
 		return tokens;
 	}
 
-	private SkaitvardziaiFunctionParser createParser(CommonTokenStream tokens) {
+	SkaitvardziaiFunctionParser createParser(CommonTokenStream tokens) {
 		SkaitvardziaiFunctionParser parser = new SkaitvardziaiFunctionParser(tokens);
 		parser.setErrorHandler(new BailErrorStrategy());
 		return parser;
@@ -53,25 +55,36 @@ public abstract class Antlr4Methods extends Methods {
 		}
 	}
 
-	abstract MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation);
+	abstract MethodInvocation toMethodInvocation(SkaitvardziaiFunctionParser parser);
 
 }
 
 class ListenerBasedAntlr4Methods extends Antlr4Methods {
 	@Override
-	MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
+	MethodInvocation toMethodInvocation(SkaitvardziaiFunctionParser parser) {
 		ParseTreeWalker walker = new ParseTreeWalker();
 		MethodInvocationListener listener = new MethodInvocationListener();
-		walker.walk(listener, methodInvocation);
+		walker.walk(listener, parser.methodInvocation());
+		return listener.toMethodInvocation();
+	}
+}
+
+class StatelessListenerBasedAntlr4Methods extends Antlr4Methods {
+	@Override
+	MethodInvocation toMethodInvocation(SkaitvardziaiFunctionParser parser) {
+		parser.setBuildParseTree(false);
+		MethodInvocationListener listener = new MethodInvocationListener();
+		parser.addParseListener(listener);
+		parser.methodInvocation();
 		return listener.toMethodInvocation();
 	}
 }
 
 class VisitorBasedAntlr4Methods extends Antlr4Methods {
 	@Override
-	MethodInvocation toMethodInvocation(MethodInvocationContext methodInvocation) {
+	MethodInvocation toMethodInvocation(SkaitvardziaiFunctionParser parser) {
 		MethodInvocationVisitor visitor = new MethodInvocationVisitor();
-		methodInvocation.accept(visitor);
+		parser.methodInvocation().accept(visitor);
 		return visitor.toMethodInvocation();
 	}
 }

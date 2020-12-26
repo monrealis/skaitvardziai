@@ -34,6 +34,7 @@ public class MethodsTest {
 		r.add(new JjtMethods());
 		r.add(Antlr4Methods.createListenerBased());
 		r.add(Antlr4Methods.createVisitorBased());
+		r.add(Antlr4Methods.createStateless());
 		return r.stream().map(p -> new Object[] { p }).collect(toList());
 	}
 

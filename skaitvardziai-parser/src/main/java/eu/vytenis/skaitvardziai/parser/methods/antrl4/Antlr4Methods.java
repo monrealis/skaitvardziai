@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CodePointCharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionLexer;
@@ -31,8 +32,12 @@ public abstract class Antlr4Methods extends Methods {
 	@Override
 	public MethodInvocation getMethodInvocation(String methodInvocationText) {
 		CommonTokenStream tokens = getTokenStream(methodInvocationText);
-		SkaitvardziaiFunctionParser parser = createParser(tokens);
-		return toMethodInvocation(parser);
+		try {
+			SkaitvardziaiFunctionParser parser = createParser(tokens);
+			return toMethodInvocation(parser);
+		} catch (ParseCancellationException e) {
+			throw new SkaitvardziaiParseException(e);
+		}
 	}
 
 	private CommonTokenStream getTokenStream(String methodInvocationText) {

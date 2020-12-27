@@ -1,6 +1,6 @@
 grammar SkaitvardziaiFunction;
 
-methodInvocation: methodName '(' arguments? ')';
+methodInvocation: methodName '(' arguments? ')' EOF;
 
 arguments: argument (',' argument)*;
 argument: fractionLiteral | integerLiteral | stringLiteral | nullLiteral;

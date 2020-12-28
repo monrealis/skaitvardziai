@@ -8,4 +8,6 @@ module eu.vytenis.skaitvardziai.parser {
 
 	requires eu.vytenis.skaitvardziai.core;
 	requires org.antlr.antlr4.runtime;
+
+	requires junit;
 }

@@ -11,4 +11,5 @@ module eu.vytenis.skaitvardziai.core {
 	exports eu.vytenis.skaitvardziai.skaiciai;
 
 	requires java.logging;
+	requires junit;
 }

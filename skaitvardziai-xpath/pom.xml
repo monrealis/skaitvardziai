@@ -19,8 +19,8 @@
 		</dependency>
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
-			<artifactId>Saxon-HE</artifactId>
-			<version>10.3</version>
+			<artifactId>saxon</artifactId>
+			<version>8.7</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>

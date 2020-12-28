@@ -111,16 +111,6 @@
 
 	<profiles>
 		<profile>
-			<id>eclipse</id>
-			<dependencies>
-				<dependency>
-					<groupId>junit</groupId>
-					<artifactId>junit</artifactId>
-					<version>4.13.1</version>
-				</dependency>
-			</dependencies>
-		</profile>
-		<profile>
 			<id>release</id>
 			<build>
 				<plugins>

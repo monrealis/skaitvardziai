@@ -4,7 +4,7 @@ import static java.util.Arrays.asList;
 
 import java.util.List;
 
-public class MethodKey {
+class MethodKey {
 	private final String methodName;
 	private final int parameterCount;
 

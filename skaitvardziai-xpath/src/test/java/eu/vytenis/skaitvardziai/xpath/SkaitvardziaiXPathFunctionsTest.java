@@ -86,7 +86,10 @@ public class SkaitvardziaiXPathFunctionsTest {
 	}
 
 	private TransformerFactory tryCreateFactory() throws Exception {
-		return (TransformerFactory) Class.forName(transformerFactoryClassName).newInstance();
+		var jreFactory = TransformerFactory.newDefaultInstance();
+		if (jreFactory.getClass().getName().equals(transformerFactoryClassName))
+				return jreFactory;
+		return (TransformerFactory) Class.forName(transformerFactoryClassName).getDeclaredConstructor().newInstance();
 	}
 
 	protected Source getXsltSource() {
@@ -117,7 +120,8 @@ public class SkaitvardziaiXPathFunctionsTest {
 	public static List<Object[]> testCases() {
 		List<Object[]> r = new ArrayList<Object[]>();
 		r.add(createTestCase("net.sf.saxon.TransformerFactoryImpl", new DoNothingTransformer()));
-		r.add(createTestCase("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl", new XalanSourceTransformer()));
+		r.add(createTestCase("com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
+				new XalanSourceTransformer()));
 		r.add(createTestCase("org.apache.xalan.processor.TransformerFactoryImpl", new XalanSourceTransformer()));
 		r.add(createTestCase("org.apache.xalan.xsltc.trax.TransformerFactoryImpl", new XalanSourceTransformer()));
 		r.add(createTestCase("org.apache.xalan.xsltc.trax.SmartTransformerFactoryImpl", new XalanSourceTransformer()));
@@ -125,7 +129,7 @@ public class SkaitvardziaiXPathFunctionsTest {
 	}
 
 	private static Object[] createTestCase(String transformerFactoryClassName, SourceTransformer sourceTransformer) {
-		return new Object[] {transformerFactoryClassName, sourceTransformer};
+		return new Object[] { transformerFactoryClassName, sourceTransformer };
 	}
 
 	private static final class XalanSourceTransformer implements SourceTransformer {

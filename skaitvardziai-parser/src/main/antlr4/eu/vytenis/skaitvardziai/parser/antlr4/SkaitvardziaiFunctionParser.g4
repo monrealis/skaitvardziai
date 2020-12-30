@@ -1,21 +1,54 @@
 parser grammar SkaitvardziaiFunctionParser;
 
 options {
-    tokenVocab=SkaitvardziaiFunctionLexer;
+	tokenVocab = SkaitvardziaiFunctionLexer;
 }
 
-methodInvocation: methodName BraceOpen arguments? BraceClose EOF;
+methodInvocation
+:
+	methodName BraceOpen arguments? BraceClose EOF
+;
 
-arguments: argument (Comma argument)*;
-argument: fractionLiteral | integerLiteral | stringLiteral | nullLiteral;
+arguments
+:
+	argument
+	(
+		Comma argument
+	)*
+;
 
-fractionLiteral: integerLiteral Slash integerLiteral;
-integerLiteral: Minus? IntegerLiteral;
+argument
+:
+	fractionLiteral
+	| integerLiteral
+	| stringLiteral
+	| nullLiteral
+;
 
-stringLiteral: SingleQuotedStringLiteral | DoubleQuotedStringLiteral;
+fractionLiteral
+:
+	integerLiteral Slash integerLiteral
+;
 
+integerLiteral
+:
+	Minus? IntegerLiteral
+;
 
-methodName: Identifier;
-nullLiteral: NullLiteral;
+stringLiteral
+:
+	SingleQuotedStringLiteral
+	| DoubleQuotedStringLiteral
+;
+
+methodName
+:
+	Identifier
+;
+
+nullLiteral
+:
+	NullLiteral
+;
 
 

@@ -1,9 +1,6 @@
 package eu.vytenis.skaitvardziai.xpath;
 
 import eu.vytenis.skaitvardziai.external.Facade;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
-import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
-import eu.vytenis.skaitvardziai.klasifikatoriai.SkaiciusIrLinksnis;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
@@ -11,8 +8,6 @@ import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
  * XPath funkcijų klasė XSLT procesoriams. Palaikomas standartinis Sun JRE procesorius (padarytas iš XALAN), XALAN ir Saxon procesoriai.
  */
 public class SkaitvardziaiXPathFunctions {
-	public static SkaiciusIrLinksnis DGS_K = new SkaiciusIrLinksnis(Skaicius.D, Linksnis.K);
-
 	public static String sveikasis(int skaicius) {
 		return Facade.sveikasis(new SveikasisSkaicius(skaicius));
 	}

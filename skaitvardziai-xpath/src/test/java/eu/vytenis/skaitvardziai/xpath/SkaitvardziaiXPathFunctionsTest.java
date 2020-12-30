@@ -86,6 +86,9 @@ public class SkaitvardziaiXPathFunctionsTest {
 	}
 
 	private TransformerFactory tryCreateFactory() throws Exception {
+		var jreFactory = TransformerFactory.newDefaultInstance();
+		if (jreFactory.getClass().getName().equals(transformerFactoryClassName))
+				return jreFactory;
 		return (TransformerFactory) Class.forName(transformerFactoryClassName).getDeclaredConstructor().newInstance();
 	}
 

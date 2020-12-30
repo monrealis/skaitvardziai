@@ -5,17 +5,17 @@ import java.util.Stack;
 
 import org.antlr.v4.runtime.tree.TerminalNode;
 
-import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionBaseListener;
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.FractionLiteralContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.IntegerLiteralContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.MethodNameContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.NullLiteralContext;
 import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParser.StringLiteralContext;
+import eu.vytenis.skaitvardziai.parser.antlr4.SkaitvardziaiFunctionParserBaseListener;
 import eu.vytenis.skaitvardziai.parser.methods.MethodInvocation;
 import eu.vytenis.skaitvardziai.skaiciai.SveikasisSkaicius;
 import eu.vytenis.skaitvardziai.skaiciai.Trupmena;
 
-class MethodInvocationListener extends SkaitvardziaiFunctionBaseListener {
+class MethodInvocationListener extends SkaitvardziaiFunctionParserBaseListener {
 	private String name;
 	private final Stack<Object> parameters = new Stack<Object>();
 

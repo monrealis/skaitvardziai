@@ -247,7 +247,7 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(17, "septyniolika");
 		s.put(18, "aštuoniolika");
 		s.put(19, "devyniolika");
-		s.put(20, "dvidešimt");
+		s.put(20, "dvidešimtį");
 		testSkaiciai(s, Linksnis.G);
 	}
 
@@ -257,14 +257,14 @@ public class PagrindiniaiMotTest extends PagrindiniaiTest {
 		s.put(21, "dvidešimt vieną");
 		s.put(22, "dvidešimt dvi");
 		s.put(24, "dvidešimt keturias");
-		s.put(30, "trisdešimt");
+		s.put(30, "trisdešimtį");
 		s.put(48, "keturiasdešimt aštuonias");
-		s.put(50, "penkiasdešimt");
+		s.put(50, "penkiasdešimtį");
 		s.put(55, "penkiasdešimt penkias");
-		s.put(60, "šešiasdešimt");
-		s.put(70, "septyniasdešimt");
-		s.put(80, "aštuoniasdešimt");
-		s.put(90, "devyniasdešimt");
+		s.put(60, "šešiasdešimtį");
+		s.put(70, "septyniasdešimtį");
+		s.put(80, "aštuoniasdešimtį");
+		s.put(90, "devyniasdešimtį");
 		s.put(92, "devyniasdešimt dvi");
 		s.put(100, "šimtą");
 		testSkaiciai(s, Linksnis.G);

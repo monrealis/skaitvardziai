@@ -4,6 +4,7 @@ import java.util.List;
 
 import eu.vytenis.skaitvardziai.checks.Checks;
 import eu.vytenis.skaitvardziai.klasifikatoriai.FormaIrSkaiciai;
+import eu.vytenis.skaitvardziai.klasifikatoriai.Gimine;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Linksnis;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Poskyris;
 import eu.vytenis.skaitvardziai.klasifikatoriai.Skaicius;
@@ -64,15 +65,23 @@ public class ZodisJunginyje {
 				SkaiciusIrLinksnis tikras = ankstesnis.getZodis().getKitasSkaiciusIrLinksnis().nvl(skaiciusIrLinksnis);
 				s = zodis.toString(tikras);
 			} else {
-				boolean vv;
-				if (kelintinis) {
-					vv = !paskutinisJunginyje;
-					// pvz., "_šimtas_ pirmojo"
+				boolean nekaitomasGalininkas = !kelintinis && zodis.isNekaitomasLinksniuojant()
+						&& skaiciusLinksnis.getLinksnis() == Linksnis.G
+						&& (formaSkaiciai.getForma().getGimine() == Gimine.V
+								|| formaSkaiciai.getForma().getPoskyris() == Poskyris.Dauginis);
+				if (nekaitomasGalininkas) {
+					s = zodis.toString(SkaiciusIrLinksnis.VNS_VARD);
 				} else {
-					vv = !paskutinisFragmente && zodis.isNekaitomasLinksniuojant();
-					// pvz, "_dvidešimt_ dviejų"
+					boolean vv;
+					if (kelintinis) {
+						vv = !paskutinisJunginyje;
+						// pvz., "_šimtas_ pirmojo"
+					} else {
+						vv = !paskutinisFragmente && zodis.isNekaitomasLinksniuojant();
+						// pvz, "_dvidešimt_ dviejų"
+					}
+					s = zodis.toString(vv ? SkaiciusIrLinksnis.VNS_VARD : skaiciusLinksnis);
 				}
-				s = zodis.toString(vv ? SkaiciusIrLinksnis.VNS_VARD : skaiciusLinksnis);
 				// pvz. (vnsVard = false), "dvidešimt _vieną_"
 			}
 			r.append(i > 0 ? " " : "").append(s);

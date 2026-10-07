@@ -95,7 +95,11 @@ public class Trupmena implements Comparable<Trupmena>, SkaitineReiksme {
 	private String toString(Linksnis skaitiklioLinksnis, Forma vardiklioForma) {
 		SveikasisSkaicius s = new SveikasisSkaicius(skaitiklis);
 		SveikasisSkaicius v = new SveikasisSkaicius(vardiklis);
-		return s.toString(skaitiklioLinksnis, Gimine.M) + " " + v.toString(vardiklioForma);
+		BigInteger paskutiniaiDu = SveikasisSkaicius.abs(skaitiklis).mod(Numbers.HUNDRED);
+		boolean apvaliosDesimtys = paskutiniaiDu.compareTo(Numbers.TWENTY) >= 0 && paskutiniaiDu.compareTo(new BigInteger("90")) <= 0
+				&& paskutiniaiDu.mod(BigInteger.TEN).equals(BigInteger.ZERO);
+		Gimine skaitiklioGimine = skaitiklioLinksnis == Linksnis.G && apvaliosDesimtys ? Gimine.V : Gimine.M;
+		return s.toString(skaitiklioLinksnis, skaitiklioGimine) + " " + v.toString(vardiklioForma);
 	}
 
 	public int compareTo(Trupmena o) {
